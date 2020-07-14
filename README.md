@@ -23,7 +23,7 @@ adjust the libraries so that variant can be selected.
 
 2. Explore the vehicle types and maneuvers from the UI 
 
-3. Modify parameter values in the â€œVehicleâ€? data structure in the MATLAB workspace.
+3. Modify parameter values in the Vehicle data structure in the MATLAB workspace.
  
 ### **Release History**
 **v1.3 -- July 2020**
