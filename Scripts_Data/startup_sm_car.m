@@ -70,7 +70,7 @@ sm_car_gen_upd_database('Camera',1);
 Scene = sm_car_import_scene_data;
 assignin('base','Scene',Scene);
 
-%% Load default maneuver - WOT Braking
+%% Load default maneuver - WOT Braking (basic)
 % Need to load variables individually as sm_car may not be open
 evalin('base','Init = IDatabase.Flat.Sedan_Hamba;');
 evalin('base','Maneuver = MDatabase.WOT_Braking.Sedan_Hamba;');
