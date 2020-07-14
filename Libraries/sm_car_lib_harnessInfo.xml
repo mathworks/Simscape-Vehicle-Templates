@@ -39,6 +39,8 @@ Align Axis Two Points</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|0|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_transform_align2pts</P>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
   </Harness>
   <Harness>
     <P Name="Name">sm_car_harness_linkage</P>
@@ -79,6 +81,8 @@ Copyright 2018-2020 The MathWorks, Inc.
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|0|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_linkage</P>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
   </Harness>
   <Harness>
     <P Name="Name">sm_car_harness_sensor_body</P>
@@ -118,6 +122,8 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|3|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_sensor_body</P>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
   </Harness>
   <Harness>
     <P Name="Name">sm_car_harness_driveline</P>
@@ -157,6 +163,8 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">4|8|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_driveline</P>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
   </Harness>
   <Harness>
     <P Name="Name">sm_car_harness_body_to_world</P>
@@ -196,5 +204,7 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|3|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_body_to_world</P>
+    <P Name="ExistingBuildFolder"/>
+    <P Name="FunctionInterfaceName"/>
   </Harness>
 </HarnessInformation>

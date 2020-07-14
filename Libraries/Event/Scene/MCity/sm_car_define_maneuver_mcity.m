@@ -7,9 +7,9 @@
 
 % Interactively Select Waypoints
 
-% Warn if release earlier than R2019b
-if(verLessThan('matlab','9.7'))
-    errordlg('Defining waypoints for the MCity scene via a UI requires MATLAB release R2019b and higher.')
+% Warn if release earlier than R2020a
+if(verLessThan('matlab','9.8'))
+    errordlg('Defining waypoints for the MCity scene via a UI requires MATLAB release R2020a and higher.')
 else
     sceneName = 'VirtualMCity';
     [sceneImage, sceneRef] = helperGetSceneImage(sceneName);
