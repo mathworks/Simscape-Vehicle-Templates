@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<TITLE>MFeval: Simulink STI interface</TITLE>
+		<META AUTHOR="Marco Furlan Tassara"/>
+		<LINK REL="stylesheet" TYPE="text/css" HREF="doc.css"/>
+		
+		<style type="text/css">
+            .row { vertical-align: top; height: 200px }
+            .list {display:none; }
+            .show {display: none; }
+            .hide:target + .show {display: inline; }
+            .hide:target {display: none; }
+            .hide:target ~ .list {display:inline; }
+            @media print { .hide, .show { display: none; } }
+            table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; font-family:Arial, Helvetica, sans-serif; font-size:0.9em; }
+            table td { padding:0px 0px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; font-family:Arial, Helvetica, sans-serif; font-size:0.9em; }
+        </style>
+	</head>
+	<body>
+		<h1>Simulink STI interface</h1>
+		<a href="index.html">Home</a> > <a href="userGuides.html">User Guides</a>
+		<hr width="100%" size="1" />
+
+		<h2>Simulink library</h2>
+		<p>MFeval blocks are available from the Simulink library (mfeval_LIB.slx). Four masks and two interfaces (CPI and STI) are
+		available to the user (see figure below):</br>
+		
+		<img src="images\mfeval_LIB.png" width="520" height="685">
+		
+		<h2>STI tyre model</h2>
+		<p> The Standard Tire Interface (shown below) evaluates mfeval in the wheel centre.</br>
+		The last version of the STI interface (1.4) was defined by the TYDEX group in 1996. It's the standard way to integrate
+		tyre models into vehicle models and it's widely used by other MBS or simulation software such as CarMaker, Simpack or ADAMS.</br>
+		All inputs and outputs are defined by the STI TYDEX standard. 
+		
+		<p>The STI Simulink block performs the following steps:</p>
+		<ul>
+			<li>Calculates the tire-road contact point using the road model.</li>
+			<li>Calculates the necessary inputs for Magic Formula (SA, SR, IA, Fz, etc)</li>
+			<li>Calls mfeval and obtains forces and moments in the contact point.</li>
+			<li>Transforms those forces and moments to the wheel centre.</li>
+		</ul>
+		
+		<img src="images\STIonly.png" width="210" height="300">
+		
+		<h2>C-axis system</h2>
+		<p>The coordinate system used in a STI tire model is the C-axis system defined by the TYDEX group.</p>
+		
+		<ul>
+			<li>The origin of this axis system is fixed in the center of the wheel.</li>
+			<li>The XC-axis is in the central plane of the wheel and is parallel to the ground.</li>
+			<li>The YC-axis turns with the inclination angle γ. It is identical with the spin axis of the wheel.</li>
+			<li>The ZC-axis points upwards and also turns with the inclination angle γ. It is in the central plane of the wheel.</li>
+		</ul>
+		
+		<p><b>Note:</b> In SAE J2047, a C-axis system (wheel center system) is also defined. The orientation of this axis 
+		system corresponds to the TYDEX C-axis system, but in SAE J2047 the axis system is shown without 
+		inclination angle.</p>
+		
+		<img src="images\CaxisSystem.png" width="500" height="400">
+		
+		<ul>
+			<li>Forces and moments shown are acting from tire to rim.</li>
+			<li>Slip angle (alpha) shown is positive.</li>
+			<li>Inclination angle (gamma) shown is positive.</li>
+			<li>Wheel angular velocity (omega) shown is positive.</li>
+		</ul>
+		
+		<h2>Inputs</h2>
+		
+		<table style="width:100%">
+		  <tr>
+			<th>Input name</th>
+			<th>Dimension</th>
+			<th>Description</th>
+			<th>Units</th>
+		  </tr>
+		  <tr>
+			<td>dis</td>
+			<td>(3)</td>
+			<td>Specifies the x, y, z coordinates of the wheel carrier at the wheel center. </br>
+			The coordinates are w.r.t. the earth-fixed axis system (global axis system).</td>
+			<td>(m)</td>
+		  </tr>
+		  <tr>
+			<td>tratmat</td>
+			<td>(9)</td>
+			<td>Specifies the transformation matrix to transform data from the wheel carrier coordinate system to the earth-fixed axis system (global axis system)</td>
+			<td>(-)</td>
+		  </tr>
+		  <tr>
+			<td>angtwc</td>
+			<td>(1)</td>
+			<td>Specifies the rotation angle of the rim w.r.t. the wheel carrier (currently not being used).</td>
+			<td>(rad)</td>
+		  </tr>
+		  <tr>
+			<td>vel</td>
+			<td>(3)</td>
+			<td>Specifies the x, y and z velocity of the wheel carrier at the wheel center w.r.t. the earth-fixed axis system (global axis system) expressed in the wheel carrier axis system.</td>
+			<td>(m/s)</td>
+		  </tr>
+		  <tr>
+			<td>omega</td>
+			<td>(3)</td>
+			<td>Specifies the x, y and z rotational speed of the wheel carrier to the earth-fixed axis system expressed in the wheel carrier axis system. </br>
+			Do not confuse with the rotational speed of the tyre. In simple words this is the rotational speed of the upright.</td>
+			<td>(rad/s)</td>
+		  </tr>
+		  <tr>
+			<td>omegar</td>
+			<td>(1)</td>
+			<td>Specifies the rotation speed of the rim w.r.t. the wheel carrier</td>
+			<td>(rad/s)</td>
+		  </tr>
+		  <td>road</td>
+			<td>(18)</td>
+			<td>Defines the position (1-3), rotation matrix (4-12), linear velocities (13-15) and angular velocities (16-18) of the road at the contact point w.r.t. the earth-fixed axis system. </td>
+			<td>(-)</td>
+		  </tr>
+		  <td>muRoad</td>
+			<td>(1)</td>
+			<td>Friction coefficient between the tire and the road. (Set to 1 if unknown).</td>
+			<td>(-)</td>
+		  </tr>
+		</table>
+		</p>
+		
+		<h2>Outputs</h2>
+		
+		<table style="width:100%">
+		  <tr>
+			<th>Output name</th>
+			<th>Dimension</th>
+			<th>Description</th>
+			<th>Units</th>
+		  </tr>
+		  <tr>
+			<td>force</td>
+			<td>(3)</td>
+			<td>Contains the forces applied by the tyre onto the rim at the centre of the wheel. </br>
+			Force is expressed in the wheel carrier axis system.</td>
+			<td>(N)</td>
+		  </tr>
+		  <tr>
+			<td>torque</td>
+			<td>(3)</td>
+			<td>Contains the torques applied from the tyre onto the rim.</br>
+			Torque is expressed in the wheel carrier axis system.</td>
+			<td>(Nm)</td>
+		  </tr>
+		  <tr>
+			<td>varinf</td>
+			<td>(45)</td>
+			<td>Various useful signals from the model (SA, SR, Rl, etc). Use the bus selector to explore</td>
+			<td>(-)</td>
+		  </tr>
+		</table>
+		</p>
+		
+		<h2>Mask interface</h2>
+		<p>There are two types of Mask interfaces: dropdown menu and programmable.</br>
+		If the user double clicks on the "Dropwdown menu" block the mask will pop-out an interface as shown below:</p>
+		
+		<img src="images\STIdropdown.png" width="435" height="470">
+		
+		<p>Similarly if the user double clicks on the "Programmable" block the mask will pop-out an interface as shown below:</p>
+		
+		<img src="images\STIprog.png" width="438" height="507">
+		
+		
+		<p> There are 4 parameters that the user has to specify:</p>
+		<ul>
+			<li>The location of the TIR file: This can be a string pointing to the file location or a structure generated with <a href="examples\html\usingReadTIR.html">mfeval.loadTIR</a>. </li>
+			<li>Tyre side: Choose between <b>Left</b> or <b>Right</b>. Depending on the tyre side selected, the lateral force (Fy), the self-aligning torque (Mz) and the overturning moment (Mx) will be mirrored.</li>
+			<li>Dynamics: Choose between <b>Steady State</b>, <b>Linear Transients</b> or <b>Non-linear Transients</b>. Read the <a href="equationSource.html">paper from Besselink</a> for more information.</li>
+			<li>Use mode: Choose between <b>Combined</b> or <b>Combined+Turn-slip</b>. Turn-slip effects are only relevant when turning at short turning radii and low speed.</li>
+		</ul>
+		
+		<p> And 1 optional parameter:</p>
+		<ul>
+			<li>The tire inflation pressure in bar: if the check-box is not activated, the model will be solved with the pressure specified in the .tir file with the parameter INFLPRES. Note that this parameter will only affect to Magic Formula 6.1 or above versions. </li>
+		</ul>
+		
+		<h2>Solver Settings</h2>
+		<p> All MFeval blocks can be used with variable-step or fixed-step solvers: </br>
+		<ul>
+			<li>If a variable-step solver is used the solver will automatically determine the correct time step. For transient simulations (slip angle rate > 10 deg/s) it is recommended to use the solver ode23t (mod. stiff/Trapezoidal).
+			<li>If a fixed-step solver is used the user needs to ensure that the time step is small enough to keep the simulation stable. <br><br>
+			
+			The recommended step sizes for each Dynamic mode are: </br>
+			i)   Steady-state <= 0.01 seconds </br>
+			ii)  Linear relaxation lengths <=0.001 seconds </br>
+			iii) Non-linear relaxation lengths <= 0.00025 seconds </br>
+		</ul>
+		</p>
+		
+		<h2>Example/Demo</h2>
+		<p> There is a demo file (demo_sti.slx) showing how to use the CPI block in the installation folder under: <b>doc</b> > <b>examples</b>.</br>
+		Type "open('demo_sti.slx')" in the command window to open the model. </p>
+		<img src="images\STIdemo.png" width="963" height="581">
+		
+		<h2>Known issues</h2>
+		<ul>
+			<li>When running the model with transient dynamics and fixed-step solvers, the time step should be at least <b>0.00025</b> seconds. This may change depending on the inputs, but if the output forces are instable try to decrease the time-step.</li>
+			<li>The model is only valid up to 10 Hz of the tyre dynamic excitation if using transient dynamics (linear or non-linear).</li>
+			<li>Parking efforts are not included.</li>
+			<li>Turn-slip equations have not been validated. Note that turn-slip (3rd slip input) is only relevant at low speeds (e.g. parking maneuvers)</li>
+			<li>The road interaction is simplified with position and velocities only. Road camber and slope are not considered.</li>
+		</ul>
+	</body>
+</html>

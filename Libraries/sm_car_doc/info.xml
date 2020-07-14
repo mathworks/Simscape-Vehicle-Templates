@@ -1,0 +1,10 @@
+<productinfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="optional">
+<?xml-stylesheet type="text/xsl"href="optional"?>
+
+<matlabrelease>R2018b</matlabrelease>
+<name>Simscape Vehicle Templates</name>
+<type>other</type>
+<icon></icon>
+<help_location>../sm_car_doc</help_location>
+
+</productinfo>

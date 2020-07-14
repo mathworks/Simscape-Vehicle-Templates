@@ -1,0 +1,301 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Using mfeval</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-29"><meta name="DC.source" content="usingMFeval.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+</style></head><body><div class="content">
+<!-- Start introduction-->
+ 
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>mfeval function</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval evaluates Magic Formula 5.2, 6.1 or 6.2 tir files in steady state for series of input variables.</p>
+    <p>The formulation includes combined force/moment and turn slip calculations.
+    <br />ISO-W (TYDEX W) Contact-Patch Axis System coordinate system is used in all calculations.
+    <br />All the units will be SI (N,m,s,rad,kg)</p>
+	
+    <!-- <img src="ISO_W.png" width="529" height="431" title="W-Axis System" />  -->
+    <img vspace="5" hspace="5" src="ISO_W.png" alt="">
+	
+	<h2>Syntax</h2>
+	outMF = mfeval( parameterSource, inputsMF, useMode )</p>
+    
+	<h2>Description</h2>
+    <b>parameterSource</b> refers to a MF-Tyre tyre property file (.TIR) containing all the Magic Formula coefficients or to a
+    structure with all the parameters.</p>
+    <p>
+    <b>inputsMF</b> = [Fz kappa alpha gamma phit Vx P* omega*], where</p>
+    <ul>
+      <li>Fz = normal load on the tyre [N]</li>
+      <li>kappa = longitudinal slip [dimensionless, -1: locked wheel]</li>
+      <li>alpha = side slip angle [rad]</li>
+      <li>gamma = inclination angle [rad]</li>
+      <li>phit = turn slip [1/m]</li>
+      <li>Vx = forward velocity [m/s]</li>
+      <li>P* = pressure [Pa]</li>
+      <li>omega* = rotational speed [rad/s]</li>
+    </ul>
+    <p>P* and omega* are optional inputs. If they are not included pressure is constant and equal to the inflation pressure on the
+    TIR file and the rotational speed is approximated.</p>
+	
+    <p><b>useMode</b> specifies the type of calculation performed: 
+	<ul>
+	  <li>   1: combined force/moment calculation </li>
+	  <li>   2: combined force/moment calculation + turn slip </li>
+	  <li> +10: revoke alpha_star definition </li>
+	  <li> +20: include alpha_star definition </li>
+	  <li> +100: include limit checks </li>
+	  <li> +200: ignore limit checks </li>
+	</ul>
+	For example: </br>
+	useMode = 121 implies: </br>
+	-combined force/moment </br>
+	-include alpha_star </br>
+	-include limit checks </p>
+	
+	<p>For normal situations turn slip may be neglected, meaning that the radius of the path is close to infinity (straight line).</br>
+	Alpha_star improves the accuracy of the model for very large slip angles and possibly backward running of the wheel. </br>
+	The limit checks verify that the inputs are inside the stable range of the model. </p>
+	
+	<p><b>outMF</b> consists of 30 columns:
+	<ol>
+		<li>Fx: longitudinal force</li>
+		<li>Fy: lateral force</li>
+		<li>Fz: normal force</li>
+		<li>Mx: overturning moment</li>
+		<li>My: rolling resistance moment</li>
+		<li>Mz: self aligning moment</li>
+		<li>kappa: longitudinal slip</li>
+		<li>alpha: side slip angle</li>
+		<li>gamma: inclination angle</li>
+		<li>phit: turn slip</li>
+		<li>Vx: longitudinal velocity</li>
+		<li>P: pressure</li>
+		<li>Re: effective rolling radius</li>
+		<li>rho: tyre deflection</li>
+		<li>2a: contact patch length</li>
+		<li>t: pneumatic trail</li>
+		<li>mux: longitudinal friction coefficient</li>
+		<li>muy: lateral friction coefficient</li>
+		<li>omega: rotational speed</li>
+		<li>Rl : loaded radius</li>
+		<li>2b: contact patch width</li>
+		<li>Mzr: residual torque</li>
+		<li>Cx: longitudinal stiffness</li>
+		<li>Cy: lateral stiffness</li>
+		<li>Cz: vertical stiffness</li>
+		<li>Kya: cornering stiffness</li>
+		<li>sigmax: longitudinal relaxation length</li>
+		<li>sigmay: lateral relaxation length</li>
+		<li>Instantaneous cornering stiffness: dFy/dSA</li>
+		<li>Kxk: slip stiffness</li>
+	</ol>					
+
+ 
+  <p>The equations coded in MFeval are published in the book:</br>
+  Title:    	Tire and Vehicle Dynamics</br>
+  Author:       Hans Pacejka</br>
+  Edition:      3, revised</br>
+  Publisher:	Elsevier, 2012</br>
+  ISBN:         0080970176, 9780080970172</br>
+  Length:       672 pages</br>
+  Link: <a href="https://www.elsevier.com/books/tire-and-vehicle-dynamics/pacejka/978-0-08-097016-5">https://www.elsevier.com/books/tire-and-vehicle-dynamics/pacejka/978-0-08-097016-5</a></p>
+  
+  <p>And in the following paper:</br>
+  Besselink, I. J. M. , Schmeitz, A. J. C. and Pacejka, H. B.(2010) 'An improved Magic Formula/Swift tyre model that can handle inflation pressure changes', Vehicle System Dynamics, 48: 1, 337 — 352</br>
+  DOI: 10.1080/00423111003748088</br>
+  Link to this Article: <a href="http://dx.doi.org/10.1080/00423111003748088">http://dx.doi.org/10.1080/00423111003748088</a>
+  
+<!-- End introduction-->
+
+<h2>Example</h2><div><ul><li><a href="#1">Create mfeval inputs</a></li><li><a href="#2">Call mfeval solver</a></li><li><a href="#3">Plot results</a></li></ul></div><h2 id="1">Create mfeval inputs</h2><pre class="codeinput"><span class="comment">% Number of points</span>
+nPoints = 200;
+
+<span class="comment">% Pure lateral test case</span>
+Fz      = ones(nPoints,1).*3000;            <span class="comment">% vertical load         (N)</span>
+kappa	= ones(nPoints,1).*0;               <span class="comment">% longitudinal slip 	(-) (-1 = locked wheel)</span>
+alpha	= linspace(-0.3,0.3, nPoints)';     <span class="comment">% side slip angle    	(radians)</span>
+gamma	= ones(nPoints,1).*0;               <span class="comment">% inclination angle 	(radians)</span>
+phit 	= ones(nPoints,1).*0;               <span class="comment">% turnslip            	(1/m)</span>
+Vx   	= ones(nPoints,1).*16;              <span class="comment">% forward velocity   	(m/s)</span>
+
+<span class="comment">% Create a string with the name of the TIR file</span>
+TIRfile = <span class="string">'MagicFormula61_Paramerters.TIR'</span>;
+
+<span class="comment">% Select a Use Mode</span>
+useMode = 111;
+
+<span class="comment">% Wrap all inputs in one matrix</span>
+inputs = [Fz kappa alpha gamma phit Vx];
+</pre><h2 id="2">Call mfeval solver</h2><pre class="codeinput"><span class="comment">% Store the output from mfeval in a 2D Matrix</span>
+output = mfeval(TIRfile, inputs, useMode);
+</pre><h2 id="3">Plot results</h2><pre class="codeinput"><span class="comment">% Extract variables from output MFeval. For more info type "help mfeval"</span>
+Fy = output(:,2);
+Mz = output(:,6);
+Mx = output(:,4);
+SA = rad2deg(output(:,8)); <span class="comment">% Convert to degrees</span>
+t = output(:,16);
+
+figure
+subplot(2,2,1)
+plot(SA, Fy)
+grid <span class="string">on</span>
+title(<span class="string">'Fy-SA'</span>)
+xlabel(<span class="string">'Slip Angle (deg)'</span>)
+ylabel(<span class="string">'Lateral Force (N)'</span>)
+
+subplot(2,2,2)
+plot(SA, Mz)
+grid <span class="string">on</span>
+title(<span class="string">'Mz-SA'</span>)
+xlabel(<span class="string">'Slip Angle (deg)'</span>)
+ylabel(<span class="string">'Self aligning moment (Nm)'</span>)
+
+subplot(2,2,3)
+plot(SA, t)
+grid <span class="string">on</span>
+title(<span class="string">'t-SA'</span>)
+xlabel(<span class="string">'Slip Angle (deg)'</span>)
+ylabel(<span class="string">'pneumatic trail (m)'</span>)
+
+subplot(2,2,4)
+plot(SA, Mx)
+grid <span class="string">on</span>
+title(<span class="string">'Mx-SA'</span>)
+xlabel(<span class="string">'Slip Angle (deg)'</span>)
+ylabel(<span class="string">'Overturning moment (Nm)'</span>)
+</pre><img vspace="5" hspace="5" src="usingMFeval_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Create mfeval inputs
+
+% Number of points
+nPoints = 200;
+
+% Pure lateral test case
+Fz      = ones(nPoints,1).*3000;            % vertical load         (N)
+kappa	= ones(nPoints,1).*0;               % longitudinal slip 	(-) (-1 = locked wheel)
+alpha	= linspace(-0.3,0.3, nPoints)';     % side slip angle    	(radians)
+gamma	= ones(nPoints,1).*0;               % inclination angle 	(radians)
+phit 	= ones(nPoints,1).*0;               % turnslip            	(1/m)
+Vx   	= ones(nPoints,1).*16;              % forward velocity   	(m/s)
+
+% Create a string with the name of the TIR file
+TIRfile = 'MagicFormula61_Paramerters.TIR';
+
+% Select a Use Mode
+useMode = 111;
+
+% Wrap all inputs in one matrix
+inputs = [Fz kappa alpha gamma phit Vx];
+
+%% Call mfeval solver
+
+% Store the output from mfeval in a 2D Matrix
+output = mfeval(TIRfile, inputs, useMode);
+
+%% Plot results
+
+% Extract variables from output MFeval. For more info type "help mfeval"
+Fy = output(:,2);
+Mz = output(:,6);
+Mx = output(:,4);
+SA = rad2deg(output(:,8)); % Convert to degrees
+t = output(:,16);
+
+figure
+subplot(2,2,1)
+plot(SA, Fy)
+grid on
+title('Fy-SA')
+xlabel('Slip Angle (deg)')
+ylabel('Lateral Force (N)')
+
+subplot(2,2,2)
+plot(SA, Mz)
+grid on
+title('Mz-SA')
+xlabel('Slip Angle (deg)')
+ylabel('Self aligning moment (Nm)')
+
+subplot(2,2,3)
+plot(SA, t)
+grid on
+title('t-SA')
+xlabel('Slip Angle (deg)')
+ylabel('pneumatic trail (m)')
+
+subplot(2,2,4)
+plot(SA, Mx)
+grid on
+title('Mx-SA')
+xlabel('Slip Angle (deg)')
+ylabel('Overturning moment (Nm)')
+##### SOURCE END #####
+--></body></html>

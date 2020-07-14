@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <TITLE>MFeval: Release notes</TITLE>
+        <META AUTHOR="Marco Furlan Tassara"/>
+        <LINK REL="stylesheet" TYPE="text/css" HREF="doc.css"/>
+        <style type="text/css">
+            .row { vertical-align: top; height: 200px }
+            .list {display:none; }
+            .show {display: none; }
+            .hide:target + .show {display: inline; }
+            .hide:target {display: none; }
+            .hide:target ~ .list {display:inline; }
+            @media print { .hide, .show { display: none; } }
+            table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; font-family:Arial, Helvetica, sans-serif; font-size:0.9em; }
+            table td { padding:0px 0px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; font-family:Arial, Helvetica, sans-serif; font-size:0.9em; }
+        </style>
+    </head>
+    
+    <body>
+        <h1>Release Notes</h1>
+        <a href="index.html">Home</a> > 
+        <hr width="100%" size="1" />
+        
+        <p>Toolbox uses the major.minor.patch version strategy. You can find out which version you have installed by typing <i><b>  ver('mfeval') </b></i> from within MATLAB. </p>
+        
+        <table style="width:100%">
+            
+            <tr>
+                <th>Version</th>
+                <th>Release Date</th>
+                <th>Notes</th> 
+            </tr>
+            
+            <tr>
+                <td>1.0.0</td>
+                <td>25-01-2017</td>
+                <td><ul>
+                        <li> First release of toolbox.
+                </ul></td> 
+            </tr>
+            
+			<tr>
+                <td>1.1.0</td>
+                <td>31-01-2017</td>
+                <td><ul>
+                        <li> Eqn (4.E40) Bt modified.
+						<li> Allow a structure of parameters to be passed in instead of a TIR file name.
+						<li> Replace for loops in the coeff checks with vector expressions.
+						<li> Rho calculation reviewed avoiding (NaNs) in external effects.
+						<li> Coefficient checks can be disabled.
+						<li> Coefficients of friction are checked before being exported.
+                </ul></td> 
+            </tr>
+
+			<tr>
+                <td>1.2.0</td>
+                <td>16-02-2017</td>
+                <td><ul>
+                        <li> Typo in the help text corrected.
+						<li> Mux and Muy warnings can be deactivated with the coefficient checks.
+						<li> Rolling resistance (4.E70), pneumatic trail (4.E73), Bt (4.E40), Dt (4.E43) and s(4.E76) equations have been corrected.
+                </ul></td> 
+            </tr>
+			
+			
+			<tr>
+                <td>1.3.0</td>
+                <td>06-03-2017</td>
+                <td><ul>
+                        <li> Code modified for code generation included
+						<li> Use mode implementation modified
+						<li> Turn Slip equations corrected
+						<li> Pneumatic trail equation fixed
+                </ul></td> 
+            </tr>
+			
+			<tr>
+                <td>1.4.0</td>
+                <td>03-07-2017</td>
+                <td><ul>
+                        <li> First implementation of the low speed mode
+						<li> Publication of mfeval in MathWorks File Exchange
+                </ul></td> 
+            </tr>		
+			
+			<tr>
+                <td>2.0.0</td>
+                <td>31-10-2018</td>
+                <td><ul>
+                        <li> Typos in the comments corrected
+						<li> The following outputs have been included: b, Mzr, Cx, Cy, Cz, Kya, sigmax, sigmay and instKya
+						<li> Improved input robustness check
+						<li> Warnings and Errors IDs added
+						<li> Negative deflections (rho) fixed
+						<li> gamma_star definition only applied for usemode +20 to match MF-Tyre solver.
+						<li> Code converted to object oriented
+						<li> Simulink STI and CPI libraries have been included
+						<li> Documentation updated to html
+						<li> Code is validated using unitTesting prior release
+						<li> Examples for each function and Simulink block included
+                </ul></td> 
+            </tr>				
+			
+			<tr>
+                <td>2.0.1</td>
+                <td>31-10-2018</td>
+                <td><ul>
+                        <li> Fixed typo in the documentation
+                </ul></td> 
+            </tr>		
+			
+			<tr>
+                <td>2.1.0</td>
+                <td>19-11-2018</td>
+                <td><ul>
+                        <li> Simulink Library updated to be more robust and consistent (STI interface depends on CPI interface)
+						<li> All Simulink blocks and demos are saved in MATLAB 2017b
+						<li> Advance user guide completed: including a demo showing how to fit a model
+                </ul></td> 
+            </tr>		
+			
+			<tr>
+                <td>2.1.1</td>
+                <td>15-02-2019</td>
+                <td><ul>
+                        <li> Simulink Library updated to work with variable solvers. 
+						<li> Simulink memory blocks have been replaced with low pass filters with a pass band frequency of 15 Hz
+						<li> coefficientCheck inputs have been updated to be compatible with MFit
+                </ul></td> 
+            </tr>
+			
+			<tr>
+                <td>2.2.0</td>
+                <td>03-06-2019</td>
+                <td><ul>
+                        <li> Road position implemented in STI 
+						<li> Road velocity implemented in STI 
+						<li> Some MATLAB Function blocks have been replaced with inbuilt Simulink blocks
+						<li> The switch case to select the dynamics mode in CPI is done upstream to avoid unnecessary calculations
+						<li> The passband frequency of the low pass filters has been increased to 100 Hz
+						<li> Simulink library names updated. This will break the links from old models and needs to be updated
+                </ul></td> 
+            </tr>
+			
+			<tr>
+                <td>2.2.1</td>
+                <td>01-10-2019</td>
+                <td><ul>
+                        <li> Road friction can be passed as input in STI and CPI interfaces
+						<li> Unnecessary zero crossing detections have been disabled in Simulink
+						<li> Moved Fx and Fy filters to reside inside Switch dynamics mode (only used for non-linear)
+						<li> In Mz calculation, Gyk_sub0 is now calculated after Fyo_sub0 
+                </ul></td> 
+            </tr>
+			
+			<tr>
+                <td>2.3.0</td>
+                <td>23-10-2019</td>
+                <td><ul>
+                        <li> Slip stiffness (Kxk) is now output number 30
+						<li> In STI vertical damping forces only actuate if the tire is in contact with the road
+						<li> In STI the Slip Angle calculation has been updated to use the transformation matrix
+                </ul></td> 
+            </tr>
+			
+			<tr>
+                <td>3.0.0</td>
+                <td>09-12-2019</td>
+                <td><ul>
+						<li> MF-Tyre 6.2 equations have been implemented. In 6.2 the loaded radius model is improved with camber dependencies 
+                        <li> In STI and CPI muRoad has 2 components (longitudinal and lateral friction)
+						<li> In STI and CPI the pressure is an optional input that can be now changed in the mask
+						<li> In CPI the pressure is now saturated with the min and max pressure values of the .tir file
+                </ul></td> 
+            </tr>
+			
+			<tr>
+                <td>4.0.0</td>
+                <td>17-03-2020</td>
+                <td><ul>
+						<li> MF-Tyre 5.2 equations have been implemented for backward compatibility. Note that in 5.2 the pressure has no effect 
+						<li> mfeval.readTIR can import Magic Formula 5.2 .tir files
+                        <li> Fixed typo in EHyp coefficient check warning message
+						<li> Fixed psidot calculation in STI
+						<li> Some variables in the code have been renamed to be more consistent with the book notation. 
+                </ul></td> 
+            </tr>
+			
+			
+        </table>
+        
+    </body>
+    
+</html>

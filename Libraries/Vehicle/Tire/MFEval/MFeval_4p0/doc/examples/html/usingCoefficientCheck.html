@@ -1,0 +1,164 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Using coefficientCheck</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-29"><meta name="DC.source" content="usingCoefficientCheck.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1>
+  
+<!-- Start introduction of coefficientCheck-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>coefficientCheck function</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval.coefficientCheck validates that model coefficients pass any restrictions placed on them.</br>
+
+	<h2>Syntax</h2>
+	[res, c, vals] = mfeval.coefficientCheck(mfStruct)</br>
+    [res, c, vals] = mfeval.coefficientCheck(mfStruct, paramGroup)</p>
+	
+	<h2>Description</h2>
+	
+	<p> <b>res</b> is a struct of logical results for each coefficient check where (0 = pass, 1 = fail)</p>
+	
+	<p> <b>c</b> is a struct of values for which an optimiser must satisfy c <= 0 to make the coefficient check pass.</p>
+	
+	<p> <b>vals</b> is a struct of the values for each coefficient check.</p>
+	
+	<p> <b>mfStruct</b> is structure of Magic Formula parameters.</p>
+	
+	<p> <b>paramGroup</b> is a string defining the Magic Formula parameter group for which to conduct the coefficient checks for. Leaving blank will run all.</p>
+<!-- End introduction-->
+  
+  <h2>Contents</h2><div><ul><li><a href="#1">Read TIR files</a></li><li><a href="#2">Call to coefficientCheck</a></li><li><a href="#3">Check results</a></li></ul></div><h2 id="1">Read TIR files</h2><p>Use readTIR to store the magic formula parameters into structures</p><pre class="codeinput">modelA = mfeval.readTIR(<span class="string">'Model_Unstable.tir'</span>);
+modelB = mfeval.readTIR(<span class="string">'MagicFormula61_Paramerters.tir'</span>);
+</pre><h2 id="2">Call to coefficientCheck</h2><p>Use coefficientCheck the check if the models are passing the restrictions explained in the Pacejka book</p><pre class="codeinput">[resA, ~, ~] = mfeval.coefficientCheck(modelA);
+[resB, ~, ~] = mfeval.coefficientCheck(modelB);
+</pre><h2 id="3">Check results</h2><pre class="codeinput"><span class="comment">% Loop through the results for model A and display a message if a</span>
+<span class="comment">% coefficient fails</span>
+fields = fieldnames(resA);
+<span class="keyword">for</span> i = 1:numel(fields)
+  <span class="keyword">if</span> resA.(fields{i}) == 1
+   fprintf([ <span class="string">'Model A: Coeff. Fail: '</span> fields{i} <span class="string">'\n'</span>]);
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Loop through the results for model A and display a message if a</span>
+<span class="comment">% coefficient fails</span>
+fields = fieldnames(resB);
+<span class="keyword">for</span> i = 1:numel(fields)
+  <span class="keyword">if</span> resB.(fields{i}) == 1
+   fprintf([ <span class="string">'Model B: Coeff. Fail: '</span> fields{i} <span class="string">'\n'</span>]);
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Model A: Coeff. Fail: Cx
+Model A: Coeff. Fail: Dx
+Model A: Coeff. Fail: Ey
+Model A: Coeff. Fail: Bt
+Model A: Coeff. Fail: Et
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+
+%% Read TIR files
+% Use readTIR to store the magic formula parameters into structures
+
+modelA = mfeval.readTIR('Model_Unstable.tir');
+modelB = mfeval.readTIR('MagicFormula61_Paramerters.tir');
+
+%% Call to coefficientCheck
+% Use coefficientCheck the check if the models are passing the restrictions
+% explained in the Pacejka book
+
+[resA, ~, ~] = mfeval.coefficientCheck(modelA);
+[resB, ~, ~] = mfeval.coefficientCheck(modelB);
+
+%% Check results
+
+% Loop through the results for model A and display a message if a
+% coefficient fails 
+fields = fieldnames(resA);
+for i = 1:numel(fields)
+  if resA.(fields{i}) == 1
+   fprintf([ 'Model A: Coeff. Fail: ' fields{i} '\n']);
+  end
+end
+
+% Loop through the results for model A and display a message if a
+% coefficient fails 
+fields = fieldnames(resB);
+for i = 1:numel(fields)
+  if resB.(fields{i}) == 1
+   fprintf([ 'Model B: Coeff. Fail: ' fields{i} '\n']);
+  end
+end
+##### SOURCE END #####
+--></body></html>

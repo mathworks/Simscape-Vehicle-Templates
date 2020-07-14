@@ -1,0 +1,28 @@
+component brake_force_to_pressure
+% PS Force to Pressure :0.75
+% This block converts force on rotor to pressure on pad.
+%
+% pressure = force / caliper area
+%
+% caliper area = (cylinder bore)^2*pi/4
+%
+
+% Copyright 2018-2020 The MathWorks, Inc.
+
+  inputs
+    f = { 0, 'N' }; % :left
+  end
+  
+  parameters
+    cylinder_bore = { 0.01, 'm' }; % Cylinder Bore
+  end
+
+  outputs
+    p = { 0, 'bar' }; % :right
+  end
+
+  equations
+    p == f/(cylinder_bore^2*pi/4);
+  end
+
+end

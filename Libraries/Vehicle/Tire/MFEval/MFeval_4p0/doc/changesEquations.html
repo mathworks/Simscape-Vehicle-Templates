@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <TITLE>MFeval: Changes in the equations</TITLE>
+	<META AUTHOR="Marco Furlan Tassara"/>
+	<LINK REL="stylesheet" TYPE="text/css" HREF="doc.css"/>
+  </head>
+  <body>
+  <h1>Changes in the equations</h1>
+  <a href="index.html">Home</a> > <a href="developerGuides.html">Developer Guides</a> >
+  <hr width="100%" size="1" />
+  
+  <p>Some of the definitions or equations from the book have been modified to achieve 
+  a perfect correlation with the TNO MF-Tyre model.</br>
+  All the changes are explained in the following sections. </p>
+  
+  <ul>
+	<li><a href="#Sec1">The use of alpha star</a></li>
+	<li><a href="#Sec2">The use of lambda_prime and A_mu definition</a></li>
+	<li><a href="#Sec3">The use of epsilon</a></li>
+	<li><a href="#Sec4">Rolling resistance (My)</a></li>
+	<li><a href="#Sec5">Aligning torque (Mz)</a></li>
+	<li><a href="#Sec6">Overturning moment (Mx)</a></li>
+	<li><a href="#Sec7">Turn slip equations</a></li>
+  </ul>
+  
+  <div id="Sec1"></div>
+  <h2>The use of alpha star</h2>
+  <hr>
+  <p> Alpha star or the lateral slip is defined as the tangent of the input slip angle:</p>
+  
+  <img src="images\alphaStar.png">
+  
+  <p>Pacejka describes in the book that it might be better to use alpha star at very large 
+  slip angles and possibly negative rotation of the wheel.</p>
+  
+  <p> It was demonstrated that the TNO MF-Tyre model is not using this definition. 
+  Therefore it's up to the user whether to use it or not by selecting the correct useMode number.
+  If alpha star is not used, then alpha star is equal to alpha. </p>
+  
+  <p> In the image below it can be appreciated the difference between using alpha star (mode 121) 
+  or not (mode 111)</br>
+  Only at very high slip angles there is a small deviation between both modes. </p>
+  
+  <img src="images\alphaStarPlot.png" width="560" height="420">
+  
+  <div id="Sec2"></div>
+  <h2>The use of lambda_prime and A_mu definition</h2>
+  <hr>
+  <p> On page 179 of the book, Pacejka introduces a special digressive friction factor named lambda_prime. 
+  This factor is used in pure lateral and pure longitudinal equations (Fxo and Fyo) and is intended to 
+  replicate the fact that when the coefficient of friction tends to zero, vertical shifts between the force
+  curves vanish at a slower rate. The equation is the following: </p>
+  
+  <img src="images\A_mu_definition.png">
+  
+  <p> Pacejka suggests setting A_mu to 10.  However this was causing a big difference 
+  with respect to the MF-Tyre model developed by TNO when scaling factors where applied. </br>
+  To solve this problem A_mu has been hard-coded to be equal to 1 rather than 10.</p>
+  
+  <div id="Sec3"></div>
+  <h2>The use of epsilon</h2>
+  <hr>
+  <p> At the bottom of page 177 of the book, Pacejka explains the use of the term epsilon. 
+  Epsilon is used to avoid singularities (divisions by zero) by adding a small quantity 
+  with the same sign as its neighbouring main quantity. Epsilon appears in different equations 
+  with different subscripts:</p>
+  
+  <ul>
+	<li>Epsilon_v</li>
+	<li>Epsilon_x</li>
+	<li>Epsilon_k</li>
+	<li>Epsilon_y</li>
+	<li>Epsilon_r</li>
+  </ul>
+  
+  <p> In the mfeval code, all of these are set to be equal to 0.0001. It's easy to forget that 
+  epsilon should have the same sign of its neighbouring main quantity because this is not 
+  written inside the equations. For example in equation 4.E26 the neighbouring main quantity 
+  is the parameter Dy:</p>
+  
+  <img src="images\epsilon_y.png">
+  
+  <p> In MATLAB the function "sign" of zero is equal to zero: </p>
+  <p> sign(0) = 0 </p>
+  <p> So the correct formulation for equation 4.E26 will be: </p>
+  
+  <img src="images\signDy.png">
+  
+  <div id="Sec4"></div>
+  <h2>Rolling resistance (My)</h2>
+  <hr>
+  <p> The base equation in the book is equation 4.E70 on page 182. 
+  With the ISO sign convention the rolling resistance should be negative for a positive forward speed 
+  and it should increase (in absolute terms) with the speed. 
+  Equation 4.E70 diverges from the results obtained using the MF-Tyre model because there are differences between the book's formulation and the paper.</br>
+  Below is shown the equation from the book:</p>
+  
+  <img src="images\My_book.png">
+  
+  <p>Below is shown the equation from the paper. Note how the paper uses Fzo instead of Fz and includes a negative sign:</p>
+  
+  <img src="images\My_paper.png">
+  
+  <p> To get a perfect correlation with the MF-Tyre model, mfeval uses the equation (A48) from the paper. 
+  
+  <div id="Sec5"></div>
+  <h2>Aligning torque (Mz)</h2>
+  <hr>
+  <p>There is a possible typo in equation 4.E40 from page 182 of the book. In
+  this equation it's used the parameter QBZ6 which doesn't exist in the standard TIR files, 
+  but neither appears on page 190 or on page 615, where an example full set of parameters is given. It's 
+  very likely that QBZ6 is instead QBZ4.  </p>
+  
+  <img src="images\Bt_book.png">
+  
+  <p>Furthermore, in the Bt formulation of the paper (equation A58), QBZ4 is not multiplied by gamma (camber angle) squared. 
+  The formulation from the book was causing bad correlation when negative camber angles where used.
+  For the above reasons, equation 4.E40 has been replaced by equation A58 in mfeval.</p>
+  
+  <img src="images\Bt_paper.png">
+  
+  <p> The coefficient Dt (equation 4.E43) affects the pneumatic trail (t) and the self-aligning torque
+  (Mz). Here there is another discrepancy caused by the sign of the camber angle. 
+  This difference comes from the term QDZ3, which in the original equation is multiplied by
+  the absolute value of gamma.  However in the paper equation, the absolute term is not written.
+  Equation (A60) from the paper gives a perfect match with the MF-Tyre model. </br>
+  It's important to keep in mind that the equations from the paper don't include turn slip effects. 
+  So the term zeta5 has been added into mfeval to include this effect. </p>
+  
+  <p> Below the equation form the book:</p>
+  <img src="images\Dt_book.png">
+  
+  <p> Below the equation form the paper. Note that gamma is not absolute:</p>
+  <img src="images\Dt_paper.png">
+  
+  <p> The equations 4.E78 and 4.E77 are not used due to small differences discovered at negative camber 
+  angles. Instead equations A54 and A55 from the paper are used. 
+  These equations have an effect on the pneumatic trail calculation.</p>
+  
+  <p> Below the equation form the book:</p>
+  <img src="images\Alpha_eq_book.png">
+  
+  <p> Below the equation form the paper. Differences highlighted in red:</p>
+  <img src="images\Alpha_eq_paper.png">
+  
+  <p> The coefficient s (Equation 4.E76) determines the effect of Fx into Mz. 
+  The book uses Fzo_prime, and the paper Fzo in their formulations. 
+  Using the paper definition and multiplying the pneumatic trail (t) by LFZO 
+  gives a good correlation with the MF-Tyre model.</p>
+  
+  <div id="Sec6"></div>
+  <h2>Overturning moment (Mx)</h2>
+  <hr>
+  <p> Equation 4.E69 on page 182 from the book had bad correlation with the MF-Tyre model for some cases. 
+  Instead, equation 49 from the <b>draft paper</b> has been used. </p>
+  
+  <p> The draft paper of Besselink (Not the official paper), can be downloaded from:</br>
+  <a href="https://pure.tue.nl/ws/files/3139488/677330157969510.pdf">https://pure.tue.nl/ws/files/3139488/677330157969510.pdf</a> </br>
+  
+  <img src="images\Mx_draft.png">
+  
+  <p> There are three extra parameters used in this alternative formulation that are not present in 
+  equation 4.E69, which are:</p>
+
+  <ul>
+	<li>QSX12: Camber squared induced overturning moment</li>
+	<li>QSX13: Lateral force induced overturning moment</li>
+	<li>QSX14: Lateral force induced overturning moment with camber</li>
+  </ul>
+  
+  <p> These parameters help to improve the fitting, especially at high loads where the overturning 
+  moment sign is flipped.</p>
+  
+  <div id="Sec7"></div>
+  <h2>Turn slip equations</h2>
+  <hr>
+  <p> It was empirically discovered that the turn slip is affected by the slip angle in the MF-Tyre model developed by TNO. 
+  When the slip angle is not equal to zero the turn slip (phit) is slightly lower. 
+  To get the same output than the MF-Tyre model mfeval uses the equation shown below  if the use mode +100 is used: </p>
+  
+  <img src="images\phit_mod.png">
+  
+  </body>
+</html>

@@ -1,0 +1,136 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Body to World Connection</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-02-23"><meta name="DC.source" content="sm_car_doc_body_to_world.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Body to World Connection</h1><!--introduction--><p>
+<a href="../../sm_car_doc_overview.html">Home</a> &gt;
+<a href="./sm_car_doc_car.html">Car</a> &gt;
+</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Block</a></li><li><a href="#3">Coordinate System</a></li><li><a href="#4">Initial Positions and Velocities</a></li><li><a href="#5">Interface</a></li></ul></div><h2 id="1">Block</h2><p>The Body to World block models the connection between the vehicle body and world.  It permits 6 degrees of freedom and sets the initial position, orientation, and speed of the vehicle body.</p><div><ul><li>Physical port B should be connected to the World frame.</li><li>Physical port F should be connected to the frame on the vehicle bode whose initial position should be set by the Init variable.</li><li>Port world outputs measurements from the World frame.</li></ul></div><img vspace="5" hspace="5" src="sm_car_doc_body_to_world_01.png" alt=""> <h2 id="3">Coordinate System</h2><p>The default coordinate system for the car model is z-up, x-forward, and y to the left.  This follows the ISO 8855 convention.  Measurements can be converted to other standard conventions.</p><p><img vspace="5" hspace="5" src="sm_car_doc_car_coordinate_system.png" alt=""> </p><h2 id="4">Initial Positions and Velocities</h2><p>The initial position and orientation for the vehicle is defined in the structure <b><tt>Init</tt></b>.</p><p><b><tt>Init.Chassis.sChassis.Value</tt></b>: Initial position in <b>world</b> frame, expressed as [x y z] in meters.</p><p><b><tt>Init.Chassis.vChassis.Value</tt></b>: Initial velocity in <b>vehicle</b> frame, expressed as [vx vy vz] in meters/second.</p><p><b><tt>Init.Chassis.aChassis.Value</tt></b>: Initial orientation in <b>vehicle</b> frame, expressed as [roll, pitch, and yaw] in radians. The rotations are applied sequentially in the order yaw-&gt;pitch-&gt;roll, and they are applied intrinsically.  Each of the elemental rotations is performed on the axis resulting from the previous rotation.</p><p><img vspace="5" hspace="5" src="sm_car_doc_car_initial_orientation.png" alt=""> </p><h2 id="5">Interface</h2><p class="footer">Copyright 2019-2020 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Body to World Connection
+%
+%
+% <html>
+% <a href="../../sm_car_doc_overview.html">Home</a> &gt; 
+% <a href="./sm_car_doc_car.html">Car</a> &gt;
+% </html>
+%
+% 
+% Copyright 2019-2020 The MathWorks, Inc.
+
+%% Block
+%
+% The Body to World block models the connection between the vehicle body
+% and world.  It permits 6 degrees of freedom and sets the initial position,
+% orientation, and speed of the vehicle body.
+% 
+% * Physical port B should be connected to the World frame.  
+% * Physical port F should be connected to the frame on the vehicle bode
+% whose initial position should be set by the Init variable.
+% * Port world outputs measurements from the World frame.
+
+open_system('sm_car_doc_model_for_images')
+open_system('sm_car_doc_model_for_images/Body to World Subsystem');
+
+%%
+open_system('sm_car_doc_model_for_images/Body to World Subsystem/Body to World');
+
+%% Coordinate System
+%
+% The default coordinate system for the car model is z-up, x-forward, and y
+% to the left.  This follows the ISO 8855 convention.  Measurements can be
+% converted to other standard conventions.
+%
+% <<sm_car_doc_car_coordinate_system.png>>
+
+
+%% Initial Positions and Velocities
+%
+% The initial position and orientation for the vehicle is defined in the
+% structure *|Init|*.
+%
+% *|Init.Chassis.sChassis.Value|*: Initial position in *world* frame,
+% expressed as [x y z] in meters.
+%
+% *|Init.Chassis.vChassis.Value|*: Initial velocity in *vehicle* frame,
+% expressed as [vx vy vz] in meters/second.
+%
+% *|Init.Chassis.aChassis.Value|*: Initial orientation in *vehicle* frame,
+% expressed as [roll, pitch, and yaw] in radians. The rotations are
+% applied sequentially in the order yaw->pitch->roll, and they are applied
+% intrinsically.  Each of the elemental rotations is performed on the
+% axis resulting from the previous rotation.
+%
+% <<sm_car_doc_car_initial_orientation.png>>
+
+%% Interface
+%   
+%
+%%
+bdclose('sm_car_doc_model_for_images')
+##### SOURCE END #####
+--></body></html>

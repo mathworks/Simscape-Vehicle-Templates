@@ -1,0 +1,162 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Using readTIR</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-29"><meta name="DC.source" content="usingReadTIR.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+ </style></head><body><div class="content"><h1></h1>
+  
+<!-- Start introduction-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>readTIR function</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval.readTIR reads a user specified TIR file and converts it to a MATLAB structure.</br>
+	The structure containing the tire model parameters can be used as input in mfeval or the Simulink masks.</p>
+	
+	<p>The performance of mfeval can be improved using a structure of parameters instead of a string pointing to the .tir file location. </br>
+    The function loops over each line in the TIR file and adds each value to the corresponding name in the structure.</p>
+    
+	<h2>Syntax</h2>
+	tirParams = mfeval.readTIR(FileNameLocation)</p>
+    
+	<h2>Description</h2>
+	
+	<p> <b>FileNameLocation</b> may refer to a Magic Formula 5.2, 6.1 or 6.2 tyre property file (.tir)</p>
+	
+	<p> <b>tirParams</b> is structure similar to the tyre property file containing the model parameters</p>
+<!-- End introduction-->
+  
+ <h2>Example</h2><div><ul><li><a href="#1">Prepare inputs for mfeval</a></li><li><a href="#2">Read TIR file and save it as a structure</a></li><li><a href="#3">Compare performance</a></li><li><a href="#4">Plot results</a></li></ul></div><h2 id="1">Prepare inputs for mfeval</h2><p>Create some inputs for MFeval</p><pre class="codeinput">inputs(:,1) = ones(100,1)*3000; <span class="comment">% vertical load</span>
+inputs(:,2) = linspace(-0.3,0.3)'; <span class="comment">% slip ratio</span>
+inputs(:,3) = ones(100,1)*0.02; <span class="comment">% slip angle</span>
+inputs(:,4) = ones(100,1)*-0.03; <span class="comment">% inclination angle</span>
+inputs(:,5) = zeros(100,1); <span class="comment">% turn slip</span>
+inputs(:,6) = ones(100,1)*16; <span class="comment">% forward speed</span>
+</pre><h2 id="2">Read TIR file and save it as a structure</h2><p>Use readTIR to store the magic formula parameters in a structure</p><pre class="codeinput">params = mfeval.readTIR(<span class="string">'MagicFormula61_Paramerters.tir'</span>);
+</pre><h2 id="3">Compare performance</h2><p>Use a for loop to call mfeval using a structure and a string to compare the performance</p><pre class="codeinput"><span class="keyword">for</span> i = 1:10
+    <span class="comment">% Call mfeval using the structure of parameters and measure elapsed</span>
+    <span class="comment">% time</span>
+    tic <span class="comment">% Start stopwatch timer</span>
+    out2 = mfeval(params, inputs, 111);
+    t(i, 1) = toc; <span class="comment">% Read elapsed time from stopwatch</span>
+
+
+    <span class="comment">% Call mfeval using a string pointinf to the TIR file and measure</span>
+    <span class="comment">% elapsed time</span>
+    tic <span class="comment">% Start stopwatch timer</span>
+    out1 = mfeval(<span class="string">'MagicFormula61_Paramerters.tir'</span>, inputs, 111);
+    t(i, 2) = toc; <span class="comment">% Read elapsed time from stopwatch</span>
+<span class="keyword">end</span>
+</pre><h2 id="4">Plot results</h2><p>Display time elapsed of both methods</p><pre class="codeinput">c = categorical({<span class="string">'Structure'</span>,<span class="string">'Tir File'</span>});
+bar(c, mean(t))
+ylabel(<span class="string">'Elapsed time (s)'</span>)
+</pre><img vspace="5" hspace="5" src="usingReadTIR_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+ %% Prepare inputs for mfeval
+% Create some inputs for MFeval
+inputs(:,1) = ones(100,1)*3000; % vertical load
+inputs(:,2) = linspace(-0.3,0.3)'; % slip ratio
+inputs(:,3) = ones(100,1)*0.02; % slip angle
+inputs(:,4) = ones(100,1)*-0.03; % inclination angle
+inputs(:,5) = zeros(100,1); % turn slip
+inputs(:,6) = ones(100,1)*16; % forward speed
+
+%% Read TIR file and save it as a structure
+% Use readTIR to store the magic formula parameters in a structure
+params = mfeval.readTIR('MagicFormula61_Paramerters.tir');
+
+%% Compare performance
+% Use a for loop to call mfeval using a structure and a string to compare
+% the performance
+for i = 1:10
+    % Call mfeval using the structure of parameters and measure elapsed
+    % time 
+    tic % Start stopwatch timer
+    out2 = mfeval(params, inputs, 111);
+    t(i, 1) = toc; % Read elapsed time from stopwatch
+    
+    
+    % Call mfeval using a string pointinf to the TIR file and measure
+    % elapsed time
+    tic % Start stopwatch timer
+    out1 = mfeval('MagicFormula61_Paramerters.tir', inputs, 111);
+    t(i, 2) = toc; % Read elapsed time from stopwatch
+end
+
+%% Plot results
+% Display time elapsed of both methods
+c = categorical({'Structure','Tir File'});
+bar(c, mean(t))
+ylabel('Elapsed time (s)')
+##### SOURCE END #####
+--></body></html>

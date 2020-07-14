@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<TITLE>MFeval: Simulink CPI interface</TITLE>
+		<META AUTHOR="Marco Furlan Tassara"/>
+		<LINK REL="stylesheet" TYPE="text/css" HREF="doc.css"/>
+		
+        <style type="text/css">
+            .row { vertical-align: top; height: 200px }
+            .list {display:none; }
+            .show {display: none; }
+            .hide:target + .show {display: inline; }
+            .hide:target {display: none; }
+            .hide:target ~ .list {display:inline; }
+            @media print { .hide, .show { display: none; } }
+            table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; font-family:Arial, Helvetica, sans-serif; font-size:0.9em; }
+            table td { padding:0px 0px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; font-family:Arial, Helvetica, sans-serif; font-size:0.9em; }
+        </style>
+	</head>
+
+	<body>
+		<h1>Simulink CPI interface</h1>
+		<a href="index.html">Home</a> > <a href="userGuides.html">User Guides</a>
+		<hr width="100%" size="1" />
+
+		<h2>Simulink library</h2>
+		<p>MFeval blocks are available from the Simulink library (mfeval_LIB.slx). Four masks and two interfaces (CPI and STI) are
+		available to the user (see figure below):</br>
+		
+		<img src="images\mfeval_LIB.png" width="520" height="685">
+		
+		<h2>CPI tyre model</h2>
+		<p> The Contact Point Interface (shown below) evaluates the Magic Formula in the contact point between the tire and the road. 
+		Therefore, the CPI interface does not describe the entire vertical dynamics of the tire (effects like vertical damping are not modelled) </br>
+		The outputs are forces and moments defined in the contact point, i.e. the magic formula outputs without any translation or rotation.</p>
+		
+		<img src="images\CPIonly.png" width="210" height="300">
+		
+		<h2>W-axis system</h2>
+		<p>The coordinate system used in a CPI tire model is the W-axis system defined by the TYDEX group.</p>
+		
+		<ul>
+			<li>The XW-axis is given by the intersection of the central plane of the wheel with the track surface.</li>
+			<li>The YW-axis is given by the projection of the spin axis onto the ground.</li>
+			<li>The ZW-axis is normal to the ground and points upwards.</li>
+			<li>The origin of the W-axis system is also called "wheel intersection point" in the TYDEX-Reference Manual.</li>
+		</ul>
+		
+		<p><b>Note:</b> The W-axis system (wheel axis system) is standardized in ISO 8855. In ISO, the track surface is
+		defined as horizontal (horizontal plane = ground plane), but in this TYDEX Axis System also a sloped
+		ground is permissible.</p>
+		
+		<img src="images\WaxisSystem.png" width="500" height="400">
+		
+		<ul>
+			<li>Forces and moments shown are acting from tire to rim.</li>
+			<li>Slip angle (alpha) shown is positive.</li>
+			<li>Inclination angle (gamma) shown is positive.</li>
+			<li>Wheel angular velocity (omega) shown is positive.</li>
+		</ul>
+		
+		<h2>Inputs</h2>
+		
+		<table style="width:100%">
+		  <tr>
+			<th>Input name</th>
+			<th>Dimension</th>
+			<th>Description</th>
+			<th>Units</th>
+		  </tr>
+		  <tr>
+			<td>Omega</td>
+			<td>(1)</td>
+			<td>Wheel rotational speed about wheel spin axis</td>
+			<td>(rad/s)</td>
+		  </tr>
+		  <tr>
+			<td>Vx</td>
+			<td>(1)</td>
+			<td>Forward velocity of wheel center in the wheel plane, parallel to the road surface</td>
+			<td>(m/s)</td>
+		  </tr>
+		  <tr>
+			<td>Vsy</td>
+			<td>(1)</td>
+			<td>Lateral wheel slip velocity at the tire-road contact point</td>
+			<td>(m/s)</td>
+		  </tr>
+		  <tr>
+			<td>Camber</td>
+			<td>(1)</td>
+			<td>Inclination angle of the wheel with respect to the road</td>
+			<td>(m/s)</td>
+		  </tr>
+		  <tr>
+			<td>Psidot</td>
+			<td>(1)</td>
+			<td>Tyre yaw velocity about the road normal. (Steering ratio at zero speed)</td>
+			<td>(rad/s)</td>
+		  </tr>
+		  <tr>
+			<td>Fz</td>
+			<td>(1)</td>
+			<td>Tyre normal load in the contact point</td>
+			<td>(N)</td>
+		  </tr>
+		  <tr>
+			<td>muRoad</td>
+			<td>(1)</td>
+			<td>Friction coefficient between the tire and the road. (Set to 1 if unknown)</td>
+			<td>(-)</td>
+		  </tr>
+		</table>
+		</p>
+		
+		<h2>Outputs</h2>
+		
+		<table style="width:100%">
+		  <tr>
+			<th>Output name</th>
+			<th>Dimension</th>
+			<th>Description</th>
+			<th>Units</th>
+		  </tr>
+		  <tr>
+			<td>Fx</td>
+			<td>(1)</td>
+			<td>Tyre longitudinal force in the tire-road contact point</td>
+			<td>(N)</td>
+		  </tr>
+		  <tr>
+			<td>Fy</td>
+			<td>(1)</td>
+			<td>Tyre lateral force in the tire-road contact point</td>
+			<td>(N)</td>
+		  </tr>
+		  <tr>
+			<td>Fz</td>
+			<td>(1)</td>
+			<td>Tyre vertical force in the tire-road contact point (bypass from inputs)</td>
+			<td>(N)</td>
+		  </tr>
+		  <tr>
+			<td>Mx</td>
+			<td>(1)</td>
+			<td>Tyre overturning moment in the tire-road contact point</td>
+			<td>(Nm)</td>
+		  </tr>
+		  <tr>
+			<td>My</td>
+			<td>(1)</td>
+			<td>Tyre rolling resistance moment</td>
+			<td>(Nm)</td>
+		  </tr>
+		  <tr>
+			<td>Mz</td>
+			<td>(1)</td>
+			<td>Tyre self aligning moment in the tire-road contact point</td>
+			<td>(Nm)</td>
+		  </tr>
+		  <tr>
+			<td>varinf</td>
+			<td>(27)</td>
+			<td>Various useful signals from the model (SA, SR, Rl, etc). Use the bus selector to explore</td>
+			<td>(-)</td>
+		  </tr>
+		</table>
+		</p>
+		
+		<h2>Mask interface</h2>
+		<p>There are two types of Mask interfaces: dropdown menu and programmable.</br>
+		If the user double clicks on the "Dropwdown menu" block the mask will pop-out an interface as shown below:</p>
+		
+		<img src="images\CPIdropdown.png" width="437" height="475">
+		
+		<p>Similarly if the user double clicks on the "Programmable" block the mask will pop-out an interface as shown below:</p>
+		
+		<img src="images\CPIprog.png" width="434" height="504">
+		
+		<p> There are 4 parameters that the user has to specify:</p>
+		<ul>
+			<li>The location of the TIR file: This can be a string pointing to the file location or a structure generated with <a href="examples\html\usingReadTIR.html">mfeval.loadTIR</a>. </li>
+			<li>Tyre side: Choose between <b>Left</b> or <b>Right</b>. Depending on the tyre side selected, the lateral force (Fy), the self-aligning torque (Mz) and the overturning moment (Mx) will be mirrored.</li>
+			<li>Dynamics: Choose between <b>Steady State</b>, <b>Linear Transients</b> or <b>Non-linear Transients</b>. Read the <a href="equationSource.html">paper from Besselink</a> for more information.</li>
+			<li>Use mode: Choose between <b>Combined</b> or <b>Combined+Turn-slip</b>. Turn-slip effects are only relevant when turning at short turning radii and low speed.</li>
+		</ul>
+		
+		<p> And 1 optional parameter:</p>
+		<ul>
+			<li>The tire inflation pressure in bar: if the check-box is not activated, the model will be solved with the pressure specified in the .tir file with the parameter INFLPRES. Note that this parameter will only affect to Magic Formula 6.1 or above versions.</li>
+		</ul>
+		
+		<h2>Solver Settings</h2>
+		<p> All MFeval blocks can be used with variable-step or fixed-step solvers: </br>
+		<ul>
+			<li>If a variable-step solver is used the solver will automatically determine the correct time step. For transient simulations (slip angle rate > 10 deg/s) it is recommended to use the solver ode23t (mod. stiff/Trapezoidal).
+			<li>If a fixed-step solver is used the user needs to ensure that the time step is small enough to keep the simulation stable. <br><br>
+			
+			The recommended step sizes for each Dynamic mode are: </br>
+			i)   Steady-state <= 0.01 seconds </br>
+			ii)  Linear relaxation lengths <=0.001 seconds </br>
+			iii) Non-linear relaxation lengths <= 0.00025 seconds </br>
+		</ul>
+		</p>
+		
+		<h2>Example/Demo</h2>
+		<p> There is a demo file (demo_cpi.slx) showing how to use the CPI block in the installation folder under: <b>doc</b> > <b>examples</b>.</br>
+		Type "open('demo_cpi.slx')" in the command window to open the model. </p>
+		
+		<img src="images\CPIdemo.png" width="958" height="579">
+		
+		<h2>Known issues</h2>
+		<ul>
+			<li>When running the model with transient dynamics and fixed-step solvers, the time step should be at least <b>0.00025</b> seconds. This may change depending on the inputs, but if the output forces are instable try to decrease the time-step.</li>
+			<li>The model is only valid up to 10 Hz of the tyre dynamic excitation if using transient dynamics (linear or non-linear).</li>
+			<li>Parking efforts are not included.</li>
+			<li>Turn-slip equations have not been validated. Note that turn-slip (3rd slip input) is only relevant at low speeds (e.g. parking maneuvers)</li>
+			<li>When using MF6.2, the loaded radius output is the same as for the MF6.1 model (with no camber effects) due to the increasing computational power required. </li>
+		</ul>
+	</body>
+</html>

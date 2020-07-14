@@ -1,0 +1,22 @@
+component custom_sign
+% PS Sign No ZC :0.75
+% This block produces the sign of the input signal without generating a zero crossing:
+%
+% y = sign(u)
+%
+
+% Copyright 2005-2020 The MathWorks, Inc.
+
+  inputs
+    I = { 0, '1' }; % :left
+  end
+
+  outputs
+    O = { 0, '1' }; % :right
+  end
+
+  equations
+    O == nesign(I);
+  end
+
+end

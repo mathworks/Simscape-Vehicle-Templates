@@ -1,0 +1,248 @@
+<!-- Start introduction of MFeval-->
+ 
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>MFeval Example</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval evaluates Magic Formula 6.1 tir files in steady state for series of input variables.</p>
+    <p>The formulation includes combined force/moment and turn slip calculations.
+    <br />ISO-W (TYDEX W) Contact-Patch Axis System coordinate system is used in all calculations.
+    <br />All the units will be SI (N,m,s,rad,kg)</p>
+	
+    <img src="ISO_W.png" width="529" height="431" title="W-Axis System" />
+    
+	<h2>Syntax</h2>
+	outMF = mfeval( parameterSource, inputsMF, useMode )</p>
+    
+	<h2>Description</h2>
+    <b>parameterSource</b> refers to a MF-Tyre tyre property file (.TIR) containing all the Magic Formula coefficients or to a
+    structure with all the parameters.</p>
+    <p>
+    <b>inputsMF</b> = [Fz kappa alpha gamma phit Vx P* omega*], where</p>
+    <ul>
+      <li>Fz = normal load on the tyre [N]</li>
+      <li>kappa = longitudinal slip [dimensionless, -1: locked wheel]</li>
+      <li>alpha = side slip angle [rad]</li>
+      <li>gamma = inclination angle [rad]</li>
+      <li>phit = turn slip [1/m]</li>
+      <li>Vx = forward velocity [m/s]</li>
+      <li>P* = pressure [Pa]</li>
+      <li>omega* = rotational speed [rad/s]</li>
+    </ul>
+    <p>P* and omega* are optional inputs. If they are not included pressure is constant and equal to the inflation pressure on the
+    TIR file and the rotational speed is approximated.</p>
+	
+    <p><b>useMode</b> specifies the type of calculation performed: 
+	<ul>
+	  <li>   1: combined force/moment calculation </li>
+	  <li>   2: combined force/moment calculation + turn slip </li>
+	  <li> +10: revoke alpha_star definition </li>
+	  <li> +20: include alpha_star definition </li>
+	  <li> +100: include limit checks </li>
+	  <li> +200: ignore limit checks </li>
+	</ul>
+	For example: </br>
+	useMode = 121 implies: </br>
+	-combined force/moment </br>
+	-include alpha_star </br>
+	-include limit checks </p>
+	
+	<p>For normal situations turn slip may be neglected, meaning that the radius of the path is close to infinity (straight line).</br>
+	Alpha_star improves the accuracy of the model for very large slip angles and possibly backward running of the wheel. </br>
+	The limit checks verify that the inputs are inside the stable range of the model. </p>
+	
+	<p><b>outMF</b> consists of 29 columns:
+	<ol>
+		<li>Fx: longitudinal force</li>
+		<li>Fy: lateral force</li>
+		<li>Fz: normal force</li>
+		<li>Mx: overturning moment</li>
+		<li>My: rolling resistance moment</li>
+		<li>Mz: self aligning moment</li>
+		<li>kappa: longitudinal slip</li>
+		<li>alpha: side slip angle</li>
+		<li>gamma: inclination angle</li>
+		<li>phit: turn slip</li>
+		<li>Vx: longitudinal velocity</li>
+		<li>P: pressure</li>
+		<li>Re: effective rolling radius</li>
+		<li>rho: tyre deflection</li>
+		<li>2a: contact patch length</li>
+		<li>t: pneumatic trail</li>
+		<li>mux: longitudinal friction coefficient</li>
+		<li>muy: lateral friction coefficient</li>
+		<li>omega: rotational speed</li>
+		<li>Rl : loaded radius</li>
+		<li>2b: contact patch width</li>
+		<li>Mzr: residual torque</li>
+		<li>Cx: longitudinal stiffness</li>
+		<li>Cy: lateral stiffness</li>
+		<li>Cz: vertical stiffness</li>
+		<li>Kya: cornering stiffness</li>
+		<li>sigmax: longitudinal relaxation length</li>
+		<li>sigmay: lateral relaxation length</li>
+		<li>Instantaneous cornering stiffness: dFy/dSA</li>
+	</ol>					
+
+ 
+  <p>The equations coded in MFeval are published in the book:</br>
+  Title:    	Tire and Vehicle Dynamics</br>
+  Author:       Hans Pacejka</br>
+  Edition:      3, revised</br>
+  Publisher:	Elsevier, 2012</br>
+  ISBN:         0080970176, 9780080970172</br>
+  Length:       672 pages</br>
+  Link: <a href="https://www.elsevier.com/books/tire-and-vehicle-dynamics/pacejka/978-0-08-097016-5">https://www.elsevier.com/books/tire-and-vehicle-dynamics/pacejka/978-0-08-097016-5</a></p>
+  
+  <p>And in the following paper:</br>
+  Besselink, I. J. M. , Schmeitz, A. J. C. and Pacejka, H. B.(2010) 'An improved Magic Formula/Swift tyre model that can handle inflation pressure changes', Vehicle System Dynamics, 48: 1, 337 — 352</br>
+  Link to this Article: DOI: 10.1080/00423111003748088</br>
+  <a href="http://dx.doi.org/10.1080/00423111003748088">http://dx.doi.org/10.1080/00423111003748088</a>
+  
+<!-- End introduction-->
+
+
+
+
+
+
+
+<!-- Start introduction of readTIR-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>mfeval.readTIR Example</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval.readTIR reads a user specified TIR file and converts it to a MATLAB structure.</br>
+	The structure containing the tire model parameters can be used as input in mfeval or the Simulink masks.</p>
+	
+	<p>The performance of mfeval can be improved using a structure of parameters instead of a string pointing to the .tir file location. </br>
+    The function loops over each line in the TIR file and adds each value to the corresponding name in the structure.</p>
+    
+	<h2>Syntax</h2>
+	tirParams = readTIR(FileNameLocation)</p>
+    
+	<h2>Description</h2>
+	
+	<p> <b>FileNameLocation</b> may refer to a Magic Formula 6.1 tyre property file (.tir)</p>
+	
+	<p> <b>tirParams</b> is structure similar to the tyre property file containing the model parameters</p>
+<!-- End introduction-->
+
+
+
+
+<!-- Start introduction of coefficientCheck-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>mfeval.coefficientCheck Example</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval.coefficientCheck validates that model coefficients pass any restrictions placed on them.</br>
+
+	<h2>Syntax</h2>
+	[res, c, vals] = coefficientCheck(obj, mfStruct)</br>
+    [res, c, vals] = coefficientCheck(obj, mfStruct, paramGroup)</p>
+	
+	<h2>Description</h2>
+	
+	<p> <b>res</b> is a struct of logical results for each coefficient check where (0 = pass, 1 = fail)</p>
+	
+	<p> <b>c</b> is a struct of values for which an optimiser must satisfy c <= 0 to make the coefficient check pass.</p>
+	
+	<p> <b>vals</b> is a struct of the values for each coefficient check.</p>
+	
+	<p> <b>mfStruct</b> is structure of Magic Formula parameters.</p>
+	
+	<p> <b>paramGroup</b> is a string defining the Magic Formula parameter group for which to conduct the coefficient checks for. Leaving blank will run all.</p>
+<!-- End introduction-->
+
+
+
+
+ <!-- Start introduction of MFeval_Mex-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>mfeval_mex function</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../userGuides.html">User Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+	
+    <p>mfeval_mex is a C compiled version of mfeval done with the MATLAB Coder. It contains the same functionalities as mfeval, but for some applications mex functions are faster than normal MATLAB functions.</p>
+	The term mex stands for “MATLAB executable” </p>
+    
+	<h2>Syntax</h2>
+	outMF = mfeval_mex( parameterStructure, inputsMF, useMode )</p>
+    
+	<h2>Description</h2>
+    <b>parameterSource</b> to a structure with all the parameters generated with mfeval.readTIR. Note that the mex function does not accept strings pointing to the (.tir) file as mfeval. </p>
+    <p>
+    <b>inputsMF</b> = [Fz kappa alpha gamma phit Vx P* omega*], where</p>
+    <ul>
+      <li>Fz = normal load on the tyre [N]</li>
+      <li>kappa = longitudinal slip [dimensionless, -1: locked wheel]</li>
+      <li>alpha = side slip angle [rad]</li>
+      <li>gamma = inclination angle [rad]</li>
+      <li>phit = turn slip [1/m]</li>
+      <li>Vx = forward velocity [m/s]</li>
+      <li>P* = pressure [Pa]</li>
+      <li>omega* = rotational speed [rad/s]</li>
+    </ul>
+    <p>P* and omega* are optional inputs. If they are not included pressure is constant and equal to the inflation pressure on the
+    TIR file and the rotational speed is approximated.</p>
+	
+    <p><b>useMode</b> specifies the type of calculation performed: 
+	<ul>
+	  <li>   1: combined force/moment calculation </li>
+	  <li>   2: combined force/moment calculation + turn slip </li>
+	  <li> +10: revoke alpha_star definition </li>
+	  <li> +20: include alpha_star definition </li>
+	  <li> +100: include limit checks </li>
+	  <li> +200: ignore limit checks </li>
+	</ul>
+	For example: </br>
+	useMode = 121 implies: </br>
+	-combined force/moment </br>
+	-include alpha_star </br>
+	-include limit checks </p>
+	
+	<p>Go to the <a href="usingMFeval.html">documentation of mfeval</a> for more information about the outputs or the coordinate system.</p>
+	
+	<h2>Example</h2>
+	<p>In the example below there is a performance comparison between mfeval and mfeval_mex. It can be seen how for this particular case and machine configuration 
+	mfeval_mex is faster than mfeval up to the 400 points approximately. </p>
+<!-- End introduction-->
+
+
+
+
+ <!-- Start introduction for fitting a model-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>How to fit a model with MFeval</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../developerGuides.html">Developers Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+<!-- End introduction-->

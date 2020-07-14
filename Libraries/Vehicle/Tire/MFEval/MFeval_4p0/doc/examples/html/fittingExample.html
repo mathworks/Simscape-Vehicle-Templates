@@ -1,0 +1,478 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fittingExample</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-11-20"><meta name="DC.source" content="fittingExample.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+ <!-- Start introduction for fitting a model-->
+</style>
+  </head>
+  <body>
+    <div class="content">
+    <h1>How to fit a model with MFeval</h1>
+    <p>
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../../developerGuides.html">Developers Guides</a> &gt;</p>
+    <hr width="100%" size="1" />
+<!-- End introduction-->
+<div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Load the data</a></li><li><a href="#2">Fitting process</a></li><li><a href="#3">Plot results</a></li><li><a href="#4">Nested functions</a></li></ul></div><h2 id="1">Load the data</h2><p>First load the data into the workspace For this example, the data is stored as a Table and has been already filtered, cropped and pre-processed. The data in this example is already in ISO-W and all channels in SI units (N, Nm, m, s, rad, Pa)</p><pre class="codeinput">load(<span class="string">'TyreData.mat'</span>)
+</pre><h2 id="2">Fitting process</h2><pre class="codeinput"><span class="comment">% Load a TIR file as a starting point for the fitting</span>
+InitalParameterSet = mfeval.readTIR(<span class="string">'PacejkaBook_Defaults.tir'</span>);
+
+<span class="comment">% Set nominal parameters of the model (DO NOT CHANGE AFTER)</span>
+InitalParameterSet.UNLOADED_RADIUS = 0.26; <span class="comment">% Unloaded tire radius</span>
+InitalParameterSet.FNOMIN = 1200; <span class="comment">% Nominal load</span>
+InitalParameterSet.LONGVL = 16.7; <span class="comment">% Nominal reference speed</span>
+InitalParameterSet.NOMPRES = 85000; <span class="comment">% Nominal inflation pressure</span>
+
+<span class="comment">% Create the initial parameters for the fitting (seeds)</span>
+x0(1)  = InitalParameterSet.PCY1;   <span class="comment">%Shape factor Cfy for lateral forces</span>
+x0(2)  = InitalParameterSet.PDY1;   <span class="comment">%Lateral friction Muy</span>
+x0(3)  = InitalParameterSet.PDY2;   <span class="comment">%Variation of friction Muy with load</span>
+x0(4)  = InitalParameterSet.PDY3;   <span class="comment">%Variation of friction Muy with squared camber</span>
+x0(5)  = InitalParameterSet.PEY1;   <span class="comment">%Lateral curvature Efy at Fznom</span>
+x0(6)  = InitalParameterSet.PEY2;   <span class="comment">%Variation of curvature Efy with load</span>
+x0(7)  = InitalParameterSet.PEY3;   <span class="comment">%Zero order camber dependency of curvature Efy</span>
+x0(8)  = InitalParameterSet.PEY4;   <span class="comment">%Variation of curvature Efy with camber</span>
+x0(9)  = InitalParameterSet.PEY5;   <span class="comment">%Variation of curvature Efy with camber squared</span>
+x0(10) = InitalParameterSet.PKY1;   <span class="comment">%Maximum value of stiffness Kfy/Fznom</span>
+x0(11) = InitalParameterSet.PKY2;   <span class="comment">%Load at which Kfy reaches maximum value</span>
+x0(12) = InitalParameterSet.PKY3;   <span class="comment">%Variation of Kfy/Fznom with camber</span>
+x0(13) = InitalParameterSet.PKY4;   <span class="comment">%Curvature of stiffness Kfy</span>
+x0(14) = InitalParameterSet.PKY5;   <span class="comment">%Peak stiffness variation with camber squared</span>
+x0(15) = InitalParameterSet.PKY6;   <span class="comment">%Fy camber stiffness factor</span>
+x0(16) = InitalParameterSet.PKY7;   <span class="comment">%Vertical load dependency of camber stiffness</span>
+x0(17) = InitalParameterSet.PHY1;   <span class="comment">%Horizontal shift Shy at Fznom</span>
+x0(18) = InitalParameterSet.PHY2;   <span class="comment">%Variation of shift Shy with load</span>
+x0(19) = InitalParameterSet.PVY1;   <span class="comment">%Vertical shift in Svy/Fz at Fznom</span>
+x0(20) = InitalParameterSet.PVY2;   <span class="comment">%Variation of shift Svy/Fz with load</span>
+x0(21) = InitalParameterSet.PVY3;   <span class="comment">%Variation of shift Svy/Fz with camber</span>
+x0(22) = InitalParameterSet.PVY4;   <span class="comment">%Variation of shift Svy/Fz with camber and load</span>
+x0(23) = InitalParameterSet.PPY1;   <span class="comment">%influence of inflation pressure on cornering stiffness</span>
+x0(24) = InitalParameterSet.PPY2;   <span class="comment">%influence of inflation pressure on dependency of nominal tyre load on cornering stiffness</span>
+x0(25) = InitalParameterSet.PPY3;   <span class="comment">%linear influence of inflation pressure on lateral peak friction</span>
+x0(26) = InitalParameterSet.PPY4;   <span class="comment">%quadratic influence of inflation pressure on lateral peak friction</span>
+x0(27) = InitalParameterSet.PPY5;   <span class="comment">%Influence of inflation pressure on camber stiffness</span>
+
+<span class="comment">% Declare the anonymous function (Cost function) for the fitting</span>
+<span class="comment">% The @ operator creates the handle, and the parentheses () immediately</span>
+<span class="comment">% after the @ operator include the function input arguments</span>
+fun = @(X) costFyPure(X, TyreData, InitalParameterSet);
+
+<span class="comment">% Options for the fitting function lsqnonlin</span>
+options.TolFun = 1e-08; <span class="comment">% Low tolerance to ensure good fitting</span>
+options.MaxFunEvals = 9999; <span class="comment">% Very high to avoid this stop criteria</span>
+
+<span class="comment">% Non-linear least squares fitting formula</span>
+<span class="comment">% lsqnonlin will try to minimize the output of the cost function (error).</span>
+<span class="comment">% Go to the cost function "costFyPure" to check how this is performed</span>
+X_OPTIM = lsqnonlin(fun,x0,[],[],options);
+
+<span class="comment">% Create a copy of the initial parameters and replace the fitted parameters</span>
+OptimParameterSet = InitalParameterSet;
+
+OptimParameterSet.PCY1 = X_OPTIM(1);
+OptimParameterSet.PDY1 = X_OPTIM(2);
+OptimParameterSet.PDY2 = X_OPTIM(3);
+OptimParameterSet.PDY3 = X_OPTIM(4);
+OptimParameterSet.PEY1 = X_OPTIM(5);
+OptimParameterSet.PEY2 = X_OPTIM(6);
+OptimParameterSet.PEY3 = X_OPTIM(7);
+OptimParameterSet.PEY4 = X_OPTIM(8);
+OptimParameterSet.PEY5 = X_OPTIM(9);
+OptimParameterSet.PKY1 = X_OPTIM(10);
+OptimParameterSet.PKY2 = X_OPTIM(11);
+OptimParameterSet.PKY3 = X_OPTIM(12);
+OptimParameterSet.PKY4 = X_OPTIM(13);
+OptimParameterSet.PKY5 = X_OPTIM(14);
+OptimParameterSet.PKY6 = X_OPTIM(15);
+OptimParameterSet.PKY7 = X_OPTIM(16);
+OptimParameterSet.PHY1 = X_OPTIM(17);
+OptimParameterSet.PHY2 = X_OPTIM(18);
+OptimParameterSet.PVY1 = X_OPTIM(19);
+OptimParameterSet.PVY2 = X_OPTIM(20);
+OptimParameterSet.PVY3 = X_OPTIM(21);
+OptimParameterSet.PVY4 = X_OPTIM(22);
+OptimParameterSet.PPY1 = X_OPTIM(23);
+OptimParameterSet.PPY2 = X_OPTIM(24);
+OptimParameterSet.PPY3 = X_OPTIM(25);
+OptimParameterSet.PPY4 = X_OPTIM(26);
+OptimParameterSet.PPY5 = X_OPTIM(27);
+</pre><h2 id="3">Plot results</h2><pre class="codeinput"><span class="comment">% Filter data to plot specific conditions:</span>
+indFz1 = TyreData.Fz &gt; 1000 &amp; TyreData.Fz &lt; 1400;   <span class="comment">% 1200 N</span>
+indFz2 = TyreData.Fz &gt; 1500 &amp; TyreData.Fz &lt; 1800;   <span class="comment">% 1650 N</span>
+indFz3 = TyreData.Fz &gt; 650 &amp; TyreData.Fz &lt; 1000;    <span class="comment">% 760 N</span>
+indIA = TyreData.IA &gt; -0.01 &amp; TyreData.IA &lt; 0.01;   <span class="comment">% 0 rad</span>
+indP = TyreData.P &gt; 8e4 &amp; TyreData.P &lt; 9e4;         <span class="comment">% 83160 Pa</span>
+indFz = indFz1 | indFz2 | indFz3;
+filt = indFz &amp; indIA &amp; indP;
+
+<span class="comment">% Create data inputs to do a data replay with MFeval and check the fitting</span>
+<span class="comment">% quality</span>
+evalFz1 = ones(100,1)*1200;
+evalFz2 = ones(100,1)*1650;
+evalFz3 = ones(100,1)*760;
+evalNull = zeros(100, 1);
+evalSA = linspace(-0.23,0.23)';
+evalVx = ones(100, 1)*16;
+evalP = ones(100,1)*83160;
+
+MFinput1 = [evalFz1 evalNull evalSA evalNull evalNull evalVx evalP];
+MFinput2 = [evalFz2 evalNull evalSA evalNull evalNull evalVx evalP];
+MFinput3 = [evalFz3 evalNull evalSA evalNull evalNull evalVx evalP];
+
+<span class="comment">% Call mfeval with the optimized parameters</span>
+MFout1 = mfeval(OptimParameterSet,MFinput1,111);
+MFout2 = mfeval(OptimParameterSet,MFinput2,111);
+MFout3 = mfeval(OptimParameterSet,MFinput3,111);
+
+<span class="comment">% Plot data vs Fitted Model</span>
+figure
+hold <span class="string">on</span>
+plot(TyreData.SA(filt), TyreData.Fy(filt),<span class="string">'o'</span>)
+plot(MFout1(:,8), MFout1(:,2),<span class="string">'-'</span>, <span class="string">'linewidth'</span>, 2)
+plot(MFout2(:,8), MFout2(:,2),<span class="string">'-'</span>, <span class="string">'linewidth'</span>, 2)
+plot(MFout3(:,8), MFout3(:,2),<span class="string">'-'</span>, <span class="string">'linewidth'</span>, 2)
+grid <span class="string">on</span>
+xlabel(<span class="string">'Slip Angle [rad]'</span>)
+ylabel(<span class="string">'Lateral Force [N]'</span>)
+title(<span class="string">'PureFy fitting'</span>)
+legend(<span class="string">'Data'</span>, <span class="string">'Model: Fz=1200N'</span>, <span class="string">'Model: Fz=1650N'</span>, <span class="string">'Model: Fz= 760N'</span>)
+</pre><img vspace="5" hspace="5" src="fittingExample_01.png" alt=""> <h2 id="4">Nested functions</h2><pre class="codeinput"><span class="keyword">function</span> [ error ] = costFyPure(X, Data, ParameterSet)
+<span class="comment">%COSTFYPURE calls MFeval and calculates the error between the model and the</span>
+<span class="comment">%input data.</span>
+<span class="comment">%</span>
+<span class="comment">% error = costFyPure(X, Data, ParameterSet)</span>
+<span class="comment">%</span>
+<span class="comment">% X: Is a structure that contains the FyPure parameters that are being</span>
+<span class="comment">%       fitted. X is changing all the time when lsqnonlin is calling this</span>
+<span class="comment">%       function.</span>
+<span class="comment">% Data: Is a Table that contains the Data used to measure the error</span>
+<span class="comment">%       of the model that is being fitted.</span>
+<span class="comment">% ParameterSet: Is a structure of MF6.1 parameters. The parameters are used</span>
+<span class="comment">%       only to call MFeval without errors.</span>
+<span class="comment">%</span>
+<span class="comment">% Example:</span>
+<span class="comment">% error = costFyPure(Xstructure, TableData, ParameterSet)</span>
+
+<span class="comment">% Create the Inputs for MFeval</span>
+INPUTS = [Data.Fz Data.SR Data.SA Data.IA Data.Phit Data.Vx Data.P Data.W];
+
+<span class="comment">% Select use mode 211. For more info go to the documentation of MFeval</span>
+USE_MODE = 211;
+
+<span class="comment">% Unpack the parameters that are being fitted and replace them into the</span>
+<span class="comment">% ParameterSet.</span>
+ParameterSet.PCY1	=  X(1)     ;<span class="comment">%Shape factor Cfy for lateral forces</span>
+ParameterSet.PDY1	=  X(2)     ;<span class="comment">%Lateral friction Muy</span>
+ParameterSet.PDY2	=  X(3)     ;<span class="comment">%Variation of friction Muy with load</span>
+ParameterSet.PDY3	=  X(4)  	;<span class="comment">%Variation of friction Muy with squared camber</span>
+ParameterSet.PEY1	=  X(5)  	;<span class="comment">%Lateral curvature Efy at Fznom</span>
+ParameterSet.PEY2	=  X(6)   	;<span class="comment">%Variation of curvature Efy with load</span>
+ParameterSet.PEY3	=  X(7)   	;<span class="comment">%Zero order camber dependency of curvature Efy</span>
+ParameterSet.PEY4	=  X(8)  	;<span class="comment">%Variation of curvature Efy with camber</span>
+ParameterSet.PEY5	=  X(9)   	;<span class="comment">%Variation of curvature Efy with camber squared</span>
+ParameterSet.PKY1	=  X(10)	;<span class="comment">%Maximum value of stiffness Kfy/Fznom</span>
+ParameterSet.PKY2	=  X(11) 	;<span class="comment">%Load at which Kfy reaches maximum value</span>
+ParameterSet.PKY3	=  X(12)   	;<span class="comment">%Variation of Kfy/Fznom with camber</span>
+ParameterSet.PKY4	=  X(13)   	;<span class="comment">%Curvature of stiffness Kfy</span>
+ParameterSet.PKY5	=  X(14)   	;<span class="comment">%Peak stiffness variation with camber squared</span>
+ParameterSet.PKY6	=  X(15)   	;<span class="comment">%Fy camber stiffness factor</span>
+ParameterSet.PKY7	=  X(16)   	;<span class="comment">%Vertical load dependency of camber stiffness</span>
+ParameterSet.PHY1	=  X(17)  	;<span class="comment">%Horizontal shift Shy at Fznom</span>
+ParameterSet.PHY2	=  X(18)   	;<span class="comment">%Variation of shift Shy with load</span>
+ParameterSet.PVY1	=  X(19)  	;<span class="comment">%Vertical shift in Svy/Fz at Fznom</span>
+ParameterSet.PVY2	=  X(20)   	;<span class="comment">%Variation of shift Svy/Fz with load</span>
+ParameterSet.PVY3	=  X(21)   	;<span class="comment">%Variation of shift Svy/Fz with camber</span>
+ParameterSet.PVY4	=  X(22)  	;<span class="comment">%Variation of shift Svy/Fz with camber and load</span>
+ParameterSet.PPY1	=  X(23)   	;<span class="comment">%influence of inflation pressure on cornering stiffness</span>
+ParameterSet.PPY2	=  X(24)  	;<span class="comment">%influence of inflation pressure on dependency of nominal tyre load on cornering stiffness</span>
+ParameterSet.PPY3	=  X(25)   	;<span class="comment">%linear influence of inflation pressure on lateral peak friction</span>
+ParameterSet.PPY4	=  X(26)   	;<span class="comment">%quadratic influence of inflation pressure on lateral peak friction</span>
+ParameterSet.PPY5	=  X(27)   	;<span class="comment">%Influence of inflation pressure on camber stiffness</span>
+
+<span class="comment">% Call MFeval</span>
+OUTPUT = mfeval(ParameterSet,INPUTS,USE_MODE);
+
+<span class="comment">% Get the Fy from the MF6.1 model</span>
+Fy_MFeval = OUTPUT(:,2);
+
+<span class="comment">% Calculate error against the data</span>
+error = (Data.Fy - Fy_MFeval);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+Local minimum possible.
+
+lsqnonlin stopped because the final change in the sum of squares relative to 
+its initial value is less than the selected value of the function tolerance.
+
+
+
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Load the data
+% First load the data into the workspace
+% For this example, the data is stored as a Table and has been already
+% filtered, cropped and pre-processed.
+% The data in this example is already in ISO-W and all channels in SI units
+% (N, Nm, m, s, rad, Pa)
+
+load('TyreData.mat')
+
+%% Fitting process
+
+% Load a TIR file as a starting point for the fitting
+InitalParameterSet = mfeval.readTIR('PacejkaBook_Defaults.tir');
+
+% Set nominal parameters of the model (DO NOT CHANGE AFTER)
+InitalParameterSet.UNLOADED_RADIUS = 0.26; % Unloaded tire radius
+InitalParameterSet.FNOMIN = 1200; % Nominal load
+InitalParameterSet.LONGVL = 16.7; % Nominal reference speed
+InitalParameterSet.NOMPRES = 85000; % Nominal inflation pressure
+
+% Create the initial parameters for the fitting (seeds)
+x0(1)  = InitalParameterSet.PCY1;   %Shape factor Cfy for lateral forces
+x0(2)  = InitalParameterSet.PDY1;   %Lateral friction Muy
+x0(3)  = InitalParameterSet.PDY2;   %Variation of friction Muy with load
+x0(4)  = InitalParameterSet.PDY3;   %Variation of friction Muy with squared camber
+x0(5)  = InitalParameterSet.PEY1;   %Lateral curvature Efy at Fznom
+x0(6)  = InitalParameterSet.PEY2;   %Variation of curvature Efy with load
+x0(7)  = InitalParameterSet.PEY3;   %Zero order camber dependency of curvature Efy
+x0(8)  = InitalParameterSet.PEY4;   %Variation of curvature Efy with camber
+x0(9)  = InitalParameterSet.PEY5;   %Variation of curvature Efy with camber squared
+x0(10) = InitalParameterSet.PKY1;   %Maximum value of stiffness Kfy/Fznom
+x0(11) = InitalParameterSet.PKY2;   %Load at which Kfy reaches maximum value
+x0(12) = InitalParameterSet.PKY3;   %Variation of Kfy/Fznom with camber
+x0(13) = InitalParameterSet.PKY4;   %Curvature of stiffness Kfy
+x0(14) = InitalParameterSet.PKY5;   %Peak stiffness variation with camber squared
+x0(15) = InitalParameterSet.PKY6;   %Fy camber stiffness factor
+x0(16) = InitalParameterSet.PKY7;   %Vertical load dependency of camber stiffness
+x0(17) = InitalParameterSet.PHY1;   %Horizontal shift Shy at Fznom
+x0(18) = InitalParameterSet.PHY2;   %Variation of shift Shy with load
+x0(19) = InitalParameterSet.PVY1;   %Vertical shift in Svy/Fz at Fznom
+x0(20) = InitalParameterSet.PVY2;   %Variation of shift Svy/Fz with load
+x0(21) = InitalParameterSet.PVY3;   %Variation of shift Svy/Fz with camber
+x0(22) = InitalParameterSet.PVY4;   %Variation of shift Svy/Fz with camber and load
+x0(23) = InitalParameterSet.PPY1;   %influence of inflation pressure on cornering stiffness
+x0(24) = InitalParameterSet.PPY2;   %influence of inflation pressure on dependency of nominal tyre load on cornering stiffness
+x0(25) = InitalParameterSet.PPY3;   %linear influence of inflation pressure on lateral peak friction
+x0(26) = InitalParameterSet.PPY4;   %quadratic influence of inflation pressure on lateral peak friction
+x0(27) = InitalParameterSet.PPY5;   %Influence of inflation pressure on camber stiffness
+
+% Declare the anonymous function (Cost function) for the fitting
+% The @ operator creates the handle, and the parentheses () immediately
+% after the @ operator include the function input arguments
+fun = @(X) costFyPure(X, TyreData, InitalParameterSet);
+
+% Options for the fitting function lsqnonlin
+options.TolFun = 1e-08; % Low tolerance to ensure good fitting
+options.MaxFunEvals = 9999; % Very high to avoid this stop criteria
+
+% Non-linear least squares fitting formula
+% lsqnonlin will try to minimize the output of the cost function (error).
+% Go to the cost function "costFyPure" to check how this is performed
+X_OPTIM = lsqnonlin(fun,x0,[],[],options);
+
+% Create a copy of the initial parameters and replace the fitted parameters
+OptimParameterSet = InitalParameterSet;
+
+OptimParameterSet.PCY1 = X_OPTIM(1);
+OptimParameterSet.PDY1 = X_OPTIM(2);
+OptimParameterSet.PDY2 = X_OPTIM(3);
+OptimParameterSet.PDY3 = X_OPTIM(4);
+OptimParameterSet.PEY1 = X_OPTIM(5);
+OptimParameterSet.PEY2 = X_OPTIM(6);
+OptimParameterSet.PEY3 = X_OPTIM(7);
+OptimParameterSet.PEY4 = X_OPTIM(8);
+OptimParameterSet.PEY5 = X_OPTIM(9);
+OptimParameterSet.PKY1 = X_OPTIM(10);
+OptimParameterSet.PKY2 = X_OPTIM(11);
+OptimParameterSet.PKY3 = X_OPTIM(12);
+OptimParameterSet.PKY4 = X_OPTIM(13);
+OptimParameterSet.PKY5 = X_OPTIM(14);
+OptimParameterSet.PKY6 = X_OPTIM(15);
+OptimParameterSet.PKY7 = X_OPTIM(16);
+OptimParameterSet.PHY1 = X_OPTIM(17);
+OptimParameterSet.PHY2 = X_OPTIM(18);
+OptimParameterSet.PVY1 = X_OPTIM(19);
+OptimParameterSet.PVY2 = X_OPTIM(20);
+OptimParameterSet.PVY3 = X_OPTIM(21);
+OptimParameterSet.PVY4 = X_OPTIM(22);
+OptimParameterSet.PPY1 = X_OPTIM(23);
+OptimParameterSet.PPY2 = X_OPTIM(24);
+OptimParameterSet.PPY3 = X_OPTIM(25);
+OptimParameterSet.PPY4 = X_OPTIM(26);
+OptimParameterSet.PPY5 = X_OPTIM(27);
+
+%% Plot results
+
+% Filter data to plot specific conditions:
+indFz1 = TyreData.Fz > 1000 & TyreData.Fz < 1400;   % 1200 N
+indFz2 = TyreData.Fz > 1500 & TyreData.Fz < 1800;   % 1650 N
+indFz3 = TyreData.Fz > 650 & TyreData.Fz < 1000;    % 760 N
+indIA = TyreData.IA > -0.01 & TyreData.IA < 0.01;   % 0 rad
+indP = TyreData.P > 8e4 & TyreData.P < 9e4;         % 83160 Pa
+indFz = indFz1 | indFz2 | indFz3;
+filt = indFz & indIA & indP;
+
+% Create data inputs to do a data replay with MFeval and check the fitting
+% quality
+evalFz1 = ones(100,1)*1200;
+evalFz2 = ones(100,1)*1650;
+evalFz3 = ones(100,1)*760;
+evalNull = zeros(100, 1);
+evalSA = linspace(-0.23,0.23)';
+evalVx = ones(100, 1)*16;
+evalP = ones(100,1)*83160;
+
+MFinput1 = [evalFz1 evalNull evalSA evalNull evalNull evalVx evalP];
+MFinput2 = [evalFz2 evalNull evalSA evalNull evalNull evalVx evalP];
+MFinput3 = [evalFz3 evalNull evalSA evalNull evalNull evalVx evalP];
+
+% Call mfeval with the optimized parameters
+MFout1 = mfeval(OptimParameterSet,MFinput1,111);
+MFout2 = mfeval(OptimParameterSet,MFinput2,111);
+MFout3 = mfeval(OptimParameterSet,MFinput3,111);
+
+% Plot data vs Fitted Model
+figure
+hold on
+plot(TyreData.SA(filt), TyreData.Fy(filt),'o')
+plot(MFout1(:,8), MFout1(:,2),'-', 'linewidth', 2)
+plot(MFout2(:,8), MFout2(:,2),'-', 'linewidth', 2)
+plot(MFout3(:,8), MFout3(:,2),'-', 'linewidth', 2)
+grid on
+xlabel('Slip Angle [rad]')
+ylabel('Lateral Force [N]')
+title('PureFy fitting')
+legend('Data', 'Model: Fz=1200N', 'Model: Fz=1650N', 'Model: Fz= 760N')
+
+
+%% Nested functions
+function [ error ] = costFyPure(X, Data, ParameterSet)
+%COSTFYPURE calls MFeval and calculates the error between the model and the
+%input data.
+%
+% error = costFyPure(X, Data, ParameterSet)
+%
+% X: Is a structure that contains the FyPure parameters that are being
+%       fitted. X is changing all the time when lsqnonlin is calling this
+%       function.
+% Data: Is a Table that contains the Data used to measure the error
+%       of the model that is being fitted.
+% ParameterSet: Is a structure of MF6.1 parameters. The parameters are used
+%       only to call MFeval without errors.
+%
+% Example:
+% error = costFyPure(Xstructure, TableData, ParameterSet)
+
+% Create the Inputs for MFeval
+INPUTS = [Data.Fz Data.SR Data.SA Data.IA Data.Phit Data.Vx Data.P Data.W];
+
+% Select use mode 211. For more info go to the documentation of MFeval
+USE_MODE = 211;
+
+% Unpack the parameters that are being fitted and replace them into the
+% ParameterSet.
+ParameterSet.PCY1	=  X(1)     ;%Shape factor Cfy for lateral forces
+ParameterSet.PDY1	=  X(2)     ;%Lateral friction Muy
+ParameterSet.PDY2	=  X(3)     ;%Variation of friction Muy with load
+ParameterSet.PDY3	=  X(4)  	;%Variation of friction Muy with squared camber
+ParameterSet.PEY1	=  X(5)  	;%Lateral curvature Efy at Fznom
+ParameterSet.PEY2	=  X(6)   	;%Variation of curvature Efy with load
+ParameterSet.PEY3	=  X(7)   	;%Zero order camber dependency of curvature Efy
+ParameterSet.PEY4	=  X(8)  	;%Variation of curvature Efy with camber
+ParameterSet.PEY5	=  X(9)   	;%Variation of curvature Efy with camber squared
+ParameterSet.PKY1	=  X(10)	;%Maximum value of stiffness Kfy/Fznom
+ParameterSet.PKY2	=  X(11) 	;%Load at which Kfy reaches maximum value
+ParameterSet.PKY3	=  X(12)   	;%Variation of Kfy/Fznom with camber
+ParameterSet.PKY4	=  X(13)   	;%Curvature of stiffness Kfy
+ParameterSet.PKY5	=  X(14)   	;%Peak stiffness variation with camber squared
+ParameterSet.PKY6	=  X(15)   	;%Fy camber stiffness factor
+ParameterSet.PKY7	=  X(16)   	;%Vertical load dependency of camber stiffness
+ParameterSet.PHY1	=  X(17)  	;%Horizontal shift Shy at Fznom
+ParameterSet.PHY2	=  X(18)   	;%Variation of shift Shy with load
+ParameterSet.PVY1	=  X(19)  	;%Vertical shift in Svy/Fz at Fznom
+ParameterSet.PVY2	=  X(20)   	;%Variation of shift Svy/Fz with load
+ParameterSet.PVY3	=  X(21)   	;%Variation of shift Svy/Fz with camber
+ParameterSet.PVY4	=  X(22)  	;%Variation of shift Svy/Fz with camber and load
+ParameterSet.PPY1	=  X(23)   	;%influence of inflation pressure on cornering stiffness
+ParameterSet.PPY2	=  X(24)  	;%influence of inflation pressure on dependency of nominal tyre load on cornering stiffness
+ParameterSet.PPY3	=  X(25)   	;%linear influence of inflation pressure on lateral peak friction
+ParameterSet.PPY4	=  X(26)   	;%quadratic influence of inflation pressure on lateral peak friction
+ParameterSet.PPY5	=  X(27)   	;%Influence of inflation pressure on camber stiffness
+
+% Call MFeval
+OUTPUT = mfeval(ParameterSet,INPUTS,USE_MODE);
+
+% Get the Fy from the MF6.1 model
+Fy_MFeval = OUTPUT(:,2);
+
+% Calculate error against the data
+error = (Data.Fy - Fy_MFeval);
+end
+
+##### SOURCE END #####
+--></body></html>

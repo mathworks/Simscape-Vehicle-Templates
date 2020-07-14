@@ -1,0 +1,27 @@
+component PS_Connector_Gain
+% PS Connector Gain 
+% This block is used to connect networks only.
+%
+% output = 0 * input
+%
+%
+
+% Copyright 2018-2020 The MathWorks, Inc.
+
+  inputs
+    I = { 0, 'rad' }; % :left
+  end
+  
+  parameters(Access=private)
+    no_gain = { 0, 'N/rad' }; % Connection
+  end
+
+  outputs
+    O = { 0, 'N' }; % :right
+  end
+
+  equations
+    O == I*no_gain;
+  end
+
+end
