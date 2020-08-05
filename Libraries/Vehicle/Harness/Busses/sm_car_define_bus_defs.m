@@ -9,25 +9,25 @@ function buses = sm_car_define_bus_defs(Vehicle_DS)
 % Copyright 2019-2020 The MathWorks, Inbuses.Controller.Road.
 
 % VehicleModel IO Def
-buses.Vehicle.Body.x = {'DocUnits', 'm', 'Description', ''};
-buses.Vehicle.Body.y = {'DocUnits', 'm', 'Description', ''};
-buses.Vehicle.Body.z = {'DocUnits', 'm', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.x = {'DocUnits', 'm', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.y = {'DocUnits', 'm', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.z = {'DocUnits', 'm', 'Description', ''};
 
-buses.Vehicle.Body.vx = {'DocUnits', 'm/s', 'Description', ''};  %% note unit change!
-buses.Vehicle.Body.vy = {'DocUnits', 'm/s', 'Description', ''};
-buses.Vehicle.Body.vz = {'DocUnits', 'm/s', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.vx = {'DocUnits', 'm/s', 'Description', ''};  %% note unit change!
+buses.Vehicle.Chassis.Body.CG.vy = {'DocUnits', 'm/s', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.vz = {'DocUnits', 'm/s', 'Description', ''};
 
-buses.Vehicle.Body.gx = {'DocUnits', 'm/s^2', 'Description', ''};
-buses.Vehicle.Body.gy = {'DocUnits', 'm/s^2', 'Description', ''};
-buses.Vehicle.Body.gz = {'DocUnits', 'm/s^2', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.gx = {'DocUnits', 'm/s^2', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.gy = {'DocUnits', 'm/s^2', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.gz = {'DocUnits', 'm/s^2', 'Description', ''};
 
-buses.Vehicle.Body.nRoll = {'DocUnits', 'rad/s', 'Description', ''};
-buses.Vehicle.Body.nPitch = {'DocUnits', 'rad/s', 'Description', ''};
-buses.Vehicle.Body.nYaw = {'DocUnits', 'rad/s', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.nRoll = {'DocUnits', 'rad/s', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.nPitch = {'DocUnits', 'rad/s', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.nYaw = {'DocUnits', 'rad/s', 'Description', ''};
 
-buses.Vehicle.Body.aRoll = {'DocUnits', 'rad', 'Description', ''};
-buses.Vehicle.Body.aPitch = {'DocUnits', 'rad', 'Description', ''};
-buses.Vehicle.Body.aYaw = {'DocUnits', 'rad', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.aRoll = {'DocUnits', 'rad', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.aPitch = {'DocUnits', 'rad', 'Description', ''};
+buses.Vehicle.Chassis.Body.CG.aYaw = {'DocUnits', 'rad', 'Description', ''};
 
 buses.Vehicle.Chassis.Spring.FL.xSpring = {'DocUnits', 'm', 'Description', ''};
 buses.Vehicle.Chassis.Spring.FL.FSpring = {'DocUnits', 'N', 'Description', ''};

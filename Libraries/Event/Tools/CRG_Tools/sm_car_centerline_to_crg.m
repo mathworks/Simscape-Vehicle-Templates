@@ -17,48 +17,89 @@ create_stl_files_f = road_opts.create_stl_files_f;
 % Move to directory for file creation
 cd(fileparts(which([root_outfiles '_centerline.xlsx'])));
 
-%% Import the GPS-data from Excel workbook.
-% If no Altitude data is availiable you can use
-% 'https://www.gpsvisualizer.com/convert_input'
-% to get altitude based on GPS co-ordinates
-% Choose 'best availiable source' on the
-% dropdown menu titled 'Add DEM elevation data')
-opts = spreadsheetImportOptions("NumVariables", 5);
-opts.Sheet = "Sheet1";
-opts.VariableNames = ["latitude", "longitude", "altitude_m", "distance_km", "Distance_m"];
-opts.VariableTypes = ["double", "double", "double", "double", "double"];
+% If centerline is defined by GPS data
 
-tbl = readtable([root_outfiles '_centerline.xlsx'], opts, "UseExcel", false);
-
-% Convert to output type and remove header row
-Altitude_m = tbl.altitude_m(2:end);
-Distance_m = tbl.Distance_m(2:end);
-Latitude   = tbl.latitude(2:end);
-Longitude  = tbl.longitude(2:end);
-
-if(road_opts.reverse)
-    Altitude_m = flipud(Altitude_m);
-    Distance_m = Distance_m(end)-flipud(Distance_m);
-    Latitude   = flipud(Latitude);
-    Longitude  = flipud(Longitude);
+if(strcmpi(road_opts.datasrc,'gps'))
+    %% Import the GPS-data from Excel workbook.
+    % If no Altitude data is availiable you can use
+    % 'https://www.gpsvisualizer.com/convert_input'
+    % to get altitude based on GPS co-ordinates
+    % Choose 'best availiable source' on the
+    % dropdown menu titled 'Add DEM elevation data')
+    opts = spreadsheetImportOptions("NumVariables", 5);
+    opts.Sheet = "Sheet1";
+    opts.VariableNames = ["latitude", "longitude", "altitude_m", "distance_km", "Distance_m"];
+    opts.VariableTypes = ["double", "double", "double", "double", "double"];
+    
+    tbl = readtable([root_outfiles '_centerline.xlsx'], opts, "UseExcel", false);
+    
+    % Convert to output type and remove header row
+    Altitude_m = tbl.altitude_m(2:end);
+    Distance_m = tbl.Distance_m(2:end);
+    Latitude   = tbl.latitude(2:end);
+    Longitude  = tbl.longitude(2:end);
+    
+    if(road_opts.reverse)
+        Altitude_m = flipud(Altitude_m);
+        Distance_m = Distance_m(end)-flipud(Distance_m);
+        Latitude   = flipud(Latitude);
+        Longitude  = flipud(Longitude);
+    end
+    
+    % Scale distance to an even number of meters
+    Distance_m = Distance_m*(floor(Distance_m(end))/Distance_m(end));
+    
+    % Ensure last point is same as first point
+    if(road_opts.blending_distance>0)
+        Altitude_m(end) = Altitude_m(1);
+        Latitude(end)   = Latitude(1);
+        Longitude(end)  = Longitude(1);
+    end
+    % Convert Data to x-y-z (Original data)
+    [x_o,y_o,~] = deg2utm(Latitude,Longitude);
+    
+    % Move start of track to [0 0 0]
+    x_o = x_o-x_o(1);
+    y_o = y_o-y_o(1);
+    z_o = Altitude_m - Altitude_m(1);
+    
+elseif(strcmpi(road_opts.datasrc,'xyz'))
+    %% Import the XYZ-data from Excel workbook.
+    opts = spreadsheetImportOptions("NumVariables", 5);
+    opts.Sheet = "Sheet1";
+    opts.VariableNames = ["x_m", "y_m", "z_m", "Distance_m"];
+    opts.VariableTypes = ["double", "double", "double", "double"];
+    
+    tbl = readtable([root_outfiles '_centerline.xlsx'], opts, "UseExcel", false);
+    
+    % Convert to output type and remove header row
+    x_o         = tbl.x_m(2:end);
+    y_o         = tbl.y_m(2:end);
+    z_o         = tbl.z_m(2:end);
+    Distance_m  = tbl.Distance_m(2:end);
+    
+    if(road_opts.reverse)
+        x_o = flipud(x_o);
+        y_o = flipud(y_o);
+        z_o = flipud(z_o);
+        Distance_m = Distance_m(end)-flipud(Distance_m);
+    end
+    
+    % Scale distance to an even number of meters
+    Distance_m = Distance_m*(floor(Distance_m(end))/Distance_m(end));
+    
+    % Ensure last point is same as first point
+    if(road_opts.blending_distance>0)
+        x_o(end) = x_o(1);
+        y_o(end) = y_o(1);
+        z_o(end) = z_o(1);
+    end
+    
+    % Move start of track to [0 0 0]
+    x_o = x_o - x_o(1);
+    y_o = y_o - y_o(1);
+    z_o = z_o - z_o(1);
 end
-
-% Scale distance to an even number of meters
-Distance_m = Distance_m*(floor(Distance_m(end))/Distance_m(end));
-
-% Ensure last point is same as first point
-if(road_opts.blending_distance>0)
-    Altitude_m(end) = Altitude_m(1);
-    Latitude(end)   = Latitude(1);
-    Longitude(end)  = Longitude(1);
-end
-% Convert Data to x-y-z (Original data)
-[x_o,y_o,~] = deg2utm(Latitude,Longitude);
-
-% Move start of track to [0 0 0]
-x_o = x_o-x_o(1);
-y_o = y_o-y_o(1);
-z_o = Altitude_m - Altitude_m(1);
 
 % Force final point to align with start point
 if(road_opts.blending_distance>0)
@@ -68,27 +109,49 @@ if(road_opts.blending_distance>0)
 end
 
 %% Interpolate data
-% Number of points = 1 more than number of segments
-% Segment length resolution must be >= 1e-3 meters
-% Do not use linear interpolation, as curvature will be too sharp
-% Skip points if data is too discretized, let interpolation smooth it.
-r_d = road_opts.decim_data;
-a_d = road_opts.decim_alti;
-dist_i = linspace(0,Distance_m(end),(Distance_m(end))/r_d+1);
-lati_i = interp1(Distance_m,Latitude,dist_i,'spline');
-long_i = interp1(Distance_m,Longitude,dist_i,'spline');
-alti_i = interp1(Distance_m(1:a_d:end),Altitude_m(1:a_d:end),dist_i,'spline');
-
-% Convert Data to x-y-z (Interpolated)
-[x_i,y_i,~] = deg2utm(lati_i,long_i);
-
-% Move start of track at [0 0 0]
-x_i = x_i-x_i(1);
-y_i = y_i-y_i(1);
-z_i = [alti_i - alti_i(1)]';
-
-% Smooth altitude data
-z_i = smooth(z_i');
+if(strcmpi(road_opts.datasrc,'gps'))
+    % Number of points = 1 more than number of segments
+    % Segment length resolution must be >= 1e-3 meters
+    % Do not use linear interpolation, as curvature will be too sharp
+    % Skip points if data is too discretized, let interpolation smooth it.
+    r_d = road_opts.decim_data;
+    a_d = road_opts.decim_alti;
+    dist_i = linspace(0,Distance_m(end),(Distance_m(end))/r_d+1);
+    lati_i = interp1(Distance_m,Latitude,dist_i,'spline');
+    long_i = interp1(Distance_m,Longitude,dist_i,'spline');
+    alti_i = interp1(Distance_m(1:a_d:end),Altitude_m(1:a_d:end),dist_i,'spline');
+    
+    % Convert Data to x-y-z (Interpolated)
+    [x_i,y_i,~] = deg2utm(lati_i,long_i);
+    
+    % Move start of track at [0 0 0]
+    x_i = x_i-x_i(1);
+    y_i = y_i-y_i(1);
+    z_i = [alti_i - alti_i(1)]';
+    
+    % Smooth altitude data
+    z_i = smooth(z_i');
+    
+elseif(strcmpi(road_opts.datasrc,'xyz'))
+    % Number of points = 1 more than number of segments
+    % Segment length resolution must be >= 1e-3 meters
+    % Do not use linear interpolation, as curvature will be too sharp
+    % Skip points if data is too discretized, let interpolation smooth it.
+    r_d = road_opts.decim_data;
+    a_d = road_opts.decim_alti;
+    dist_i = linspace(0,Distance_m(end),(Distance_m(end))/r_d+1);
+    x_i = interp1(Distance_m,x_o,dist_i,'spline')';
+    y_i = interp1(Distance_m,y_o,dist_i,'spline')';
+    z_i = interp1(Distance_m(1:a_d:end),z_o(1:a_d:end),dist_i,'spline');
+    
+    % Move start of track at [0 0 0]
+    x_i = x_i-x_i(1);
+    y_i = y_i-y_i(1);
+    z_i = [z_i - z_i(1)]';
+    
+    % Smooth altitude data
+    z_i = smooth(z_i');
+end
 
 %% Determine Derivatives
 x_d = diff(x_i);
@@ -259,13 +322,13 @@ movefile([root_outfiles '_dat.mat'],['..' filesep]);
 %% Generate STL file for road surface
 if(create_stl_files)
     disp(['Creating ' root_outfiles '.stl ...']);
-        sm_car_crg_to_stl(...
-            [root_outfiles '.crg'],...
-            [root_outfiles '.stl'],0,'plot')
+    sm_car_crg_to_stl(...
+        [root_outfiles '.crg'],...
+        [root_outfiles '.stl'],0,'plot')
     disp('... finished');
     % Move STL file down one level
-        movefile(...
-            [root_outfiles '.stl'],['..' filesep])
+    movefile(...
+        [root_outfiles '.stl'],['..' filesep])
 end
 
 % Move CRG file down one level
@@ -283,13 +346,13 @@ crg_write(crg_single(centerline), [root_outfiles '_centerline.crg']);
 %% Create STL
 if(create_stl_files)
     disp(['Creating ' root_outfiles '_centerline.stl ...']);
-        sm_car_crg_to_stl(...
-            [root_outfiles '_centerline.crg'],...
-            [root_outfiles '_centerline.stl'],0,'n')
+    sm_car_crg_to_stl(...
+        [root_outfiles '_centerline.crg'],...
+        [root_outfiles '_centerline.stl'],0,'n')
     disp('... finished');
     % Move STL file down one level
-        movefile(...
-            [root_outfiles '_centerline.stl'],['..' filesep])
+    movefile(...
+        [root_outfiles '_centerline.stl'],['..' filesep])
 end
 
 % Move CRG file down one level
@@ -440,80 +503,65 @@ if(road_opts.blending_distance>0)
     subplot(313),plot(s4_interp,z_ctr_int,'--'); hold off
 end
 %% --- Road with no elevation ---
-
-% Use dataset from road with elevation
-road_f = road;
-
-% Set elevation and slope to 0
-road_f.z = 0; % Overwrite previous data
-road_f.z = zeros(length(x_ctr),4) ;   % Local road elevation deltas
-road_f.s = zeros(1,length(x_ctr)-1); % Slope in percentage (0 to 1)
-road_f.b = 0; % Banking
-
-%% Generate CRG file for road surface (no elevation)
-crg_write(crg_single(road_f), [root_outfiles '_f.crg']);
-
-% Save key data to .mat file
-dat = crg_read([root_outfiles '_f.crg']);
-save([root_outfiles '_f_dat'],'dat');
-movefile([root_outfiles '_f_dat.mat'],['..' filesep]);
-
-% Show CRG
-% Commented out on purpose - produces many plots
-% crg_show(dat);
-
-%% Generate STL file for road surface (no elevation)
-if(create_stl_files_f)
-    disp(['Creating ' root_outfiles '_f.stl ...']);
-    sm_car_crg_to_stl(...
-        [root_outfiles '_f.crg'],...
-        [root_outfiles '_f.stl'],0,'n');
-    disp('... finished');
-    % Move STL file down one level
+create_no_elevation = road_opts.create_no_elevation;
+if(create_no_elevation)
+    % Use dataset from road with elevation
+    road_f = road;
+    
+    % Set elevation and slope to 0
+    road_f.z = 0; % Overwrite previous data
+    road_f.z = zeros(length(x_ctr),4) ;   % Local road elevation deltas
+    road_f.s = zeros(1,length(x_ctr)-1); % Slope in percentage (0 to 1)
+    road_f.b = 0; % Banking
+    
+    %% Generate CRG file for road surface (no elevation)
+    crg_write(crg_single(road_f), [root_outfiles '_f.crg']);
+    
+    % Save key data to .mat file
+    dat = crg_read([root_outfiles '_f.crg']);
+    save([root_outfiles '_f_dat'],'dat');
+    movefile([root_outfiles '_f_dat.mat'],['..' filesep]);
+    
+    % Show CRG
+    % Commented out on purpose - produces many plots
+    % crg_show(dat);
+    
+    %% Generate STL file for road surface (no elevation)
+    if(create_stl_files_f)
+        disp(['Creating ' root_outfiles '_f.stl ...']);
+        sm_car_crg_to_stl(...
+            [root_outfiles '_f.crg'],...
+            [root_outfiles '_f.stl'],0,'n');
+        disp('... finished');
+        % Move STL file down one level
+        movefile(...
+            [root_outfiles '_f.stl'],['..' filesep])
+    end
+    % Move CRG file down one level
     movefile(...
-        [root_outfiles '_f.stl'],['..' filesep])
-end
-% Move CRG file down one level
-movefile(...
-    [root_outfiles '_f.crg'],['..' filesep])
-
-%% Use flat road data to create centerline for flat road
-centerline_f = road_f;
-centerline_f.v = 0.15; % Width of the centerline [m]
-
-%% Create CRG file for centerline (no elevation)
-crg_write(crg_single(centerline_f),...
-    [root_outfiles '_f_centerline.crg']);
-
-%% Write CRG file (for STL generation only)
-if(create_stl_files_f)
-    disp(['Creating ' root_outfiles '_f_centerline.stl ...']);
-    sm_car_crg_to_stl(...
-        [root_outfiles '_f_centerline.crg'],...
-        [root_outfiles '_f_centerline.stl'],0,'n');
-    disp('... finished');
-    % Move STL file down one level
+        [root_outfiles '_f.crg'],['..' filesep])
+    
+    %% Use flat road data to create centerline for flat road
+    centerline_f = road_f;
+    centerline_f.v = 0.15; % Width of the centerline [m]
+    
+    %% Create CRG file for centerline (no elevation)
+    crg_write(crg_single(centerline_f),...
+        [root_outfiles '_f_centerline.crg']);
+    
+    %% Write CRG file (for STL generation only)
+    if(create_stl_files_f)
+        disp(['Creating ' root_outfiles '_f_centerline.stl ...']);
+        sm_car_crg_to_stl(...
+            [root_outfiles '_f_centerline.crg'],...
+            [root_outfiles '_f_centerline.stl'],0,'n');
+        disp('... finished');
+        % Move STL file down one level
+        movefile(...
+            [root_outfiles '_f_centerline.stl'],['..' filesep])
+    end
+    
+    % Move CRG file down one level
     movefile(...
-        [root_outfiles '_f_centerline.stl'],['..' filesep])
+        [root_outfiles '_f_centerline.crg'],['..' filesep])
 end
-
-% Move CRG file down one level
-movefile(...
-    [root_outfiles '_f_centerline.crg'],['..' filesep])
-
-%% Create driver trajectory
-traj_coeff.blend_distance = 80;   % m
-traj_coeff.diff_exp       = 1.8;  % Curvature exponent
-traj_coeff.diff_smooth    = 50;   % Diff smoothing number of points
-traj_coeff.curv_smooth    = 100;  % Curvature smoothing number of points
-traj_coeff.lim_smooth     = 300;  % Limit smoothing number of points
-traj_coeff.target_shape_smooth = 100;  % Number of points for smoothing
-traj_coeff.vmax           = 15;   % Max speed, m/s
-traj_coeff.vmin           = 3;    % Min speed, m/s
-traj_coeff.decimation     = 8;    % Decimation for interpolation
-
-% Create driver trajectory for road with elevation
-sm_car_trajectory_calc(root_outfiles,traj_coeff)
-
-% Create driver trajectory for road with elevation
-sm_car_trajectory_calc([root_outfiles '_f'],traj_coeff)
