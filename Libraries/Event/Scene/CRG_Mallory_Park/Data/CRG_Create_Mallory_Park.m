@@ -7,6 +7,7 @@ function CRG_Create_Mallory_Park
 % Copyright 2020 The MathWorks, Inc.
 
 road_opts.create_stl_files = true;
+road_opts.create_no_elevation = true;
 road_opts.create_stl_files_f = true;
 road_opts.decim_data = 2;
 road_opts.decim_alti = 32;
@@ -19,6 +20,7 @@ road_opts.yb = 0;
 road_opts.za = 0.01;
 road_opts.zb = 0;
 road_opts.reverse = 0;
+road_opts.datasrc = 'gps';  % xyz or gps
 sm_car_centerline_to_crg('CRG Mallory Park',road_opts)
 
 %% Create driver trajectory 

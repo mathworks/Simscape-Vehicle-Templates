@@ -61,7 +61,7 @@ if(~isempty(hasTrajectory))
     logsout_xCar = logsout_VehBus.Values.World.x;
     logsout_yCar = logsout_VehBus.Values.World.y;
     
-    logsout_vx   = logsout_VehBus.Values.Body.vx;
+    logsout_vx   = logsout_VehBus.Values.Chassis.Body.CG.vx;
     logsout_aYaw = logsout_VehBus.Values.World.aYaw;
     logsout_xBody = [0;cumsum(sqrt((diff(logsout_xCar.Data)).^2+diff(logsout_yCar.Data).^2))];
     
