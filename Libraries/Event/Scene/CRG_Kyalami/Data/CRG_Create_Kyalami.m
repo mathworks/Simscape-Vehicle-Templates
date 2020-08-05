@@ -1,5 +1,5 @@
 function CRG_Create_Kyalami
-% CRG_Create_Mallory Park    Create CRG file from centerline data
+% CRG_Create_Kyalami    Create CRG file from centerline data
 %
 % Creates CRG file for track with and without elevation.
 % Creates STL files based on data in CRG file.
@@ -7,6 +7,7 @@ function CRG_Create_Kyalami
 % Copyright 2020 The MathWorks, Inc.
 
 road_opts.create_stl_files = true;
+road_opts.create_no_elevation = true;
 road_opts.create_stl_files_f = true;
 road_opts.decim_data = 2;
 road_opts.decim_alti = 2;
@@ -19,6 +20,7 @@ road_opts.yb = 0;
 road_opts.za = 0;
 road_opts.zb = 0;
 road_opts.reverse = 0;
+road_opts.datasrc = 'gps';  % xyz or gps
 sm_car_centerline_to_crg('CRG Kyalami',road_opts)
 
 %% Create driver trajectory 

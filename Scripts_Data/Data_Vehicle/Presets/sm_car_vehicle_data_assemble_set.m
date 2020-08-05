@@ -1196,6 +1196,62 @@ save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 
+%% Custom Configuration 39: Hamba double wishbone, Delft, fCVpCVr1D
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_140;
+
+hold_config = Vehicle.config;
+% Must use Delft Tire Software for RDF tests
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'Delft_CAD_213_40R21','front');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'steady','front');
+Vehicle = sm_car_vehcfg_setTireSlip(Vehicle,'combined','front');
+Vehicle = sm_car_vehcfg_setTireContact(Vehicle,'smooth','front');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'Delft_CAD_213_40R21','rear');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'steady','rear');
+Vehicle = sm_car_vehcfg_setTireSlip(Vehicle,'combined','rear');
+Vehicle = sm_car_vehcfg_setTireContact(Vehicle,'smooth','rear');
+% Put original config string back in Vehicle.config
+Vehicle.config = hold_config;
+Vehicle.config = strrep(Vehicle.config,'MFSwift','Delft');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')];
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
+%% Custom Configuration 40: Makhulu, Delft, fCVpCVr1D
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_146;
+
+% Save configuration - needed for post-processing
+hold_config = Vehicle.config;
+
+% Take driver and people out of bus so it goes straight
+% Modifies Vehicle.config
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0]);
+
+% Must use Delft Tire Software for RDF tests
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'Delft_CAD_270_70R22','front');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'steady','front');
+Vehicle = sm_car_vehcfg_setTireSlip(Vehicle,'combined','front');
+Vehicle = sm_car_vehcfg_setTireContact(Vehicle,'smooth','front');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'Delft_CAD_270_70R22','rear');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'steady','rear');
+Vehicle = sm_car_vehcfg_setTireSlip(Vehicle,'combined','rear');
+Vehicle = sm_car_vehcfg_setTireContact(Vehicle,'smooth','rear');
+
+% Put original config string back in Vehicle.config
+Vehicle.config = hold_config;
+Vehicle.config = strrep(Vehicle.config,'MFSwift','Delft');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')];
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
 %% Trailer Elula MFEval
 vehcfg_set = {
     'Aero',         'Trailer_Elula',      '';...

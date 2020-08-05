@@ -147,41 +147,47 @@ switch maneuver_str
         evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Sedan_HambaLG;');
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base','Driver = DDatabase.Straight_Constant_Speed.Sedan_HambaLG;');
-        set_param(modelname,'StopTime','30');
+        set_param(modelname,'StopTime','34');
         sm_car_config_road(modelname,'RDF Rough Road');
     case 'rdf rough road hamba'
         evalin('base','Init = IDatabase.RDF_Rough_Road.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Sedan_Hamba;');
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base','Driver = DDatabase.Straight_Constant_Speed.Sedan_Hamba;');
-        set_param(modelname,'StopTime','30');
+        set_param(modelname,'StopTime','34');
         sm_car_config_road(modelname,'RDF Rough Road');
     case 'rdf rough road makhulu'
         evalin('base','Init = IDatabase.RDF_Rough_Road.Bus_Makhulu;');
         evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Bus_Makhulu;');
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base','Driver = DDatabase.Straight_Constant_Speed.Bus_Makhulu;');
-        set_param(modelname,'StopTime','30');
+        set_param(modelname,'StopTime','34');
         sm_car_config_road(modelname,'RDF Rough Road');
         
-    case 'crg slope hambalg'
-        evalin('base','Init = IDatabase.CRG_Slope.Sedan_HambaLG;');
-        evalin('base','Maneuver = MDatabase.WOT_Braking.Sedan_HambaLG;');
-        set_param(drive_h,'popup_driver_type','Open Loop');
-        set_param(modelname,'StopTime','10'); % Stop at top of hill
-        sm_car_config_road(modelname,'CRG Slope')
-    case 'crg slope hamba'
-        evalin('base','Init = IDatabase.CRG_Slope.Sedan_Hamba;');
-        evalin('base','Maneuver = MDatabase.WOT_Braking.Sedan_Hamba;');
-        set_param(drive_h,'popup_driver_type','Open Loop');
-        set_param(modelname,'StopTime','10'); % Stop at top of hill
-        sm_car_config_road(modelname,'CRG Slope')
-    case 'crg slope makhulu'
-        evalin('base','Init = IDatabase.CRG_Slope.Bus_Makhulu;');
-        evalin('base','Maneuver = MDatabase.WOT_Braking.Bus_Makhulu;');
-        set_param(drive_h,'popup_driver_type','Open Loop');
-        set_param(modelname,'StopTime','10'); % Stop at top of hill
-        sm_car_config_road(modelname,'CRG Slope')
+    case 'rough road z only hambalg'
+        evalin('base','Init = IDatabase.RDF_Rough_Road.Sedan_HambaLG;');
+        evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Sedan_HambaLG;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.Straight_Constant_Speed.Sedan_HambaLG;');
+        set_param(modelname,'StopTime','34');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Rough_Road');
+        sm_car_config_road(modelname,'Rough Road Z Only');
+    case 'rough road z only hamba'
+        evalin('base','Init = IDatabase.RDF_Rough_Road.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Sedan_Hamba;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.Straight_Constant_Speed.Sedan_Hamba;');
+        set_param(modelname,'StopTime','34');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Rough_Road');
+        sm_car_config_road(modelname,'Rough Road Z Only');
+    case 'rough road z only makhulu'
+        evalin('base','Init = IDatabase.RDF_Rough_Road.Bus_Makhulu;');
+        evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Bus_Makhulu;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.Straight_Constant_Speed.Bus_Makhulu;');
+        set_param(modelname,'StopTime','34');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Rough_Road');
+        sm_car_config_road(modelname,'Rough Road Z Only');
         
     case 'rdf plateau hambalg'
         evalin('base','Init = IDatabase.RDF_Plateau.Sedan_HambaLG;');
@@ -201,6 +207,50 @@ switch maneuver_str
         set_param(drive_h,'popup_driver_type','Open Loop');
         set_param(modelname,'StopTime','30');
         sm_car_config_road(modelname,'RDF Plateau');
+        
+    case 'plateau z only hambalg'
+        evalin('base','Init = IDatabase.RDF_Plateau.Sedan_HambaLG;');
+        evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_HambaLG;');
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','30');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Plateau');
+        sm_car_config_road(modelname,'Plateau Z Only');
+    case 'plateau z only hamba'
+        evalin('base','Init = IDatabase.RDF_Plateau.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_Hamba;');
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','30');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Plateau');
+        sm_car_config_road(modelname,'Plateau Z Only');
+    case 'plateau z only makhulu'
+        evalin('base','Init = IDatabase.RDF_Plateau.Bus_Makhulu;');
+        evalin('base','Maneuver = MDatabase.Accel_NoBrake.Bus_Makhulu;');
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','30');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Plateau');
+        sm_car_config_road(modelname,'Plateau Z Only');
+        
+    case 'crg plateau hambalg'
+        evalin('base','Init = IDatabase.RDF_Plateau.Sedan_HambaLG;');
+        evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_HambaLG;');
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','30');
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Plateau);');
+        sm_car_config_road(modelname,'CRG Plateau');
+    case 'crg plateau hamba'
+        evalin('base','Init = IDatabase.RDF_Plateau.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_Hamba;');
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','30');
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Plateau);');
+        sm_car_config_road(modelname,'CRG Plateau');
+    case 'crg plateau makhulu'
+        evalin('base','Init = IDatabase.RDF_Plateau.Bus_Makhulu;');
+        evalin('base','Maneuver = MDatabase.Accel_NoBrake.Bus_Makhulu;');
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','30');
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Plateau);');
+        sm_car_config_road(modelname,'CRG Plateau');
         
     case 'double lane change hambalg'
         evalin('base','Init = IDatabase.Double_Lane_Change.Sedan_HambaLG;');

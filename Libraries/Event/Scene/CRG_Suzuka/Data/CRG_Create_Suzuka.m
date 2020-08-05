@@ -7,6 +7,7 @@ function CRG_Create_Suzuka
 % Copyright 2020 The MathWorks, Inc.
 
 road_opts.create_stl_files = true;
+road_opts.create_no_elevation = true;
 road_opts.create_stl_files_f = true;
 road_opts.decim_data = 1;
 road_opts.decim_alti = 1;
@@ -19,6 +20,7 @@ road_opts.yb = +0.3;
 road_opts.za = 1;
 road_opts.zb = 0;
 road_opts.reverse = 0;
+road_opts.datasrc = 'gps';  % xyz or gps
 sm_car_centerline_to_crg('CRG Suzuka',road_opts)
 
 %% Create driver trajectory 
