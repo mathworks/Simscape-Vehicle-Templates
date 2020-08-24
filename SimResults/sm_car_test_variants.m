@@ -340,10 +340,18 @@ trailer_set = {'none'};
 plotstr = 'sm_car_plot2whlspeed';
 sm_car_test_variants_testloop
 
-%% Test Set 11a -- Plateau Z Only, MFeval tires only
+%% Test Set 11a -- Plateau Z Only, MFeval, MF-Swift, Delft
 manv_set = {'Plateau Z Only'};
 solver_typ = {'variable step'};
-veh_set = [139 164];
+veh_set = [139 165 171];
+trailer_set = {'none'};
+plotstr = 'sm_car_plot2whlspeed';
+sm_car_test_variants_testloop
+
+%% Test Set 11b -- CRG Plateau, MF-Swift, Delft
+manv_set = {'CRG Plateau'};
+solver_typ = {'variable step'};
+veh_set = [165 171];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot2whlspeed';
 sm_car_test_variants_testloop
@@ -356,16 +364,16 @@ trailer_set = {'none'};
 plotstr = 'sm_car_plot5bodymeas';
 sm_car_test_variants_testloop
 
-%% Test Set 12a -- Z Only, MFeval tires only
+%% Test Set 12a -- Rough Road Z Only, MFeval tires only
 manv_set = {'Rough Road Z Only'};
 solver_typ = {'variable step'};
-veh_set = [139 164];
+veh_set = [139 165 171];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot5bodymeas';
 sm_car_test_variants_testloop
 
 %% Test Set 12 -- CRG Tests
-manv_set = {'CRG Mallory Park','CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity', 'CRG Kyalami','CRG Kyalami F','CRG Nurburgring N','CRG Nurburgring N F','CRG Suzuka','CRG Suzuka F','CRG Pikes Peak','CRG Pikes Peak Down','CRG Plateau'};
+manv_set = {'CRG Mallory Park','CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity', 'CRG Kyalami','CRG Kyalami F','CRG Nurburgring N','CRG Nurburgring N F','CRG Suzuka','CRG Suzuka F','CRG Pikes Peak','CRG Pikes Peak Down'};
 solver_typ = {'variable step'};
 veh_set = [170];
 trailer_set = {'none'};

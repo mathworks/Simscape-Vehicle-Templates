@@ -23,14 +23,14 @@ adjust the libraries so that variant can be selected.
 
 2. Explore the vehicle types and maneuvers from the UI 
 
-3. Modify parameter values in the â€œVehicleâ€? data structure in the MATLAB workspace.
+3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
 **v1.4 -- Aug 2020**
 
 1. Moved vehicle Body sensor to CG (Vehicle, Vehicle_1Axle). Affects VehBus
 2. Added sensors to passengers
-3. Added ability to specify road height based on wheel position for MFeval 
+3. Added ability to specify road height based on wheel position 
 4. Added events Plateau Z Only, Rough Road Z Only
 5. Added option to create CRG files based on x-y-z data
 6. Added event CRG Plateau

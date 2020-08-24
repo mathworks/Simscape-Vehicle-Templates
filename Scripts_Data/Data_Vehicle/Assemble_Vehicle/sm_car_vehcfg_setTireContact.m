@@ -43,14 +43,18 @@ if(strcmpi(tireType,'Delft'))
 elseif(strcmpi(tireType,'MFSwift'))
     switch tirecontact_opt
         case 'smooth',        contact_class = '(xx1xx) smooth road';
+        case 'moving',        contact_class = '(xx3xx) moving road';
         case 'enveloping',    contact_class = '(xx5xx) enveloping';
         otherwise
             contact_class = 'no contact model';
             warning('sm_car:Vehicle_Config:TireContact',...
                 ['Tire type ' tireType ' does not support contact option ' tirecontact_opt '.']);
     end
+elseif(strcmpi(tireType,'Testrig_Post'))
+    % No message - contact type is not relevant
+    contact_class = 'no contact model';
 else
-    % No contact model options for MFeval
+    % No contact model options for MFeval tire
     warning('sm_car:Vehicle_Config:TireContact',...
         ['Tire type ' tireType ' does not support contact option ' tirecontact_opt '.']);
     contact_class = 'no contact model';
