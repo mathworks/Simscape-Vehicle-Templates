@@ -30,7 +30,7 @@ adjust the libraries so that variant can be selected.
 
 1. Moved vehicle Body sensor to CG (Vehicle, Vehicle_1Axle). Affects VehBus
 2. Added sensors to passengers
-3. Added ability to specify road height based on wheel position for MFeval 
+3. Added ability to specify road height based on wheel position 
 4. Added events Plateau Z Only, Rough Road Z Only
 5. Added option to create CRG files based on x-y-z data
 6. Added event CRG Plateau
