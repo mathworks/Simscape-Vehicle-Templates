@@ -169,10 +169,10 @@ fprintf(fid,'%s\n','ROTATION_ANGLE_XY_PLANE =    0   $ definition of the positiv
 fprintf(fid,'%s\n','$');
 fprintf(fid,'%s   %s   %s   %s\n','$','X_road','Z_left','Z_right');
 fprintf(fid,'%s\n','(XZ_DATA)');
-fprintf(fid,'   %4.3f   %4.3f   %4.3f\n',-1e4,0,0);
+fprintf(fid,'   %4.4f   %4.4f   %4.4f\n',-1e4,0,0);
 for i=1:length(x)
-    fprintf(fid,'   %4.3f   %4.3f   %4.3f\n',x(i),zL(i),zR(i));
+    fprintf(fid,'   %4.4f   %4.4f   %4.4f\n',x(i),zL(i),zR(i));
 end
-fprintf(fid,'   %4.3f  %4.3f   %4.3f\n',1e4,0,0);
+fprintf(fid,'   %4.4f  %4.4f   %4.4f\n',1e4,0,0);
 fclose(fid);
 

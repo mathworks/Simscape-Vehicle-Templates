@@ -65,7 +65,11 @@ else
     tirClassFTr = Trailer.Chassis.TireF.class.Value;
     tr_diag_str = ['Trailer.Chassis.TireF.class.Value is ' tirClassFTr];
 end
+if(isfield(Vehicle.Chassis.TireF,'Contact'))
+    contactSetting = Vehicle.Chassis.TireF.Contact.Value;
+end
 
+tirecontact_opt = 'smooth';
 tireClasses = {tirClassF tirClassR tirClassFTr};
 
 % Do not permit trailer on 4 post testrig
@@ -95,24 +99,6 @@ switch lower(scenename)
         % No special commands
     case 'ice patch'
         set_param(mu_scaling_h,'muFL_in','0.4','muFR_in','0.4','muRL_in','0.4','muRR_in','0.4')
-    case 'crg slope'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
-            errordlg(error_str,'Wrong Tire Software')
-        end
-        
-        % Select CRG file for slope
-        roadFileF = 'which(''handmade_sloped.crg'')';
-        roadFileR = 'which(''handmade_sloped.crg'')';
-        
-        % Set stop time to stop at top of hill
-        set_param(modelname,'StopTime','10')
-        
     case 'crg kyalami'
         if(sum(contains(tireClasses,'MFEval')))
             error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
@@ -192,7 +178,7 @@ switch lower(scenename)
             roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
             roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
         end
-                
+        
     case 'crg pikes peak'
         if(sum(contains(tireClasses,'MFEval')))
             error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
@@ -231,7 +217,7 @@ switch lower(scenename)
             roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
             roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
         end
-                
+        
     case 'rdf rough road'
         if(sum(contains(tireClasses,'MFEval')+contains(tireClasses,'MFSwift')))
             error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
@@ -269,14 +255,15 @@ switch lower(scenename)
         set_param(modelname,'StopTime','30')
         
     case 'plateau z only'
-        if(sum(contains(tireClasses,'Delft')+contains(tireClasses,'MFSwift')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''MFEval''');
-            errordlg(error_str,'Wrong Tire Software')
+        if(sum(contains(tireClasses,'MFSwift')))
+            % Mask in Tire_MFSwift sets road type based on filename
+            % Must contain "external" to change to external road definition
+            roadFileF = 'which(''<External Road>'')';
+            roadFileR = 'which(''<External Road>'')';
+        end
+        if(sum(contains(tireClasses,'Delft')))
+            % Necessary to change contact method of Delft Tyre software
+            tirecontact_opt = 'moving'; 
         end
         
     case 'crg plateau'
@@ -295,14 +282,15 @@ switch lower(scenename)
         roadFileR = 'which(''CRG_Plateau.crg'')';
         
     case 'rough road z only'
-        if(sum(contains(tireClasses,'Delft')+contains(tireClasses,'MFSwift')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''MFEval''');
-            errordlg(error_str,'Wrong Tire Software')
+        if(sum(contains(tireClasses,'MFSwift')))
+            % Mask in Tire_MFSwift sets road type based on filename
+            % Must contain "external" to change to external road definition
+            roadFileF = 'which(''<External Road>'')';
+            roadFileR = 'which(''<External Road>'')';
+        end
+        if(sum(contains(tireClasses,'Delft')))
+            % Necessary to change contact method of Delft Tyre software
+            tirecontact_opt = 'moving'; 
         end
         
     case 'track mallory park'
@@ -366,6 +354,22 @@ end
 
 % Trailer, Front Axle
 Trailer.Chassis.TireF.roadFile.Value = roadFileF;
+
+if(~strcmpi(tirClassF,'mfeval'))
+    % Assumes front and rear have same tire model
+    % Contact setting necessary for Delft and MF-Swift software
+    temp_config = Vehicle.config;
+    Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,'front');
+    Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,'rear');
+    Vehicle.config = temp_config;
+end
+if(~strcmpi(trailer_type,'none') && ~strcmpi(tirClassFTr,'mfeval'))
+    % Contact setting necessary for Delft and MF-Swift software
+    % Only adjust if trailer is active
+    temp_config = Trailer.config;
+    Trailer = sm_car_vehcfg_setTireContact(Trailer,tirecontact_opt,'front');
+    Trailer.config = temp_config;
+end
 
 assignin('base','Vehicle',Vehicle);
 assignin('base','Trailer',Trailer);
