@@ -98,5 +98,5 @@ end
 evalin('base','sm_car_vehcfg_run');
 
 %% Open model
-sm_car
+%sm_car
 
