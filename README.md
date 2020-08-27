@@ -16,6 +16,8 @@ adjust the libraries so that variant can be selected.
 
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
+[![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
+
 ## **Getting Started**
 1. Open the project file sm\_car\_proj.prj 
    - The first time you open it, it takes 10 minutes to load all parameters for all variants from Excel.  
