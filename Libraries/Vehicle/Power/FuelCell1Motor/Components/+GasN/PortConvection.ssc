@@ -1,0 +1,74 @@
+component(Hidden=true) PortConvection
+% Port Convection (N gas)
+
+  nodes
+    A = GasN.GasN;                              % A:left
+  end
+  parameters
+    flow_area = {0.01, 'm^2'};
+    length_scale = {0.1, 'm'};
+  end
+  
+  variables(Access=public)   % (2*N + 3 variables)
+    % A port variables (2 vars)
+    mdot   = {0, 'kg/s'};            % Port A total mass flow
+    Phi   = {0, 'J/s' };            % Port A heat
+    
+    % Port species (N vars)
+    mdot_i = {[0;0;0;0], 'kg/s'};       % Port A mass flow
+    
+    % Species fractions (N vars)
+    x_i = {[1;0;0;0], '1'};   % Mass fractions for outflow
+    % Species fractions (1 vars)
+    ht_i  = {420, 'kJ/kg'}; % Mixture specific total enthalpy for outflow
+  end
+  
+  intermediates
+    % TODO: Figure these out and move them to the domain
+%     D_g = {30,  'mm^2/s'}; % Diffusivity
+    D_g = A.Dij;
+    rho_a_atm = {1.20412924943656, 'kg/m^3'   };
+    cp_a_atm  = {1.00611201935459, 'kJ/(kg*K)'};
+    k_a_atm   = {25.8738283029331, 'mW/(m*K)' };
+    
+    % Properties for inflow
+    p_in = A.p;
+    T_in = A.T;
+    x_in = A.x_i
+    
+    % Specific cp, cv and gas constant
+    R_i = A.R;
+    R_in = dot(x_in,R_i);
+    
+    % Specific enthalpy & total enthalpy for inflows
+    h_i = GasN.propTableVec1D(T_in, A.T_LUT, A.h);
+    h_in = dot(x_in,h_i);
+    ht_in = h_in + (R_in*T_in/p_in)*abs(R_in*T_in/p_in)*(mdot/flow_area)^2/2;
+    
+    
+    ht_out = ht_i;
+    x_out = x_i;
+    
+    % Thermal conduction parameter
+    % in terms of mixture specific enthalpy difference
+    G_th = k_a_atm / cp_a_atm * flow_area / length_scale;
+    
+    
+    % Trace gas diffusion parameter
+    % in terms of trace gas mass fraction difference
+    G_x = D_g * rho_a_atm * flow_area / length_scale;
+    
+    % Smoothing for full flux method (conduction + diffusion)
+    G_abs_th = sqrt(mdot^2 + 4*G_th^2);
+    G_abs_x = sqrt(mdot^2 + 4*G_x.^2);
+  end
+  equations
+    % Energy flow
+    Phi == (G_abs_th + mdot)/2*ht_in - (G_abs_th - mdot)/2*ht_out;  %(1
+    
+    mdot_i == (G_abs_x + mdot)/2.*x_in - (G_abs_x - mdot)/2.*x_out;    %(N+1
+    
+    
+  end
+
+end

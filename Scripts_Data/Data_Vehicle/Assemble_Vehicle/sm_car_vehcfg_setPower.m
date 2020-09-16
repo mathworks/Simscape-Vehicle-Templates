@@ -9,6 +9,7 @@ switch power_opt
     case 'Ideal2Motor_default',      instance = 'Ideal2Motor_default';
     case 'Electric2Motor_default',   instance = 'Electric2Motor_default';
     case 'Electric3Motor_default',   instance = 'Electric3Motor_default';
+    case 'FuelCell1Motor_default',   instance = 'FuelCell1Motor_default';
     case 'None',                     instance = 'None';
 end
 
@@ -31,6 +32,11 @@ Vehicle.Powertrain.Power = VDatabase.Power.(instance);
 if(isfield(Vehicle.Powertrain.Power,'Cooling') && ...
         ~strcmp(temp_cooling,'no data'))
     Vehicle.Powertrain.Power.Cooling = temp_cooling;
+end
+
+if(strcmp(power_opt,'FuelCell1Motor_default'))
+    Vehicle.Powertrain.Power.Cooling = VDatabase.Cooling.FuelCell1Motor_default;
+    Vehicle.Powertrain.Power.FuelCell = VDatabase.FuelCell.FuelCell1Motor_default;
 end
 
 % Modify config string to indicate configuration has been modified

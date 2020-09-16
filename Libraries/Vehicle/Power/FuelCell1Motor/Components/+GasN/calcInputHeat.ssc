@@ -1,0 +1,49 @@
+function Q = calcInputHeat(TIn, TOut, TTbl, hfgTbl, hTbl, mdot_i, isCond)
+% Compute the amount of heat transfer from species added through the signal
+% port of a block with volume.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+% Inputs:
+%  T       -- Temperature
+%  TTbl    -- Temp vector 
+%  hfgTbl  -- Heat of vaporization vector
+%  hTbl     -- Species enthalpy table
+%  mdot_i  -- Input mass flow rate
+%  isCond  -- Is injected species condensed?
+definitions
+
+  % Auto-generated heat of condensation calculation for species that can
+  % condense. For each one, we calc
+  % Look up hfg<m>
+  % compute condensation heat h<m>
+  % Assemble into output vector Q
+  T1 = if ge(mdot_i(1),0),  TIn; else TOut; end;
+  T2 = if ge(mdot_i(2),0),  TIn; else TOut; end;
+  T3 = if ge(mdot_i(3),0),  TIn; else TOut; end;
+  T4 = if ge(mdot_i(4),0),  TIn; else TOut; end;
+
+  hs1 = tablelookup(TTbl, hTbl(1,:), T1, interpolation=linear, extrapolation=linear);
+  hs2 = tablelookup(TTbl, hTbl(2,:), T2, interpolation=linear, extrapolation=linear);
+  hs3 = tablelookup(TTbl, hTbl(3,:), T3, interpolation=linear, extrapolation=linear);
+  hs4 = tablelookup(TTbl, hTbl(4,:), T4, interpolation=linear, extrapolation=linear);
+
+  hfg4 = tablelookup(TTbl, hfgTbl(4,:), T4, interpolation=linear, extrapolation=linear);
+
+  h1 = mdot_i(1)*hs1;
+  h2 = mdot_i(2)*hs2;
+  h3 = mdot_i(3)*hs3;
+  h4 = mdot_i(4)*(hs4 - isCond(4)*hfg4);
+
+  Q = sum([    h1;
+    h2;
+    h3;
+    h4;
+  ]);
+
+
+  
+end
+end

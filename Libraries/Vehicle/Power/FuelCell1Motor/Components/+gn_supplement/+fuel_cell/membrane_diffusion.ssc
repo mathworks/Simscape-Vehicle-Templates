@@ -1,0 +1,24 @@
+function D = membrane_diffusion(lambda, T)
+% Function to compute the effective diffusion coefficient in m^2/s for the 
+% membrane. This function is based on fits to FEA simulations.
+%
+%
+% See: Dutta, et.al., Numerical prediction of mass-exchange beteween 
+% cathode and anode channels in a PEM fuel cell. (Equation 18)
+%
+definitions
+%   let 
+    D_lambda = if lt(lambda, 2)
+      1e-10;
+    elseif lt(lambda, 3)
+      1e-10*(1 + 2*(lambda - 2));
+    elseif lt(lambda, 4.5)
+      1e-10*(3 - 1.167*(lambda - 3));
+    else
+      1.25e-10;
+    end
+%   in
+    D = {D_lambda, 'm^2/s'}*exp(2416*(1/303-1/value(T, 'K')))
+%   end
+end
+end

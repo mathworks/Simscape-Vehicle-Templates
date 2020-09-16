@@ -1,0 +1,218 @@
+component BasicCompressor
+% Basic Compressor (N Gas)
+% This block models a simplified compressor that uses power from a 
+% mechanical rotational network to drive flow in an N Gas network. The 
+% compressor map is approximated by empirical coefficients that control the
+% shape of the speed lines and scaled based on a known nominal operating 
+% condition. A positive rotation of port R relative to port C drives flow 
+% from port A to port B. Reversed flow behavior is not modeled.
+%
+% A, B - N Gas conserving ports associated with the compressor inlet
+% and outlet, respectively.
+%
+% R, C - Mechanical rotational conserving ports associated with the shaft
+% and casing, respectively.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/BasicCompressor.png';
+%end
+
+nodes
+  A = GasN.GasN; % A:left
+  B = GasN.GasN; % B:right
+  Rod = foundation.mechanical.rotational.rotational; % R:right
+  Case = foundation.mechanical.rotational.rotational; % C:left
+end
+
+parameters
+  pr_des         = 2.4;               % Design pressure ratio
+  mdot_corr_des  = {1, 'kg/s'};       % Design corrected mass flow rate
+  omega_corr_des = {1e4, 'rpm'};      % Design corrected shaft speed
+  p_ref          = {0.101325, 'MPa'}; % Reference pressure
+  T_ref          = {288.15, 'K'};     % Reference temperature
+  RH_ref         = 0;                 % Reference relative humidity
+  b1             = 1.5;               % Coefficient for curve through the bend of the speed lines
+  b2             = 0.7;               % Coefficient for spacing of speed lines
+  b3             = 0.08;              % Coefficient for sharpness of the bend of the speed lines
+  eta_poly       = 0.9;               % Polytropic efficiency
+  eta_mech       = 0.9;               % Mechanical efficiency
+  area_A         = {0.02, 'm^2'};     % Inlet flow area
+  area_B         = {0.01, 'm^2'};     % Outlet flow area
+end
+
+parameters (Access = private)
+  omega_corr_thres = {1, 'rpm'}; % Corrected shaft speed threshold near zero speed
+  omega_corr_scaled_thres = omega_corr_thres / omega_corr_des;
+end
+
+% Parameteric assertions
+equations
+  assert(pr_des > 1)
+  assert(mdot_corr_des > 0)
+  assert(omega_corr_des > 0)
+  assert(b1 > 0)
+  assert(b2 > 0)
+  assert(b3 > 0)
+  assert(eta_poly > 0)
+  assert(eta_poly <= 1)
+  assert(eta_mech > 0)
+  assert(eta_mech <= 1)
+  assert(area_A > 0)
+  assert(area_B > 0)
+end
+
+variables   % (2*N+7 vars -- including absolute temps below
+  mdot_A    = { 0.1, 'kg/s' };           % Total flow A
+  mdot_B    = { 0.1, 'kg/s' };           % Total flow B
+  Phi_A  = {0, 'J/s' };                    % Heat flow into port A
+  Phi_B  = {0, 'J/s' };                    % Heat flow into port B
+  mdot_A_i  = {[0;0;0;0], 'kg/s' };  % Mass flow through A
+  mdot_B_i  = {[0;0;0;0], 'kg/s' };  % Mass flow through B
+  torque = {1, 'N*m'};                  % Shaft torque
+end
+
+variables(Conversion=absolute, Access=protected)  % (2 vars
+  T_in = {293.15, 'K'};               % Inlet temperature 
+  T_out = {293.15, 'K'};              % Outlet temperature
+end
+
+branches
+  mdot_A : A.mdot -> *;                      % Positive into component
+  mdot_B : B.mdot -> *;
+  Phi_A : A.Phi -> *;          
+  Phi_B : B.Phi -> *;
+  mdot_A_i : A.mdot_i -> *;        
+  mdot_B_i : B.mdot_i -> *; 
+  torque   : Rod.t      -> Case.t;
+end
+intermediates
+  
+  % Port pressures
+  p_in = A.p;
+  p_out = B.p;
+  
+  % Mass fractions are constant
+  x_i = A.x_i;
+  
+  % Mixture gas constants
+  R = dot(x_i, A.R);
+  R_in = R;
+  R_out = R;
+  R_ref = R;               % TODO: Calc this for actual ref state
+  
+  
+  % Specific entropy at inlet and outlets
+  s_i_in = GasN.propTableVec1D(T_in, A.T_LUT, A.s);
+  s_in = dot(x_i, s_i_in);
+  s_i_out = GasN.propTableVec1D(T_out, A.T_LUT, A.s);
+  s_out = dot(x_i, s_i_out);
+  
+  % Specific enthalpy & total enthalpy for inflow and outflow
+  h_i_in = GasN.propTableVec1D(T_in, A.T_LUT, A.h);
+  h_in = dot(x_i, h_i_in);
+  ht_in = h_in + (R*T_in/p_in)*abs(R*T_in/p_in)*(mdot_A/area_A)^2/2;
+  
+  h_i_out = GasN.propTableVec1D(T_out, A.T_LUT, A.h);
+  h_out = dot(x_i, h_i_out);
+  ht_out = h_out + (R*T_out/p_out)*abs(R*T_out/p_out)*(mdot_B/area_B)^2/2;
+  
+  % Turbine pressure ratio
+  pr = if lt(p_out/p_in, 1), 1; else p_out/p_in; end;
+  
+  % Shaft speed
+  omega = Rod.w - Case.w;
+  
+  % Corrected to reference conditions
+  mdot_corr = mdot_A * sqrt((R_in *T_in)/(R_ref*T_ref)) / (p_in/p_ref);
+  omega_corr = omega / sqrt((R_out*T_in)/(R_ref*T_ref));
+  
+  % Scaled based on design conditions
+  pr_scaled = (pr - 1) / (pr_des - 1);
+  mdot_corr_scaled = mdot_corr / mdot_corr_des;
+  omega_corr_scaled = omega_corr / omega_corr_des;
+  
+  % Smoothed positive value of shaft speed
+  omega_thres_sqr = omega_corr_thres^2 * (R_in*T_in)/(R_ref*T_ref);
+  omega_pos = (omega + sqrt(omega^2 + omega_thres_sqr))/2;
+  
+  omega_pos_corr_scaled = (omega_corr_scaled + sqrt(omega_corr_scaled^2 + omega_corr_scaled_thres^2))/2;
+  
+  % Curve on compressor map along the bend of the speed lines
+  mdot_corr_scaled_bend = omega_pos_corr_scaled^b2;
+  pr_scaled_bend = mdot_corr_scaled_bend^b1;
+  
+  % Approximate model of compresser map based on curve fit coefficients b1, b2, b3
+  % NASA/CR 2010-216794 Vol. 2
+  mdot_corr_scaled_map = mdot_corr_scaled_bend + b3*(1 - exp((pr_scaled - pr_scaled_bend)/(2*b3*omega_pos_corr_scaled)));
+  
+  % Linearize scaled corrected mass flow rate near zero shaft speed
+  mdot_corr_scaled_linear = omega_corr_scaled * b2 * omega_corr_scaled_thres^(b2-1);
+  
+  % Ratio of scaled corrected mass flow rate to shaft speed when linearized near zero shaft speed
+  mdot_omega_corr_scaled_linear = b2 * omega_corr_scaled_thres^(b2-1);
+  
+  % Ratio of mass flow rate to shaft speed
+  mdot_omega_corr_linear = mdot_omega_corr_scaled_linear * mdot_corr_des / omega_corr_des;
+  mdot_omega_linear = mdot_omega_corr_linear * (p_in/p_ref) / ((R_in*T_in)/(R_ref*T_ref));
+  
+  % Smooth transition for ratio of mass flow rate to shaft speed near zero shaft speed
+  mdot_omega = simscape.function.blend(mdot_omega_linear, mdot_A/omega_pos, ...
+    0, omega_corr_scaled_thres, omega_corr_scaled);
+  
+  
+end
+% For logging
+intermediates (Access = private)
+  fluid_power      = mdot_A * (ht_out - ht_in); % Shaft power
+  mechanical_power = torque * omega;            % Power added to moist air flow
+end
+equations
+  % Smooth transition for scaled corrected mass flow rate near zero shaft speed
+  mdot_corr_scaled == simscape.function.blend(mdot_corr_scaled_linear, mdot_corr_scaled_map, 0, omega_corr_scaled_thres, omega_corr_scaled);
+  
+  % Polytropic process for compressor
+  (s_out - s_in)*eta_poly == R_in*log(pr);
+  
+  % Mixture specific total enthalpy for outflow
+  ht_out == port_B.ht_i;
+  
+  % Mechanical power balance
+  eta_mech * torque == mdot_omega * (ht_out - ht_in);
+  
+  % Mass balance
+  mdot_A   + mdot_B   == 0;
+  mdot_A_i + mdot_B_i == 0;
+  
+  
+  % Energy balance
+  Phi_A + Phi_B + fluid_power == 0;
+end
+
+components(ExternalAccess=observe)
+  port_A = GasN.PortConvection(flow_area=area_A, length_scale=sqrt(4*area_A/pi));
+  port_B = GasN.PortConvection(flow_area=area_B, length_scale=sqrt(4*area_B/pi));
+end
+connections
+  connect(A, port_A.A);    % (N+1 equations solved 2*N+3 added
+  connect(B, port_B.A);    % (N+1 equations solved 2*N+3 added
+end
+equations
+  port_A.mdot   == mdot_A;                          %(N+5
+  port_A.Phi   == Phi_A;                                %(N+6
+  port_A.mdot_i == mdot_A_i;                        %(2*N+6
+  port_B.mdot   == mdot_B;                          %(2*N+7
+  port_B.Phi   == Phi_B;                                %(2*N+8
+  port_B.mdot_i == mdot_B_i;                        %(3*N+8
+  
+  port_A.ht_i == port_B.ht_i;                %(3*N+9
+  port_A.x_i  == port_B.x_i;                 %(4*N+9
+  
+end
+
+
+
+end

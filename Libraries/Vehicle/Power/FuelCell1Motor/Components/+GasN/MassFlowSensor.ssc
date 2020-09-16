@@ -1,0 +1,51 @@
+component MassFlowSensor
+% Mass Flow Rate Sensor (N Gas)
+% This block measures mass and energy flow rates in an N Gas multi-species
+% network. The sensor is ideal and does not affect the pressure, 
+% temperature, or species fractions across the sensor.
+%
+%  M [kg/s], Phi [W], and M_i [kg/s] report the mixture mass flow rate, 
+% mixture energy flow rate, and species mass flow rates, respectively, 
+% through the sensor. The positive flow direction is from port A to port B.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/MassFlowSensor.png';
+%end
+
+outputs
+  M = {0, 'kg/s'};             % M:right
+  Phi_out = {0, 'W'};              % Phi:right
+  M_i = {[0;0;0;0], 'kg/s'};   % M_i:right
+end
+nodes
+  A = GasN.GasN; % A:left
+  B = GasN.GasN; % B:right
+end
+variables(Access = protected, ExternalAccess = none)
+  mdot = {0, 'kg/s'}; 
+  Phi = {0, 'W'};
+  mdot_i = {[0;0;0;0], 'kg/s'}; 
+end
+branches
+  mdot : A.mdot -> B.mdot;
+  Phi : A.Phi -> B.Phi;
+  mdot_i : A.mdot_i -> B.mdot_i;
+end
+
+equations
+  % Ideal sensor -- no effects on potential variables
+  A.p == B.p;
+  A.T == B.T;
+  A.x_i == B.x_i;
+  
+  % Total mass flow, energy flow and species mass flows.
+  M == mdot;
+  Phi_out == Phi;
+  M_i == mdot_i;
+  
+end
+end

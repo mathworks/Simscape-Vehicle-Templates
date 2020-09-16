@@ -28,6 +28,15 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v1.5 -- Aug 2020**
+1. Added power Fuel Cell 1 Motor
+2. Added Control data structure with control parameters
+3. Added driveline FDiff for front wheel drive
+4. Added ssc_car_FuelCell1Motor
+5. Added Drive Cycle FTP75, Driver Drive Cycle
+6. Consistent parameterization for all electric motor powertrains
+7. Fixed bug in import of 2D tables from Excel (were flipped up/down) 
+
 **v1.4 -- Aug 2020**
 
 1. Moved vehicle Body sensor to CG (Vehicle, Vehicle_1Axle). Affects VehBus

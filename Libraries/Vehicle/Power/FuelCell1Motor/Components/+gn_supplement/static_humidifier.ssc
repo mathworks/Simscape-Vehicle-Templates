@@ -1,0 +1,50 @@
+component static_humidifier
+% Static Humidifier  
+% This block computes and adds make-up water to ensure the attached pipe 
+% block has an internal relative humidity set by the input. The block is
+% purely behavioral and is intended to be used to estimate the size of a
+% physical humidifier. The inputs are the desired humidity and the measured 
+% humidity. The output is the mass of water to be added. There is a single 
+% parameter which indicates the proportionality constant for the rate of
+% addition of the water.
+
+%
+% E. McGarrity
+% Rev 1
+% 29 JAN 2020
+  
+  inputs 
+    Rh_des = {0.5, '1'};
+  end
+  nodes
+    A = GasN.GasN;
+  end
+  outputs
+    m_add = {0, 'kg/s'};
+  end
+  parameters
+    Kp = {0.5, 'kg/s'};     % Rate constant
+  end
+  
+  intermediates
+    p = A.p;
+    T = A.T;
+    x_i = A.x_i;
+    
+    x_A_4 = x_i(4);
+    y_A_4 = x_A_4/A.M(4)/sum(x_i./A.M);
+    pSat = tablelookup(A.T_LUT, A.pSat(4,:), T, interpolation=linear, extrapolation=linear);
+    
+    Rh_calc = p*y_A_4/pSat;
+    h_diff = if ge(Rh_des-Rh_calc, 0), Rh_des-Rh_calc; else 0; end;
+  end
+  equations
+    m_add == Kp*h_diff;
+  end
+  
+end
+
+  
+
+
+   

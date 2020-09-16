@@ -31,6 +31,7 @@ maneuver_list = {...
     'RDF Rough Road',        'RDR';
     'Plateau Z Only',        'ZPL';
     'Rough Road Z Only',     'ZRR';
+    'Drive Cycle FTP75',     'DCA';
     };
 
 
@@ -379,6 +380,23 @@ veh_set = [170];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
+
+%% Test Set 13 -- Drive Cycle FTP75
+manv_set = {'Drive Cycle FTP75'};
+solver_typ = {'variable step'};
+veh_set = [173 165];
+trailer_set = {'none'};
+plotstr = 'sm_car_plot1speed';
+sm_car_test_variants_testloop
+
+%% Test Set 14 -- CRG Plateau Fuel Cell
+manv_set = {'CRG Plateau'};
+solver_typ = {'variable step'};
+veh_set = [173];
+trailer_set = {'none'};
+plotstr = 'sm_car_plot2whlspeed';
+sm_car_test_variants_testloop
+
 
 %% Process results
 res_out_titles = {'Run' 'Preset' 'Body' 'SuspF' 'Tire' 'TirDyn' 'Drv' 'Trail' 'Mane' 'Solv' '# Steps' 'Time' 'xFinal' 'yFinal' 'Figure'  'Pass'};

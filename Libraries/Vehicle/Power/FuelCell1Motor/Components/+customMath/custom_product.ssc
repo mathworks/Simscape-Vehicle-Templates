@@ -1,0 +1,24 @@
+component custom_product
+% PS Custom Product :0.75
+% This block multiplies signals of the two inputs:
+%
+% y = u_1 * u_2
+%
+% All connections are physical signal ports.
+
+% Copyright 2020 The MathWorks, Inc.
+
+  inputs
+    I1 = { 0, '1' }; % :left
+    I2 = { 0, '1' }; % :left
+  end
+
+  outputs
+    O = { 0, '1' }; % :right
+  end
+  
+  equations
+    O == I1 * I2;
+  end
+
+end

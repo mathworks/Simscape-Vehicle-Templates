@@ -1,0 +1,166 @@
+component FlowResistance
+% Flow Resistance (N Gas) :1.5:
+% This block represents a generic pressure loss in a multi-species gas
+% network. The drop in pressure is proportional to the square of the mass
+% flow rate. The proportionality constant is determined from the specified
+% nominal condition.
+%
+% A, B - N Gas conserving ports associated with the inlet and outlet.
+% 
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/FlowResistance.png';
+%end
+inputs
+  Cmd = {1, '1'};  % Cmd:left
+end
+nodes
+  A = GasN.GasN; % A:left
+  B = GasN.GasN; % B:right
+end
+
+parameters
+  var_res = false;                     % Variable resistance
+  delta_p_nominal  = {0.001, 'MPa'   }; % Nominal pressure drop
+  mdot_nominal     = {0.1,   'kg/s'  }; % Nominal mass flow rate
+  rho_nominal      = {0,     'kg/m^3'}; % Nominal mixture density
+  laminar_fraction = {1e-3,  '1'     }; % Fraction of nominal mass flow rate for laminar flow
+  area = {0.01, 'm^2'};
+  leak_thresh      = {1e-5,  '1'     }; % Leakage threshold value
+end
+
+if var_res == true
+  annotations
+    Cmd : ExternalAccess = modify;
+  end
+else
+  annotations
+    Cmd : ExternalAccess = none;
+  end
+end
+
+
+% Parametric assertions
+equations
+  assert(delta_p_nominal >= 0, 'Delta P must be non-negative.');
+  assert(mdot_nominal >= 0, 'Nominal mass flow rate must be non-negative.');
+  assert(rho_nominal >= 0, 'Nominal density must be non-negative.');
+  assert(laminar_fraction > 0 && laminar_fraction < 1, 'Laminar fraction should be between 0 and 1.');
+  assert(area > 0);
+  assert(leak_thresh > 0)
+end
+
+parameters (Access=private)
+  mdot_lam = laminar_fraction * mdot_nominal; % Mass flow rate threshold for laminar flow
+  K1 = delta_p_nominal * rho_nominal / mdot_nominal^2; % Pressure drop constant including density dependence
+  K2 = delta_p_nominal / mdot_nominal^2; % Pressure drop constant
+end
+
+variables(Access=protected)   % (2*N+5 vars -- including absolute temp below
+  mdot_A    = { 0.1, 'kg/s' };              % Total flow A
+  mdot_B    = { 0.1, 'kg/s' };              % Total flow B
+  Phi_A  = {0, 'J/s' };                    % Heat flow into port A
+  Phi_B  = {0, 'J/s' };                    % Heat flow into port B
+  mdot_A_i  = {[0;0;0;0], 'kg/s' };            % Mass flow through A
+  mdot_B_i  = {[0;0;0;0], 'kg/s' };            % Mass flow through B
+end
+
+variables(Conversion=absolute, Access=protected, ExternalAccess=none) 
+  T_in = {293.15, 'K'}; 
+end
+
+branches
+  mdot_A : A.mdot -> *;                      % Positive into component
+  mdot_B : B.mdot -> *;
+  Phi_A : A.Phi -> *;          
+  Phi_B : B.Phi -> *;
+  mdot_A_i : A.mdot_i -> *;        
+  mdot_B_i : B.mdot_i -> *;     
+end
+intermediates(Access = private, ExternalAccess = none)
+   % Port pressures
+    p_A = A.p;                              
+    p_B = B.p;                              
+
+    % Mass fractions at the ports
+    x_i = port_A.x_i;
+    
+    % Specific cp, cv and gas constant
+%     cp_i = GasN.propTableVec1D(T_in, A.T_LUT, A.cp);
+%     cp = dot(x_i,cp_i);
+    R = dot(x_i, A.R);
+
+    
+    % Specific enthalpy & total enthalpy for inflows
+    h_i_in = GasN.propTableVec1D(T_in, A.T_LUT, A.h);
+    h_in = dot(x_i, h_i_in);
+    ht_in = h_in + (R*T_in/p_in)*abs(R*T_in/p_in)*(mdot_A/area)^2/2;
+    
+    ht_out = port_A.ht_i;
+    
+    % Smooth transition for inlet pressure
+    p_in = simscape.function.blend(p_B, p_A, -mdot_lam, mdot_lam, mdot_A);
+    
+    
+    % Ensure command is between 0 and 1
+    CmdX = if var_res == false || Cmd > 1
+      1;
+    elseif Cmd < leak_thresh
+      1/leak_thresh;
+    else
+      1/Cmd;
+    end
+    
+end
+
+equations
+  
+    % Pressure drop relation
+    if rho_nominal > 0                                             %(1
+      p_A - p_B == CmdX * K1 * mdot_A * sqrt(mdot_A^2 + mdot_lam^2)*R*T_in/p_in;
+    else
+      p_A - p_B == CmdX * K2 * mdot_A * sqrt(mdot_A^2 + mdot_lam^2);
+    end
+    
+    % Adiabatic constraint
+    ht_in == ht_out;                                               %(2
+    
+    % Mass flow & species conservation
+    mdot_A + mdot_B == 0;                                          %(3
+    mdot_A_i + mdot_B_i == 0;                                      %(N+3
+    
+    % Energy conservation
+    Phi_A + Phi_B == 0;                                            %(N+4    
+
+    % Run-time variable checks
+    assert(A.p >= A.p_min, 'Pressure at port A must be above p_min.');
+    assert(A.T >= A.T_min, 'Temperature at port A must be above T_min.');
+    assert(B.p >= A.p_min, 'Pressure at port B must be above p_min.');
+    assert(B.T >= A.T_min, 'Temperature at port B must be above T_min.');
+
+end
+
+components(ExternalAccess=observe)
+  port_A = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+  port_B = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+end
+connections
+  connect(A, port_A.A);    % (N+1 equations solved 2*N+3 added
+  connect(B, port_B.A);    % (N+1 equations solved 2*N+3 added
+end
+equations
+  port_A.mdot   == mdot_A;                          %(N+5
+  port_A.Phi   == Phi_A;                                %(N+6
+  port_A.mdot_i == mdot_A_i;                        %(2*N+6
+  port_B.mdot   == mdot_B;                          %(2*N+7
+  port_B.Phi   == Phi_B;                                %(2*N+8
+  port_B.mdot_i == mdot_B_i;                        %(3*N+8
+  
+  port_A.ht_i == port_B.ht_i;                %(3*N+9
+  port_A.x_i  == port_B.x_i;                 %(4*N+9
+  
+end
+end
