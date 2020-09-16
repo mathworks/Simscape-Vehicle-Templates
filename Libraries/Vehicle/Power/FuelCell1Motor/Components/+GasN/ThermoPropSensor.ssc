@@ -1,0 +1,58 @@
+component ThermoPropSensor
+% Thermodynamic Properties Sensor (N Gas) 
+% This block provides measurements for the thermodynamic fluid states at
+% the attached N Gas multi-species node. The sensor is ideal, so there is
+% is no mass or energy flow through it.
+%
+% The outpus report h [J/kg], rho [kg/m^3], cp [J/(kg*K)] and s [J/(kg*K)] 
+% report the mixture specific enthalpy, mixture density, mixture specific 
+% heat at constant pressure, and mixture specific entropy, respectively, 
+% measured at port A.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/ThermoPropSensor.png';
+%end
+outputs
+    % Mixture specific enthalpy
+    H   = {420e3, 'J/kg'    }; % h:right
+    % Mixture density
+    RHO = {1.2,   'kg/m^3'  }; % rho:right
+    % Mixture specific heat
+    CP  = {1e3,   'J/(kg*K)'}; % cp:right
+    %     % Mixture specific entropy  
+    S   = {1e3,   'J/(kg*K)'}; % s:right
+end
+nodes
+  A = GasN.GasN; % A:left
+end
+intermediates
+  
+  % Specific enthalpy
+  h_i = GasN.propTableVec1D(A.T, A.T_LUT, A.h);
+  h = dot(A.x_i,h_i);
+  
+  % Mass averaged thermal properties for mixture
+  cp_i = GasN.propTableVec1D(A.T, A.T_LUT, A.cp);
+  cp = dot(A.x_i,cp_i);
+  R_i = A.R;
+  R = dot(A.x_i,R_i);
+  s_i = GasN.propTableVec1D(A.T, A.T_LUT, A.s);
+  s = dot(A.x_i, s_i);
+  
+  % Density
+  rho = A.p/(R*A.T);
+  
+  
+end
+  
+equations
+  H == h;
+  CP == cp;
+  RHO == rho;
+  S == s;
+end
+end

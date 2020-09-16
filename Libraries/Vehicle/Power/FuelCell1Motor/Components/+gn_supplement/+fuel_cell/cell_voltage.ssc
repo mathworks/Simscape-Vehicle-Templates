@@ -1,0 +1,207 @@
+component cell_voltage
+    % Fuel Cell Voltage Model
+    %
+    % Copyright 2020 The MathWorks, Inc.
+
+    nodes
+        H = foundation.thermal.thermal;   %H:left
+    end
+    outputs
+        mdot_w = {0, 'kg/s'};             %mH20:left
+    end
+    nodes
+        A = GasN.GasN;   % A:left
+    end
+    outputs
+        % Mass transport & temperature outputs
+        mdot_an = {[0; 0; 0; 0], 'kg/s'};  % M_a:left
+        T_an = {300, 'K'};                 % T_a:left
+    end
+    
+    nodes
+        % Electrical ports
+        p = foundation.electrical.electrical; % p:right
+        n = foundation.electrical.electrical; % n:right
+        C = GasN.GasN;   % C:right
+    end
+    
+    outputs
+        mdot_ca = {[0; 0; 0; 0], 'kg/s'};  % M_c:right
+        T_ca = {300, 'K'};                 % T_c:right
+    end
+    
+    %{
+annotations
+  [T_an, mdot_an, A] : Side = left;
+  [mdot_w, T_ca, mdot_ca, C] : Side = right;
+  [p,n] : Side = top;
+  H : Side = bottom;
+end
+    %}
+    parameters
+        Ncell = {1, '1'};              % Number of cells
+        Acell = {280, 'cm^2'};         % Fuel cell area
+        tcell = {0.01275, 'cm'};       % Membrane thickness
+        io = {exp(-5.4), 'A/cm^2'};    % Exchange current density
+        iL = {1.4, 'A/cm^2'};          % Max current density
+        alpha = {0.5, '1'};            % Transfer coefficient
+        rho_m = {0.002, 'kg/cm^3'};    % Membrane dry density
+        M_m = {1.1, 'kg/mol'};         % Membrane dry weight
+    end
+    parameters(Access = private)
+        R = {8.314462, 'J/K/mol'};     % Gas constant
+        F = {96485.332, 'C/mol'};      % Faraday constant
+        Gf_w = {-237180, 'J/mol'};     % Gibbs energy of water
+        HHV_H2 = {286000, 'J/mol'};    % Higher heating value of hydrogen
+        
+        % Get molar masses from domain
+        MWO2 =  C.M(2);                % Oxygen
+        MWH2 =  C.M(3);                % Hydrogen
+        MWH2O = C.M(4);                % Water
+    end
+    variables(Access=protected)
+        Vcell = -Gf_w/(2*F);           % Cell voltage
+        Icell = {0, 'A'};              % Cell current
+        O2Rxn = {0, 'kg/s'};           % Oxygen consumed in reaction
+        H2Rxn = {0, 'kg/s'};           % Hydrogen consumed in reaction
+        H2ORxn = {0, 'kg/s'};          % Water produced in reaction
+        HeatRxn = {0, 'W'};            % Heat generated in reaction
+        T_stack = {353.15, 'K'};
+    end
+    
+    branches
+        Icell: n.i -> p.i;             % Current pass-through
+    end
+    
+    intermediates
+        % Current density
+        i = Icell/Acell;
+        
+        % Mixture specific gas constants for the anode and cathode
+        RAavg = dot(A.x_i, A.R);
+        RCavg = dot(C.x_i, C.R);
+        
+        %y_init = m_init./A.M/sum(m_init./A.M);
+        % Anode hydrogen partial pressure (in atm)
+        yH2 = A.x_i(3)/A.M(3)/sum(A.x_i./A.M);
+        pH2 = value(A.p*yH2, 'atm');
+        
+        % Cathode oxygen partial pressures and water saturation pressure (in atm)
+        yO2 = C.x_i(2)/C.M(2)/sum(C.x_i./C.M);
+        pO2  = value(C.p*yO2, 'atm');
+        pSatH2O = tablelookup(C.T_LUT, C.pSat(4,:), T_stack, ...
+            interpolation=linear, extrapolation=linear); % Pa-->atm
+        pH2O = value(pSatH2O, 'atm');
+        
+        % Nernst voltage
+        Enernst = -Gf_w/(2*F)+ R*T_stack/(2*F)*log((pH2 * pO2^0.5)/pH2O);
+        
+        % Tafel equation prefactor
+        b = R*T_stack/(2*alpha*F);
+        
+        %Vact = if i >= io
+        Vact = if ge(i,io)
+            b*log(i/io);
+        else
+            0;
+        end
+        
+        % Cell averaged conductivity
+        sigma = {(0.005139*lambdaM-0.00326)...
+            * exp({1268, 'K'}*(1/{303.15, 'K'}-1/T_stack)), 'A/V/cm'};
+        
+        
+        % Cell resistance
+        Rohm = tcell/max(sigma,{0.125, 'A/V/cm'});
+        
+        % Resistive voltage drop
+        Vohmic = i*Rohm;
+        
+        fac = 1-i/iL;
+        Vconc = if fac > 0
+            -R*T_stack/(2*F)*log(fac);
+        else
+            0;
+        end
+        
+        % Relative humidities at the anode, cathode and average. This is the
+        % same as the water activity for our calcs.
+        pSatA = tablelookup(A.T_LUT, A.pSat(4,:), A.T, ...
+            interpolation=linear, extrapolation=linear);
+        pSatC = tablelookup(C.T_LUT, C.pSat(4,:), C.T, ...
+            interpolation=linear, extrapolation=linear);
+        RhA = A.p*AnSense.y_i(4)/pSatA;
+        RhC = C.p*CaSense.y_i(4)/pSatC;
+        RhM = (RhA+RhC)/2;
+        
+        % Water content at anode, cathode and average
+        lambdaA = gn_supplement.fuel_cell.membrane_water(RhA);
+        lambdaC = gn_supplement.fuel_cell.membrane_water(RhC);
+        lambdaM = gn_supplement.fuel_cell.membrane_water(RhM);
+        
+        % Water diffusion coefficient (using average membrane content)
+        D = gn_supplement.fuel_cell.membrane_diffusion(lambdaM, T_stack);
+        
+        % Water concentrations at anode and cathode surfaces
+        CwA = rho_m/M_m*lambdaA;
+        CwC = rho_m/M_m*lambdaC;
+        
+        % Electro-osmotic drag coefficient for the water
+        nDrag = 0.0029*lambdaM^2 + 0.05*lambdaM - 3.4e-19;
+        
+        % Diffusion term for the water
+        nDiff = D*(CwC - CwA)/tcell
+        
+        % Total water transfer in mol/s
+        nWater = nDrag*i/F - nDiff;
+        
+        % Vtheory is HHV(25 degC) - cost of creating water vapor from liquid water
+        % Water latent heat J/kg
+        % TODO: Account for stream temperatures
+        hw0 = tablelookup(C.T_LUT, C.hfg(4,:), {293.15, 'K'}, ...
+            interpolation=linear, extrapolation=linear);
+        
+        Vtheory = Ncell*(HHV_H2 - hw0*MWH2O)/(2*F);
+    end
+    equations
+        Vcell == p.v - n.v;
+        Vcell == Ncell*(Enernst - Vact - Vohmic - Vconc);
+        mdot_w == Ncell*nWater*MWH2O*Acell;
+        
+        % Reaction equations
+        H2ORxn == MWH2O*i*Acell*Ncell/(2*F);
+        O2Rxn  == -MWO2*i*Acell*Ncell/(4*F);
+        H2Rxn  == -MWH2*i*Acell*Ncell/(2*F);
+        
+        % Heat generated
+        HeatRxn == (Vtheory - Vcell)*i*Acell;
+        HFlow.S == HeatRxn;
+        
+    end
+    components(ExternalAccess=none)
+        AnSense=GasN.SpeciesFracs();
+        CaSense=GasN.SpeciesFracs();
+        
+        HFlow = foundation.thermal.sources.controlled_heat_flow;
+        HGnd = foundation.thermal.elements.reference;
+    end
+    equations
+        % Species temperatures
+        T_an == T_stack;
+        T_ca == T_stack;
+        T_stack == H.T;
+        
+        % Transport water for anode
+        mdot_an == [0; 0; H2Rxn; -mdot_w];
+        
+        % Transport water + water produced at cathode
+        mdot_ca == [0; O2Rxn; 0; mdot_w+H2ORxn];
+    end
+    
+    connections
+        connect(A,AnSense.A);
+        connect(C,CaSense.A);
+        connect(H, HFlow.B);
+        connect(HGnd.H, HFlow.A);
+    end
+end

@@ -1,0 +1,180 @@
+component Reservoir
+% Reservoir (N gas)
+% This block sets constant boundary conditions in an N Gas multi-species 
+% network. The volume inside the reservoir is assumed to be infinite. 
+% The gas mixture leaves the reservoir at the designated pressure, 
+% temperature and species fractions (mass or molar). Gas enters the 
+% reservoir at the reservoir pressure, but the temperature and composition
+% are determined by the moist air network upstream.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/Reservoir.png';
+%end
+
+nodes
+  A = GasN.GasN;                        % A
+end
+inputs
+  % Temperature,  pressure and mass/mole fracs
+  TIn = {293.15, 'K' };     % TIn
+  pIn = {101325, 'Pa'};     % pIn
+  xIn = {[0;0;0;0], '1'};   % xIn
+  yIn = {[0;0;0;0], '1'};   % yIn
+end
+
+%annotations
+%  A : Side = top;
+%  [TIn,pIn,xIn,yIn] : Side = bottom;
+%end
+
+parameters 
+  p0 = {101325, 'Pa'};           % Reservoir pressure
+  T0 = {293.15, 'K'};            % Reservoir temperature
+  constCond = true;              % Constant conditions
+  comp = GasN.composition_enum.mole;  % Composition 
+  y0   = {[1;0;0;0], '1'};    % Mole fractions
+  x0   = {[1;0;0;0], '1'};    % Mass fractions
+  area = {0.01, 'm^2'};            % Port cross-sectional area
+end
+
+% Parametric assertions
+equations
+  assert(p0 > 0, 'Reservoir pressure must be positive');
+  assert(T0 > 0, 'Reservoir temperature must be positive');
+  assert(all(y0 >= 0 & y0 <= 1), 'Initial species 1 mole fractions must be between 0 and 1.');
+  assert(abs(1-sum(y0)) < 1e-6, 'Initial mole fractions must sum to 1.') 
+  assert(all(x0 >= 0 & x0 <= 1), 'Initial species 1 mole fractions must be between 0 and 1.');
+  assert(abs(1-sum(x0)) < 1e-6, 'Initial mole fractions must sum to 1.') 
+  assert(area > 0);
+end
+
+if constCond == true
+  % Turn off the control ports
+  annotations
+    [TIn,pIn,xIn,yIn] : ExternalAccess = none;
+    [T0, p0] : ExternalAccess = modify;
+  end
+  
+  % Choose composition type and edit the mask to reflect the changes.
+  if comp == GasN.composition_enum.mass
+    annotations
+      y0 : ExternalAccess = none;
+      x0 : ExternalAccess = modify;
+    end
+    parameters(Access=private)
+      % Calc mole fracs
+      x_init = x0;
+    end
+  else % comp == GasN.composition_enum.mole
+    annotations
+      x0 : ExternalAccess = none;
+      y0 : ExternalAccess = modify;
+    end
+    parameters(Access=private)
+      x_init = y0.*A.M/sum(y0.*A.M);
+    end
+  end
+else
+  % Turn ports on and dialog boxes off
+  annotations
+    [TIn,pIn] : ExternalAccess = modify;
+    [T0, p0, x0, y0] : ExternalAccess = none;
+  end
+  % Turn on composition port based on mass/mole fractions
+  if comp == GasN.composition_enum.mass
+    annotations
+      xIn : ExternalAccess = modify;
+      yIn : ExternalAccess = none;
+    end
+  else
+    annotations
+      xIn : ExternalAccess = none;
+      yIn : ExternalAccess = modify;
+    end
+  end
+end
+
+
+variables(Access=protected)  %(2*N+4 vars
+  % Pressure, temperature and flow (2 vars)
+  p_I = {value = p0, priority = priority.high};       % Pressure
+  T_I     = {value = T0, priority = priority.high};   % Temperature
+  
+  % A port variables (N+2 vars)
+  mdot_A   = {0, 'kg/s'};                   % Port A total mass flow
+  mdot_A_i = {[0;0;0;0], 'kg/s'};       % Port A mass flow
+  Phi_A   = {0, 'W' };                        % Port A heat 
+  
+  % Mass fractions (N vars)
+  x_I_i = {[1;0;0;0], '1'};   % Mass fractions
+
+end
+
+branches
+  mdot_A   : A.mdot -> *;                     % Positive into chamber
+  mdot_A_i : A.mdot_i -> *;
+  Phi_A   : A.Phi -> *;
+end
+intermediates
+  % Mass averaged thermal properties for mixture
+  R_i = A.R;
+  R = dot(x_I_i,R_i);
+  
+  % Chamber enthalpy
+  h_I_i = GasN.propTableVec1D(T_I, A.T_LUT, A.h);
+  h_I = dot(x_I_i,h_I_i); 
+end
+
+if constCond == true           %(N
+  equations
+    x_I_i == x_init;                     
+  end
+else
+  if comp == GasN.composition_enum.mass
+    equations
+      x_I_i == xIn;
+    end
+  else
+    equations
+      x_I_i == yIn.*A.M/sum(yIn.*A.M);
+    end
+  end
+end
+if constCond == true
+  intermediates
+    T_set = T0;
+    p_set = p0;
+  end
+else
+  intermediates
+    T_set = TIn;
+    p_set = pIn;
+  end
+end
+equations
+  % Port pressure
+  A.p == p_set;                    %(N+1
+  T_I == T_set;                    %(N+2
+  p_I == p_set;                    %(N+3
+  
+  % Connect the ports
+  port_A.mdot == mdot_A;                                      %(N+4
+  port_A.Phi == Phi_A;                                            %(N+5
+  port_A.mdot_i == mdot_A_i;                                  %(2*N+5
+  port_A.ht_i == h_I + (R*T_set/p_set)*abs(R*T_set/p_set)*(mdot_A/area)^2/2;  %(2*N+6
+  port_A.x_i == x_I_i;                                         %(3*N+6
+  
+end
+
+components(ExternalAccess=observe)
+  port_A = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+end
+connections
+  connect(A, port_A.A);   %(4*N+7
+end
+
+end

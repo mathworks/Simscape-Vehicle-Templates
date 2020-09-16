@@ -1,0 +1,276 @@
+component VolumetricFlowSource
+% Volumetric Flow Rate Source (N Gas) :2.0:fixed
+% This block represents an ideal mechanical energy source in an N Gas 
+% multi-species network that maintains a commanded (constant or 
+% time-varying, depending on the mask pull-down) volumetric flow rate at 
+% its outlet regardless of the pressure differential. There is no flow 
+% resistance and no heat exchange with the environment. A positive mixture 
+% volumetric flow rate causes gas to flow from port A to port B.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/VolumetricFlowSource.png';
+%end
+
+inputs
+  V = {0, 'm^3/s'}; %V
+end
+nodes
+  A = GasN.GasN; % A
+  B = GasN.GasN; % B
+end
+%annotations
+%  [V,A] : Side = left;
+%  B : Side = right;
+%end
+
+parameters
+  volumetric_flow_conditions = foundation.enum.volumetric_flow_conditions.actual % Measurements conditions
+  %                                                                              1 - Actual conditions
+  %                                                                              2 - Standard conditions
+end
+
+parameters (ExternalAccess = none)
+  p_std  = {0.101325, 'MPa' }; % Standard pressure
+  T_std  = {20,       'degC'}; % Standard temperature
+  comp = GasN.composition_enum.mole;   % Composition 
+  x_std = {[1;0;0;0], '1'};    % Standard mass fraction composition
+  y_std = {[1;0;0;0], '1'};    % Standard mole fraction composition
+end
+parameters
+  const_flow = false;         % Constant flow rate
+  flow_rate = {0, 'm^3/s'};    % Flow rate
+  power_spec = foundation.enum.power_spec.none; % Power added
+  %                                                     1 - isentropic
+  %                                                     0 - none
+  area_A = {0.01, 'm^2'}; % Cross-sectional area at port A
+  area_B = {0.01, 'm^2'}; % Cross-sectional area at port B
+end
+
+% Parametric assertions
+equations
+  assert(area_A > 0);
+  assert(area_B > 0);
+end
+if const_flow == false;
+  annotations
+    V : ExternalAccess = modify;
+    flow_rate : ExternalAccess = none;
+  end
+else
+  annotations
+    V : ExternalAccess = none;
+    flow_rate : ExternalAccess = modify;
+  end
+end
+
+variables   % (2*N+4 vars
+  mdot_A    = { 0.1, 'kg/s' };              % Total flow A
+  mdot_B    = { 0.1, 'kg/s' };              % Total flow B
+  Phi_A  = {0, 'J/s' };                    % Heat flow into port A
+  Phi_B  = {0, 'J/s' };                    % Heat flow into port B
+  mdot_A_i  = {[0;0;0;0], 'kg/s' };            % Mass flow through A
+  mdot_B_i  = {[0;0;0;0], 'kg/s' };            % Mass flow through B
+end
+variables (Access = private, ExternalAccess = none)
+  mdot = {0.1, 'kg/s'};
+  T_out_A = {300, 'K'}; % Temperature for outflow at port A
+  T_out_B = {300, 'K'}; % Temperature for outflow at port B
+end
+
+branches
+  mdot_A : A.mdot -> *;                      % Positive into component
+  mdot_B : B.mdot -> *;
+  Phi_A : A.Phi -> *;          
+  Phi_B : B.Phi -> *;
+  mdot_A_i : A.mdot_i -> *;        
+  mdot_B_i : B.mdot_i -> *;     
+end
+
+if volumetric_flow_conditions == foundation.enum.volumetric_flow_conditions.actual
+  annotations
+    [p_std, T_std, comp, x_std, y_std] : ExternalAccess = none;
+  end
+  equations
+    let
+      R = dot(A.x_i,A.R);
+      rho = A.p / R / A.T;
+    in
+      V * rho == mdot;
+    end
+  end
+else % volumetric_flow_conditions == foundation.enum.volumetric_flow_conditions.standard
+  
+  annotations
+    [p_std, T_std, comp] : ExternalAccess = modify;
+  end
+  if comp == GasN.composition_enum.mole
+    annotations
+      x_std : ExternalAccess = none;
+      y_std : ExternalAccess = modify;
+    end
+    parameters(Access=private)
+      % Calc mole fracs
+      x_init = x_std;
+    end
+  else
+    annotations
+      x_std : ExternalAccess = modify;
+      y_std : ExternalAccess = none;
+    end
+    parameters(Access=private)
+      % Use provided mole fracs
+      x_init = y_std.*A.M/sum(y_std.*A.M);
+    end
+  end
+  
+  
+  parameters (Access = private)
+%     p_ws_ratio_std = p_std/tablelookup(A.T_LUT, A.pSat, T_std, interpolation=linear, extrapolation=nearest);
+    x_std_i = x_init;                                % Standard water vapor mass fraction
+    R_std = dot(x_std_i,A.R)                         % Standard mixture gas constant
+    rho_std = p_std / (R_std * T_std);               % Standard mixture density
+  end
+  equations
+    % Parameter checks
+%     assert(p_std >= A.p_min)
+%     assert(p_std <= A.p_max)
+%     assert(T_std >= A.T_min)
+%     assert(T_std <= A.T_max)
+%     assert(RH_std >= 0)
+%     assert(RH_std <= p_ws_ratio_std)
+    
+    % Measured mixture volumetric flow rate
+    V * rho_std == mdot;
+  end
+end
+
+if power_spec == foundation.enum.power_spec.isentropic
+  
+  variables (Access = private, ExternalAccess = none)
+    T_in_A  = {300, 'K'}; % Temperature for inflow at port A
+    T_in_B  = {300, 'K'}; % Temperature for inflow at port B
+  end
+  
+
+  intermediates (Access = private, ExternalAccess = none)
+    
+    x_i = A.x_i;
+    R = dot(x_i, A.R);
+    
+    
+    % Specific enthalpy for in/out flows on both sides of the A & B ports
+    h_in_A_i = GasN.propTableVec1D(T_in_A, A.T_LUT, A.h);
+    h_in_A = dot(x_i, h_in_A_i);
+    ht_in_A = h_in_A + (R*T_in_A/A.p)*abs(R*T_in_A/A.p)*(mdot_A/area_A)^2/2;
+    
+    h_out_A_i = GasN.propTableVec1D(T_out_A, A.T_LUT, A.h);
+    h_out_A = dot(x_i, h_out_A_i);
+    ht_out_A = h_out_A + (R*T_out_A/A.p)*abs(R*T_out_A/A.p)*(mdot_A/area_A)^2/2;
+    
+    h_in_B_i = GasN.propTableVec1D(T_in_B, A.T_LUT, A.h);
+    h_in_B = dot(x_i, h_in_B_i);
+    ht_in_B = h_in_B + (R*T_in_B/B.p)*abs(R*T_in_B/B.p)*(mdot_B/area_B)^2/2;
+    
+    h_out_B_i = GasN.propTableVec1D(T_out_B, A.T_LUT, A.h);
+    h_out_B = dot(x_i, h_out_B_i);
+    ht_out_B = h_out_B + (R*T_out_B/B.p)*abs(R*T_out_B/B.p)*(mdot_B/area_B)^2/2;
+    
+    
+    % Specific heat for in/out flows on both sides of the A & B ports
+    cp_in_A_i = GasN.propTableVec1D(T_in_A, A.T_LUT, A.cp);
+    cp_in_A = dot(x_i, cp_in_A_i);
+    cp_out_A_i = GasN.propTableVec1D(T_out_A, A.T_LUT, A.cp);
+    cp_out_A = dot(x_i, cp_out_A_i);
+    
+    cp_in_B_i = GasN.propTableVec1D(T_in_B, A.T_LUT, A.cp);
+    cp_in_B = dot(x_i, cp_in_B_i);
+    cp_out_B_i = GasN.propTableVec1D(T_out_B, A.T_LUT, A.cp);
+    cp_out_B = dot(x_i, cp_out_B_i);
+    
+    % Log temperature and pressure for isentropic relation
+    % cp*log(T2/T1) - R*log(p2/p1) == 0
+    Rlogp_A = R*log(value(A.p, 'Pa'));
+    Rlogp_B = R*log(value(B.p, 'Pa'));
+    logT_in_A = log(value(T_in_A, 'K'));
+    logT_out_A = log(value(T_out_A, 'K'));
+    logT_in_B = log(value(T_in_B, 'K'));
+    logT_out_B = log(value(T_out_B, 'K'));
+  end
+  
+  
+  % For logging
+  intermediates (Access = private)
+    power = if ge(rate, 0), mdot_A*(ht_out_B - ht_in_A) else mdot_B*(ht_out_A - ht_in_B) end; % Power added to the flow
+  end
+  
+  equations
+    % Isentropic relation between inflow and outflow
+    cp_out_B*logT_out_B + Rlogp_A - cp_in_A*logT_in_A - Rlogp_B == 0;
+    cp_out_A*logT_out_A + Rlogp_B - cp_in_B*logT_in_B - Rlogp_A == 0;
+        
+  end
+  
+else % power_spec == foundation.enum.power_spec.none
+  
+  
+  intermediates
+    h_out_A_i = GasN.propTableVec1D(T_out_A, A.T_LUT, A.h);
+    h_out_A = dot(A.x_i,h_out_A_i);
+    h_out_B_i = GasN.propTableVec1D(T_out_B, A.T_LUT, A.h);
+    h_out_B = dot(B.x_i,h_out_B_i);
+    
+    R = dot(A.x_i,A.R);
+    
+    ht_out_A = h_out_A + (R*T_out_A/A.p)*abs(R*T_out_A/A.p)*(mdot_A/area_A)^2/2;
+    ht_out_B = h_out_B + (R*T_out_B/B.p)*abs(R*T_out_B/B.p)*(mdot_B/area_B)^2/2;
+    
+    power = {0, 'kW'}; % Power added to the flow
+  end
+end
+
+intermediates(Access=private, ExternalAccess=none)
+  rate = if const_flow, flow_rate; else V; end
+end
+
+equations
+  
+  % Commanded flow rate
+  mdot_A == mdot;
+  
+  % Mass & energy balance
+  mdot_A + mdot_B == 0;
+  mdot_A_i + mdot_B_i == 0;
+  
+  Phi_A + Phi_B + power == 0;
+  
+  % Set port flow values
+  ht_out_A == portA.ht_i;
+  ht_out_B == portB.ht_i;
+  
+end
+components(ExternalAccess=observe)
+  portA = GasN.PortConvection(flow_area=area_A, length_scale=sqrt(4*area_A/pi));
+  portB = GasN.PortConvection(flow_area=area_B, length_scale=sqrt(4*area_B/pi));
+end
+connections
+  connect(A, portA.A);             %(Add 2*N+3, remove N+1
+  connect(B, portB.A);             %(Add 2*N+3, remove N+1
+end
+equations
+  portA.mdot   == mdot_A;          %(N+4
+  portA.Phi   == Phi_A;                %(N+5
+  portA.mdot_i == mdot_A_i;        %(2*N+5
+  portB.mdot   == mdot_B;          %(2*N+6
+  portB.Phi   == Phi_B;                %(2*N+7
+  portB.mdot_i == mdot_B_i;        %(3*N+7
+  
+  portA.ht_i == portB.ht_i;       %(3*N+8
+  portA.x_i  == portB.x_i;        %(4*N+8
+  
+end
+
+end

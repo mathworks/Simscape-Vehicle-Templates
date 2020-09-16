@@ -1,0 +1,30 @@
+function pressure_loss = calcPipeFriction(mdot, rho, mu, ...
+    area, Dh, effective_length, relative_roughness, Re_lam, Re_tur, shape_factor)
+% Pipe Wall Friction (MA)
+% This function returns the pressure loss due to viscous friction with the
+% pipe wall.
+
+% Copyright 2020 The MathWorks, Inc.
+
+definitions
+    % Absolute value of mass flow rate
+    mdot_abs = if ge(mdot, 0), mdot else -mdot end;
+    
+    % Reynolds number
+    Re_abs = (mdot_abs * Dh) / (area * mu);
+    
+    % Turbulent pipe flow Darcy friction factor using the Haaland correlation
+    Re_abs_limited = if ge(Re_abs, 1), Re_abs else 1 end;
+    friction_factor = 1 / (-1.8 * log10(6.9/Re_abs_limited + (relative_roughness/3.7)^1.11))^2;
+    
+    % Laminar regime viscous friction
+    friction_lam = mdot * mu * shape_factor * effective_length / (2 * rho * Dh^2 * area);
+    
+    % Turbulent regime viscous friction
+    friction_tur = mdot * mdot_abs * friction_factor * effective_length / (2 * rho * Dh * area^2);
+    
+    % Pressure loss due to viscous friction
+    pressure_loss = simscape.function.blend(friction_lam, friction_tur, Re_lam, Re_tur, Re_abs);
+end
+
+end

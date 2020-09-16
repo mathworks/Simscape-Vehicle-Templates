@@ -1,0 +1,118 @@
+component VolumetricFlowSensor
+% Volumetric Flow Rate Sensor (N Gas) :2.0:fixed
+% This block measures volumetric flow rate in an N Gas multi-species 
+% network. The sensor is ideal so there are no losses or changes in 
+% pressure, temperature or species composition across the sensor.
+%
+% The physical signal port V [m^3/s] reports the mixture volumetric flow 
+% rate through the sensor. The positive flow direction is from port A to 
+% port B.
+% 
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/VolumeFlowSensor.png';
+%end
+outputs
+  V = {0, 'm^3/s'};             % V:right
+end
+nodes
+  A = GasN.GasN; % A:left
+  B = GasN.GasN; % B:right
+end
+parameters
+  volumetric_flow_conditions = foundation.enum.volumetric_flow_conditions.actual % Measurements conditions
+  %                                                                              1 - Actual conditions
+  %                                                                              2 - Standard conditions
+end
+parameters (ExternalAccess = none)
+  p_std  = {0.101325, 'MPa' };    % Standard pressure
+  T_std  = {20,       'degC'};    % Standard temperature
+  comp = GasN.composition_enum.mole;   % Composition 
+  x_std = {[1;0;0;0], '1'};    % Standard mass fraction composition
+  y_std = {[1;0;0;0], '1'};    % Standard mole fraction composition
+end
+variables(Access = protected, ExternalAccess = none)
+  mdot = {0, 'kg/s'}; 
+  Phi = {0, 'W'};
+  mdot_i = {[0;0;0;0], 'kg/s'}; 
+end
+branches
+  mdot : A.mdot -> B.mdot;
+  Phi : A.Phi -> B.Phi;
+  mdot_i : A.mdot_i -> B.mdot_i;
+end
+
+if volumetric_flow_conditions == foundation.enum.volumetric_flow_conditions.actual
+  annotations
+    [p_std, T_std, comp, x_std, y_std] : ExternalAccess = none;
+  end
+  equations
+    let
+      R = dot(A.x_i,A.R);
+      rho = A.p / R / A.T;
+    in
+      V * rho == mdot;
+    end
+  end
+else % volumetric_flow_conditions == foundation.enum.volumetric_flow_conditions.standard
+  
+  annotations
+    [p_std, T_std, comp] : ExternalAccess = modify;
+  end
+  if comp == GasN.composition_enum.mole
+    annotations
+      x_std : ExternalAccess = none;
+      y_std : ExternalAccess = modify;
+    end
+    parameters(Access=private)
+      % Calc mole fracs
+      x_init = x_std;
+    end
+  else
+    annotations
+      x_std : ExternalAccess = modify;
+      y_std : ExternalAccess = none;
+    end
+    parameters(Access=private)
+      % Use provided mole fracs
+      x_init = y_std.*A.M/sum(y_std.*A.M);
+    end
+  end
+  
+  
+  parameters (Access = private)
+%     p_ws_ratio_std = p_std/tablelookup(A.T_LUT, A.pSat, T_std, interpolation=linear, extrapolation=nearest);
+    x_std_i = x_init;                                % Standard water vapor mass fraction
+    R_std = dot(x_std_i,A.R)                         % Standard mixture gas constant
+    rho_std = p_std / (R_std * T_std);               % Standard mixture density
+  end
+  
+  equations
+    % Parameter checks
+    assert(p_std >= A.p_min)
+%     assert(p_std <= A.p_max)
+    assert(T_std >= A.T_min)
+%     assert(T_std <= A.T_max)
+
+    
+    % Measured mixture volumetric flow rate
+    V * rho_std == mdot;
+  end
+  
+end
+  
+
+equations
+  % Ideal sensor -- no effects on potential variables
+  A.p == B.p;
+  A.T == B.T;
+  A.x_i == B.x_i;
+  
+  
+  
+  
+end
+end

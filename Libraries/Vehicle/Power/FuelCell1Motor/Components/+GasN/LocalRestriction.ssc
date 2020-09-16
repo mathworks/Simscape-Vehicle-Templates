@@ -1,0 +1,249 @@
+component LocalRestriction
+% Local Restriction (N Gas) :1.5:
+% This block models the pressure loss due to a flow area restriction such 
+% as a valve or an orifice in an N Gas multi-species network. There is no 
+% heat exchange with the environment. Choked flow occurs when the 
+% restriction reaches sonic condition.
+%
+% This block can model either a constant area or variable area restriction
+% depending on the selection in the Constant area pull-down.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/LocalRestriction.png';
+%end
+inputs
+  AIn = {0.001, 'm^2'};    % AR
+end
+nodes
+  A = GasN.GasN; % A
+  B = GasN.GasN; % B
+end
+%annotations
+%  [A, AIn] : Side = left;
+%  B : Side = right;
+%end
+
+parameters
+  const_area = false;                  % Constant area
+  restriction_area = {0.001, 'm^2'}; % Restriction area
+  min_area         = {1e-10, 'm^2'}; % Minimum restriction area
+  max_area         = {0.005, 'm^2'}; % Maximum restriction area
+end
+if const_area == false
+  annotations
+    AIn : ExternalAccess = modify;
+    restriction_area : ExternalAccess = none;
+  end
+else
+  annotations
+    AIn : ExternalAccess = none;
+    restriction_area : ExternalAccess = modify;
+  end
+end
+
+parameters
+  area  = {0.01, 'm^2'}; % Cross-sectional area at ports A and B
+  Cd    = 0.64;          % Discharge coefficient
+  B_lam = 0.999;         % Laminar flow pressure ratio
+end
+
+parameters (Access = private)
+  choked_tol = 0.05; % Tolerance on choked pressure for smooth transition to choked flow
+end
+% Parametric assertions
+equations
+  assert(min_area > 0);
+  assert(max_area >= min_area);
+  assert(max_area < area);
+  assert(area > 0);
+  assert(Cd > 0);
+  assert(B_lam < 1);
+  assert(choked_tol > 0);
+  assert(choked_tol < 1);
+end
+
+variables(Access=protected)   % (2*N+5 vars -- including absolute temp below
+  mdot_A    = { 0.1, 'kg/s' };              % Total flow A
+  mdot_B    = { 0.1, 'kg/s' };              % Total flow B
+  Phi_A  = {0, 'J/s' };                    % Heat flow into port A
+  Phi_B  = {0, 'J/s' };                    % Heat flow into port B
+  mdot_A_i  = {[0;0;0;0], 'kg/s' };            % Mass flow through A
+  mdot_B_i  = {[0;0;0;0], 'kg/s' };            % Mass flow through B
+  p_R = {101325, 'Pa'};
+  T_R = {293.15, 'K'};
+end
+
+variables(Conversion=absolute, Access=protected, ExternalAccess=none)  % (1 vars
+  T_A = {293.15, 'K'}; 
+  T_B = {293.15, 'K'}; 
+end
+branches
+  mdot_A : A.mdot -> *;                      % Positive into component
+  mdot_B : B.mdot -> *;
+  Phi_A : A.Phi -> *;          
+  Phi_B : B.Phi -> *;
+  mdot_A_i : A.mdot_i -> *;        
+  mdot_B_i : B.mdot_i -> *;     
+end  
+intermediates(Access=private, ExternalAccess=none)
+
+  
+  % Port pressures
+  p_A = A.p;
+  p_B = B.p;
+  
+  % Port mass fractions
+  x_i = portA.x_i;
+  
+  % Gas constant
+  R = dot(x_i, A.R);
+  
+  % Specific enthalpies at ports and the restriction
+  hA_i = GasN.propTableVec1D(T_A, A.T_LUT, A.h);
+  hA = dot(x_i,hA_i);
+  hB_i = GasN.propTableVec1D(T_B, A.T_LUT, A.h);
+  hB = dot(x_i,hB_i);
+  hR_i = GasN.propTableVec1D(T_R, A.T_LUT, A.h);
+  hR = dot(x_i,hR_i);
+  
+  % Cp at the restriction
+  cpR_i = GasN.propTableVec1D(T_R, A.T_LUT, A.cp);
+  cpR = dot(x_i,cpR_i);
+  
+  % Threshold for laminar regime
+  pAvg = (p_A + p_B)/2;
+  Dp_threshold = pAvg * (1 - B_lam);
+
+  % Density at the restriction
+  rhoR = p_R/(R*T_R);
+  
+  % Density ratio
+  rho_ratio_RA = (p_R/p_A)*(T_A/T_R);
+  rho_ratio_RB = (p_R/p_B)*(T_B/T_R);
+  
+  % Constant vs controlled area
+  Ares = if const_area
+    restriction_area;
+  else
+    simscape.function.limit(AIn, min_area, max_area, false); % Restriction area
+  end
+  
+  % Area ratio
+  area_ratio = Ares/area;
+  
+  % Loss coefficient for turbulent flow between ports A and B
+    % Based on combined momentum balance for flow area contraction between inlet and restriction
+    % and sudden flow area expansion between restriction and outlet
+    K_tur_AB = (1 + area_ratio)*(1 - rho_ratio_RA*area_ratio) - 2*area_ratio*(1 - rho_ratio_RB*area_ratio);
+    K_tur_BA = (1 + area_ratio)*(1 - rho_ratio_RB*area_ratio) - 2*area_ratio*(1 - rho_ratio_RA*area_ratio);
+
+    % Loss coefficient for laminar flow
+    % Assumes average density
+    K_lam = (1 - area_ratio)^2;
+
+    % Pressure drop times loss coefficient
+    K_dp_tur_AB = (p_A - p_B) * if ge(K_tur_AB, K_lam), K_tur_AB else K_lam end;
+    K_dp_tur_BA = (p_B - p_A) * if ge(K_tur_BA, K_lam), K_tur_BA else K_lam end;
+    K_dp_lam = Dp_threshold * K_lam;
+
+    % Smoothed transition between laminar and turbulent regimes
+    K_dp = ...
+      if gt(p_A, p_B), ...
+        simscape.function.blend(K_dp_lam, K_dp_tur_AB, 0, Dp_threshold, p_A - p_B) ...
+      elseif lt(p_A, p_B), ...
+        simscape.function.blend(K_dp_lam, K_dp_tur_BA, 0, Dp_threshold, p_B - p_A) ...
+      else ...
+        K_dp_lam ...
+      end;
+    
+    % Mass flow rate if flow is not choked
+    mdot_unchoked = Cd * (p_A - p_B) * Ares * abs(2*rhoR/K_dp)^0.5;
+    
+    % Mass flow rate if flow is choked
+    % Assume speed of sound at the restriction
+    gammaR = cpR/(cpR - R);
+    mdot_choked = Cd * Ares * abs(p_R^2 * gammaR/R/T_R)^0.5;
+    
+    % Pressure drop between from inlet to restriction
+    % Based on momentum balance for flow area contraction
+    Dp_in_R = ...
+      if gt(mdot_A, 0), ...
+        (mdot_A/Cd/Ares)^2/2/rhoR * (1 + area_ratio) * (1 - rho_ratio_RA*area_ratio) ...
+      elseif lt(mdot_A, 0), ...
+        (mdot_A/Cd/Ares)^2/2/rhoR * (1 + area_ratio) * (1 - rho_ratio_RB*area_ratio) ...
+      else ...
+        0 ...
+      end;
+    
+    % Inlet pressure
+    p_in = simscape.function.blend(p_B, p_A, -Dp_threshold, Dp_threshold, p_A - p_B);
+
+    
+    
+end
+% For logging
+intermediates (Access = private)
+    Mach = if ge(mdot_A, 0), mdot_A/mdot_choked else -mdot_A/mdot_choked end; % Mach number at the restriction
+end
+
+equations
+  % Smoothly limit mass flow rate at choked flow
+  if ge(mdot_unchoked, 0)
+    mdot_A == simscape.function.blend(mdot_unchoked, mdot_choked, ...
+      (1-choked_tol)*mdot_choked, mdot_choked, mdot_unchoked);
+  else
+    mdot_A == simscape.function.blend(mdot_unchoked, -mdot_choked, ...
+      (1-choked_tol)*mdot_choked, mdot_choked, -mdot_unchoked);
+  end
+  
+  % Pressure at the restriction
+  p_R == p_in - Dp_in_R;
+  
+  % Mass balance
+  mdot_A   + mdot_B   == 0;
+  mdot_A_i + mdot_B_i == 0;
+  
+  
+  % Energy balance
+  Phi_A + Phi_B == 0;
+  
+  % Mixture specific total enthalpy (adiabatic process)
+  portA.ht_i == hA + (R*T_A/p_A)*abs(R*T_A/p_A)*(mdot_A/Cd/area)^2/2;
+  portA.ht_i == hB + (R*T_B/p_B)*abs(R*T_B/p_B)*(mdot_A/Cd/area)^2/2;
+  portA.ht_i == hR + (R*T_R/p_R)*abs(R*T_R/p_R)*(mdot_A/Cd/Ares)^2/2;
+
+  % Run-time variable checks
+  assert(A.p >= A.p_min, 'Pressure at port A must be above p_min.');
+  assert(A.T >= A.T_min, 'Temperature at port A must be above T_min.');
+  assert(B.p >= A.p_min, 'Pressure at port B must be above p_min.');
+  assert(B.T >= A.T_min, 'Temperature at port B must be above T_min.');
+
+  
+end
+
+components(ExternalAccess=observe)
+  portA = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+  portB = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+end
+connections
+  connect(A, portA.A);    % (N+1 equations solved 2*N+3 added
+  connect(B, portB.A);    % (N+1 equations solved 2*N+3 added
+end
+equations
+  portA.mdot   == mdot_A;                          %(N+5
+  portA.Phi   == Phi_A;                                %(N+6
+  portA.mdot_i == mdot_A_i;                        %(2*N+6
+  portB.mdot   == mdot_B;                          %(2*N+7
+  portB.Phi   == Phi_B;                                %(2*N+8
+  portB.mdot_i == mdot_B_i;                        %(3*N+8
+  
+  portA.ht_i == portB.ht_i;                %(3*N+9
+  portA.x_i  == portB.x_i;                 %(4*N+9
+  
+end
+
+end

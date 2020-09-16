@@ -1,0 +1,43 @@
+function [Q_conv, Re] = calcPipeConvection(mdot, T_in, T_wall, mu, k, Pr, ...
+    area, Dh, surface_area, relative_roughness, Re_lam, Re_tur, Nu_lam)
+% Pipe Wall Heat Transfer (MA)
+% This function returns the rate of convective heat transfer with the pipe
+% wall.
+
+% Copyright 2020 The MathWorks, Inc.
+
+definitions
+    % Reynolds number
+    Re = (mdot * Dh) / (area * mu);
+    Re_abs = if ge(Re, 0), Re else -Re end;
+    
+    % Protect correlations
+    Re_abs_limited = if gt(Re_abs, 1000), Re_abs else 1000 end;
+    Pr_limited = if gt(Pr, 0.5), Pr else 0.5 end;
+    
+    % Turbulent pipe flow Darcy friction factor using the Haaland correlation
+    friction_factor = 1 / (-1.8 * log10(6.9/Re_abs_limited + (relative_roughness/3.7)^1.11))^2;
+    
+    % Turbulent pipe flow Nusselt number using the Gnielinski correlation
+    Nu_tur = (friction_factor/8 * (Re_abs_limited - 1000) * Pr_limited) / (1 + 12.7 * sqrt(friction_factor/8) * (Pr_limited^(2/3) - 1));
+    
+    % Nusselt number
+    Nu = simscape.function.blend(Nu_lam, Nu_tur, Re_lam, Re_tur, Re_abs);
+    
+    % Number of heat transfer units
+    NTU_max = 100;
+    NTU = ...
+        if gt(Re_abs, Nu * surface_area / area / Pr / NTU_max), ...
+            Nu * surface_area / Re_abs / area / Pr ...
+        else ...
+            NTU_max ...
+        end;
+    
+    % Temperature change between inlet and outlet based on exponential temperature distribution
+    delta_T = (T_wall - T_in)*(1 - exp(-NTU));
+    
+    % Convective heat transfer between the pipe wall and the moist air
+    Q_conv = Re * area / Dh * Pr * k * delta_T;
+end
+
+end

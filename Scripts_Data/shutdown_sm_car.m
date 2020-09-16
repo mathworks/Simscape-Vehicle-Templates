@@ -34,6 +34,7 @@ cd(fileparts(which('sm_car.slx')))
 
 %% Reset solver settings - patch from development
 limitDerivativePerturbations([])
+daesscSetMultibody([])
 
 %% Close app
 try

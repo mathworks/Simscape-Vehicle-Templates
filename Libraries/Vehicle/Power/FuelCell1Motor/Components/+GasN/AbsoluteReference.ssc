@@ -1,0 +1,23 @@
+component AbsoluteReference
+% Absolute Reference (N Gas)
+% This block represents a reference node in an N Gas mixture network where
+% pressure and temperature are equal to absolute zero, and all mass 
+% fractions are equal to zero.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/AbsoluteReference.png';
+%end
+
+nodes
+    A = GasN.GasN; % :top
+end
+
+connections
+    connect(A, *);
+end
+
+end
