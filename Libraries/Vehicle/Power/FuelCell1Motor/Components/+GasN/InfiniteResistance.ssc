@@ -1,0 +1,35 @@
+component InfiniteResistance
+% Infinte Flow Resistance (N gas) :1.0:fixed
+% This block represents a break in a moist air network. There is no mass or
+% energy flow through the break. However, moist air property data is still
+% shared between the connected moist air networks.
+%
+% This block can optionally be used to assign a beginning value and
+% priority to the differences in pressure, temperature, and species mass
+% fractions of port A relative to port B.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/InfiniteResistance.png';
+%end
+nodes
+  A = GasN.GasN;           % A:left
+  B = GasN.GasN;           % B:right
+end
+
+variables (Conversion = relative)
+  p   = {0, 'MPa'};             % Pressure difference
+  T   = {0, 'K'  };             % Temperature difference
+  x_i = {[0;0;0;0], '1'};       % Species difference
+end
+
+equations
+  p   == A.p   - B.p;
+  T   == A.T   - B.T;
+  x_i == A.x_i - B.x_i;
+end
+
+end

@@ -1,0 +1,359 @@
+component Pipe
+% Pipe (N Gas)
+% The Pipe (N Gas) block models pipe flow dynamics for a multi-species gas
+% network. This model contains terms for viscous friction losses and
+% convective heat transfer with the pipe wall. The block has an internal
+% node with a constant volume which has time-dependent pressure and 
+% temperature states. Condensation can occur for species that are beneath
+% their critical point and the pipe models choking behavior once the flow
+% reaches the sonic condition.
+%
+% Ports A and B and H are (N Gas) multi-species and thermal conserving nodes
+% for fluid and heat transfer. Port M_in is an [Nx1] vector of species mass 
+% flows for repesenting species changes in kg/s in the pipe and T_in
+% represents the temperature in K of the species added or removed.
+% 
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/Pipe.png';
+%end
+nodes
+  A = GasN.GasN;                        % A:left
+  H = foundation.thermal.thermal;       % H:left
+  B = GasN.GasN;                        % B:right
+end
+inputs
+  MIn = {[0;0;0;0], 'kg/s'};      % M_in
+  TIn = {293.15, 'K'};            % T_in
+end
+%annotations
+%  [MIn, TIn] : Side = bottom;
+%  [A, H] : Side = left;
+%  B : Side = right;
+%end
+parameters
+  length = {5, 'm'};        % Pipe length
+  area = {0.01, 'm^2'};  % Cross-sectional area
+  Dh = {0.1, 'm'};     % Hydraulic diameter
+  
+  extra_length = {0.1, 'm'};          % Extra length for friction
+  roughness = {15e-6, 'm'}; % Surface roughness
+  Re_lam = {2000, '1'};     % Laminar flow upper Reynolds limit
+  Re_tur = {4000, '1'};     % Turbulent flow lower Reynolds limit
+  shape_factor = {64, '1'}; % Laminar friction shape factor
+  Nu_lam = {3.66, '1'};     % Laminar Nusselt number
+  
+  p0   = {101325, 'Pa'};         % Pressure
+  T0   = {293.15, 'K'};          % Temperature
+  comp = GasN.composition_enum.mole;  % Composition 
+  y0   = {[1;0;0;0], '1'};    % Mole fractions
+  x0   = {[1;0;0;0], '1'};    % Mass fractions
+  tau_c = {1, 's'};              % Condensation time constant
+  isCond = {[0;0;0;0], '1'};     % Input port species condensed
+end
+parameters (Access = private)
+  surf_area = (4*area/Dh)*length;    % Pipe surface area
+  volume  = area*length;           % Pipe volume
+  choked_tol = 0.05;   % Tolerance on choked pressure for smooth transition to choked flow
+  Lfric = length + extra_length;         % Friction length
+end
+% Parametric assertions
+equations
+  assert(length > 0)
+  assert(area > 0)
+  assert(Dh > 0)
+  assert(extra_length >= 0)
+  assert(roughness > 0)
+  assert(Re_lam > 1)
+  assert(Re_tur > Re_lam)
+  assert(shape_factor > 0)
+  assert(Nu_lam > 0)
+  assert(tau_c > 0)
+  assert(p0 > 0, 'Pressure must be positive.')
+  assert(T0 > 0, 'Temperature must be positive.')
+  assert(all(y0 >= 0 & y0 <= 1), 'Initial species 1 mole fractions must be between 0 and 1.');
+  assert(abs(1-sum(y0)) < 1e-6, 'Initial mole fractions must sum to 1.')
+  assert(all(x0 >= 0 & x0 <= 1), 'Initial species 1 mole fractions must be between 0 and 1.');
+  assert(abs(1-sum(x0)) < 1e-6, 'Initial mole fractions must sum to 1.')
+end
+% Choose composition type and edit the mask to reflect the changes.
+if comp == GasN.composition_enum.mass
+  annotations                         
+    y0 : ExternalAccess = none;
+    x0 : ExternalAccess = modify;
+  end
+  parameters(Access=private)
+    % Calc mole fracs
+    x_init = x0;
+    m_init = x0*p0*volume/(sum(x0.*A.R)*T0);
+    y_init = m_init./A.M/sum(m_init./A.M);
+  end
+else % comp == GasN.composition_enum.mole
+  annotations
+    x0 : ExternalAccess = none;
+    y0 : ExternalAccess = modify;
+  end
+  parameters(Access=private)
+    x_init = y0.*A.M/sum(y0.*A.M);
+    y_init = y0;
+  end
+end
+parameters(Access=private)
+  m0 = p0*volume/(sum(x_init.*A.R)*T0);
+end
+
+variables (Access=protected) %(5*N+13 vars total)
+     
+  % Pressure, temperature and flow (2 vars)
+  p_I = {value = p0, priority = priority.high};       % Pressure
+  T_I     = {value = T0, priority = priority.high};   % Temperature
+  
+  % A port variables (N+2 vars)
+  mdot_A   = {0, 'kg/s'};                   % Port A total mass flow
+  mdot_A_i = {[0;0;0;0], 'kg/s'};       % Port A mass flow
+  Phi_A   = {0, 'J/s' };                      % Port A heat 
+  
+  % B port variables (N+2 vars)
+  mdot_B   = {0, 'kg/s'};                   % Port B total mass flow
+  mdot_B_i = {[0;0;0;0], 'kg/s'};       % Port B mass flow
+  Phi_B   = {0, 'J/s' };                      % Port B heat 
+  
+  % Heat transfer through  H port (1 var)
+  Q_H = {0, 'J/s' };                       % Heat flow from port H
+  
+  % Mass fractions (N vars)
+  x_I_i = {value = x_init, priority = priority.high};   % Mass fractions
+  % Species fractions (N vars)
+  y_I_i = {value = y_init, priority = priority.none};   % Mole fractions
+  
+  % Mass values (N+2 vars)
+  m_I_i = {value = x_init*m0};                       % Species masses
+  rho_I = {value=m0/volume, priority=priority.none};     % Density
+  m_I = m0;                                          % Mass Total
+  
+  % Port pressures and temperatures (4 vars)
+  p_A  = {101325, 'Pa'}; % Pressure at port A including choking effects
+  p_B  = {101325, 'Pa'}; % Pressure at port B including choking effects
+  T_AI = {300, 'K'  }; % Temperature for adiabatic relation between nodes A and I
+  T_BI = {300, 'K'  }; % Temperature for adiabatic relation between nodes A and I
+end
+branches
+  mdot_A   : A.mdot -> *;                     % Positive into chamber
+  mdot_A_i : A.mdot_i -> *;
+  Phi_A      : A.Phi -> *;
+  mdot_B   : B.mdot -> *;
+  mdot_B_i : B.mdot_i -> *;
+  Phi_B      : B.Phi -> *;
+  Q_H      : H.Q -> *;
+end
+intermediates(Access=private)
+
+  % Mass averaged thermal properties for mixture
+  cp_i = GasN.propTableVec1D(T_I, A.T_LUT, A.cp);
+  cp = dot(x_I_i,cp_i);
+  R_i = A.R;
+  R = dot(x_I_i,R_i);
+  kth_i = GasN.propTableVec1D(T_I, A.T_LUT, A.kth);
+  kth = dot(x_I_i, kth_i);
+  mu_i = GasN.propTableVec1D(T_I, A.T_LUT, A.visc);
+  mu = dot(x_I_i, mu_i);
+  Pr = cp*mu/kth;
+  
+  % Density derivatives wrt pressure, temperature and species mass fraction  
+  drhodp = 1/(R*T_I);
+  drhodT = -p_I/(R*T_I^2);
+  drhodx1 = -p_I/(R^2*T_I)*(R_i(1:end-1)-R_i(end));
+  % dR/dx_i(k) = R_i(k) - R_i(end)  for all k = {1... N-1}
+  % dR/dx_i = R_i(1:end-1) - R_i(end);
+  
+  % Enthalpy derivatives wrt pressure, temperature and species mass fraction
+  %dhdp = 0;  % Unused
+  dhdT = cp;
+  dhdx1 = (h_I_i(1:end-1) - h_I_i(end));
+  % dh/dx_i(k) = h_I_i(k) - h_I_i(end)  for all k = {1... N-1}
+  
+  % Chamber enthalpy
+  h_I_i = GasN.propTableVec1D(T_I, A.T_LUT, A.h);
+  h_I = dot(x_I_i,h_I_i); 
+  
+  % Compute condensation rates for all species (if species can_cond is true)
+  mdot_c = GasN.calcMDotCondense( T_I, A.T_LUT, A.logpSat, p_I, x_I_i, A.R, m_I, tau_c);
+
+  % Condensation heat
+  Q_condense = GasN.calcCondHeat(T_I, A.T_LUT, A.hfg, h_I_i, mdot_c, x_I_i);
+  
+  % Heat from species addition/removal
+  Q_react = GasN.calcInputHeat(TIn, T_I, A.T_LUT, A.hfg, A.h, MIn, isCond);  
+ 
+  % Pipe wall convective heat transfer
+  % Average mixture mass flow rate
+  mdot_AB = (mdot_A - mdot_B)/2;
+  mdot_BA = -mdot_AB;
+  
+  % Inflow quantities
+  T_A_in = A.T;
+  T_B_in = B.T;
+  xA_i_in = A.x_i;
+  xB_i_in = B.x_i;
+  muA_i_in = GasN.propTableVec1D(T_A_in, A.T_LUT, A.visc);
+  mu_A_in = dot(xA_i_in, muA_i_in);
+  muB_i_in = GasN.propTableVec1D(T_B_in, A.T_LUT, A.visc);
+  mu_B_in = dot(xB_i_in, muB_i_in);
+  kthA_i_in = GasN.propTableVec1D(T_A_in, A.T_LUT, A.kth);
+  k_A_in = dot(xA_i_in, kthA_i_in);
+  kthB_i_in = GasN.propTableVec1D(T_B_in, A.T_LUT, A.kth);
+  k_B_in = dot(xB_i_in, kthB_i_in);
+  cpA_i_in = GasN.propTableVec1D(T_A_in, A.T_LUT, A.cp);
+  cpA_in = dot(x_I_i,cpA_i_in);
+  cpB_i_in = GasN.propTableVec1D(T_B_in, A.T_LUT, A.cp);
+  cpB_in = dot(x_I_i,cpB_i_in);
+  Pr_A_in = cpA_in*mu_A_in/k_A_in;
+  Pr_B_in = cpB_in*mu_B_in/k_B_in;
+  
+  % Convective heat transfer between pipe wall and moist air
+  [Q_AB, Re_AB] = GasN.calcPipeConvection(mdot_AB, T_A_in, H.T, ...
+    (mu_A_in + mu)/2, (k_A_in + kth)/2, (Pr_A_in + Pr)/2, ...
+    area, Dh, surf_area, roughness/Dh, Re_lam, Re_tur, Nu_lam);
+  
+  [Q_BA, Re_BA] = GasN.calcPipeConvection(mdot_BA, T_B_in, H.T, ...
+    (mu_B_in + mu)/2, (k_B_in + kth)/2, (Pr_B_in + Pr)/2, ...
+    area, Dh, surf_area, roughness/Dh, Re_lam, Re_tur, Nu_lam);
+  
+  Q_conv = simscape.function.blend(Q_BA, Q_AB, -Re_lam, Re_lam, (Re_AB - Re_BA)/2);
+
+ 
+  % Conductive heat transfer between pipe wall and moist air
+  Q_cond = kth*surf_area/Dh*(H.T - T_I);
+  
+  % Viscous friction loss for each half of the pipe
+  deltaPA = GasN.calcPipeFriction(mdot_A, rho_I, mu, ...
+    area, Dh, Lfric/2, roughness/Dh, Re_lam, Re_tur, shape_factor);
+  
+  deltaPB = GasN.calcPipeFriction(mdot_B, rho_I, mu, ...
+    area, Dh, Lfric/2, roughness/Dh, Re_lam, Re_tur, shape_factor);
+
+  deltaPChokedA = GasN.calcPipeFriction(mdot_A_choked, rho_I, mu, ...
+    area, Dh, Lfric/2, roughness/Dh, Re_lam, Re_tur, shape_factor);
+  
+  deltaPChokedB = GasN.calcPipeFriction(mdot_B_choked, rho_I, mu, ...
+    area, Dh, Lfric/2, roughness/Dh, Re_lam, Re_tur, shape_factor);
+  
+  % Ratio of mixture specific heats for ports
+  cpA_i = GasN.propTableVec1D(T_AI, A.T_LUT, A.cp);
+  cpB_i = GasN.propTableVec1D(T_BI, A.T_LUT, A.cp);
+  cpA = dot(x_I_i, cpA_i);
+  cpB = dot(x_I_i, cpB_i);
+  gammaA = cpA/(cpA - R);
+  gammaB = cpB/(cpB - R);
+  
+  % Change in flow velocity
+  delta_vel_AI = (T_I/p_I - T_AI/p_A) * R * mdot_A / area;
+  delta_vel_BI = (T_I/p_I - T_BI/p_B) * R * mdot_B / area;
+  delta_vel_pos_AI = sqrt(delta_vel_AI^2 + 0.001^2*abs(gammaA*R*T_AI));
+  delta_vel_pos_BI = sqrt(delta_vel_BI^2 + 0.001^2*abs(gammaB*R*T_BI));
+  
+  % Choked mass flow rate
+  mdot_A_choked = -abs(gammaA*p_A^2/R/T_AI)^0.5 * area;
+  mdot_B_choked = -abs(gammaB*p_B^2/R/T_BI)^0.5 * area;
+  
+  % Pressure difference assuming no choked flow
+  Dp_AI_unchoked = A.p - p_I;
+  Dp_BI_unchoked = B.p - p_I;
+
+  % Pressure difference assuming choked flow
+  Dp_AI_choked = delta_vel_pos_AI * mdot_A / area + deltaPChokedA;
+  Dp_BI_choked = delta_vel_pos_BI * mdot_B / area + deltaPChokedB;
+
+  
+  % Port enthalpies
+  hA_i = GasN.propTableVec1D(T_AI, A.T_LUT, A.h);
+  hA = dot(x_I_i,hA_i);
+  hB_i = GasN.propTableVec1D(T_BI, A.T_LUT, A.h);
+  hB = dot(x_I_i,hB_i);
+  
+end
+equations
+  
+  % Conservation of mass                 %(1
+  volume*(drhodp * der(p_I) + drhodT*der(T_I) + dot(drhodx1,der(x_I_i(1:end-1)))) ...
+    == mdot_A + mdot_B - sum(mdot_c) + sum(MIn);
+  
+  % Conservation of energy               %(2
+  volume*h_I*(drhodp*der(p_I) + drhodT*der(T_I) + dot(drhodx1,der(x_I_i(1:end-1)))) ...
+    + rho_I*volume*(dhdT*der(T_I) + dot(dhdx1,der(x_I_i(1:end-1)))) ...
+    - volume*der(p_I) == Phi_A + Phi_B + Q_H - Q_condense + Q_react;
+  
+  % Species conservation                 %(N+2
+  der(x_I_i)*m_I + x_I_i*(mdot_A+mdot_B-sum(mdot_c)+sum(MIn)) == mdot_A_i + mdot_B_i - mdot_c + MIn;
+
+  
+  % Equation of state                    %(N+3
+  p_I*volume == m_I*R*T_I;                        
+  
+  % Mass fractions
+  m_I_i == m_I*x_I_i;                          %(2*N+3
+  
+  % Mole fraction <--> mass fraction
+  y_I_i == (m_I*x_I_i./A.M)/sum(m_I*x_I_i./A.M);   %(3*N+3
+  
+  % Gas density
+  rho_I == sum(m_I_i)/volume;                     %(3*N+4
+  
+  % Heat transfer
+  Q_H == Q_conv + Q_cond;                 %(3*N+5
+  
+  % Momentum balance                     %(3*N+7
+  p_A - p_I == delta_vel_pos_AI * mdot_A / area + deltaPA;
+  p_B - p_I == delta_vel_pos_BI * mdot_B / area + deltaPB;
+  
+  % Pressure difference with smooth transition between unchoked and choked flow
+  if ge(mdot_A, 0)                        %(3*N+8
+    p_A - p_I == Dp_AI_unchoked;
+  else
+    p_A - p_I == simscape.function.blend(Dp_AI_unchoked, Dp_AI_choked, -(1-choked_tol)*Dp_AI_choked, -Dp_AI_choked, -Dp_AI_unchoked);
+  end;
+  
+  if ge(mdot_B, 0)                        %(3*N+9
+    p_B - p_I == Dp_BI_unchoked
+  else
+    p_B - p_I == simscape.function.blend(Dp_BI_unchoked, Dp_BI_choked, -(1-choked_tol)*Dp_BI_choked, -Dp_BI_choked, -Dp_BI_unchoked);
+  end;
+  
+  
+  % Mixture specific total enthalpy      %(3*N+11
+  port_A.ht_i == hA + (R*T_AI/p_A)*abs(R*T_AI/p_A)*(mdot_A/area)^2/2;
+  port_B.ht_i == hB + (R*T_BI/p_B)*abs(R*T_BI/p_B)*(mdot_B/area)^2/2;
+
+  
+  % Connect the ports
+  port_A.mdot == mdot_A;                                      %(3*N+12   
+  port_A.Phi == Phi_A;                                            %(3*N+13
+  port_A.mdot_i == mdot_A_i;                                  %(4*N+13 
+  port_A.ht_i == h_I + (R*T_I/p_I)*abs(R*T_I/p_I)*(mdot_A/area)^2/2;      %(4*N+14
+  port_A.x_i == GasN.vectorLimit(x_I_i,[0;0;0;0],[1;1;1;1]); %(5*N+14
+    
+  port_B.mdot == mdot_B;                                      %(5*N+15   
+  port_B.Phi == Phi_B;                                            %(5*N+16
+  port_B.mdot_i == mdot_B_i;                                  %(6*N+16
+  port_B.ht_i == h_I + (R*T_I/p_I)*abs(R*T_I/p_I)*(mdot_B/area)^2/2;      %(6*N+17
+  port_B.x_i == GasN.vectorLimit(x_I_i,[0;0;0;0],[1;1;1;1]); %(7*N+17
+  
+  % Run-time variable checks
+  assert(p_I >= A.p_min, 'Pressure at port A must be above p_min.');
+  assert(T_I >= A.T_min, 'Temperature at port A must be above T_min.');
+  assert(all(gt(m_I_i, {-1e-6, 'kg'})), 'Mass fractions must be non-negative.');
+  
+end
+components(ExternalAccess=observe)
+  port_A = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+  port_B = GasN.PortConvection(flow_area=area, length_scale=sqrt(4*area/pi));
+end
+connections
+  connect(A, port_A.A);   %(8*N+18
+  connect(B, port_B.A);   %(9*N+19
+end
+end

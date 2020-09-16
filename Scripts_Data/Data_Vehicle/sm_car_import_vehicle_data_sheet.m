@@ -29,7 +29,7 @@ end
 % If row start and end points are not specified, define defaults
 if nargin <= 3
     startRow = 2;
-    endRow = 200;  % Ensure longer than entire table
+    endRow = 250;  % Ensure longer than entire table
 end
 
 %% Setup the Import Options
@@ -147,12 +147,16 @@ while (veh_dat_i<=table_end-1)
         vectorValue = vectorValue(~isnan(vectorValue));
         if~isempty(fieldname3)
             if(LUT2D)
-                vectorValue = [vectorValue;getfield(Vehicle,fieldname1,fieldname2,fieldname3,'Value')];
+                % Note: This builds table row-by-row from row 1 to end
+                %       even though it appears to prepend new data
+                vectorValue = [getfield(Vehicle,fieldname1,fieldname2,fieldname3,'Value');vectorValue];
             end     
             Vehicle = setfield(Vehicle,fieldname1,fieldname2,fieldname3,'Value',vectorValue);
         elseif~isempty(fieldname2)
             if(LUT2D)
-                vectorValue = [vectorValue;getfield(Vehicle,fieldname1,fieldname2,'Value')];
+                % Note: This builds table row-by-row from row 1 to end
+                %       even though it appears to prepend new data
+                vectorValue = [getfield(Vehicle,fieldname1,fieldname2,'Value');vectorValue];
             end     
             Vehicle = setfield(Vehicle,fieldname1,fieldname2,'Value',vectorValue);
         else

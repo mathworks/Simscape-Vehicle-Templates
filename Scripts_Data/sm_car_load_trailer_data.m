@@ -9,18 +9,22 @@ function sm_car_load_trailer_data(mdl,trailerDataIndex)
 
 % Load desired vehicle data into variable Vehicle
 if(strcmpi(trailerDataIndex,'none'))
-    trl_state = get_param([mdl '/Vehicle'],'popup_trailer');
-%    disp(['Trailer: ' trl_state]);
-    set_param([mdl '/Vehicle'],'popup_trailer','Off');
-%    disp('Turned Trailer Off');
+    if(bdIsLoaded(mdl))
+        trl_state = get_param([mdl '/Vehicle'],'popup_trailer');
+        %    disp(['Trailer: ' trl_state]);
+        set_param([mdl '/Vehicle'],'popup_trailer','Off');
+        %    disp('Turned Trailer Off');
+    end
 else
     load(['Trailer_' trailerDataIndex]);
     assignin('base','Trailer',eval(['Trailer_' trailerDataIndex]));
     
     % If a model name is specified, trigger variant selection
     if(~strcmpi(mdl,'none'))
-        set_param([mdl '/Vehicle'],'popup_trailer','On');
-        sm_car_config_vehicle(mdl);
+        if(bdIsLoaded(mdl))
+            set_param([mdl '/Vehicle'],'popup_trailer','On');
+            sm_car_config_vehicle(mdl);
+        end
     end
 end
 

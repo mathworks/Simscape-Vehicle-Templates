@@ -24,6 +24,7 @@ clf(evalin('base',fig_handle_name))
 fieldlist = fieldnames(Maneuver);
 
 hasTrajectory = find(strcmp(fieldlist,'Trajectory'), 1);
+hasDriveCycle = find(strcmp(fieldlist,'DriveCycle'), 1);
 
 if(~isempty(hasTrajectory))
 	% Plot Maneuver with Trajectory
@@ -84,6 +85,20 @@ if(~isempty(hasTrajectory))
         inds = 1:plotInds:length(Maneuver.Trajectory.xTrajectory.Value);
         text(Maneuver.Trajectory.xTrajectory.Value(inds),Maneuver.Trajectory.aYaw.Value(inds),string(inds));
     end
+elseif(~isempty(hasDriveCycle))
+	% Plot Maneuver with Drive Cycle
+    plot(Maneuver.DriveCycle.cycle_t.Value,Maneuver.DriveCycle.cycle_spd.Value,'-o')
+    xlabel('Time (sec)')
+    ylabel(['Speed ' Maneuver.DriveCycle.cycle_spd.Units]);
+    maneuver_name = strrep([Maneuver.Type  ', ' Maneuver.Instance],'_',' ');
+    title(['Drive Cycle ' Maneuver.Instance]);
+    
+    label_str = sprintf('Maneuver: %s\nData: %s',...
+        strrep(Maneuver.Type,'_',' '),...
+        strrep(Maneuver.Instance,'_',' '));
+    text(0.05,0.9,label_str,...
+        'Units','Normalized','Color',[1 1 1]*0.5);
+
 else
 	% Plot Maneuver with Open-Loop Driver Commands
     ah(1) = subplot(311);

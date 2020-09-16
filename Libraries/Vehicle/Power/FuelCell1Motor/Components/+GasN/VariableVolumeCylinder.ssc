@@ -1,0 +1,237 @@
+component VariableVolumeCylinder
+% Variable Volume Cylinder  (N Gas) :2.0
+% This block models an interface between an N Gas multi-species network and 
+% a mechanical translational network. The converter contains a variable 
+% cylindrical volume multi-species gas. The pressure and temperature evolve
+% based on the compressibility and thermal capacity of the volume. Speices
+% that exceed their saturation pressure condense out of the volume.
+%
+% If Mechanical orientation is set to Positive or Negative, then an 
+% increase in the moist air volume corresponds to a positive or negative 
+% displacement, respectively, of port R relative to port C.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/VariableVolumeCylinder.png';
+%end
+inputs
+  MIn = {[0;0;0;0], 'kg/s'};      % MIn
+  TIn = {293.15, 'K'};            % TIn
+end
+nodes
+  A = GasN.GasN;                        % A
+  Rod = foundation.mechanical.translational.translational; % R
+  Case = foundation.mechanical.translational.translational; % C
+  H = foundation.thermal.thermal;  % H
+end
+%annotations
+%  [MIn, TIn] : Side = bottom;
+%  [A,H] : Side = top;
+%  Case : Side = left;
+%  Rod : Side = right;
+%end
+
+parameters
+  mech_orientation = simscape.enum.posneg.positive; % Mechanical orientation
+  %                                                    1 - Positive
+  %                                                   -1 - Negative
+  p0   = {101325, 'Pa'};         % Chamber pressure
+  T0   = {293.15, 'K'};          % Temperature
+  comp = GasN.composition_enum.mole;  % Composition 
+  y0   = {[1;0;0;0], '1'};    % Mole fractions
+  x0   = {[1;0;0;0], '1'};    % Mass fractions
+  interface_area       = {0.01,     'm^2'}; % Interface cross-sectional area
+  length_init          = {0,        'm'  }; % Interface initial displacement
+  dead_volume          = {1e-5,     'm^3'}; % Dead volume
+  area_A               = {0.01,     'm^2'}; % Cross-sectional area at port A
+  p_environment = {0.101325, 'MPa'}; % Environment pressure
+  tau_c = {1, 's'};              % Condensation time constant
+  isCond = {[0;0;0;0], '1'};     % Input port species condensed
+end
+parameters(Access=private)
+  V0 = interface_area*length_init;
+  min_volume = 1e-4 * dead_volume; % minimum physical volume
+  m0 = p0*V0/(sum(x_init.*A.R)*T0);
+end
+% Parameteric assertions
+if mech_orientation == simscape.enum.posneg.positive
+    parameters (Access = private)
+        mech_sign = 1;
+    end
+    equations
+        assert(length_init >= 0)
+    end
+else % mech_orientation == simscape.enum.posneg.negative
+    parameters (Access = private)
+        mech_sign = -1;
+    end
+    equations
+        assert(length_init <= 0)
+    end
+end
+% Choose composition type and edit the mask to reflect the changes.
+if comp == GasN.composition_enum.mass
+  annotations                         
+    y0 : ExternalAccess = none;
+    x0 : ExternalAccess = modify;
+  end
+  parameters(Access=private)
+    % Calc mole fracs
+    x_init = x0;
+    m_init = x0*p0*V0/(sum(x0.*A.R)*T0);
+    y_init = m_init./A.M/sum(m_init./A.M);
+  end
+else % comp == GasN.composition_enum.mole
+  annotations
+    x0 : ExternalAccess = none;
+    y0 : ExternalAccess = modify;
+  end
+  parameters(Access=private)
+    x_init = y0.*A.M/sum(y0.*A.M);
+    y_init = y0;
+  end
+end
+equations
+  assert(V0 >= 0, 'Volume must be positive.');
+  assert(p0 > 0, 'Pressure must be positive.')
+  assert(T0 > 0, 'Temperature must be positive.')
+  assert(tau_c > 0);
+  assert(interface_area > 0)
+  assert(length_init >= 0);
+  assert(dead_volume > 0)
+  assert(area_A > 0)
+end
+
+variables (Access=protected) %(4*N+9 vars total)
+     
+  % Pressure, temperature and flow (2 vars)
+  p_I = {value = p0, priority = priority.high};       % Pressure
+  T_I     = {value = T0, priority = priority.high};   % Temperature
+  
+  % A port variables (N+2 vars)
+  mdot_A   = {0, 'kg/s'};                   % Port A total mass flow
+  mdot_A_i = {[0;0;0;0], 'kg/s'};       % Port A mass flow
+  Phi_A   = {0, 'W' };                      % Port A heat 
+  
+  % Heat transfer through  H port (1 var)
+  Q_H = {0, 'W' };                       % Heat flow from port H
+  
+  % Mass fractions (N vars)
+  x_I_i = {value = x_init, priority = priority.high};   % Mass fractions
+  % Species fractions (N vars)
+  y_I_i = {value = y_init, priority = priority.none};   % Mole fractions
+  
+  % Mass values (N+2 vars)
+  m_I_i = {value = x_init*m0};                       % Species masses
+  rho_I = {value=m0/(V0+dead_volume), priority=priority.none};     % Density
+  m_I = m0;                                          % Mass Total
+  % Interface vars (2 vars
+  interface_force = {0, 'N'};   % Gas force on the cylinder platen
+  interface_displacement = {value = length_init, priority = priority.high}; % Interface displacement
+end
+branches
+  mdot_A   : A.mdot -> *;                     % Positive into chamber
+  mdot_A_i : A.mdot_i -> *;
+  Phi_A   : A.Phi -> *;
+  Q_H   : H.Q -> *;
+  interface_force : Rod.f -> Case.f;
+end
+intermediates
+  
+  % Mass averaged thermal properties for mixture
+  cp_i = GasN.propTableVec1D(T_I, A.T_LUT, A.cp);
+  cp = dot(x_I_i,cp_i);
+  R_i = A.R;
+  R = dot(x_I_i,R_i);
+  
+  % Density derivatives wrt pressure, temperature and species mass fraction  
+  drhodp = 1/(R*T_I);
+  drhodT = -p_I/(R*T_I^2);
+  drhodx1 = -p_I/(R^2*T_I)*(R_i(1:end-1)-R_i(end));
+  % dR/dx_i(k) = R_i(k) - R_i(end)  for all k = {1... N-1}
+  % dR/dx_i = R_i(1:end-1) - R_i(end);
+  
+  % Enthalpy derivatives wrt pressure, temperature and species mass fraction
+  %dhdp = 0;  % Unused
+  dhdT = cp;
+  dhdx1 = (h_I_i(1:end-1) - h_I_i(end));
+  % dh/dx_i(k) = h_I_i(k) - h_I_i(end)  for all k = {1... N-1}
+  
+  % Chamber enthalpy
+  h_I_i = GasN.propTableVec1D(T_I, A.T_LUT, A.h);
+  h_I = dot(x_I_i,h_I_i); 
+  
+  % Compute condensation rates for all species (if species can_cond is true)
+  mdot_c = GasN.calcMDotCondense( T_I, A.T_LUT, A.logpSat, p_I, x_I_i, A.R, m_I, tau_c)
+
+  % Heat from condensation
+  Q_cond = GasN.calcCondHeat(T_I, A.T_LUT, A.hfg, h_I_i, mdot_c, x_I_i);
+  
+  % Species Addition/Removal heat
+  Q_react = GasN.calcInputHeat(TIn, T_I, A.T_LUT, A.hfg, A.h, MIn, isCond);
+  
+  % Change in gas volume
+  der_volume = interface_area * interface_velocity * mech_sign;
+  interface_velocity = Rod.v - Case.v;
+  volume = dead_volume + interface_area*interface_displacement*mech_sign;
+end
+equations
+  % Pressures and temperatures from node (ports have 0 resistance)
+  p_I == A.p;                              %(1
+  T_I == H.T;                              %(2
+
+  % Interface effects 
+  der(interface_displacement) == interface_velocity;  %(3
+  % Force balance on mechanical interface
+  interface_force / interface_area == (p_environment - p_I) * mech_sign;
+
+  % Conservation of mass                 %(3
+  volume*(drhodp * der(p_I) + drhodT*der(T_I) + dot(drhodx1,der(x_I_i(1:end-1)))) ...
+    + rho_I*der_volume ...   
+    == mdot_A - sum(mdot_c) + sum(MIn);
+  
+  % Conservation of energy               %(4
+  volume*h_I*(drhodp*der(p_I) + drhodT*der(T_I) + dot(drhodx1,der(x_I_i(1:end-1)))) ...
+    + rho_I*volume*(dhdT*der(T_I) + dot(dhdx1,der(x_I_i(1:end-1)))) ...  
+     + rho_I*h_I*der_volume...
+     - volume*der(p_I) == Phi_A + Q_H - Q_cond + Q_react;
+  
+  % Species conservation                 %(N+4
+  der(x_I_i)*m_I + x_I_i*(mdot_A-sum(mdot_c)+sum(MIn)) == mdot_A_i - mdot_c + MIn;           
+  
+  % Equation of state
+  p_I*volume == m_I*R*T_I;                         %(N+5
+  
+  % Mass fractions
+  m_I_i == m_I*x_I_i;                          %(2*N+5
+  
+  % Mole fraction <--> mass fraction
+  y_I_i == (m_I*x_I_i./A.M)/sum(m_I*x_I_i./A.M);   %(3*N+5
+  
+  % Gas density
+  rho_I == sum(m_I_i)/volume;                    %(3*N+6
+  
+  % Connect the ports
+  port_A.mdot == mdot_A;                                         %(3*N+7
+  port_A.Phi == Phi_A;                                         %(3*N+8
+  port_A.mdot_i == mdot_A_i;                                     %(4*N+8
+  port_A.ht_i == h_I + (R*T_I/p_I)*abs(R*T_I/p_I)*(mdot_A/area_A)^2/2;    %(4*N+9
+  port_A.x_i == GasN.vectorLimit(x_I_i, [0;0;0;0], [1;1;1;1]); %(5*N+9
+  
+  % Run-time variable checks
+  assert(p_I >= A.p_min, 'Pressure at port A must be above p_min.');
+  assert(T_I >= A.T_min, 'Temperature at port A must be above T_min.');
+  assert(all(gt(m_I_i, {-1e-6, 'kg'})), 'Mass fractions must be non-negative.');
+  
+end
+components(ExternalAccess=observe)
+  port_A = GasN.PortConvection(flow_area=area_A, length_scale=sqrt(4*area_A/pi));
+end
+connections
+  connect(A, port_A.A);   %(6*N+10
+end
+
+end

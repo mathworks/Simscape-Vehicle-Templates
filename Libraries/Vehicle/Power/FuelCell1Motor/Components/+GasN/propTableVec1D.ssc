@@ -1,0 +1,16 @@
+function p = propTableVec1D( x, xTbl, pTbl)
+% Inputs:
+%  x     -- Lookup value
+%  xTbl  -- Table of abcissa values
+%  pTbl  -- Table of ordinate values 
+definitions
+
+  % Auto-generated LUT
+  p = [tablelookup(xTbl, pTbl(1,:), x, interpolation=linear, extrapolation=linear);
+tablelookup(xTbl, pTbl(2,:), x, interpolation=linear, extrapolation=linear);
+tablelookup(xTbl, pTbl(3,:), x, interpolation=linear, extrapolation=linear);
+tablelookup(xTbl, pTbl(4,:), x, interpolation=linear, extrapolation=linear);
+];
+  
+end
+end

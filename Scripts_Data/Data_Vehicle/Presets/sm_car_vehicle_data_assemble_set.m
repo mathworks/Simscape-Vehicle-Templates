@@ -1252,6 +1252,117 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 41: Hamba 15DOF, MFSwift, 1D Fuel Cell
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_140;
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'15DOF_SH','front');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'15DOF_SH','rear');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','front');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','rear');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','front');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCV_FC1m');
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'FuelCell1Motor_default');
+
+Vehicle = sm_car_vehcfg_setBrakes(Vehicle,'Pressure_Sedan_Hamba');
+Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value = Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value*5;
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_15DOF_MFSwift_steady_fwd3D_FuelCell';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 42: Hamba 15DOF, MFeval, 1D Fuel Cell
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_164;
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCV_FC1m');
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'FuelCell1Motor_default');
+
+Vehicle = sm_car_vehcfg_setBrakes(Vehicle,'Pressure_Sedan_Hamba');
+Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value = Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value*5;
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_15DOF_MFEval_steady_fwd3D_FuelCell';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 43: Real-Time Basic, MFeval with lintra
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_170;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFEval_CAD_213_40R21','front');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'lintra','front');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFEval_CAD_213_40R21','rear');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'lintra','rear');
+Vehicle.Chassis.SuspF.Simple.Roll.d.Value = Vehicle.Chassis.SuspF.Simple.Roll.d.Value*0.5;
+Vehicle.Chassis.SuspR.Simple.Roll.d.Value = Vehicle.Chassis.SuspR.Simple.Roll.d.Value*0.5;
+Vehicle.Chassis.SuspF.Simple.Roll.K.Value = Vehicle.Chassis.SuspF.Simple.Roll.K.Value*0.5;
+Vehicle.Chassis.SuspR.Simple.Roll.K.Value = Vehicle.Chassis.SuspR.Simple.Roll.K.Value*0.5;
+Vehicle.config = 'Hamba_15DOF_MFEval_lintra_f1Dr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 44: Real-Time Full, MFeval with lintra
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_139;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFEval_CAD_213_40R21','front');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'lintra','front');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFEval_CAD_213_40R21','rear');
+Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'lintra','rear');
+Vehicle.config = 'Hamba_dwb_MFEval_lintra_f1Dr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 45: Makhulu dwb, MFSwift, 1D Fuel Cell
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_145;
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCV_FC1m');
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'FuelCell1Motor_default');
+
+Vehicle = sm_car_vehcfg_setBrakes(Vehicle,'Pressure_Bus_Makhulu');
+Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value = Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value*5;
+
+% Assemble configuration description in string
+Vehicle.config = 'Makhulu_dwb_MFSwift_steady_fwd3D_FuelCell';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 46: Makhulu dwb, MFeval, 1D Fuel Cell
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_143;
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCV_FC1m');
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'FuelCell1Motor_default');
+
+Vehicle = sm_car_vehcfg_setBrakes(Vehicle,'Pressure_Bus_Makhulu');
+Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value = Vehicle.Brakes.Front.Caliper.lCylinderDiameter.Value*5;
+
+% Assemble configuration description in string
+Vehicle.config = 'Makhulu_dwb_MFEval_steady_fwd3D_FuelCell';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
 %% Trailer Elula MFEval
 vehcfg_set = {
     'Aero',         'Trailer_Elula',      '';...
