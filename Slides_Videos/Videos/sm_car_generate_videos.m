@@ -1,3 +1,4 @@
+% Copyright 2019-2020 The MathWorks, Inc.
 cd(fileparts(which(mfilename)));
 load CameraXML
 cam_views = fieldnames(CameraXML);
