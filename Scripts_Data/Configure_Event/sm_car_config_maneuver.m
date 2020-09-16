@@ -43,7 +43,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Plane Grid');
         sm_car_config_solver(modelname,'variable step'); % Default only
-        
+
     case 'none hambalg'
         evalin('base','Init = IDatabase.Flat.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.None.Default;');
@@ -251,7 +251,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','30');
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Plateau);');
         sm_car_config_road(modelname,'CRG Plateau');
-        
+
     case 'double lane change hambalg'
         evalin('base','Init = IDatabase.Double_Lane_Change.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Double_Lane_Change.Sedan_HambaLG;');
@@ -273,6 +273,31 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Double_Lane_Change.Bus_Makhulu;');
         sm_car_config_road(modelname,'Double Lane Change');
         set_param(modelname,'StopTime','25');
+
+    case 'drive cycle ftp75 hambalg'
+        evalin('base','Init = IDatabase.DriveCycle_FTP75.Sedan_HambaLG;');
+        evalin('base','Maneuver = MDatabase.DriveCycle.FTP75;');
+        set_param(drive_h,'popup_driver_type','Drive Cycle');
+        evalin('base','Driver = DDatabase.DriveCycle_FTP75.Sedan_HambaLG;');
+        set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime','900');
+    case 'drive cycle ftp75 hamba'
+        evalin('base','Init = IDatabase.DriveCycle_FTP75.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.DriveCycle.FTP75;');
+        set_param(drive_h,'popup_driver_type','Drive Cycle');
+        evalin('base','Driver = DDatabase.DriveCycle_FTP75.Sedan_Hamba;');
+        set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime','900');
+    case 'drive cycle ftp75 makhulu'
+        evalin('base','Init = IDatabase.DriveCycle_FTP75.Bus_Makhulu;');
+        evalin('base','Maneuver = MDatabase.DriveCycle.FTP75;');
+        set_param(drive_h,'popup_driver_type','Drive Cycle');
+        evalin('base','Driver = DDatabase.DriveCycle_FTP75.Bus_Makhulu;');
+        set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime','900');
         
     case 'skidpad hamba'
         evalin('base','Init = IDatabase.Skidpad.Sedan_Hamba;');

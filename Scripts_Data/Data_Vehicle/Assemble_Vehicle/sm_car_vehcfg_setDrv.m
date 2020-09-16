@@ -152,6 +152,18 @@ switch drv_opt
         
     case 'Axle1_None'
         instanceDriveline = 'Axle1_None';
+        
+    case 'fCVpCV_FC1m'
+        % One driven shafts, FWD only
+        % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
+        instanceDriveline = 'FDiff_FuelCell1Motor';
+        
+        instanceDiffF     = 'Gear1DShafts3D_Sedan_Hamba_f';
+        instanceDrShF     = 'Shaft3D_default';
+        instanceDrShFCVi  = 'CVPrismatic_default';
+        instanceDrShFSh   = 'Rigid_Sedan_Hamba_f';
+        instanceDrShFCVo  = 'CV_default';
+        
 end
 
 % Assemble structure of parameters for driveline
@@ -164,28 +176,30 @@ if(~contains(instanceDriveline,'None'))
         % If there is a differential in the rear, add to structure
         Drv_struct.DifferentialR = VDatabase.Differential.(instanceDiffR);
     end
-    Drv_struct.DriveshaftRL  = VDatabase.Driveshaft.(instanceDrShR);
-    Drv_struct.DriveshaftRR  = VDatabase.Driveshaft.(instanceDrShR);
-
-if(exist('instanceDrShFCVi','var'))
-    % Assemble structure for front joints and driveshaft
-    Drv_struct.DriveshaftFL.JointInboard  = VDatabase.JointInboard.(instanceDrShFCVi);
-    Drv_struct.DriveshaftFL.JointOutboard = VDatabase.JointOutboard.(instanceDrShFCVo);
-    Drv_struct.DriveshaftFL.Shaft         = VDatabase.Shaft.(instanceDrShFSh);
-    Drv_struct.DriveshaftFR.JointInboard  = VDatabase.JointInboard.(instanceDrShFCVi);
-    Drv_struct.DriveshaftFR.JointOutboard = VDatabase.JointOutboard.(instanceDrShFCVo);
-    Drv_struct.DriveshaftFR.Shaft         = VDatabase.Shaft.(instanceDrShFSh);
-end
-
-if(exist('instanceDrShRCVi','var'))
-    % Assemble structure for rear joints and driveshaft
-    Drv_struct.DriveshaftRL.JointInboard  = VDatabase.JointInboard.(instanceDrShRCVi);
-    Drv_struct.DriveshaftRL.JointOutboard = VDatabase.JointOutboard.(instanceDrShRCVo);
-    Drv_struct.DriveshaftRL.Shaft         = VDatabase.Shaft.(instanceDrShRSh);
-    Drv_struct.DriveshaftRR.JointInboard  = VDatabase.JointInboard.(instanceDrShRCVi);
-    Drv_struct.DriveshaftRR.JointOutboard = VDatabase.JointOutboard.(instanceDrShRCVo);
-    Drv_struct.DriveshaftRR.Shaft         = VDatabase.Shaft.(instanceDrShRSh);
-end
+    if(exist('instanceDrShR','var'))
+        Drv_struct.DriveshaftRL  = VDatabase.Driveshaft.(instanceDrShR);
+        Drv_struct.DriveshaftRR  = VDatabase.Driveshaft.(instanceDrShR);
+    end
+    
+    if(exist('instanceDrShFCVi','var'))
+        % Assemble structure for front joints and driveshaft
+        Drv_struct.DriveshaftFL.JointInboard  = VDatabase.JointInboard.(instanceDrShFCVi);
+        Drv_struct.DriveshaftFL.JointOutboard = VDatabase.JointOutboard.(instanceDrShFCVo);
+        Drv_struct.DriveshaftFL.Shaft         = VDatabase.Shaft.(instanceDrShFSh);
+        Drv_struct.DriveshaftFR.JointInboard  = VDatabase.JointInboard.(instanceDrShFCVi);
+        Drv_struct.DriveshaftFR.JointOutboard = VDatabase.JointOutboard.(instanceDrShFCVo);
+        Drv_struct.DriveshaftFR.Shaft         = VDatabase.Shaft.(instanceDrShFSh);
+    end
+    
+    if(exist('instanceDrShRCVi','var'))
+        % Assemble structure for rear joints and driveshaft
+        Drv_struct.DriveshaftRL.JointInboard  = VDatabase.JointInboard.(instanceDrShRCVi);
+        Drv_struct.DriveshaftRL.JointOutboard = VDatabase.JointOutboard.(instanceDrShRCVo);
+        Drv_struct.DriveshaftRL.Shaft         = VDatabase.Shaft.(instanceDrShRSh);
+        Drv_struct.DriveshaftRR.JointInboard  = VDatabase.JointInboard.(instanceDrShRCVi);
+        Drv_struct.DriveshaftRR.JointOutboard = VDatabase.JointOutboard.(instanceDrShRCVo);
+        Drv_struct.DriveshaftRR.Shaft         = VDatabase.Shaft.(instanceDrShRSh);
+    end
 end
 % Copy data driveline data structure into Vehicle data structure
 Vehicle.Powertrain.Driveline = Drv_struct;

@@ -1,0 +1,34 @@
+component PressTempSensor
+% Pressure and Temperature Sensor (N Gas)
+% This block measures pressure and temperature in an N Gas multi-species 
+% network. There is no mass or energy flow through the sensor.
+%
+% The physical signal ports P [Pa] and T [K] report the pressure and 
+% temperature differences, respectively, across the sensor. The 
+% measurements are positive when the values at port A are greater than port B.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/PressTempSensor.png';
+%end
+
+outputs
+  p = {101325, 'Pa'};  % p:right
+  T = {293.15, 'K'};   % T:right
+end
+nodes
+  A = GasN.GasN; % A:left
+  B = GasN.GasN; % B:right
+end
+  
+equations
+  % Report pressure and temperature across the A/B ports
+  p == A.p - B.p;
+  T == A.T - B.T;
+end
+
+
+end

@@ -1,0 +1,18 @@
+function lambda = membrane_water(a)
+% Compute the water content of the membrane. This function is based on 
+% fits to FEA simulations.
+%
+%
+% See: Dutta, et.al., Numerical prediction of mass-exchange between 
+% cathode and anode channels in a PEM fuel cell. (Equation 16)
+definitions
+  
+  % Function is piecewise continuous
+  lambda = if le(a,1)
+    0.043 + 17.81*a - 39.85*a^2 + 36*a^3;
+  else
+    14 + 1.4*(a - 1);
+  end
+  
+end
+end

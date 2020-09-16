@@ -1,0 +1,30 @@
+component Cap
+% Cap (N Gas)  :1.0:fixed
+% This block represents a terminus in a multi-species gas network. There is
+% no mass or energy flow through the cap. This block can optionally be used 
+% to specify the initial pressure, species fractions, and temperature.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+%annotations
+%  Icon = '../Icons/Cap.png';
+%end
+
+nodes
+  A = GasN.GasN; % A:top
+end
+
+variables
+  p   = {101325, 'Pa'}; % Pressures
+  x_i = {[1;0;0;0], '1'};    % Mass fractions
+  T   = {293.15,   'K'  }; % Temperature
+end
+
+equations
+  p == A.p;
+  x_i == A.x_i;
+  T == A.T;
+end
+
+end

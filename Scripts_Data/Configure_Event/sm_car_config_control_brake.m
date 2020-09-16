@@ -6,9 +6,13 @@ function sm_car_config_control_brake(mdl,ctrl_opt)
 %
 % Copyright 2018-2020 The MathWorks, Inc.
 
-bc_h = find_system(mdl,'Name','Brake Control');
-if(ctrl_opt)
-    set_param(char(bc_h),'popup_brake_control','ABS');
+bc_h = find_system(mdl,'LookUnderMasks','on','Name','Brake Control');
+if(~isempty(bc_h))
+    if(ctrl_opt)
+        set_param(char(bc_h),'popup_brake_control','ABS');
+    else
+        set_param(char(bc_h),'popup_brake_control','Pedal');
+    end
 else
-    set_param(char(bc_h),'popup_brake_control','Pedal');
+    warning('Brake Control system not found');
 end

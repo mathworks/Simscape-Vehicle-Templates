@@ -1,0 +1,30 @@
+component SpeciesFracs
+% Species Fractions Sensor (N Gas) :2.0:fixed
+% This block measures the species fractions (mass or mole) in an N Gas 
+% multi-species network. There is no mass or energy flow through the sensor.
+%
+% The output ports report the mass fractions (x_i) and mole fractions (y_i), 
+% respectively, measured at port A.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+%annotations
+%  Icon = '../Icons/SpeciesFracs.png';
+%end
+outputs
+  x_i = {[0;0;0;0], '1'};  %x_i:right
+  y_i = {[0;0;0;0], '1'};  %y_i:right
+end
+nodes
+  A = GasN.GasN; % A:left
+end
+  
+equations
+  % Report species fractions (mass/molar) at node A
+  x_i == A.x_i;
+  y_i == x_i./A.M/sum(x_i./A.M); 
+end
+
+end

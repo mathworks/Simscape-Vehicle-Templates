@@ -1,0 +1,19 @@
+function uLim = vectorLimit(u,a,b)
+% uLim = limit(u,a,b,useZeroCrossing)
+%    Limit u such that the output occurs in the interval between a and b. 
+%    If useZeroCrossing is true, zero crossings will be enabled at u=a and 
+%    at u=b.
+
+% Copyright 2017-2019 The MathWorks, Inc.
+
+definitions
+  % Auto-generated saturation function for vector inputs
+uLim = [if lt(u(1),a(1)), a(1); elseif gt(u(1),b(1)), b(1); else u(1); end;
+if lt(u(2),a(2)), a(2); elseif gt(u(2),b(2)), b(2); else u(2); end;
+if lt(u(3),a(3)), a(3); elseif gt(u(3),b(3)), b(3); else u(3); end;
+if lt(u(4),a(4)), a(4); elseif gt(u(4),b(4)), b(4); else u(4); end;
+];
+
+end
+
+end

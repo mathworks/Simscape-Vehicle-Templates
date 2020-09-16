@@ -1,0 +1,33 @@
+function Q = calcCondHeat(T, TTbl, hfgTbl, h_i, mdot_c, x_i)
+% Compute the amount of heat released into the calling element for the 
+% species that can condense.
+%
+% Species: nitrogen, oxygen, hydrogen, water 
+%
+% Copyright 2020 The MathWorks, Inc.
+
+% Inputs:
+%  T       -- Temperature
+%  TTbl    -- Temp vector 
+%  hfgTbl  -- Heat of vaporization vector
+%  h_i     -- Species enthalpies
+%  mdot_c  -- Condensation masses
+%  x_i     -- Species mass fractions
+definitions
+
+  % Auto-generated heat of condensation calculation for species that can
+  % condense. For each one, we calc
+  % Look up hfg<m>
+  % compute condensation heat h<m>
+  % Assemble into output vector Q
+  hfg4 = tablelookup(TTbl, hfgTbl(4,:), T, interpolation=linear, extrapolation=linear);
+
+  h4 = mdot_c(4)*(h_i(4) - hfg4);
+
+  Q = sum([    h4;
+  ]);
+
+
+  
+end
+end

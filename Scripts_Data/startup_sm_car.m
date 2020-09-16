@@ -70,6 +70,10 @@ sm_car_gen_upd_database('Camera',1);
 Scene = sm_car_import_scene_data;
 assignin('base','Scene',Scene);
 
+%% Load control parameters
+Control = sm_car_import_control_param;
+assignin('base','Control',Control);
+
 %% Load default maneuver - WOT Braking (basic)
 % Need to load variables individually as sm_car may not be open
 evalin('base','Init = IDatabase.Flat.Sedan_Hamba;');
@@ -84,8 +88,18 @@ cd(custom_code.folder)
 ssc_build
 cd(fileparts(which('sm_car.slx')))
 
+%% Create custom components for fuel cell
+custom_code_fc = dir('**/unidir_dcdc_converter.sscp');
+cd([custom_code_fc.folder '/..'])
+ssc_build('GasN');
+ssc_build('gn_supplement');
+ssc_build('custom_dcdc_uni');
+ssc_build('customMath');
+cd(fileparts(which('sm_car.slx')))
+
 %% Modify solver settings - patch from development
 limitDerivativePerturbations()
+daesscSetMultibody()
 
 %% If this is the top level project, open HTML script
 % Do not open it if this is a referenced project.

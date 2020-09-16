@@ -29,6 +29,7 @@ end
 % Check type of maneuver
 fieldlist = fieldnames(Maneuver);
 hasTrajectory = find(strcmp(fieldlist,'Trajectory'), 1);
+hasDriveCycle = find(strcmp(fieldlist,'DriveCycle'), 1);
 
 if(~isempty(hasTrajectory))
     
@@ -191,7 +192,33 @@ if(~isempty(hasTrajectory))
     title('Target Yaw Angle vs Time');
     linkaxes(ah3, 'x')
 
+elseif(~isempty(hasDriveCycle))
+    % Plot results for systems with a defined trajectory
+    % Extract results
+    logsout_VehBus = logsout_sm_car.get('VehBus');
+    logsout_vx   = logsout_VehBus.Values.Chassis.Body.CG.vx;
     
+    logsout_DrvBus = logsout_sm_car.get('DrvBus');
+    logsout_ref_vx   = logsout_DrvBus.Values.Reference.vTarget;
+
+    plot(logsout_ref_vx.Time,logsout_ref_vx.Data,'-o');
+    hold on
+    plot(logsout_vx.Time,logsout_vx.Data,'LineWidth',1);
+    hold off
+    title('Target Speed Along Trajectory');
+    xlabel('Distance Traveled (m)');
+    ylabel('Speed (m/s)');
+
+    config_str = evalin('base','Vehicle.config');
+    label_str = sprintf('Drive Cycle: %s\nVehicle: %s',...
+        strrep(Maneuver.Instance,'_',' '),...
+        strrep(config_str,'_','\_'));
+
+    text(0.9,0.1,label_str,...
+        'Units','Normalized','Color',[1 1 1]*0.5,...
+        'HorizontalAlignment','right');
+    legend({'Reference','Measured'},'Location','NorthWest');
+
 elseif(contains(lower(Init_type),'testrig_post'))
     sm_car_plot5bodymeas
 else
