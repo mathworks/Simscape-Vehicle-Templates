@@ -14,6 +14,9 @@ The templates are designed to be extendable. Create your own variant for any por
 of the vehicle model (such as the brakes, suspension, or drivetrain) and you can 
 adjust the libraries so that variant can be selected.
 
+Visit this page to see how-to videos and animations.<br/>
+https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html
+
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
 [![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
