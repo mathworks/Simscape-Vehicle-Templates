@@ -50,14 +50,14 @@ Copyright 2018-2020 The MathWorks, Inc.
     <P Name="CreatedBy">smiller</P>
     <P Name="CreatedOn">Thu Jul 18 11:33:58 2019</P>
     <P Name="ModifiedBy">smiller</P>
-    <P Name="LastSaved">Thu Feb 13 17:50:47 2020</P>
+    <P Name="LastSaved">Sat Oct 24 11:15:16 2020</P>
     <P Name="Owner">5504</P>
     <P Name="OwnerType">SS_HARNESS</P>
     <P Name="OwnerPath">Suspensions/Linkage</P>
     <P Name="LockMode">off</P>
     <P Name="Directory"/>
     <P Name="FileName">sm_car_harness_linkage.slx</P>
-    <P Name="SavedVersion">9.2</P>
+    <P Name="SavedVersion">10.1</P>
     <P Name="HarnessUUID">cc2b57c8-c8d2-49ed-b857-00fea163b61e</P>
     <P Name="HarnessConnectionsMap">||0,0,0,0|5547,5548,5550,5549,5557,5551,5552,5566|5545,5546</P>
     <P Name="VerificationMode">0</P>
@@ -80,7 +80,7 @@ Copyright 2018-2020 The MathWorks, Inc.
     <P Name="CustomSourcePath"/>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|0|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||||sm_car_harness_linkage</P>
+    <P Name="OpenGraphs"/>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
   </Harness>
