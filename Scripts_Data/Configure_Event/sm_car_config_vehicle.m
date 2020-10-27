@@ -34,7 +34,12 @@ if(bdIsLoaded(mdl))
         end
     else
         % Others: adjust controller and use ode23t for variable step
-        set_param([mdl '/Controller'],'popup_control','Default');
+        % If controller present
+        f=Simulink.FindOptions('FollowLinks',0,'LookUnderMasks','none');
+        h=Simulink.findBlocks(bdroot,'Name','Controller',f);
+        if(~isempty(h))
+            set_param([mdl '/Controller'],'popup_control','Default');
+        end
         if(strcmpi(solverType,'variable-step'))
             set_param(mdl,'Solver','ode23t');
         end

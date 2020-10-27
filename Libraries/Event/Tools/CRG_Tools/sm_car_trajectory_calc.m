@@ -1,11 +1,12 @@
-function sm_car_trajectory_calc(road_data,traj_coeff)
+function [traj_data] = sm_car_trajectory_calc(road_data,traj_coeff)
 % Function to produce driver trajectory.
 %
 %   Speed profile       Target speed at distance along track
 %   Vehicle position    x-y position at distance along track
 %   Vehicle yaw         Heading angle at distance along track
 %
-%   Saved in <root file name>_trajectory_default.mat
+%   Saved in <root file name>_trajectory_default.mat if no output requested
+%   Provided in a structure if an output is requested
 %
 % Trajectory is centerline as defined by CRG file.
 % A custom formula calculates target speed based on track curvature.
@@ -148,9 +149,11 @@ d_s = traj_coeff.diff_smooth;   % Diff smoothing number of points
 c_s = traj_coeff.curv_smooth;   % Curvature smoothing number of points
 
 % Get shape for target speed trajectory
-curv4spd_raw   = abs(smooth(diff(yaw4curvature).^d_e,d_s));
+%curv4spd_raw   = abs(smooth(diff(yaw4curvature).^d_e,d_s)); %ORIG
+curv4spd_raw   = abs(smooth(diff(yaw4curvature),d_s));       %No exp
 curv4spd_unit  = curv4spd_raw/max(curv4spd_raw);
-curv4spd       = smooth(curv4spd_unit,c_s);
+%curv4spd       = smooth(curv4spd_unit,c_s);                 %ORIG
+curv4spd       = smooth(curv4spd_unit,c_s).^d_e;             %Exponent here
 tgt_spd_shape  = ones(size(curv4spd))-curv4spd;
 
 % Use smoothing to generate limit for max speed
@@ -239,8 +242,17 @@ aYaw.Units    = 'rad';
 aYaw.Comments = 'Yaw Angle, non-wrapping';
 
 % Save necessary data for driver model
-save([road_data '_trajectory_default'],...
-    'x','y','z','vx','aYaw','xTrajectory');
+if(nargout == 0)
+    save([road_data '_trajectory_default'],...
+        'x','y','z','vx','aYaw','xTrajectory');
+else
+    traj_data.x = x;
+    traj_data.y = y;
+    traj_data.z = z;
+    traj_data.vx = vx;
+    traj_data.aYaw = aYaw;
+    traj_data.xTrajectory = xTrajectory;
+end
 
 %% Plot Trajectory
 fig_handle_name = 'h2_driver_v_yaw';
