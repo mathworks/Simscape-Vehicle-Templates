@@ -3,35 +3,37 @@
 % Copyright 2019-2020 The MathWorks, Inc.
 
 maneuver_list = {...
-    'CRG Mallory Park',      'CMP';
-    'CRG Mallory Park F',    'CMF';
-    'CRG Kyalami',           'CKY';
-    'CRG Kyalami F',         'CKF';
-    'CRG Nurburgring N',     'CNN';
-    'CRG Nurburgring N F',   'CNF';
-    'CRG Suzuka',            'CSZ';
-    'CRG Suzuka F',          'CSF';
-    'CRG Pikes Peak',        'CPU';
-    'CRG Pikes Peak Down',   'CPD';
-    'CRG Plateau',           'CPL';
-    'Mallory Park Obstacle', 'MPO';
-    'Mallory Park',          'MPK';
-    'Mallory Park CCW'       'MPC';
-    'MCity',                 'MCI';
-    'Double Lane Change',    'DLC';
-    'Ice Patch',             'IPA';
-    'CRG Slope',             'CSL';
-    'WOT Braking',           'WOT';
-    'Low Speed Steer',       'LSS';
-    'Turn',                  'TUR';
-    'Trailer Disturbance',   'TRD';
-    'Testrig 4 Post'         'PST';
-    'Skidpad',               'SKD';
-    'RDF Plateau',           'RDP';
-    'RDF Rough Road',        'RDR';
-    'Plateau Z Only',        'ZPL';
-    'Rough Road Z Only',     'ZRR';
-    'Drive Cycle FTP75',     'DCA';
+    'CRG Mallory Park',       'CMP';
+    'CRG Mallory Park F',     'CMF';
+    'CRG Kyalami',            'CKY';
+    'CRG Kyalami F',          'CKF';
+    'CRG Nurburgring N',      'CNN';
+    'CRG Nurburgring N F',    'CNF';
+    'CRG Suzuka',             'CSZ';
+    'CRG Suzuka F',           'CSF';
+    'CRG Pikes Peak',         'CPU';
+    'CRG Pikes Peak Down',    'CPD';
+    'CRG Plateau',            'CPL';
+    'Mallory Park Obstacle',  'MPO';
+    'Mallory Park',           'MPK';
+    'Mallory Park CCW'        'MPC';
+    'MCity',                  'MCI';
+    'Double Lane Change',     'DLC';
+    'Ice Patch',              'IPA';
+    'CRG Slope',              'CSL';
+    'WOT Braking',            'WOT';
+    'Low Speed Steer',        'LSS';
+    'Turn',                   'TUR';
+    'Trailer Disturbance',    'TRD';
+    'Testrig 4 Post'          'PST';
+    'Skidpad',                'SKD';
+    'Constant Radius Closed-Loop', 'RAD';
+    'RDF Plateau',            'RDP';
+    'RDF Rough Road',         'RDR';
+    'Plateau Z Only',         'ZPL';
+    'Rough Road Z Only',      'ZRR';
+    'Drive Cycle FTP75',      'DCA';
+    'Drive Cycle UrbanCycle1','DC1';
     };
 
 
@@ -242,7 +244,7 @@ plotstr = 'sm_car_plot5bodymeas';
 sm_car_test_variants_testloop
 
 %% Test Set 9 -- Skidpad
-manv_set = {'Skidpad'};
+manv_set = {'Skidpad', 'Constant Radius'};
 solver_typ = {'variable step'};
 veh_set = [139];
 trailer_set = {'none'};
@@ -382,7 +384,7 @@ plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
 %% Test Set 13 -- Drive Cycle FTP75
-manv_set = {'Drive Cycle FTP75'};
+manv_set = {'Drive Cycle FTP75' 'Drive Cycle UrbanCycle1'};
 solver_typ = {'variable step'};
 veh_set = [173 165];
 trailer_set = {'none'};

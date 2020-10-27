@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Simscape Vehicle Library</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-02-12"><meta name="DC.source" content="Simscape_Vehicle_Library_Demo_Script.m"><style type="text/css">
+      --><title>Simscape Vehicle Library</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-21"><meta name="DC.source" content="Simscape_Vehicle_Library_Demo_Script.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -89,21 +89,22 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <td><b>Ice_Patch</b> </td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scene_ice_patch.slx')));open_system('sm_car_scene_ice_patch.slx')">Library</a></td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_ice_patch.m')));edit sm_car_scenedata_ice_patch.m;">Data</a></td></tr>
-<td><b>CRG Slope</b> </td>
-<td><a href="matlab:cd(fileparts(which('sm_car_scene_crg_slope.slx')));open_system('sm_car_scene_crg_slope.slx')">Library</a></td>
-<td><a href="matlab:cd(fileparts(which('sm_car_scenedata_crg_slope.m')));edit sm_car_scenedata_crg_slope.m;">Data</a></td></tr>
+<td><b>CRG Mallory Park</b> </td>
+<td><a href="matlab:cd(fileparts(which('sm_car_scene_crg_mallory_park.slx')));open_system('sm_car_scene_crg_mallory_park.slx')">Library</a></td>
+<td><a href="matlab:cd(fileparts(which('sm_car_scenedata_crg_mallory_park.m')));edit sm_car_scenedata_crg_mallory_park.m;">Data</a></td></tr>
 <td><b>RDF Rough Road</b> </td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scene_rdf_rough_road.slx')));open_system('sm_car_scene_rdf_rough_road.slx')">Library</a></td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_rdf_rough_road.m')));edit sm_car_scenedata_rdf_rough_road.m;">Data</a></td></tr>
 <td><b>Double Lane Change</b> </td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scene_double_lane_change.slx')));open_system('sm_car_scene_double_lane_change.slx')">Library</a></td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_double_lane_change.m')));edit sm_car_scenedata_double_lane_change.m;">Data</a></td>
-<td><a href="matlab:sm_car_plot_maneuver(MDatabase.Double_Lane_Change.default);">Plot Trajectory</a></td></tr>
+<td><a href="matlab:sm_car_plot_maneuver(MDatabase.Double_Lane_Change.Sedan_Hamba);">Plot Trajectory</a></td></tr>
 <td><b>Track Mallory Park</b> </td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scene_track_mallory_park.slx')));open_system('sm_car_scene_track_mallory_park.slx')">Library</a></td>
 <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_track_mallory_park.m')));edit sm_car_scenedata_track_mallory_park.m;">Data</a></td>
-<td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.default);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW);">Counterclockwise</a></td></tr>
+<td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.Sedan_Hamba);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW_Sedan_Hamba);">Counterclockwise</a></td></tr>
 </table><br>
+<tr>Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
 <br>
 <tr><b><u>Component Test Harnesses</u></b><br>
 <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>
@@ -169,21 +170,22 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % <td><b>Ice_Patch</b> </td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scene_ice_patch.slx')));open_system('sm_car_scene_ice_patch.slx')">Library</a></td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_ice_patch.m')));edit sm_car_scenedata_ice_patch.m;">Data</a></td></tr>
-% <td><b>CRG Slope</b> </td>
-% <td><a href="matlab:cd(fileparts(which('sm_car_scene_crg_slope.slx')));open_system('sm_car_scene_crg_slope.slx')">Library</a></td>
-% <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_crg_slope.m')));edit sm_car_scenedata_crg_slope.m;">Data</a></td></tr>
+% <td><b>CRG Mallory Park</b> </td>
+% <td><a href="matlab:cd(fileparts(which('sm_car_scene_crg_mallory_park.slx')));open_system('sm_car_scene_crg_mallory_park.slx')">Library</a></td>
+% <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_crg_mallory_park.m')));edit sm_car_scenedata_crg_mallory_park.m;">Data</a></td></tr>
 % <td><b>RDF Rough Road</b> </td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scene_rdf_rough_road.slx')));open_system('sm_car_scene_rdf_rough_road.slx')">Library</a></td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_rdf_rough_road.m')));edit sm_car_scenedata_rdf_rough_road.m;">Data</a></td></tr>
 % <td><b>Double Lane Change</b> </td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scene_double_lane_change.slx')));open_system('sm_car_scene_double_lane_change.slx')">Library</a></td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_double_lane_change.m')));edit sm_car_scenedata_double_lane_change.m;">Data</a></td>
-% <td><a href="matlab:sm_car_plot_maneuver(MDatabase.Double_Lane_Change.default);">Plot Trajectory</a></td></tr>
+% <td><a href="matlab:sm_car_plot_maneuver(MDatabase.Double_Lane_Change.Sedan_Hamba);">Plot Trajectory</a></td></tr>
 % <td><b>Track Mallory Park</b> </td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scene_track_mallory_park.slx')));open_system('sm_car_scene_track_mallory_park.slx')">Library</a></td>
 % <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_track_mallory_park.m')));edit sm_car_scenedata_track_mallory_park.m;">Data</a></td>
-% <td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.default);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW);">Counterclockwise</a></td></tr>
+% <td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.Sedan_Hamba);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW_Sedan_Hamba);">Counterclockwise</a></td></tr>
 % </table><br>
+% <tr>Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>

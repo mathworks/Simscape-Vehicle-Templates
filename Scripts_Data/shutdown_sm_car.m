@@ -27,7 +27,7 @@ end
 custom_code = dir('**/custom_abs.ssc');
 cd(custom_code.folder)
 cd('..')
-bdclose('Custom_lib')
+bdclose all
 pause(1)
 ssc_clean Custom
 cd(fileparts(which('sm_car.slx')))
