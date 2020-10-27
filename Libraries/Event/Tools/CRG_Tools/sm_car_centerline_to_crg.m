@@ -509,8 +509,9 @@ if(create_no_elevation)
     road_f = road;
     
     % Set elevation and slope to 0
-    road_f.z = 0; % Overwrite previous data
-    road_f.z = zeros(length(x_ctr),4) ;   % Local road elevation deltas
+%    road_f.z = 0; % Overwrite previous data
+%    road_f.z = zeros(length(x_ctr),4) ;   % Local road elevation deltas
+    road_f.z = zeros(size(road.z)) ;   % Local road elevation deltas
     road_f.s = zeros(1,length(x_ctr)-1); % Slope in percentage (0 to 1)
     road_f.b = 0; % Banking
     

@@ -9,6 +9,13 @@ function sm_car_config_road(modelname,scenename)
 f=Simulink.FindOptions('LookUnderMasks','all');
 mu_scaling_h=Simulink.findBlocks(modelname,'Name','Mu Scaling by Position',f);
 
+f=Simulink.FindOptions('LookUnderMasks','all','regexp',1);
+scene_config_h=Simulink.findBlocks(modelname,'SceneDesc','.*',f);
+
+if(~isempty(scene_config_h))
+    set_param(scene_config_h,'SceneDesc','Double lane change');
+end
+
 % Set vehicle data to have flat road
 Vehicle = evalin('base','Vehicle');
 roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
@@ -149,6 +156,34 @@ switch lower(scenename)
             % Select CRG file for slope
             %roadFileF = 'which(''CRG_Mallory_Park_F.crg'')';
             %roadFileR = 'which(''CRG_Mallory_Park_F.crg'')';
+            roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
+            roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+        end
+        
+        set_param(modelname,'StopTime','200')
+        
+    case 'crg custom'
+        if(sum(contains(tireClasses,'MFEval')))
+            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
+                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
+                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
+                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
+                tr_diag_str,...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+            errordlg(error_str,'Wrong Tire Software')
+        end
+        
+        % Select CRG file for slope
+        roadFileF = 'which(''CRG_Custom.crg'')';
+        roadFileR = 'which(''CRG_Custom.crg'')';
+        
+        set_param(modelname,'StopTime','200')
+        
+    case 'crg custom f'
+        if(~sum(contains(tireClasses,'MFEval')))
+            % Select CRG file for slope
+            %roadFileF = 'which(''CRG_Custom_F.crg'')';
+            %roadFileR = 'which(''CRG_Custom_F.crg'')';
             roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
             roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
         end
@@ -299,6 +334,13 @@ switch lower(scenename)
         % No special commands
     case 'double lane change'
         % No special commands
+	case 'mcity'
+        % Unreal scene
+        if(~isempty(scene_config_h))
+            if(~verLessThan('matlab','9.6'))
+                set_param(scene_config_h,'SceneDesc','Virtual Mcity');
+            end
+        end
     case 'testrig 4 post'
         % Set tire model
         % -- Extract size from Instance
