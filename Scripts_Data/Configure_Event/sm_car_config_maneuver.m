@@ -25,6 +25,8 @@ set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','None'
 
 % Assume typical simulation stop conditions
 set_param([modelname '/Check'],'start_check_time','5','stop_speed','0.1');
+set_param([modelname '/Check'],'start_check_time_ld','10000','lat_dev_threshold','8');
+set_param([modelname '/Check'],'start_check_time_end_lap','10000');
 set_param(override_h,'popup_override_type','None');
 
 % Assume no wind
@@ -299,6 +301,31 @@ switch maneuver_str
         sm_car_config_road(modelname,'Plane Grid');
         set_param(modelname,'StopTime','900');
         
+    case 'drive cycle urbancycle1 hambalg'
+        evalin('base','Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_HambaLG;');
+        evalin('base','Maneuver = MDatabase.DriveCycle.UrbanCycle1;');
+        set_param(drive_h,'popup_driver_type','Drive Cycle');
+        evalin('base','Driver = DDatabase.DriveCycle_UrbanCycle1.Sedan_HambaLG;');
+        set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime','195');
+    case 'drive cycle urbancycle1 hamba'
+        evalin('base','Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.DriveCycle.UrbanCycle1;');
+        set_param(drive_h,'popup_driver_type','Drive Cycle');
+        evalin('base','Driver = DDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;');
+        set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime','195');
+    case 'drive cycle urbancycle1 makhulu'
+        evalin('base','Init = IDatabase.DriveCycle_UrbanCycle1.Bus_Makhulu;');
+        evalin('base','Maneuver = MDatabase.DriveCycle.UrbanCycle1;');
+        set_param(drive_h,'popup_driver_type','Drive Cycle');
+        evalin('base','Driver = DDatabase.DriveCycle_UrbanCycle1.Bus_Makhulu;');
+        set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime','195');
+        
     case 'skidpad hamba'
         evalin('base','Init = IDatabase.Skidpad.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.Skidpad.Sedan_Hamba;');
@@ -326,6 +353,37 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Skidpad.Bus_Makhulu;');
         sm_car_config_road(modelname,'Skidpad');
         set_param(modelname,'StopTime','50');
+        % For only this maneuver, a window of points should be checked
+        % The maneuver trajectory crosses itself.
+        set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
+        
+    case 'constant radius closed-loop hamba'
+        evalin('base','Init = IDatabase.Constant_Radius_CL.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.Constant_Radius_CL.Sedan_Hamba;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.Constant_Radius_CL.Sedan_Hamba;');
+        sm_car_config_road(modelname,'Constant Radius');
+        set_param(modelname,'StopTime','25');
+        % For only this maneuver, a window of points should be checked
+        % The maneuver trajectory crosses itself.
+        set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
+    case 'constant radius closed-loop hambalg'
+        evalin('base','Init = IDatabase.Constant_Radius_CL.Sedan_HambaLG;');
+        evalin('base','Maneuver = MDatabase.Constant_Radius_CL.Sedan_HambaLG;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.Constant_Radius_CL.Sedan_HambaLG;');
+        sm_car_config_road(modelname,'Constant Radius');
+        set_param(modelname,'StopTime','25');
+        % For only this maneuver, a window of points should be checked
+        % The maneuver trajectory crosses itself.
+        set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
+    case 'constant radius closed-loop makhulu'
+        evalin('base','Init = IDatabase.Constant_Radius_CL.Bus_Makhulu;');
+        evalin('base','Maneuver = MDatabase.Constant_Radius_CL.Bus_Makhulu;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.Constant_Radius_CL.Bus_Makhulu;');
+        sm_car_config_road(modelname,'Constant Radius');
+        set_param(modelname,'StopTime','25');
         % For only this maneuver, a window of points should be checked
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
@@ -447,7 +505,7 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.CRG_Kyalami.Sedan_Hamba;');
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Kyalami);');
         sm_car_config_road(modelname,'CRG Kyalami');
-        set_param(modelname,'StopTime','261');
+        set_param(modelname,'StopTime','280');
         
     case 'crg kyalami f hamba'
         evalin('base','Init = IDatabase.CRG_Kyalami_F.Sedan_Hamba;');
@@ -456,7 +514,7 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.CRG_Kyalami.Sedan_Hamba;');
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Kyalami_F);');
         sm_car_config_road(modelname,'CRG Kyalami F');
-        set_param(modelname,'StopTime','261');
+        set_param(modelname,'StopTime','280');
         
     case 'crg mallory park hamba'
         evalin('base','Init = IDatabase.CRG_Mallory_Park.Sedan_Hamba;');
@@ -474,6 +532,24 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.CRG_Mallory_Park.Sedan_Hamba;');
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Mallory_Park_F);');
         sm_car_config_road(modelname,'CRG Mallory Park F');
+        set_param(modelname,'StopTime','200');
+        
+    case 'crg custom hamba'
+        evalin('base','Init = IDatabase.CRG_Custom.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.CRG_Custom.Sedan_Hamba;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.CRG_Custom.Sedan_Hamba;');
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Custom);');
+        sm_car_config_road(modelname,'CRG Custom');
+        set_param(modelname,'StopTime','200');
+        
+    case 'crg custom f hamba'
+        evalin('base','Init = IDatabase.CRG_Custom_F.Sedan_Hamba;');
+        evalin('base','Maneuver = MDatabase.CRG_Custom_F.Sedan_Hamba;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','Driver = DDatabase.CRG_Custom.Sedan_Hamba;');
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Custom_F);');
+        sm_car_config_road(modelname,'CRG Custom F');
         set_param(modelname,'StopTime','200');
         
     case 'crg nurburgring n hamba'

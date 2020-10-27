@@ -14,9 +14,6 @@ The templates are designed to be extendable. Create your own variant for any por
 of the vehicle model (such as the brakes, suspension, or drivetrain) and you can 
 adjust the libraries so that variant can be selected.
 
-Visit this page to see how-to videos and animations.<br/>
-https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html
-
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
 [![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
@@ -31,6 +28,16 @@ https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v1.6 -- Oct 2020**
+1. Added Event Constant Radius
+2. Added CRG Custom (slot for custom events, copy of CRG Mallory Park)
+3. Added Drive Cycle UrbanCycle1
+4. Added stop conditions (lateral deviation too high, lap complete)
+5. Added lateral deviation to logged results
+6. Corrected lateral deviation calculation
+7. Added example optimization for lap time (Workflows/Optimize)
+8. Removed discrete signals from traffic light signal
+
 **v1.5 -- Aug 2020**
 1. Added power Fuel Cell 1 Motor
 2. Added Control data structure with control parameters
