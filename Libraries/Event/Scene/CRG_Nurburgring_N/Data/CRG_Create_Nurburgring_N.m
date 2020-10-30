@@ -29,13 +29,13 @@ if(nargout == 0)
 end
 %% Create driver trajectory
 traj_coeff.blend_distance = 80;     % m
-traj_coeff.diff_exp       = 1.2;    % Curvature exponent
+traj_coeff.diff_exp       = 1;    % Curvature exponent
 traj_coeff.diff_smooth    = 100;    % Diff smoothing number of points
 traj_coeff.curv_smooth    = 200;    % Curvature smoothing number of points
 traj_coeff.lim_smooth     = 500;    % Limit smoothing number of points
 traj_coeff.target_shape_smooth = 200;  % Number of points for smoothing
-traj_coeff.vmax           = 10*2;   % Max speed, m/s
-traj_coeff.vmin           = 6.6*2;  % Min speed, m/s
+traj_coeff.vmax           = 26;   % Max speed, m/s
+traj_coeff.vmin           = 5;  % Min speed, m/s
 traj_coeff.decimation     = 8;      % Decimation for interpolation
 
 if(nargout == 0)
