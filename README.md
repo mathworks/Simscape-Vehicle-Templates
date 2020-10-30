@@ -29,14 +29,17 @@ adjust the libraries so that variant can be selected.
  
 ### **Release History**
 **v1.6 -- Oct 2020**
-1. Added Event Constant Radius
-2. Added CRG Custom (slot for custom events, copy of CRG Mallory Park)
-3. Added Drive Cycle UrbanCycle1
-4. Added stop conditions (lateral deviation too high, lap complete)
-5. Added lateral deviation to logged results
-6. Corrected lateral deviation calculation
-7. Added example optimization for lap time (Workflows/Optimize)
-8. Removed discrete signals from traffic light signal
+1.  Added Event Constant Radius
+2.  Added CRG Custom (slot for custom events, copy of CRG Mallory Park)
+3.  Added Drive Cycle UrbanCycle1
+4.  Added stop conditions (lateral deviation too high, lap complete)
+5.  Added lateral deviation to logged results
+6.  Corrected lateral deviation calculation
+7.  Added example optimization for lap time (Workflows/Optimize)
+8.  Removed discrete signals from traffic light signal
+9.  Adjusted default trajectory CRG Mallory Park, CRG Nurburgring
+10. Adjusted maneuver configuration to stop after one lap (lap events only)
+11. Cleaned up trajectory definition sm_car_trajectory_double_lane_change.m
 
 **v1.5 -- Aug 2020**
 1. Added power Fuel Cell 1 Motor

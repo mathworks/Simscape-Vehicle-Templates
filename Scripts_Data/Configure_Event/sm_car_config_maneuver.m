@@ -38,6 +38,8 @@ set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','No');
 % Add case for new events here
 % Set initial vehicle state and configure inputs
 switch maneuver_str
+
+    % --- DEFAULT
     case 'default'
         evalin('base','Init = IDatabase.Flat.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.WOT_Braking.Sedan_Hamba;');
@@ -46,6 +48,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Plane Grid');
         sm_car_config_solver(modelname,'variable step'); % Default only
 
+    % --- EMPTY
     case 'none hambalg'
         evalin('base','Init = IDatabase.Flat.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.None.Default;');
@@ -68,6 +71,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Plane Grid');
         sm_car_config_solver(modelname,'variable step'); % Default only
         
+    % --- Wide open throttle then braking
     case 'wot braking hambalg'
         evalin('base','Init = IDatabase.Flat.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.WOT_Braking.Sedan_HambaLG;');
@@ -87,6 +91,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Plane Grid');
         
+    % --- Ice patch
     case 'ice patch hambalg'
         evalin('base','Init = IDatabase.Flat.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Ice_Patch.Sedan_HambaLG;');
@@ -106,6 +111,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Ice Patch');
         
+    % --- Low Speed Steer
     case 'low speed steer hambalg'
         evalin('base','Init = IDatabase.Flat.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Low_Speed_Steer.Sedan_HambaLG;');
@@ -125,6 +131,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Plane Grid');
         
+    % --- Turn with braking
     case 'turn hambalg'
         evalin('base','Init = IDatabase.Flat.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Turn.Sedan_HambaLG;');
@@ -144,6 +151,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Plane Grid');
         
+    % --- Rough road based on RDF file
     case 'rdf rough road hambalg'
         evalin('base','Init = IDatabase.RDF_Rough_Road.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Sedan_HambaLG;');
@@ -166,6 +174,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','34');
         sm_car_config_road(modelname,'RDF Rough Road');
         
+    % --- Rough road based on RDF file, height only
     case 'rough road z only hambalg'
         evalin('base','Init = IDatabase.RDF_Rough_Road.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.RDF_Rough_Road.Sedan_HambaLG;');
@@ -191,6 +200,7 @@ switch maneuver_str
         set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Rough_Road');
         sm_car_config_road(modelname,'Rough Road Z Only');
         
+    % --- Plateau based on RDF file
     case 'rdf plateau hambalg'
         evalin('base','Init = IDatabase.RDF_Plateau.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_HambaLG;');
@@ -210,6 +220,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','30');
         sm_car_config_road(modelname,'RDF Plateau');
         
+    % --- Plateau, height only (no slope at tire)
     case 'plateau z only hambalg'
         evalin('base','Init = IDatabase.RDF_Plateau.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_HambaLG;');
@@ -232,6 +243,7 @@ switch maneuver_str
         set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Plateau');
         sm_car_config_road(modelname,'Plateau Z Only');
         
+    % --- Plateau, height only (no slope at tire)
     case 'crg plateau hambalg'
         evalin('base','Init = IDatabase.RDF_Plateau.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Accel_NoBrake.Sedan_HambaLG;');
@@ -254,6 +266,7 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Plateau);');
         sm_car_config_road(modelname,'CRG Plateau');
 
+    % --- Double Lane Change
     case 'double lane change hambalg'
         evalin('base','Init = IDatabase.Double_Lane_Change.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Double_Lane_Change.Sedan_HambaLG;');
@@ -276,6 +289,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Double Lane Change');
         set_param(modelname,'StopTime','25');
 
+    % --- Drive Cycle FTP75
     case 'drive cycle ftp75 hambalg'
         evalin('base','Init = IDatabase.DriveCycle_FTP75.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.DriveCycle.FTP75;');
@@ -301,6 +315,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Plane Grid');
         set_param(modelname,'StopTime','900');
         
+    % --- Drive Cycle Urban Cycle 1
     case 'drive cycle urbancycle1 hambalg'
         evalin('base','Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.DriveCycle.UrbanCycle1;');
@@ -326,6 +341,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Plane Grid');
         set_param(modelname,'StopTime','195');
         
+    % --- Skidpad from Formula Student
     case 'skidpad hamba'
         evalin('base','Init = IDatabase.Skidpad.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.Skidpad.Sedan_Hamba;');
@@ -357,6 +373,7 @@ switch maneuver_str
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
         
+    % --- Constant Radius
     case 'constant radius closed-loop hamba'
         evalin('base','Init = IDatabase.Constant_Radius_CL.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.Constant_Radius_CL.Sedan_Hamba;');
@@ -388,6 +405,7 @@ switch maneuver_str
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
         
+    % --- Straightline at constant speed
     case 'straight constant speed hambalg'
         evalin('base','Init = IDatabase.Double_Lane_Change.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Straight_Constant_Speed_12_50.Sedan_HambaLG;');
@@ -410,6 +428,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Road Two Lane');
         set_param(modelname,'StopTime','25');
         
+    % --- Trailer Disturbance
     case 'trailer disturbance hambalg'
         evalin('base','Init = IDatabase.Double_Lane_Change.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Straight_Constant_Speed_12_50.Sedan_HambaLG;');
@@ -435,6 +454,7 @@ switch maneuver_str
         set_param(modelname,'StopTime','25');
         sm_car_config_wind('sm_car',0,1)
         
+    % --- Mallory Park Circuit, Flat (not based on CRG)
     case 'mallory park hambalg'
         evalin('base','Init = IDatabase.Mallory_Park.Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.Sedan_HambaLG;');
@@ -442,6 +462,7 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Mallory_Park.Sedan_HambaLG;');
         sm_car_config_road(modelname,'Track Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
     case 'mallory park hamba'
         evalin('base','Init = IDatabase.Mallory_Park.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.Sedan_Hamba;');
@@ -449,6 +470,7 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Mallory_Park.Sedan_Hamba;');
         sm_car_config_road(modelname,'Track Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
     case 'mallory park makhulu'
         evalin('base','Init = IDatabase.Mallory_Park.Bus_Makhulu;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.Bus_Makhulu;');
@@ -456,7 +478,9 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Mallory_Park.Bus_Makhulu;');
         sm_car_config_road(modelname,'Track Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Mallory Park Circuit Counterclockwise, flat (not based on CRG)
     case 'mallory park ccw hambalg'
         evalin('base','Init = IDatabase.Mallory_Park.CCW_Sedan_HambaLG;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.CCW_Sedan_HambaLG;');
@@ -464,6 +488,7 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Mallory_Park.CCW_Sedan_HambaLG;');
         sm_car_config_road(modelname,'Track Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
     case 'mallory park ccw hamba'
         evalin('base','Init = IDatabase.Mallory_Park.CCW_Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.CCW_Sedan_Hamba;');
@@ -471,6 +496,7 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Mallory_Park.CCW_Sedan_Hamba;');
         sm_car_config_road(modelname,'Track Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
     case 'mallory park ccw makhulu'
         evalin('base','Init = IDatabase.Mallory_Park.CCW_Bus_Makhulu;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.CCW_Bus_Makhulu;');
@@ -478,7 +504,9 @@ switch maneuver_str
         evalin('base','Driver = DDatabase.Mallory_Park.CCW_Bus_Makhulu;');
         sm_car_config_road(modelname,'Track Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Mallory Park Circuit with stoplights, flat (not based on CRG)
     case 'mallory park obstacle hamba'
         evalin('base','Init = IDatabase.Mallory_Park.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.Mallory_Park.Sedan_Hamba;');
@@ -489,6 +517,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'Track Mallory Park Obstacle');
         set_param(modelname,'StopTime','200');
         
+    % --- MCity
     case 'mcity hamba'
         evalin('base','Init = IDatabase.MCity.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.MCity.Sedan_Hamba;');
@@ -497,7 +526,6 @@ switch maneuver_str
         set_param([modelname '/Check'],'start_check_time','30000','stop_speed','-50');
         sm_car_config_road(modelname,'MCity');
         set_param(modelname,'StopTime','50');
-        
     case 'crg kyalami hamba'
         evalin('base','Init = IDatabase.CRG_Kyalami.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Kyalami.Sedan_Hamba;');
@@ -506,7 +534,7 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Kyalami);');
         sm_car_config_road(modelname,'CRG Kyalami');
         set_param(modelname,'StopTime','280');
-        
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');        
     case 'crg kyalami f hamba'
         evalin('base','Init = IDatabase.CRG_Kyalami_F.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Kyalami_F.Sedan_Hamba;');
@@ -515,7 +543,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Kyalami_F);');
         sm_car_config_road(modelname,'CRG Kyalami F');
         set_param(modelname,'StopTime','280');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Mallory Park Circuit based on CRG with slope
     case 'crg mallory park hamba'
         evalin('base','Init = IDatabase.CRG_Mallory_Park.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Mallory_Park.Sedan_Hamba;');
@@ -524,7 +554,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Mallory_Park);');
         sm_car_config_road(modelname,'CRG Mallory Park');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Mallory Park Circuit based on CRG, no slope
     case 'crg mallory park f hamba'
         evalin('base','Init = IDatabase.CRG_Mallory_Park_F.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Mallory_Park_F.Sedan_Hamba;');
@@ -533,7 +565,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Mallory_Park_F);');
         sm_car_config_road(modelname,'CRG Mallory Park F');
         set_param(modelname,'StopTime','200');
-        
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
+
+    % --- CUSTOM EVENT based on CRG: placeholder for custom race circuit
     case 'crg custom hamba'
         evalin('base','Init = IDatabase.CRG_Custom.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Custom.Sedan_Hamba;');
@@ -542,7 +576,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Custom);');
         sm_car_config_road(modelname,'CRG Custom');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- CUSTOM EVENT based on CRG, no slope: placeholder for custom race circuit
     case 'crg custom f hamba'
         evalin('base','Init = IDatabase.CRG_Custom_F.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Custom_F.Sedan_Hamba;');
@@ -551,7 +587,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Custom_F);');
         sm_car_config_road(modelname,'CRG Custom F');
         set_param(modelname,'StopTime','200');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Nurburgring Nordschleife based on CRG with slope
     case 'crg nurburgring n hamba'
         evalin('base','Init = IDatabase.CRG_Nurburgring_N.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Nurburgring_N.Sedan_Hamba;');
@@ -560,7 +598,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Nurburgring_N);');
         sm_car_config_road(modelname,'CRG Nurburgring N');
         set_param(modelname,'StopTime','1134');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Nurburgring Nordschleife based on CRG, no slope
     case 'crg nurburgring n f hamba'
         evalin('base','Init = IDatabase.CRG_Nurburgring_N_F.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Nurburgring_N_F.Sedan_Hamba;');
@@ -569,7 +609,9 @@ switch maneuver_str
         evalin('base','sm_car_scene_stl_create(Scene.CRG_Nurburgring_N_F);');
         sm_car_config_road(modelname,'CRG Nurburgring N F');
         set_param(modelname,'StopTime','1140');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Suzuka Circuit based on CRG, with slope
     case 'crg suzuka hamba'
         evalin('base','Init = IDatabase.CRG_Suzuka.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Suzuka.Sedan_Hamba;');
@@ -581,7 +623,9 @@ switch maneuver_str
         % For only this maneuver, a window of points should be checked
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Suzuka Circuit based on CRG, no slope
     case 'crg suzuka f hamba'
         evalin('base','Init = IDatabase.CRG_Suzuka_F.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Suzuka_F.Sedan_Hamba;');
@@ -593,7 +637,9 @@ switch maneuver_str
         % For only this maneuver, a window of points should be checked
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
         
+    % --- Pikes Peak Ascent based on CRG, with slope
     case 'crg pikes peak hamba'
         evalin('base','Init = IDatabase.CRG_Pikes_Peak.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Pikes_Peak.Sedan_Hamba;');
@@ -603,6 +649,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'CRG Pikes Peak');
         set_param(modelname,'StopTime','1485');
         
+    % --- Pikes Peak Descent based on CRG, with slope
     case 'crg pikes peak down hamba'
         evalin('base','Init = IDatabase.CRG_Pikes_Peak_Down.Sedan_Hamba;');
         evalin('base','Maneuver = MDatabase.CRG_Pikes_Peak.Down_Sedan_Hamba;');
@@ -612,6 +659,7 @@ switch maneuver_str
         sm_car_config_road(modelname,'CRG Pikes Peak');
         set_param(modelname,'StopTime','1485');
         
+    % --- 4 Post Testrig
     case {'testrig 4 post hamba','testrig 4 post hambalg','testrig 4 post makhulu'}
         evalin('base','Init = IDatabase.Testrig_Post.Default;');
         evalin('base','Maneuver = MDatabase.None.Default;');
