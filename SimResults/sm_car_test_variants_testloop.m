@@ -15,9 +15,13 @@ for veh_i = 1:length(veh_set)
     for trl_i = 1:length(trailer_set)
 
         % Load Vehicle and trailer data
-        veh_suffix = pad(num2str(veh_set(veh_i)),3,'left','0');
+        if(isnumeric(veh_set(veh_i)))
+            veh_suffix = pad(num2str(veh_set(veh_i)),3,'left','0');
+        else
+            veh_suffix = veh_set{veh_i};
+        end
         eval(['Vehicle = Vehicle_' veh_suffix ';']);
-        sm_car_load_trailer_data('sm_car',trailer_set{trl_i});
+        sm_car_load_trailer_data(mdl,trailer_set{trl_i});
         sm_car_config_vehicle(mdl);
         
         % Loop over all solver types to be tested
@@ -97,10 +101,10 @@ for veh_i = 1:length(veh_set)
                 sm_car_res(testnum).figname = figname;
                 sm_car_res(testnum).result = test_success;
                 sm_car_res(testnum).preset = veh_suffix;
-                sm_car_res(testnum).trailer_type = sm_car_vehcfg_getTrailerType('sm_car');
+                sm_car_res(testnum).trailer_type = sm_car_vehcfg_getTrailerType(mdl);
             end
         end
     end
 end
 
-sm_car_load_trailer_data('sm_car','none');
+sm_car_load_trailer_data(mdl,'none');

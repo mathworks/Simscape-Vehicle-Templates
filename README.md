@@ -14,6 +14,8 @@ The templates are designed to be extendable. Create your own variant for any por
 of the vehicle model (such as the brakes, suspension, or drivetrain) and you can 
 adjust the libraries so that variant can be selected.
 
+**Please visit the [Simscape Vehicle Templates](https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html) page** for animations and videos that show what you can do with these models.
+
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
 [![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
@@ -28,6 +30,18 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.0 -- Dec 2020**
+**Major changes in this release to enable multi-axle vehicles.**
+**Datasets compatible with earlier releases will need changes to work with this version.**
+1. Added semi-truck (3 axles, 10 wheels), box trailer and tank trailer (2 axles, 8 wheels) 
+2. Added optional pendulum slosh model to tank trailer
+3. Added second base model (sm_car_Axle3.slx) for 3-axle vehicles pulling 2-axle trailers
+4. MATLAB app can be used with base models of any name (model name is a dialog box field)
+5. Axles enumerated 1, 2, 3 instead of front, rear
+6. Initial values for maneuvers specified in MATLAB (was Excel)
+7. Maneuver setup sets initial speed for trailer wheels
+8. Data for driver models specified in MATLAB (was Excel)
+
 **v1.6 -- Oct 2020**
 1.  Added Event Constant Radius
 2.  Added CRG Custom (slot for custom events, copy of CRG Mallory Park)

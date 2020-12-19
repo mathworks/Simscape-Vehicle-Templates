@@ -45,7 +45,7 @@ definput = {''};
 answer = inputdlg(prompt,dlgtitle,dims,definput);
 
 % Generate and load all vehicle presets
-sm_car_vehicle_data_assemble_set
+sm_car_assemble_presets
 
 cd(fileparts(which('Vehicle_000.mat')));
 veh_data_sets = dir('Vehicle*.mat');
@@ -53,6 +53,9 @@ for vds_i=1:length(veh_data_sets)
     load(veh_data_sets(vds_i).name)
 end
 clear veh_data_sets vds_i
+
+load Vehicle_000
+Vehicle = Vehicle_000;
 
 mdl = 'sm_car';
 cd(fileparts(which(mdl)));
@@ -76,8 +79,8 @@ clear sm_car_res
 now_string = datestr(now,'yymmdd_HHMM');
 
 num_config = size(whos('-regexp','Vehicle_[0-9].*'),1);
-
 results_foldername = [mdl '_' now_string];
+%results_foldername = 'sm_car_201121_0028';
 mkdir(results_foldername)
 
 %% Test Set 1 - Main tests in Fast Restart, no MF-Swift
@@ -244,7 +247,7 @@ plotstr = 'sm_car_plot5bodymeas';
 sm_car_test_variants_testloop
 
 %% Test Set 9 -- Skidpad
-manv_set = {'Skidpad', 'Constant Radius'};
+manv_set = {'Skidpad', 'Constant Radius Closed-Loop'};
 solver_typ = {'variable step'};
 veh_set = [139];
 trailer_set = {'none'};
@@ -284,6 +287,7 @@ for veh_i = 1:length(veh_set9)
             sm_car_res(testnum).Cars = Vehicle.config;
             sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
             
+            out = [];
             try
                 out = sm_car_abs_test(veh_set9{veh_i});
                 test_success = 'Pass';
@@ -399,6 +403,41 @@ trailer_set = {'none'};
 plotstr = 'sm_car_plot2whlspeed';
 sm_car_test_variants_testloop
 
+%% Test Set 15 -- 3 Axle Bus Makhulu 6x2, 6x4, Amandla 6x2 
+set_param([mdl '/Camera Frames'],'Commented','off');
+set_param(mdl,'SimMechanicsOpenEditorOnUpdate','on');
+bdclose(mdl)
+
+mdl = 'sm_car_Axle3';
+open_system(mdl);
+set_param([mdl '/Camera Frames'],'Commented','on');
+set_param(mdl,'SimMechanicsOpenEditorOnUpdate','off');
+sm_car_config_road(mdl,'Plane Grid')
+sm_car_config_maneuver(mdl,'WOT Braking');
+sm_car_load_trailer_data(mdl,'none');
+
+manv_set = {'WOT Braking'};
+solver_typ = {'variable step'};
+veh_set = {'Axle3_000', 'Axle3_003', 'Axle3_008'};
+trailer_set = {'none'};
+plotstr = 'sm_car_plot1speed';
+sm_car_test_variants_testloop
+
+%% Test Set 18 -- 3 Axle Truck Amandla trailer
+manv_set = {'WOT Braking'};
+solver_typ = {'variable step'};
+veh_set = {'Axle3_010'};
+trailer_set = {'Axle2_001','Axle2_009'};
+plotstr = 'sm_car_plot1speed';
+sm_car_test_variants_testloop
+
+%% Test Set 19 -- 3 Axle Truck Amandla trailer with slosh
+manv_set = {'Turn'};
+solver_typ = {'variable step'};
+veh_set = {'Axle3_012'};
+trailer_set = {'Axle2_002', 'Axle2_007'};
+plotstr = 'sm_car_plot2whlspeed';
+sm_car_test_variants_testloop
 
 %% Process results
 res_out_titles = {'Run' 'Preset' 'Body' 'SuspF' 'Tire' 'TirDyn' 'Drv' 'Trail' 'Mane' 'Solv' '# Steps' 'Time' 'xFinal' 'yFinal' 'Figure'  'Pass'};
