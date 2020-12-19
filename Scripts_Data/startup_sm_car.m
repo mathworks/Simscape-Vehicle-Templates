@@ -54,7 +54,7 @@ assignin('base','VDatabase',VDatabase);
 %% Create .mat files with Vehicle structure presets
 % if they do not exist already (first time project is run)
 if(isempty(which('Vehicle_100.mat')))
-    sm_car_assemble_presets_vehicle_axle2
+    sm_car_assemble_presets
 end
 load('Vehicle_139'); %#ok<LOAD>
 assignin('base','Vehicle',Vehicle_139);
