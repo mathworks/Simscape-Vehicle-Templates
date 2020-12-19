@@ -6,16 +6,8 @@ function Vehicle = sm_car_vehcfg_setAero(Vehicle,aero_opt)
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
 
-switch aero_opt
-    case 'Bus_Makhulu',         instance = 'Bus_Makhulu';
-    case 'Sedan_HambaLG',       instance = 'Sedan_HambaLG';
-    case 'Sedan_Hamba',         instance = 'Sedan_Hamba';
-    case 'Trailer_Elula',       instance = 'Trailer_Elula';
-    case 'Trailer_Thwala',      instance = 'Trailer_Thwala';
-end
-
 % Copy data from database into Vehicle data structure
-Vehicle.Chassis.Aero = VDatabase.Aero.(instance);
+Vehicle.Chassis.Aero = VDatabase.Aero.(aero_opt);
 
 % Modify config string to indicate configuration has been modified
 

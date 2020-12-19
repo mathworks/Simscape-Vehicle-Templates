@@ -1,19 +1,19 @@
 function [Vehicle, VehicleData] = sm_car_import_vehicle_data_sheet(workbookFile, sheetName, startRow, endRow)
 %IMPORTFILE Import data from a spreadsheet
-%  VEHICLEDATA = SM_CAR_IMPORT_VEHICLE_DATA(FILE) reads data from the first worksheet in
+%  [Vehicle, VehicleData] = SM_CAR_IMPORT_VEHICLE_DATA_SHEET(FILE) reads data from the first worksheet in
 %  the Microsoft Excel spreadsheet file named FILE.  Returns the data as
 %  a cell array.
 %
-%  VEHICLEDATA = SM_CAR_IMPORT_VEHICLE_DATA(FILE, SHEET) reads from the specified
+%  [Vehicle, VehicleData] = SM_CAR_IMPORT_VEHICLE_DATA_SHEET(FILE, SHEET) reads from the specified
 %  worksheet.
 %
-%  VEHICLEDATA = SM_CAR_IMPORT_VEHICLE_DATA(FILE, SHEET, STARTROW, ENDROW) reads from
+%  [Vehicle, VehicleData] = SM_CAR_IMPORT_VEHICLE_DATA_SHEET(FILE, SHEET, STARTROW, ENDROW) reads from
 %  the specified worksheet for the specified row interval(s). Specify
 %  STARTROW and ENDROW as a pair of scalars or vectors of matching size
 %  for dis-contiguous row intervals.
 %
 %  Example:
-%  VehicleData = sm_car_import_vehicle_data("Vehicle_Data.xlsx", "Sheet1", 2, 62);
+%  VehicleData = sm_car_import_vehicle_data_sheet("Vehicle_Data.xlsx", "Sheet1", 2, 62);
 %
 %  See also READTABLE.
 %

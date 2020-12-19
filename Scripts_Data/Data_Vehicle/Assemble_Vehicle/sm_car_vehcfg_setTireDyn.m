@@ -1,29 +1,24 @@
-function Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,tiredyn_opt,frontRear)
+function Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,tiredyn_opt,tireFieldName)
 % Copy data from VDatabase to Vehicle data structure
+%
+% tiredyn_opt       Select dynamics model, options varies by tire
+%
+% tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
 % Copyright 2019-2020 The MathWorks, Inc.
 
-% Load database of vehicle data into local workspace
-%VDatabase = evalin('base','VDatabase');
-
-% Select fieldname for front/rear
-if(strcmpi(frontRear,'front'))
-    tirefield = 'TireF';
-elseif(strcmpi(frontRear,'rear'))
-    tirefield = 'TireR';
-end
 
 % Find field that has tire model type
-if(sum(strcmp(Vehicle.Chassis.(tirefield).class.Value,{'Tire2x'})))
+if(sum(strcmp(Vehicle.Chassis.(tireFieldName).class.Value,{'Tire2x'})))
     % Axle with multiple tires - switch for various classes
-    switch Vehicle.Chassis.(tirefield).class.Value
+    switch Vehicle.Chassis.(tireFieldName).class.Value
         case 'Tire2x'
             % Assumes inner and outer tires have same setting
-            tireType = Vehicle.Chassis.(tirefield).TireInner.class.Value;
+            tireType = Vehicle.Chassis.(tireFieldName).TireInner.class.Value;
     end
 else
     % Case with single tire
-    tireType = Vehicle.Chassis.(tirefield).class.Value;
+    tireType = Vehicle.Chassis.(tireFieldName).class.Value;
 end
 
 % Set dynamics setting based on tire model type
@@ -60,17 +55,17 @@ elseif(strcmpi(tireType,'MFSwift'))
 end
 
 % Set field for dynamics setting
-if(sum(strcmp(Vehicle.Chassis.(tirefield).class.Value,{'Tire2x'})))
+if(sum(strcmp(Vehicle.Chassis.(tireFieldName).class.Value,{'Tire2x'})))
     % Axle with multiple tires - switch for various classes
-    switch Vehicle.Chassis.(tirefield).class.Value
+    switch Vehicle.Chassis.(tireFieldName).class.Value
         case 'Tire2x'
             % Assumes inner and outer tires have same setting
-            Vehicle.Chassis.(tirefield).TireInner.Dynamics.Value = dyn_class;
-            Vehicle.Chassis.(tirefield).TireOuter.Dynamics.Value = dyn_class;
+            Vehicle.Chassis.(tireFieldName).TireInner.Dynamics.Value = dyn_class;
+            Vehicle.Chassis.(tireFieldName).TireOuter.Dynamics.Value = dyn_class;
     end
 else
     % Case with single tire
-    Vehicle.Chassis.(tirefield).Dynamics.Value = dyn_class;
+    Vehicle.Chassis.(tireFieldName).Dynamics.Value = dyn_class;
 end
 
 % Modify config string to indicate configuration has been modified

@@ -1,4 +1,4 @@
-function sm_car_vehicle_data = sm_car_import_vehicle_data(workbook_filename,excludeSheets,updateData,showMessage)
+function sm_car_vehicle_data = sm_car_import_vehicle_data(updateData,showMessage)
 %
 % Copyright 2019-2020 The MathWorks, Inc.
 
@@ -17,40 +17,6 @@ else
     sm_car_vehicle_data = [];
     VDatabase = [];
 end
-
-if(updateData)
-    %% Compare modified date of vehicle file to file used in VDatabase
-    % Get modified date of vehicle file
-    [~, wk_filename, wk_fileext] = fileparts(workbook_filename);
-    filedata = dir(which(workbook_filename));
-    wk_filedate = filedata.datenum;
-    
-    % Get modified date from VDatabase
-    vehData_ind = find(strcmp({sm_car_vehicle_data.files.filename},[wk_filename wk_fileext]), 1);
-    
-    % Determine if file should be read in (if modified dates are not the same)
-    readExcel = 0;
-    if(isempty(vehData_ind))
-        readExcel = 1;
-    else
-        VD_filedate = sm_car_vehicle_data.files(vehData_ind).date;
-        if(wk_filedate~=VD_filedate)
-            readExcel = 1;
-        end
-    end
-else
-    readExcel = 1;
-    vehData_ind = 1;
-end
-
-%%
-if(readExcel)
-    sm_car_vehicle_data = sm_car_import_database(workbook_filename,excludeSheets,showMessage);
-end
-filedata = dir(which(workbook_filename));
-sm_car_vehicle_data.files(vehData_ind).filename = filedata.name;
-sm_car_vehicle_data.files(vehData_ind).date = filedata.datenum;
-
 
 % Find Excel files with vehicle data (based on filename)
 curr_dir = pwd;

@@ -21,7 +21,7 @@ Vehicle = evalin('base','Vehicle');
 
 % Defaults
 set_param(mdl, 'SimscapeLogType', 'all');
-set_param(mdl,'SimMechanicsOpenEditorOnUpdate','on')
+%set_param(mdl,'SimMechanicsOpenEditorOnUpdate','on')
 
 if strcmpi(simtype,'variable step')
     set_param(mdl,'Solver',desktop_solver);    
@@ -32,8 +32,7 @@ if strcmpi(simtype,'variable step')
 	cs = getActiveConfigSet(mdl);
     switchTarget(cs,'grt.tlc',[]);
 
-    Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,'variable','front');
-    Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,'variable','rear');
+    Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,'variable');
     
 else
     % If local solver is enabled, disable warning concerning 
@@ -48,8 +47,7 @@ else
             'LocalSolverChoice',realtime_localSolver,...
             'LocalSolverSampleTime',realtime_stepSize);
     end
-    Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,'fixed','front');
-    Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,'fixed','rear');
+    Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,'fixed');
     
     if(endsWith(simtype,'slrt'))
         % For use with Simulink Real-Time, turn warnings off

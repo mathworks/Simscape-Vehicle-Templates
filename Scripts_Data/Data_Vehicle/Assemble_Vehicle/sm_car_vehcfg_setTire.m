@@ -1,4 +1,4 @@
-function Vehicle = sm_car_vehcfg_setTire(Vehicle,tire_opt,frontRear)
+function Vehicle = sm_car_vehcfg_setTire(Vehicle,tire_opt,tireFieldName)
 % Copy data from VDatabase to Vehicle data structure
 % 
 % tire_opt contains options encoded in a string
@@ -10,6 +10,8 @@ function Vehicle = sm_car_vehcfg_setTire(Vehicle,tire_opt,frontRear)
 %   <geometry>      "Generic" for parameterized geometry
 %                   "CAD" for CAD geometry
 %   <tire_data>     string corresponding to .tir file
+%
+% tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
 % Copyright 2019-2020 The MathWorks, Inc.
 
@@ -29,86 +31,50 @@ end
 % Determine which type of geometry is requested
 % and remove geometry flag from tire_opt
 if(contains(tire_opt,'_Generic_'))
-    tire_opt = strrep(tire_opt,'_Generic','');
+    tire_opt = strrep(tire_opt,'Generic_','');
     tire_body = 'Parameterized';
+    tire_2xinst   = replace(tire_opt,{'MFEval_','MFSwift_','Delft_'},'');
 else
     tire_opt = strrep(tire_opt,'_CAD','');
     % Create tire_body variable with selected CAD option
-    tire_body = strrep(tire_opt,'MFEval','CAD');
-    tire_body = strrep(tire_body,'Delft','CAD');
+    tire_body   = replace(tire_opt,{'MFEval','MFSwift','Delft'},'CAD');
+    tire_2xinst = replace(tire_body,'CAD_','');
 end
-
-% Switch to select instance for tire model and tire data
-if(strcmpi(frontRear,'front'))
-    switch tire_opt
-        case 'MFEval_235_50R24',   instance = 'MFEval_235_50R24';
-        case 'MFEval_213_40R21',   instance = 'MFEval_213_40R21';
-        case 'MFEval_270_70R22',   instance = 'MFEval_270_70R22';
-        case 'MFEval_145_70R13',   instance = 'MFEval_145_70R13';
-        case 'Delft_235_50R24',    instance = 'Delft_235_50R24';
-        case 'Delft_213_40R21',    instance = 'Delft_213_40R21';
-        case 'Delft_270_70R22',    instance = 'Delft_270_70R22';
-        case 'Delft_145_70R13',    instance = 'Delft_145_70R13';
-        case 'MFSwift_235_50R24',  instance = 'MFSwift_235_50R24';
-        case 'MFSwift_213_40R21',  instance = 'MFSwift_213_40R21';
-        case 'MFSwift_270_70R22',  instance = 'MFSwift_270_70R22';
-        case 'MFSwift_145_70R13',  instance = 'MFSwift_145_70R13';
-    end
-    tirefield = 'TireF';
-elseif(strcmpi(frontRear,'rear'))
-    switch tire_opt
-        case 'MFEval_235_50R24',   instance = 'MFEval_235_50R24';
-        case 'MFEval_213_40R21',   instance = 'MFEval_213_40R21';
-        case 'MFEval_270_70R22',   instance = 'MFEval_270_70R22';
-        case 'MFEval_145_70R13',   instance = 'MFEval_145_70R13';
-        case 'Delft_235_50R24',    instance = 'Delft_235_50R24';
-        case 'Delft_213_40R21',    instance = 'Delft_213_40R21';
-        case 'Delft_270_70R22',    instance = 'Delft_270_70R22';
-        case 'Delft_145_70R13',    instance = 'Delft_145_70R13';
-        case 'MFSwift_235_50R24',  instance = 'MFSwift_235_50R24';
-        case 'MFSwift_213_40R21',  instance = 'MFSwift_213_40R21';
-        case 'MFSwift_270_70R22',  instance = 'MFSwift_270_70R22';
-        case 'MFSwift_145_70R13',  instance = 'MFSwift_145_70R13';
-    end
-    tirefield = 'TireR';
-end
-
-%disp(['Instance: ' instance '  | Body: ' tire_body])
 
 % Logic to handle single tire/multiple tires
 % Place parameters at correct level and assign to one/multiple tires
 if(strcmp(tire_config,'1x'))
     % Assign parameters to single tire
-    Vehicle.Chassis.(tirefield) = VDatabase.Tire.(instance);
+    Vehicle.Chassis.(tireFieldName) = VDatabase.Tire.(tire_opt);
 
     % If requested geometry option not in database, use parameterized geometry
     if(isfield(VDatabase.TireBody,tire_body))
-        Vehicle.Chassis.(tirefield).TireBody = VDatabase.TireBody.(tire_body);
+        Vehicle.Chassis.(tireFieldName).TireBody = VDatabase.TireBody.(tire_body);
     else
-        Vehicle.Chassis.(tirefield).TireBody = VDatabase.TireBody.Parameterized;
+        Vehicle.Chassis.(tireFieldName).TireBody = VDatabase.TireBody.Parameterized;
     end
 else
     % Two tires - 
     % **Future Enhancement** 
     % Additional logic will be needed for >2 tires
     % Instance is also currently hardcoded 
-    Vehicle.Chassis.(tirefield) = VDatabase.Tire.Tire2x_Bus_Makhulu;
-    Vehicle.Chassis.(tirefield).TireInner = VDatabase.Tire.(instance);
-    Vehicle.Chassis.(tirefield).TireOuter = VDatabase.Tire.(instance);
+    Vehicle.Chassis.(tireFieldName) = VDatabase.Tire.(['Tire2x_' tire_2xinst]);
+    Vehicle.Chassis.(tireFieldName).TireInner = VDatabase.Tire.(tire_opt);
+    Vehicle.Chassis.(tireFieldName).TireOuter = VDatabase.Tire.(tire_opt);
     
     if(isfield(VDatabase.TireBody,[tire_body '_2x']))
         % If geometry with two tires in database, assign that geometry
         % to outer wheel, no geometry to inner wheel
-        Vehicle.Chassis.(tirefield).TireInner.TireBody = VDatabase.TireBody.None;
-        Vehicle.Chassis.(tirefield).TireOuter.TireBody = VDatabase.TireBody.([tire_body '_2x']);
+        Vehicle.Chassis.(tireFieldName).TireInner.TireBody = VDatabase.TireBody.None;
+        Vehicle.Chassis.(tireFieldName).TireOuter.TireBody = VDatabase.TireBody.([tire_body '_2x']);
     elseif(isfield(VDatabase.TireBody,tire_body) && ~strcmp(tire_body,'Parameterized'))
         % Else if CAD geometry for individual tires is in database, use that
-        Vehicle.Chassis.(tirefield).TireInner.TireBody = VDatabase.TireBody.(tire_body);
-        Vehicle.Chassis.(tirefield).TireOuter.TireBody = VDatabase.TireBody.(tire_body);
+        Vehicle.Chassis.(tireFieldName).TireInner.TireBody = VDatabase.TireBody.(tire_body);
+        Vehicle.Chassis.(tireFieldName).TireOuter.TireBody = VDatabase.TireBody.(tire_body);
     else
         % Else if no CAD data available, use parameterized geometry
-        Vehicle.Chassis.(tirefield).TireInner.TireBody = VDatabase.TireBody.Parameterized;
-        Vehicle.Chassis.(tirefield).TireOuter.TireBody = VDatabase.TireBody.Parameterized;
+        Vehicle.Chassis.(tireFieldName).TireInner.TireBody = VDatabase.TireBody.Parameterized;
+        Vehicle.Chassis.(tireFieldName).TireOuter.TireBody = VDatabase.TireBody.Parameterized;
     end
 end
 
