@@ -8,9 +8,9 @@
 % <tr>2.  Library: <a href="matlab:cd(fileparts(which('sm_car_lib.slx')));sm_car_lib;">Open Library</a><br> 
 % <br>
 % <tr><b><u>Vehicle Parameters</u></b> <br>
-% <tr>1.  See Data: <a href="matlab:open('sm_car_library_list_Demo_Script.html');">Vehicle Data and Libraries</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Init.xlsx');">Init</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Maneuver.xlsx');">Maneuver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Driver.xlsx');">Driver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Camera.xlsx');">Camera</a> (<a href="matlab:edit sm_car_import_vehicle_data_sheet;">see code</a>)<br> 
-% <tr>2.  Load Data: <a href="matlab:VDatabase = sm_car_import_vehicle_data('sm_car_database_Vehicle.xlsx',{'Structure','NameConvention'},0);">Vehicle</a>, <a href="matlab:IDatabase = sm_car_import_database('sm_car_database_Init.xlsx','',1);">Init</a>, <a href="matlab:MDatabase = sm_car_import_database('sm_car_database_Maneuver.xlsx','',1);">Maneuver</a>, <a href="matlab:DDatabase = sm_car_import_database('sm_car_database_Driver.xlsx','',1);">Driver</a>, <a href="matlab:CDatabase = sm_car_import_database('sm_car_database_Camera.xlsx','',1);">Camera</a><br> 
-% <tr>3.  Assemble Data Sets: <a href="matlab:edit sm_car_vehicle_data_assemble_set;">See Code</a><br> 
+% <tr>1.  See Data: <a href="matlab:open('sm_car_library_list_Demo_Script.html');">Vehicle Data and Libraries</a>, <a href="matlab:edit sm_car_gen_init_database;">Init</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Maneuver.xlsx');">Maneuver</a>, <a href="matlab:edit sm_car_gen_driver_database;">Driver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Camera.xlsx');">Camera</a> (<a href="matlab:edit sm_car_import_vehicle_data_sheet;">see code</a>)<br> 
+% <tr>2.  Load Data: <a href="matlab:VDatabase = sm_car_import_vehicle_data(0,1);">Vehicle</a>, <a href="matlab:sm_car_gen_init_database;">Init</a>, <a href="matlab:MDatabase = sm_car_import_database('sm_car_database_Maneuver.xlsx','',1);">Maneuver</a>, <a href="matlab:sm_car_gen_driver_database;">Driver</a>, <a href="matlab:CDatabase = sm_car_import_database('sm_car_database_Camera.xlsx','',1);">Camera</a><br> 
+% <tr>3.  Assemble Data Sets: <a href="matlab:edit sm_car_assemble_presets;">See Code</a><br> 
 % <br>
 % <table border=1><tr>
 % <td style="text-align:center" colspan=4><b>Scene and Trajectory Data</b></td></tr>
@@ -42,10 +42,9 @@
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>
-% <tr>2.  Tire Geometry: <a href="matlab:cd(fileparts(which('sm_car_harness_tire.slx')));open_system('sm_car_harness_tire');">Open Model</a><br>
-% <tr>3.  Driveline: <a href="matlab:cd(fileparts(which('sm_car_harness_driveline.slx')));open_system('sm_car_harness_driveline');">Open Model</a><br>
-% <tr>4.  Body Sensor: <a href="matlab:cd(fileparts(which('sm_car_harness_sensor_body.slx')));open_system('sm_car_harness_sensor_body');">Open Model</a><br>
-% <tr>5.  Transforms: <a href="matlab:cd(fileparts(which('sm_car_harness_transform_align2pts.slx')));open_system('sm_car_harness_transform_align2pts');">Open Model</a><br>
+% <tr>2.  Driveline: <a href="matlab:cd(fileparts(which('Driveline_Axle2_Testrig.slx')));open_system('Driveline_Axle2_Testrig');">Open Model</a><br>
+% <tr>3.  Body Sensor: <a href="matlab:cd(fileparts(which('sm_car_harness_sensor_body.slx')));open_system('sm_car_harness_sensor_body');">Open Model</a><br>
+% <tr>4.  Transforms: <a href="matlab:cd(fileparts(which('sm_car_harness_transform_align2pts.slx')));open_system('sm_car_harness_transform_align2pts');">Open Model</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_quarter_car.slx')));open_system('sm_car_testrig_quarter_car');">Open Model</a><br>

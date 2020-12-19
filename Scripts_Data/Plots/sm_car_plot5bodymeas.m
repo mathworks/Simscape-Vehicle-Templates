@@ -22,12 +22,6 @@ clf(h5_sm_car)
 temp_colororder = get(gca,'defaultAxesColorOrder');
 
 % Get simulation results
-simlog_RdBus = logsout_sm_car.get('RdBus');
-simlog_pzFL  = simlog_RdBus.Values.FL.gz.Data;
-simlog_pzFR  = simlog_RdBus.Values.FR.gz.Data;
-simlog_pzRL  = simlog_RdBus.Values.RL.gz.Data;
-simlog_pzRR  = simlog_RdBus.Values.RR.gz.Data;
-
 simlog_VehBus = logsout_sm_car.get('VehBus');
 simlog_t      = simlog_VehBus.Values.World.aPitch.Time;
 simlog_aPitch = simlog_VehBus.Values.World.aPitch.Data(:)*180/pi;
@@ -48,18 +42,28 @@ title('Body Roll Angle')
 ylabel('Roll (deg)')
 
 simlog_handles(3) = subplot(3, 1, 3);
-if(sum([simlog_pzFL simlog_pzFR simlog_pzRL simlog_pzRR],'all')>0)
-    plot(simlog_t, simlog_pzFL,'LineWidth', 2 );
+simlog_RdBus = logsout_sm_car.get('RdBus');
+
+rdbus_log_fieldnames = fieldnames(simlog_RdBus.Values);
+check_names = regexp(rdbus_log_fieldnames,'[LR][1-9]');
+whl_inds = find([check_names{:}]);
+
+
+if(~isempty(whl_inds))
+    whlnames = sort(rdbus_log_fieldnames(whl_inds));
+    for whl_i = 1:length(whl_inds)
+    simlog_pz = simlog_RdBus.Values.(whlnames{whl_i}).gz.Data;
+    axle_num = str2num(whlnames{whl_i}(end));
+    plot(simlog_t, simlog_pz,'LineWidth', length(whl_inds)/2-axle_num+1,...
+        'DisplayName',whlnames{whl_i});
     hold on
-    plot(simlog_t, simlog_pzFR,'--','LineWidth', 1);
-    plot(simlog_t, simlog_pzRL,'--','LineWidth', 2);
-    plot(simlog_t, simlog_pzRR','-.','LineWidth', 1);
+    end
     hold off
     grid on
     title('Post Height')
     ylabel('Height (m)')
     xlabel('Time (s)')
-    legend({'FL','FR','RL','RR'},'Location','Best')
+    legend('Location','Best')
 else
     plot(simlog_t, simlog_aYaw,'LineWidth', 1 );
     grid on

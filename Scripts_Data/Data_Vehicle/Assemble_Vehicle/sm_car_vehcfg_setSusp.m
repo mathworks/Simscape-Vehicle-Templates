@@ -1,74 +1,82 @@
-function Vehicle = sm_car_vehcfg_setSusp(Vehicle,susp_opt,frontRear)
+function Vehicle = sm_car_vehcfg_setSusp(Vehicle,susp_opt,suspFieldName)
 % Copy data from VDatabase to Vehicle data structure
 %
-% susp_opt contains string indicating configuration of springs.
-%      <suspension type>_<platform>
+% susp_opt contains name of field from VDatabase.
+% The name is usually of this form
+%      <suspension type> <vehicle platform> <front/rear>
 %
 %   <suspension type>   Type of suspension (double wishbone, etc.)
 %   <platform>          Abbreviation for Sedan Hamba "SH", etc.
-%
 %
 % Copyright 2019-2020 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
 
-if(strcmpi(frontRear,'front'))
-    switch susp_opt
-        case 'dwa_SHL',      instance =         'DoubleWishboneA_Sedan_HambaLG_f';
-        case 'dwb_SHL',      instance =          'DoubleWishbone_Sedan_HambaLG_f';
-        case 'S2LAF_SHL',    instance = 'SplitLowerArmShockFront_Sedan_HambaLG_f';
-        case 'S2LAR_SHL',    instance =  'SplitLowerArmShockRear_Sedan_HambaLG_f';
-        case '5S2LAF_SHL',   instance =      'FiveLinkShockFront_Sedan_HambaLG_f';
-        case '5S2LAR_SHL',   instance =       'FiveLinkShockRear_Sedan_HambaLG_f';
-        case '5CS2LAF_SHL',  instance =      'FiveLinkShockFront_Sedan_HambaLG_f';
-        case '15DOF_SHL',    instance =             'Simple15DOF_Sedan_HambaLG_f';
-        case '15DOF_SH',     instance =               'Simple15DOF_Sedan_Hamba_f';
-        case 'dwb_SH',       instance =            'DoubleWishbone_Sedan_Hamba_f';
-        case 'dwb_BM',       instance =            'DoubleWishbone_Bus_Makhulu_f';
-        case '15DOF_TrElu',  instance =                'Simple15DOF_TrailerElula';
-        case '15DOF_TrThw',  instance =               'Simple15DOF_TrailerThwala';
-    end
-    suspfield = 'SuspF';
-elseif(strcmpi(frontRear,'rear'))
-    
-    % If 15DOF used in the front, force 15DOF to be used in the rear
-    if(strcmpi(Vehicle.Chassis.SuspF.class.Value,'Simple'))
-        if(endsWith(susp_opt,'_SH'))
-            susp_opt = '15DOF_SH';
-        else
-            susp_opt = '15DOF_SHL';
-        end
-    end
-    
-    switch susp_opt
-        case 'dwa_SHL',      instance =         'DoubleWishboneA_Sedan_HambaLG_r';
-        case 'dwb_SHL',      instance =          'DoubleWishbone_Sedan_HambaLG_r';
-        case 'S2LAF_SHL',    instance = 'SplitLowerArmShockFront_Sedan_HambaLG_r';
-        case 'S2LAR_SHL',    instance =  'SplitLowerArmShockRear_Sedan_HambaLG_r';
-        case '5S2LAF_SHL',   instance =      'FiveLinkShockFront_Sedan_HambaLG_r';
-        case '5CS2LAF_SHL',  instance =      'FiveLinkShockFront_Sedan_HambaLG_r';
-        case '5S2LAR_SHL',   instance =       'FiveLinkShockRear_Sedan_HambaLG_r';
-        case '15DOF_SHL',    instance =             'Simple15DOF_Sedan_HambaLG_r';
-        case '15DOF_SH',     instance =               'Simple15DOF_Sedan_Hamba_r';           
-        case 'dwa_SH',       instance =           'DoubleWishboneA_Sedan_Hamba_r';
-        case 'dwa_BM',       instance =           'DoubleWishboneA_Bus_Makhulu_r';
-    end
-    suspfield = 'SuspR';
+% Check for suspension composed of distance constraints
+constraintSusp = false;
+if(strcmpi(susp_opt,'5CS2LAF_SHL_f'))
+    constraintSusp = true;
+    susp_opt = 'FiveLinkShockFront_Sedan_HambaLG_f';
+elseif(strcmpi(susp_opt,'5CS2LAF_SHL_r'))
+    constraintSusp = true;
+    susp_opt = 'FiveLinkShockFront_Sedan_HambaLG_r';
 end
 
 % Map database data to correct level in Vehicle data structure
-if(~contains(susp_opt,'15DOF'))
-    Vehicle.Chassis.(suspfield).Linkage = VDatabase.Linkage.(instance);
-    Vehicle.Chassis.(suspfield).class.Value = 'Linkage';
+if(isfield(VDatabase.Linkage,susp_opt))
+    
+    % If (not filling an empty Vehicle)
+    if(isfield(Vehicle.Chassis,suspFieldName))
+    	% 'Linkage' suspension requires removing 'Simple' field
+        if(isfield(Vehicle.Chassis.(suspFieldName),'Simple'))
+            temp_susp = rmfield(Vehicle.Chassis.(suspFieldName),'Simple');
+            Vehicle.Chassis.(suspFieldName) = temp_susp;
+        end
+    end
+    
+    % Copy Linkage instance data to Vehicle data structure
+    Vehicle.Chassis.(suspFieldName).Linkage = VDatabase.Linkage.(susp_opt);
+    Vehicle.Chassis.(suspFieldName).class.Value = 'Linkage';
+
+    if(~isfield(Vehicle.Chassis.(suspFieldName),'AntiRollBar'))
+        Vehicle.Chassis.(suspFieldName).AntiRollBar = VDatabase.AntiRollBar.None;
+        %disp('Note: AntiRollBar was not present; configuration set to ''None''.');
+    end
+
+elseif(isfield(VDatabase.Susp,susp_opt))
+    
+    % If (not filling an empty Vehicle)
+    if(isfield(Vehicle.Chassis,suspFieldName))
+        % 'Simple' suspension requires removing 'Linkage' field
+        if(isfield(Vehicle.Chassis.(suspFieldName),'Linkage'))
+            temp_susp = rmfield(Vehicle.Chassis.(suspFieldName),'Linkage');
+            Vehicle.Chassis.(suspFieldName) = temp_susp;
+        end
+        
+        % Save Steer Instance if suspension has it already
+        % Need to save it if suspension type changes (Linkage -> other)
+        % Not all suspensions have steering
+        if(isfield(Vehicle.Chassis.(suspFieldName),'Steer'))
+            steer_instance = Vehicle.Chassis.(suspFieldName).Steer.Instance;
+        end
+    end
+    
+    % Copy Linkage instance data to Vehicle data structure
+    Vehicle.Chassis.(suspFieldName) = VDatabase.Susp.(susp_opt);
+    %Vehicle.Chassis.(suspFieldName).class.Value = 'Simple';
+    
+    if(exist('steer_instance','var'))
+        Vehicle.Chassis.(suspFieldName).Steer = VDatabase.Steer.(steer_instance);
+    end
+    
 else
-    Vehicle.Chassis.(suspfield) = VDatabase.Susp.(instance);
-    Vehicle.Chassis.(suspfield).class.Value = 'Simple';
+    warning(['Suspension data ''' susp_opt ''' not found in database.']); 
 end
 
 % Alter class only to select variant with constraints instead of joints
-if(contains(susp_opt,'5CS2LAF'))
-    Vehicle.Chassis.(suspfield).Linkage.class.Value = 'FiveLinkConstraintShockFront';
+if(constraintSusp)
+    Vehicle.Chassis.(suspFieldName).Linkage.class.Value = 'FiveLinkConstraintShockFront';
 end
 
 % Modify config string to indicate configuration has been modified

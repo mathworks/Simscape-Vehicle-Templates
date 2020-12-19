@@ -24,6 +24,8 @@ else
         if(bdIsLoaded(mdl))
             set_param([mdl '/Vehicle'],'popup_trailer','On');
             sm_car_config_vehicle(mdl);
+            trl_body = sm_car_vehcfg_getTrailerType(mdl);
+            evalin('base',['Init_Trailer = IDatabase.Flat.Trailer_' trl_body ';']);
         end
     end
 end

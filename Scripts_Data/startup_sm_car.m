@@ -36,10 +36,17 @@ if(~exist('VDatabase','var'))
         disp(['Loading VDatabase from ' n e ' (' p filesep n e ')' ]);
         load VDatabase_file.mat %#ok<LOAD>
         assignin('base','VDatabase',VDatabase)
-        VDatabase = sm_car_import_vehicle_data('sm_car_database_Vehicle.xlsx',{'Structure','NameConvention'},1,1);
+        VDatabase = sm_car_import_vehicle_data(1,1);
     else
         % Load from Excel
-        VDatabase = sm_car_import_vehicle_data('sm_car_database_Vehicle.xlsx',{'Structure','NameConvention'},0,1);
+        msg = {...
+            'The first time you open this project data must be loaded from Excel.';...
+            'This can take up to 10 minutes.';
+            'Next time the data is loaded from .mat files which is much faster,';
+            'and only Excel files that have been changed will be loaded.'
+            };        
+        msgbox(msg,'First Time Load','help')
+        VDatabase = sm_car_import_vehicle_data(0,1);
     end
 end
 assignin('base','VDatabase',VDatabase);
@@ -47,7 +54,7 @@ assignin('base','VDatabase',VDatabase);
 %% Create .mat files with Vehicle structure presets
 % if they do not exist already (first time project is run)
 if(isempty(which('Vehicle_100.mat')))
-    sm_car_vehicle_data_assemble_set
+    sm_car_assemble_presets_vehicle_axle2
 end
 load('Vehicle_139'); %#ok<LOAD>
 assignin('base','Vehicle',Vehicle_139);
@@ -55,13 +62,15 @@ load('Trailer_01'); %#ok<LOAD>
 assignin('base','Trailer',Trailer_01);
 
 %% Load Initial Vehicle state database
-sm_car_gen_upd_database('Init',1);
+%sm_car_gen_upd_database('Init',1);
+sm_car_gen_init_database;
 
 %% Load Maneuver database
 sm_car_gen_upd_database('Maneuver',1);
 
 %% Load Driver database
-sm_car_gen_upd_database('Driver',1);
+%sm_car_gen_upd_database('Driver',1);
+sm_car_gen_driver_database;
 
 %% Load Camera Frame Database
 sm_car_gen_upd_database('Camera',1);

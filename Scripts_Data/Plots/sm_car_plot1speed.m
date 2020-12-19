@@ -25,8 +25,8 @@ temp_colororder = get(gca,'defaultAxesColorOrder');
 % Get simulation results
 logsout_VehBus = logsout_sm_car.get('VehBus');
 
-logsout_xSteerFA = logsout_VehBus.Values.Chassis.SuspF.Steer.xRack;
-logsout_xSteerRA = logsout_VehBus.Values.Chassis.SuspR.Steer.xRack;
+logsout_xSteerA1 = logsout_VehBus.Values.Chassis.SuspA1.Steer.xRack;
+logsout_xSteerA2 = logsout_VehBus.Values.Chassis.SuspA2.Steer.xRack;
 logsout_vxVeh = logsout_VehBus.Values.World.vx;
 logsout_vyVeh = logsout_VehBus.Values.World.vy;
 logsout_sVeh = sqrt(logsout_vxVeh.Data.^2+logsout_vyVeh.Data.^2);
@@ -47,15 +47,15 @@ xlabel('Position (m)')
 
 simlog_handles(2) = subplot(2, 2, 2);
 yyaxis left
-plot(logsout_xSteerFA.Time, logsout_xSteerFA.Data,'Color',temp_colororder(1,:), 'LineWidth', 1)
+plot(logsout_xSteerA1.Time, logsout_xSteerA1.Data,'Color',temp_colororder(1,:), 'LineWidth', 1)
 hold on
-plot(logsout_xSteerRA.Time, logsout_xSteerRA.Data,'--','Color',temp_colororder(3,:), 'LineWidth', 1)
+plot(logsout_xSteerA2.Time, logsout_xSteerA2.Data,'--','Color',temp_colororder(3,:), 'LineWidth', 1)
 hold off
 ylim_curr = get(gca,'YLim');
 set(gca,'YLim',[min(-1e-3,ylim_curr(1)) max(1e-3,ylim_curr(2))])
 ylabel('Position (m)')
 yyaxis right
-plot(logsout_xSteerFA.Time,1:length(logsout_xSteerFA.Time))
+plot(logsout_xSteerA1.Time,1:length(logsout_xSteerA1.Time))
 ylabel('# Steps')
 grid on
 legend({'Front','Rear'},'Location','SouthEast');
@@ -81,7 +81,7 @@ xlabel('Time (s)')
 legend({'Vx','Vy'},'Location','South');
 
 subplot(2,2,2)
-temp_tire_sys = find_system(bdroot,'LookUnderMasks','on','FollowLinks','on','Name','Tire FL');
+temp_tire_sys = find_system(bdroot,'LookUnderMasks','on','FollowLinks','on','Name','Tire A1');
 temp_tire_sys_vehi = find(contains(temp_tire_sys,'/Vehicle/Chassis/'));
 temp_tirevar = char(get_param(temp_tire_sys(temp_tire_sys_vehi),'ActiveVariant'));
 text(0.05,0.85,sprintf('Tire %s\nSteps: %d',temp_tirevar,length(logsout_vxVeh.Time)),'Units','Normalized','Color',[1 1 1]*0.5);
