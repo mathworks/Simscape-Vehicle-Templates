@@ -18,46 +18,48 @@ end
 
 % Set vehicle data to have flat road
 Vehicle = evalin('base','Vehicle');
-roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
-roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+roadFile  = 'which(''TNO_FlatRoad.rdf'')';
 assignin('base','Vehicle',Vehicle);
 
 VDatabase = evalin('base','VDatabase');
-Trailer = evalin('base','Trailer');
+trailer_var = get_param([modelname '/Vehicle/Trailer/Trailer'],'Vehicle');
+Trailer = evalin('base',trailer_var);
 
-% Get tire class and settings
-if(~strcmp(Vehicle.Chassis.TireF.class.Value,'Tire2x'))
-    % For Road Surface
-    tirClassF = Vehicle.Chassis.TireF.class.Value;
-    f_diag_str = 'Vehicle.Chassis.TireF.class.Value';
-    % For Testrig Post
-    tirInstF  = Vehicle.Chassis.TireF.Instance;
-    tirBodyF  = Vehicle.Chassis.TireF.TireBody;
-else
-    % For Road Surface - Assumes TireInner and TireOuter are the same
-    tirClassF = Vehicle.Chassis.TireF.TireInner.class.Value;
-    f_diag_str = 'Vehicle.Chassis.TireF.TireInner.class.Value';
-    % For Testrig Post
-    tirInstF  = Vehicle.Chassis.TireF.TireInner.Instance;
-    tirBodyF_Inn  = Vehicle.Chassis.TireF.TireInner.TireBody;
-    tirBodyF_Out  = Vehicle.Chassis.TireF.TireInner.TireBody;
+% Find fieldnames for tires
+chassis_fnames = fieldnames(Vehicle.Chassis);
+fname_inds_tire = startsWith(chassis_fnames,'Tire');
+tireFields = chassis_fnames(fname_inds_tire);
+tireFields = sort(tireFields); % Order important for copying Body sAxle values
+
+% Loop over tire field names (by axle)
+for axle_i = 1:length(tireFields)
+    tireField = tireFields{axle_i};
+    % Get tire class and settings
+    if(~strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
+        % For Road Surface
+        tirClass{axle_i} = Vehicle.Chassis.(tireField).class.Value; %#ok<*AGROW>
+        tir_diag_str{axle_i} = ['Vehicle.Chassis.' tireField  '.class.Value'];
+        % For Testrig Post
+        tirInst{axle_i}  = Vehicle.Chassis.(tireField).Instance;
+        tirBody{axle_i}  = Vehicle.Chassis.(tireField).TireBody;
+    else
+        % For Road Surface - Assumes TireInner and TireOuter are the same
+        tirClass{axle_i} = Vehicle.Chassis.(tireField).TireInner.class.Value;
+        tir_diag_str{axle_i} = ['Vehicle.Chassis.' tireField  '.TireInner.class.Value'];
+        % For Testrig Post
+        tirInst{axle_i}      = Vehicle.Chassis.(tireField).TireInner.Instance;
+        tirBody_Inn{axle_i}  = Vehicle.Chassis.(tireField).TireInner.TireBody;
+        tirBody_Out{axle_i}  = Vehicle.Chassis.(tireField).TireOuter.TireBody;
+    end
 end
 
-if(~strcmp(Vehicle.Chassis.TireR.class.Value,'Tire2x'))
-    % For Road Surface
-    tirClassR = Vehicle.Chassis.TireR.class.Value;
-    r_diag_str = 'Vehicle.Chassis.TireR.class.Value';
-    % For Testrig Post
-    tirBodyR  = Vehicle.Chassis.TireR.TireBody;
-    tirInstR  = Vehicle.Chassis.TireR.Instance;
-else
-    % For Road Surface - Assumes TireInner and TireOuter are the same
-    tirClassR = Vehicle.Chassis.TireR.TireInner.class.Value;
-    r_diag_str = 'Vehicle.Chassis.TireR.TireInner.class.Value';
-    % For Testrig Post
-    tirInstR  = Vehicle.Chassis.TireR.TireInner.Instance;
-    tirBodyR_Inn  = Vehicle.Chassis.TireR.TireInner.TireBody;
-    tirBodyR_Out  = Vehicle.Chassis.TireR.TireOuter.TireBody;
+% Construct diagnostic string for Vehicle tires
+tire_diag_str_fmt = [];
+for axle_i = 1:length(tireFields)
+    if(axle_i>1)
+        tire_diag_str_fmt = [tire_diag_str_fmt '\n'];
+    end
+    tire_diag_str_fmt = [tire_diag_str_fmt '** ''' tir_diag_str{axle_i} ''' is ''' tirClass{axle_i} ''];
 end
 
 % Get Trailer tire class and settings
@@ -65,19 +67,56 @@ end
 trailer_type = sm_car_vehcfg_getTrailerType(modelname);
 if(strcmpi(trailer_type,'none'))
     % For Road Surface
-    tirClassFTr = 'None';
-    tr_diag_str = '<no trailer>';
+    tirClassTr = 'None';
+    tireFieldsTr = '';
+    %tr_diag_strTr = '<no trailer>';
+    %tirInstTr = '<no trailer>';
 else
-    % For Road Surface
-    tirClassFTr = Trailer.Chassis.TireF.class.Value;
-    tr_diag_str = ['Trailer.Chassis.TireF.class.Value is ' tirClassFTr];
-end
-if(isfield(Vehicle.Chassis.TireF,'Contact'))
-    contactSetting = Vehicle.Chassis.TireF.Contact.Value;
+    % Find fieldnames for tires
+    chassis_fnamesTr = fieldnames(Trailer.Chassis);
+    fname_inds_tireTr = startsWith(chassis_fnamesTr,'Tire');
+    tireFieldsTr = chassis_fnamesTr(fname_inds_tireTr);
+    tireFieldsTr = sort(tireFieldsTr); % Order important for copying Body sAxle values
+    
+    for axle_i = 1:length(tireFieldsTr)
+        tireField = tireFieldsTr{axle_i};
+        % Get tire class and settings
+        if(~strcmp(Trailer.Chassis.(tireField).class.Value,'Tire2x'))
+            % For Road Surface
+            tirClassTr{axle_i} = Trailer.Chassis.(tireField).class.Value;
+            tir_diag_strTr{axle_i} = ['Trailer.Chassis.' tireField  '.class.Value'];
+            % For Testrig Post
+            %tirInstTr{axle_i}  = Trailer.Chassis.(tireField).Instance;
+            %tirBodyTr{axle_i}  = Trailer.Chassis.(tireField).TireBody;
+        else
+            % For Road Surface - Assumes TireInner and TireOuter are the same
+            tirClassTr{axle_i} = Trailer.Chassis.(tireField).TireInner.class.Value;
+            tir_diag_strTr{axle_i} = ['Vehicle.Chassis.' tireField  '.TireInner.class.Value'];
+            % For Testrig Post
+            %tirInstTr{axle_i}      = Trailer.Chassis.(tireField).TireInner.Instance;
+            %tirBody_InnTr{axle_i}  = Trailer.Chassis.(tireField).TireInner.TireBody;
+            %tirBody_OutTr{axle_i}  = Trailer.Chassis.(tireField).TireInner.TireBody;
+        end
+    end
 end
 
+% Construct diagnostic string for Vehicle tires
+tireTr_diag_str_fmt = [];
+if(~strcmpi(tirClassTr,'none'))
+    for axleTr_i = 1:length(tireFieldsTr)
+        if(axleTr_i>1)
+            tireTr_diag_str_fmt = [tireTr_diag_str_fmt '\n'];
+        end
+        tireTr_diag_str_fmt = [tireTr_diag_str_fmt '** ''' tir_diag_strTr{axleTr_i} ''' is ''' tirClassTr{axleTr_i} ''];
+    end
+else
+    tireTr_diag_str_fmt = '';
+end
+
+
+% Default contact method
 tirecontact_opt = 'smooth';
-tireClasses = {tirClassF tirClassR tirClassFTr};
+%tireClasses = {tirClassF tirClassR tirClassFTr};
 
 % Do not permit trailer on 4 post testrig
 if(strcmpi(scenename,'testrig 4 post') && ~strcmpi(trailer_type,'none'))
@@ -87,12 +126,10 @@ if(strcmpi(scenename,'testrig 4 post') && ~strcmpi(trailer_type,'none'))
 end
 
 % Ensure proper tire model used on testrig
-if((~strcmpi(scenename,'testrig 4 post')) && sum(contains(tireClasses(1:2),'Testrig')))
-    error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-        'Configure tire model to use anything other than ''Testrig_Post'' which only has vertical stiffness.',...
-        ['** ''' f_diag_str ''' is ' tirClassF ''''],...
-        ['** ''' r_diag_str ''' is ' tirClassR ''''],...
-        '--> Both values should not include ''Testrig_Post''');
+if((~strcmpi(scenename,'testrig 4 post')) && sum(contains(tirClass,'Testrig')))
+    error_str = sprintf(['Configure tire model to use anything other than ''Testrig_Post'' which only has vertical stiffness.\n' ...
+        tire_diag_str_fmt '\n'...
+        '--> Values should not include ''Testrig_Post''']);
     errordlg(error_str,'Wrong Tire Model')
 end
 
@@ -107,225 +144,183 @@ switch lower(scenename)
     case 'ice patch'
         set_param(mu_scaling_h,'muFL_in','0.4','muFR_in','0.4','muRL_in','0.4','muRR_in','0.4')
     case 'crg kyalami'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
-        % Select CRG file for slope
-        roadFileF = 'which(''CRG_Kyalami.crg'')';
-        roadFileR = 'which(''CRG_Kyalami.crg'')';
+        % Select CRG file
+        roadFile = 'which(''CRG_Kyalami.crg'')';
         
         set_param(modelname,'StopTime','261')
         
     case 'crg kyalami f'
-        if(~sum(contains(tireClasses,'MFEval')))
-            % Select CRG file for slope
-            %roadFileF = 'which(''CRG_Mallory_Park_F.crg'')';
-            %roadFileR = 'which(''CRG_Mallory_Park_F.crg'')';
-            roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
-            roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+        if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            % Set file flat road for MF-Swift
+            roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
         
         set_param(modelname,'StopTime','261')
         
     case 'crg mallory park'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
-        % Select CRG file for slope
-        roadFileF = 'which(''CRG_Mallory_Park.crg'')';
-        roadFileR = 'which(''CRG_Mallory_Park.crg'')';
+        % Select CRG file
+        roadFile = 'which(''CRG_Mallory_Park.crg'')';
         
         set_param(modelname,'StopTime','200')
         
     case 'crg mallory park f'
-        if(~sum(contains(tireClasses,'MFEval')))
-            % Select CRG file for slope
-            %roadFileF = 'which(''CRG_Mallory_Park_F.crg'')';
-            %roadFileR = 'which(''CRG_Mallory_Park_F.crg'')';
-            roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
-            roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+        if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            % Set file flat road for MF-Swift
+            roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
         
         set_param(modelname,'StopTime','200')
         
     case 'crg custom'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
-        % Select CRG file for slope
-        roadFileF = 'which(''CRG_Custom.crg'')';
-        roadFileR = 'which(''CRG_Custom.crg'')';
+        % Select CRG file
+        roadFile = 'which(''CRG_Custom.crg'')';
         
         set_param(modelname,'StopTime','200')
         
     case 'crg custom f'
-        if(~sum(contains(tireClasses,'MFEval')))
-            % Select CRG file for slope
-            %roadFileF = 'which(''CRG_Custom_F.crg'')';
-            %roadFileR = 'which(''CRG_Custom_F.crg'')';
-            roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
-            roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+        if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            % Set file flat road for MF-Swift
+            roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
         
         set_param(modelname,'StopTime','200')
         
     case 'crg nurburgring n'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
-        % Select CRG file for slope
-        roadFileF = 'which(''CRG_Nurburgring_N.crg'')';
-        roadFileR = 'which(''CRG_Nurburgring_N.crg'')';
+        % Select CRG file
+        roadFile = 'which(''CRG_Nurburgring_N.crg'')';
         
     case 'crg nurburgring n f'
-        if(~sum(contains(tireClasses,'MFEval')))
-            % Select CRG file for slope
-            %roadFileF = 'which(''CRG_Nurburgring_N_F.crg'')';
-            %roadFileR = 'which(''CRG_Nurburgring_N_F.crg'')';
-            roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
-            roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+        if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            % Set file flat road for MF-Swift
+            roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
         
     case 'crg pikes peak'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
-        % Select CRG file for slope
-        roadFileF = 'which(''CRG_Pikes_Peak.crg'')';
-        roadFileR = 'which(''CRG_Pikes_Peak.crg'')';
+        % Select CRG file
+        roadFile = 'which(''CRG_Pikes_Peak.crg'')';
         
     case 'crg suzuka'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
-        % Select CRG file for slope
-        roadFileF = 'which(''CRG_Suzuka.crg'')';
-        roadFileR = 'which(''CRG_Suzuka.crg'')';
+        % Select CRG file
+        roadFile = 'which(''CRG_Suzuka.crg'')';
         
     case 'crg suzuka f'
-        if(~sum(contains(tireClasses,'MFEval')))
-            % Select CRG file for slope
-            %roadFileF = 'which(''CRG_Suzuka_F.crg'')';
-            %roadFileR = 'which(''CRG_Suzuka_F.crg'')';
-            roadFileF  = 'which(''TNO_FlatRoad.rdf'')';
-            roadFileR  = 'which(''TNO_FlatRoad.rdf'')';
+        if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            % Select CRG file
+            roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
         
     case 'rdf rough road'
-        if(sum(contains(tireClasses,'MFEval')+contains(tireClasses,'MFSwift')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire software only for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') ...
+                contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift')]))
+            error_str = sprintf(['Configure model to use Delft Tire software only for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
         % Select RDF file for rough road
-        roadFileF = 'which(''Rough_Road.rdf'')';
-        roadFileR = 'which(''Rough_Road.rdf'')';
+        roadFile = 'which(''Rough_Road.rdf'')';
         
         % Set stop time to stop at end of road
         set_param(modelname,'StopTime','30')
         
     case 'rdf plateau'
-        if(sum(contains(tireClasses,'MFEval')+contains(tireClasses,'MFSwift')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire software only for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') ...
+                contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift')]))
+            error_str = sprintf(['Configure model to use Delft Tire software only for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
         % Select RDF file for rough road
-        roadFileF = 'which(''Plateau_Road.rdf'')';
-        roadFileR = 'which(''Plateau_Road.rdf'')';
+        roadFile = 'which(''Plateau_Road.rdf'')';
         
         % Set stop time to stop at end of road
         set_param(modelname,'StopTime','30')
         
     case 'plateau z only'
-        if(sum(contains(tireClasses,'MFSwift')))
+        if(sum(contains(tirClass,'MFSwift')))
             % Mask in Tire_MFSwift sets road type based on filename
             % Must contain "external" to change to external road definition
-            roadFileF = 'which(''<External Road>'')';
-            roadFileR = 'which(''<External Road>'')';
+            roadFile = 'which(''<External Road>'')';
         end
-        if(sum(contains(tireClasses,'Delft')))
+        if(sum(contains(tirClass,'Delft')))
             % Necessary to change contact method of Delft Tyre software
-            tirecontact_opt = 'moving'; 
+            tirecontact_opt = 'moving';
         end
         
     case 'crg plateau'
-        if(sum(contains(tireClasses,'MFEval')))
-            error_str = sprintf('%s\n%s\n%s\n%s\n%s',...
-                'Configure model to use Delft Tire or MF-Swift software for this maneuver.',...
-                ['** Vehicle.Chassis.TireF.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                ['** Vehicle.Chassis.TireR.class.Value is ''' Vehicle.Chassis.TireF.class.Value ''''],...
-                tr_diag_str,...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''');
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
         
         % Select CRG file for slope
-        roadFileF = 'which(''CRG_Plateau.crg'')';
-        roadFileR = 'which(''CRG_Plateau.crg'')';
+        roadFile = 'which(''CRG_Plateau.crg'')';
         
     case 'rough road z only'
-        if(sum(contains(tireClasses,'MFSwift')))
+        if(sum(contains(tirClass,'MFSwift')))
             % Mask in Tire_MFSwift sets road type based on filename
             % Must contain "external" to change to external road definition
-            roadFileF = 'which(''<External Road>'')';
-            roadFileR = 'which(''<External Road>'')';
+            roadFile = 'which(''<External Road>'')';
         end
-        if(sum(contains(tireClasses,'Delft')))
+        if(sum(contains(tirClass,'Delft')))
             % Necessary to change contact method of Delft Tyre software
-            tirecontact_opt = 'moving'; 
+            tirecontact_opt = 'moving';
         end
         
     case 'track mallory park'
@@ -334,7 +329,7 @@ switch lower(scenename)
         % No special commands
     case 'double lane change'
         % No special commands
-	case 'mcity'
+    case 'mcity'
         % Unreal scene
         if(~isempty(scene_config_h))
             if(~verLessThan('matlab','9.6'))
@@ -348,72 +343,78 @@ switch lower(scenename)
         % -- Fill in Tire Body from original Vehicle structure
         
         % Front
-        tire_sizeF = tirInstF(end-8:end);                % Size
-        tirInstF_testrig = ['Testrig_Post_' tire_sizeF]; % New Instance
-        if(~strcmp(Vehicle.Chassis.TireF.class.Value,'Tire2x'))
-            Vehicle.Chassis.TireF = VDatabase.Tire.(tirInstF_testrig);
-            Vehicle.Chassis.TireF.TireBody = tirBodyF;
-        else
-            Vehicle.Chassis.TireF.TireInner = VDatabase.Tire.(tirInstF_testrig);
-            Vehicle.Chassis.TireF.TireOuter = VDatabase.Tire.(tirInstF_testrig);
-            Vehicle.Chassis.TireF.TireInner.TireBody = tirBodyF_Inn;
-            Vehicle.Chassis.TireF.TireOuter.TireBody = tirBodyF_Out;
+        for axle_i = 1:length(tireFields)
+            tireField = tireFields{axle_i};
+            tire_size = tirInst{axle_i}(end-8:end);                % Size
+            tirInst_testrig = ['Testrig_Post_' tire_size]; % New Instance
+            if(~strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
+                Vehicle.Chassis.(tireField) = VDatabase.Tire.(tirInst_testrig);
+                Vehicle.Chassis.(tireField).TireBody = tirBody{axle_i};
+            else
+                Vehicle.Chassis.(tireField).TireInner = VDatabase.Tire.(tirInst_testrig);
+                Vehicle.Chassis.(tireField).TireOuter = VDatabase.Tire.(tirInst_testrig);
+                Vehicle.Chassis.(tireField).TireInner.TireBody = tirBody_Inn{axle_i};
+                Vehicle.Chassis.(tireField).TireOuter.TireBody = tirBody_Out{axle_i};
+            end
         end
         
-        % Rear
-        tire_sizeR = tirInstR(end-8:end);
-        tirInstR_testrig = ['Testrig_Post_' tire_sizeR];
-        if(~strcmp(Vehicle.Chassis.TireR.class.Value,'Tire2x'))
-            Vehicle.Chassis.TireR = VDatabase.Tire.(tirInstR_testrig);
-            Vehicle.Chassis.TireR.TireBody = tirBodyR;
-        else
-            Vehicle.Chassis.TireR.TireInner = VDatabase.Tire.(tirInstR_testrig);
-            Vehicle.Chassis.TireR.TireOuter = VDatabase.Tire.(tirInstR_testrig);
-            Vehicle.Chassis.TireR.TireInner.TireBody = tirBodyR_Inn;
-            Vehicle.Chassis.TireR.TireOuter.TireBody = tirBodyR_Out;
-        end
 end
 set_param([modelname '/World'],'popup_scene',scenename);
 
 % Set road file for all tires
-% Car, Front Axle
-if(~strcmp(Vehicle.Chassis.TireF.class.Value,'Tire2x'))
-    Vehicle.Chassis.TireF.roadFile.Value = roadFileF;
-else
-    % Assumes TireInner and TireOuter are the same
-    Vehicle.Chassis.TireF.TireInner.roadFile.Value = roadFileF;
-    Vehicle.Chassis.TireF.TireOuter.roadFile.Value = roadFileF;
+% Vehicle
+for axle_i = 1:length(tireFields)
+    tireField = tireFields{axle_i};
+    
+    if(~strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
+        Vehicle.Chassis.(tireField).roadFile.Value = roadFile;
+    else
+        % Assumes TireInner and TireOuter are the same
+        Vehicle.Chassis.(tireField).TireInner.roadFile.Value = roadFile;
+        Vehicle.Chassis.(tireField).TireOuter.roadFile.Value = roadFile;
+    end
 end
 
-% Car, Rear Axle
-if(~strcmp(Vehicle.Chassis.TireR.class.Value,'Tire2x'))
-    Vehicle.Chassis.TireR.roadFile.Value = roadFileR;
-else
-    % Assumes TireInner and TireOuter are the same
-    Vehicle.Chassis.TireR.TireInner.roadFile.Value = roadFileR;
-    Vehicle.Chassis.TireR.TireOuter.roadFile.Value = roadFileR;
+% Trailer
+
+for axle_i = 1:length(tireFieldsTr)
+    tireField = tireFields{axleTr_i};
+    if(~strcmp(Trailer.Chassis.(tireField).class.Value,'Tire2x'))
+        Trailer.Chassis.(tireField).roadFile.Value = roadFile;
+    else
+        % Assumes TireInner and TireOuter are the same
+        Trailer.Chassis.(tireField).TireInner.roadFile.Value = roadFile;
+        Trailer.Chassis.(tireField).TireOuter.roadFile.Value = roadFile;
+    end
 end
 
-% Trailer, Front Axle
-Trailer.Chassis.TireF.roadFile.Value = roadFileF;
-
-if(~strcmpi(tirClassF,'mfeval'))
-    % Assumes front and rear have same tire model
-    % Contact setting necessary for Delft and MF-Swift software
+%% Contact setting necessary for Delft and MF-Swift software in some cases
+% Adjusts it if road surface requires it
+% ** Assumes front and rear have same tire model
+% Vehicle
+if(~strcmpi(tirClass{1},'mfeval'))
     temp_config = Vehicle.config;
-    Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,'front');
-    Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,'rear');
+    for axle_i = 1:length(tireFields)
+        tireField = tireFields{axle_i};
+        Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,tireField);
+    end
     Vehicle.config = temp_config;
 end
-if(~strcmpi(trailer_type,'none') && ~strcmpi(tirClassFTr,'mfeval'))
+
+% Trailer
+if(~strcmpi(trailer_type,'none') && ~strcmpi(tirClassTr{1},'mfeval'))
     % Contact setting necessary for Delft and MF-Swift software
     % Only adjust if trailer is active
     temp_config = Trailer.config;
-    Trailer = sm_car_vehcfg_setTireContact(Trailer,tirecontact_opt,'front');
+    for axle_i = 1:length(tireFieldsTr)
+        tireField = tireFields{axle_i};
+        Trailer = sm_car_vehcfg_setTireContact(Trailer,tirecontact_opt,tireField);
+    end
     Trailer.config = temp_config;
 end
 
+%% Assign results to workspace
 assignin('base','Vehicle',Vehicle);
-assignin('base','Trailer',Trailer);
+assignin('base',trailer_var,Trailer);
 
 

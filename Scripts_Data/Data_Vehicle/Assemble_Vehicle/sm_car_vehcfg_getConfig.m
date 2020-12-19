@@ -5,41 +5,64 @@ config.Aero         = Vehicle.Chassis.Aero.class.Value;
 config.Body         = Vehicle.Chassis.Body.class.Value;
 config.BodyGeometry = Vehicle.Chassis.Body.BodyGeometry.class.Value;
 
-if(~strcmp(Vehicle.Chassis.SuspF.class.Value,'Linkage'))
-    config.SuspF  = Vehicle.Chassis.SuspF.class.Value;
-else
-    config.SuspF = Vehicle.Chassis.SuspF.Linkage.Instance;
-    config.AntiRollBarF = Vehicle.Chassis.SuspF.AntiRollBar.Instance;
+chassisFields    = fieldnames(Vehicle.Chassis);
+suspFieldInds = find(contains(chassisFields,'Susp'));
+suspFields = sort(chassisFields(suspFieldInds));
+
+for axle_i = 1:length(suspFields)
+    suspField  = suspFields{axle_i};
+    
+    if(~strcmp(Vehicle.Chassis.(suspField).class.Value,'Linkage'))
+        config.(suspField)  = Vehicle.Chassis.(suspField).class.Value;
+    else
+        config.(suspField) = Vehicle.Chassis.(suspField).Linkage.Instance;
+        config.([suspField '_AntiRollBar']) = Vehicle.Chassis.(suspField).AntiRollBar.Instance;
+    end
+    if(isfield(Vehicle.Chassis.(suspField),'Steer'))
+        config.([suspField '_Steer']) = Vehicle.Chassis.(suspField).Steer.class.Value;
+    end
 end
 
-if(~strcmp(Vehicle.Chassis.SuspR.class.Value,'Linkage'))
-    config.SuspR = Vehicle.Chassis.SuspR.class.Value;
-else
-    config.SuspR = Vehicle.Chassis.SuspR.Linkage.Instance;
-    config.AntiRollBarR = Vehicle.Chassis.SuspR.AntiRollBar.Instance;
+config.Springs   = Vehicle.Chassis.Spring.class.Value;
+springFields    = fieldnames(Vehicle.Chassis.Spring);
+springFieldInds = find(contains(springFields,'Axle'));
+if(~isempty(springFieldInds))
+    springFieldList = sort(springFields(springFieldInds));
+    for axle_i = 1:length(springFieldInds)
+        springField = springFieldList{axle_i};
+        config.(['Spring_' springField]) = Vehicle.Chassis.Spring.(springField).Instance;
+    end
 end
 
-config.SteerF = Vehicle.Chassis.SuspF.Steer.class.Value;
-config.SteerR = Vehicle.Chassis.SuspR.Steer.class.Value;
-
-config.SpringsF     = Vehicle.Chassis.Spring.Front.Instance;
-config.SpringsR     = Vehicle.Chassis.Spring.Rear.Instance;
-config.DamperF      = Vehicle.Chassis.Damper.Front.Instance;
-config.DamperR      = Vehicle.Chassis.Damper.Rear.Instance;
-config.TireF        = Vehicle.Chassis.TireF.Instance;
-
-if(sum(strcmp(Vehicle.Chassis.TireF.class.Value,{'Tire2x'})))
-    config.TireDynF = Vehicle.Chassis.TireF.TireInner.Dynamics.Value;
-else
-    config.TireDynF     = Vehicle.Chassis.TireF.Dynamics.Value;
+config.Dampers   = Vehicle.Chassis.Damper.class.Value;
+damperFields    = fieldnames(Vehicle.Chassis.Damper);
+damperFieldInds = find(contains(damperFields,'Axle'));
+if(~isempty(damperFieldInds))
+    damperFieldList = sort(damperFields(damperFieldInds));
+    for axle_i = 1:length(damperFieldInds)
+        damperField = damperFieldList{axle_i};
+        config.(['Damper_' damperField]) = Vehicle.Chassis.Damper.(damperField).Instance;
+    end
 end
-config.TireR        = Vehicle.Chassis.TireR.Instance;
-if(sum(strcmp(Vehicle.Chassis.TireR.class.Value,{'Tire2x'})))
-    config.TireDynR = Vehicle.Chassis.TireR.TireInner.Dynamics.Value;
-else
-    config.TireDynR = Vehicle.Chassis.TireR.Dynamics.Value;
+
+chassis_fnames = fieldnames(Vehicle.Chassis);
+fname_inds_tire = find(startsWith(chassis_fnames,'Tire'));
+
+if(~isempty(fname_inds_tire))
+    tireFields = sort(chassis_fnames(fname_inds_tire));
+    for axle_i = 1:length(fname_inds_tire)
+        tireField = tireFields{axle_i};
+        config.(tireField)        = Vehicle.Chassis.(tireField).Instance;
+        
+        if(sum(strcmp(Vehicle.Chassis.(tireField).class.Value,{'Tire2x'})))
+            config.([tireField '_Dynamics']) = Vehicle.Chassis.(tireField).TireInner.Dynamics.Value;
+        else
+            config.([tireField '_Dynamics']) = Vehicle.Chassis.(tireField).Dynamics.Value;
+        end
+    end
 end
+
 config.Power        = Vehicle.Powertrain.Power.class.Value;
 config.Driveline    = Vehicle.Powertrain.Driveline.class.Value;
-config.DriveShaftFL = Vehicle.Powertrain.Driveline.DriveshaftFL.class.Value;
+%config.DriveShaftFL = Vehicle.Powertrain.Driveline.DriveshaftFL.class.Value;
 config.Brakes       = Vehicle.Brakes.class.Value;
