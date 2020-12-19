@@ -13,21 +13,18 @@ Vehicle = [];
 W = evalin('base','whos'); %or 'base'
 doesExist = ismember('VDatabase',{W(:).name});
 if(~doesExist)
-   VDatabase = sm_car_import_vehicle_data('sm_car_database_Vehicle.xlsx',{'Structure','NameConvention'},0);
+   VDatabase = sm_car_import_vehicle_data(0,1);
    assignin('base','VDatabase',VDatabase)
 end
 
 % Set Body, Suspension, Steering, and AntiRollBar first
 BOi = find(strcmp(config_set(:,1),'Body'));
-SFi = intersect(find(strcmp(config_set(:,1),'Susp')),find(strcmp(config_set(:,3),'front')));
-SRi = intersect(find(strcmp(config_set(:,1),'Susp')),find(strcmp(config_set(:,3),'rear')));
-EFi = intersect(find(strcmp(config_set(:,1),'Steer')),find(strcmp(config_set(:,3),'front')));
-ERi = intersect(find(strcmp(config_set(:,1),'Steer')),find(strcmp(config_set(:,3),'rear')));
-AFi = intersect(find(strcmp(config_set(:,1),'AntiRollBar')),find(strcmp(config_set(:,3),'front')));
-ARi = intersect(find(strcmp(config_set(:,1),'AntiRollBar')),find(strcmp(config_set(:,3),'rear')));
+SFi = find(strcmp(config_set(:,1),'Susp'));
+EFi = find(strcmp(config_set(:,1),'Steer'));
+AFi = find(strcmp(config_set(:,1),'AntiRollBar'));
 
-other_inds = setdiff(1:size(config_set,1),[BOi SFi SRi EFi ERi AFi ARi]);
-config_order = [BOi SFi SRi EFi ERi AFi ARi other_inds];
+other_inds = setdiff(1:size(config_set,1),[BOi SFi' EFi' AFi']);
+config_order = [BOi SFi' EFi' AFi' other_inds];
 
 % Loop through all supplied options
 for cfg_i = 1:length(config_order)
@@ -39,11 +36,12 @@ for cfg_i = 1:length(config_order)
         case 'Aero',        Vehicle = sm_car_vehcfg_setAero(Vehicle,config_option);
         case 'Body',        Vehicle = sm_car_vehcfg_setBody(Vehicle,config_option);
         case 'BodyGeometry',Vehicle = sm_car_vehcfg_setBodyGeometry(Vehicle,config_option);
+        case 'BodyLoad',    Vehicle = sm_car_vehcfg_setBodyLoad(Vehicle,config_option);
         case 'Passenger',   Vehicle = sm_car_vehcfg_setPassenger(Vehicle,config_option);
         case 'Power',       Vehicle = sm_car_vehcfg_setPower(Vehicle,config_option);
         case 'Brakes',      Vehicle = sm_car_vehcfg_setBrakes(Vehicle,config_option);
-        case 'Springs',     Vehicle = sm_car_vehcfg_setSpring(Vehicle,config_option);
-        case 'Dampers',     Vehicle = sm_car_vehcfg_setDamper(Vehicle,config_option);
+        case 'Springs',     Vehicle = sm_car_vehcfg_setSpring(Vehicle,config_option,config_lr);
+        case 'Dampers',     Vehicle = sm_car_vehcfg_setDamper(Vehicle,config_option,config_lr);
         case 'Susp',        Vehicle = sm_car_vehcfg_setSusp(Vehicle,config_option,config_lr);
         case 'Steer',       Vehicle = sm_car_vehcfg_setSteer(Vehicle,config_option,config_lr);
         case 'DriverHuman', Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,config_option,config_lr);

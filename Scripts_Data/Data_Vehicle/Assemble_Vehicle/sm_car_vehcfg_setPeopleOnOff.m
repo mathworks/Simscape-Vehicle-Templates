@@ -1,4 +1,4 @@
-function Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,people_opt)
+function Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,people_opt,suspFieldName)
 % Copy data from VDatabase to Vehicle data structure
 %
 % Copyright 2019-2020 The MathWorks, Inc.
@@ -7,9 +7,9 @@ function Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,people_opt)
 VDatabase = evalin('base','VDatabase');
 
 if (people_opt(1))
-    Vehicle.Chassis.SuspF.Steer.DriverHuman.class.Value = 'Human';
+    Vehicle.Chassis.(suspFieldName).Steer.DriverHuman.class.Value = 'Human';
 else
-    Vehicle.Chassis.SuspF.Steer.DriverHuman.class.Value = 'None';
+    Vehicle.Chassis.(suspFieldName).Steer.DriverHuman.class.Value = 'None';
 end
 
 if (people_opt(2))

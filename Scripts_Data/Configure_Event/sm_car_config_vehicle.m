@@ -36,7 +36,7 @@ if(bdIsLoaded(mdl))
         % Others: adjust controller and use ode23t for variable step
         % If controller present
         f=Simulink.FindOptions('FollowLinks',0,'LookUnderMasks','none');
-        h=Simulink.findBlocks(bdroot,'Name','Controller',f);
+        h=Simulink.findBlocks(mdl,'Name','Controller',f);
         if(~isempty(h))
             set_param([mdl '/Controller'],'popup_control','Default');
         end

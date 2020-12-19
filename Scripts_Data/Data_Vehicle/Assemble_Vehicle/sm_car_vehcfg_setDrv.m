@@ -19,187 +19,262 @@ switch drv_opt
         % Front: 1D shafts
         % Rear:  1D shafts
         % Sedan HambaLG configuration
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts1D_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft1D_default';
+        instanceDiffA1     = 'Gear1DShafts1D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft1D_default';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'f1D3Dr1D_SHL'
         % 1D shafts for power, non-rotating 3D shafts for visualization
         % Rear:  1D shafts
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3Dfix_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft1D3D_Sedan_HambaLG_f';
+        instanceDiffA1     = 'Gear1DShafts3Dfix_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft1D3D_Sedan_HambaLG_f';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'f1D3Dr1D_SH'
         % 1D shafts for power, non-rotating 3D shafts for visualization
         % Rear:  1D shafts
         % Sedan Hamba configuration
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_Hamba_f';
-        instanceDrShF     = 'Shaft1D3D_Sedan_Hamba_f';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_Hamba_f';
+        instanceDrShA1     = 'Shaft1D3D_Sedan_Hamba_f';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_Hamba_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_Hamba_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
-    case 'f1D3Dr1D_BM'
+    case 'A11D_A21D3_A31D_BM3'
+        % Three Axle Bus Makhulu configuration
+        % One powered shaft
         % Front: 1D shafts for power, non-rotating 3D shafts for visualization
         % Rear:  1D shafts
-        % Bus Makhulu configuration
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle3_A2_A2Diff_Bus_Makhulu_Axle3';
         
-        instanceDiffF     = 'Gear1DShafts3D_Bus_Makhulu_f';
-        instanceDrShF     = 'Shaft1D3D_Bus_Makhulu_f';
+        instanceDiffA2     = 'Gear1DShafts1D_Bus_Makhulu_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
-        instanceDiffR     = 'Gear1DShafts1D_Bus_Makhulu_r';
-        instanceDrShR     = 'Shaft1D_default';
+    case 'A11D_A21D3_A31D_TA3'
+        % Three Axle Truck Amandla configuration
+        % One powered shaft, one powered axle (6x2)
+        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
+        % Rear:  1D shafts
+        instanceDriveline = 'Axle3_A2_A2Diff_Truck_Amandla_Axle3';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Truck_Amandla_A2';
+        instanceDrShA2     = 'Shaft1D_default';
+        
+    case 'A11D_A21D3_A31D3_BM3'
+        % Three Axle Bus Makhulu configuration
+        % One powered shaft, two powered axles (6x4)
+        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
+        % Rear:  1D shafts
+        instanceDriveline = 'Axle3_A23_A2Diff_A3Diff_Bus_Makhulu_Axle3';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Bus_Makhulu_r';
+        instanceDrShA2     = 'Shaft1D_default';
+        
+        instanceDiffA3     = 'Gear1DShafts1D_Bus_Makhulu_r';
+        instanceDrShA3     = 'Shaft1D_default';
+        
+    case 'A11D_A21D3_A31D3_TA3'
+        % Three Axle Truck Amandla configuration
+        % One powered shaft, two powered axles (6x4)
+        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
+        % Rear:  1D shafts
+        instanceDriveline = 'Axle3_A23_A2Diff_A3Diff_Truck_Amandla_Axle3';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Truck_Amandla_A2';
+        instanceDrShA2     = 'Shaft1D_default';
+        
+        instanceDiffA3     = 'Gear1DShafts1D_Truck_Amandla_A3';
+        instanceDrShA3     = 'Shaft1D_default';
+        
+    case 'f1D3Dr1D_BM'
+        % Two Axle Bus Makhulu configuration
+        % Two powered shaft, two powered axles (4x4)
+        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
+        % Rear:  1D shafts
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
+        
+        instanceDiffA1     = 'Gear1DShafts3D_Bus_Makhulu_f';
+        instanceDrShA1     = 'Shaft1D3D_Bus_Makhulu_f';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Bus_Makhulu_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'fCVpCVr1D_SHL'
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
         % Rear:  1D shafts
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CVPrismatic_default';
-        instanceDrShFSh   = 'Rigid_Sedan_HambaLG_f';
-        instanceDrShFCVo  = 'CV_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi  = 'CVPrismatic_default';
+        instanceDrShA1Sh   = 'Rigid_Sedan_HambaLG_f';
+        instanceDrShA1CVo  = 'CV_default';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'fCVpCVflexr1D_SHL'
         % Front: 3D shafts for power: CV-prismatic-flexible driveshaft-CV
         % Rear:  1D shafts
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CVPrismatic_default';
-        instanceDrShFSh   = 'Flex2Segments_Sedan_HambaLG_f';
-        instanceDrShFCVo  = 'CV_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi  = 'CVPrismatic_default';
+        instanceDrShA1Sh   = 'Flex2Segments_Sedan_HambaLG_f';
+        instanceDrShA1CVo  = 'CV_default';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'fCVCVpr1D_SHL'
         % Front: 3D shafts for power: CV-driveshaft-prismatic-CV
         % Rear:  1D shafts
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CV_default';
-        instanceDrShFSh   = 'Rigid_Sedan_HambaLG_f';
-        instanceDrShFCVo  = 'CVPrismatic_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi  = 'CV_default';
+        instanceDrShA1Sh   = 'Rigid_Sedan_HambaLG_f';
+        instanceDrShA1CVo  = 'CVPrismatic_default';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'fCVpCVr1D_1sh_SHL'
         % Single driven shaft
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
         % Rear:  1D shaft
-        instanceDriveline = 'ConnectFRDiffFDiffR_default';
+        instanceDriveline  = 'Axle2_A12Visc_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CVPrismatic_default';
-        instanceDrShFSh   = 'Rigid_Sedan_HambaLG_f';
-        instanceDrShFCVo  = 'CV_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi   = 'CVPrismatic_default';
+        instanceDrShA1Sh    = 'Rigid_Sedan_HambaLG_f';
+        instanceDrShA1CVo   = 'CV_default';
         
-        instanceDiffR     = 'Gear1DShafts1D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'fCVpCVr1D_3sh_SH'
         % Three driven shafts
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
         % Rear:  1D shafts
-        instanceDriveline = 'IndepFRDiffFIndepR_default';
+        instanceDriveline = 'Axle2_A1_L2_R2_A1Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_Hamba_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CVPrismatic_default';
-        instanceDrShFSh   = 'Rigid_Sedan_Hamba_f';
-        instanceDrShFCVo  = 'CV_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_Hamba_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi   = 'CVPrismatic_default';
+        instanceDrShA1Sh    = 'Rigid_Sedan_Hamba_f';
+        instanceDrShA1CVo   = 'CV_default';
         
-        instanceDrShR     = 'Shaft1D_default';
+        instanceDrShA2     = 'Shaft1D_default';
         
     case 'fCVpCVrCVpCV_SHL'
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
         % Rear : 3D shafts for power: CV-prismatic-driveshaft-CV
-        instanceDriveline = 'IndepFRDiffFDiffR_default';
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_HambaLG_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CVPrismatic_default';
-        instanceDrShFSh   = 'Rigid_Sedan_HambaLG_f';
-        instanceDrShFCVo  = 'CV_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi  = 'CVPrismatic_default';
+        instanceDrShA1Sh   = 'Rigid_Sedan_HambaLG_f';
+        instanceDrShA1CVo  = 'CV_default';
         
-        instanceDiffR     = 'Gear1DShafts3D_Sedan_HambaLG_r';
-        instanceDrShR     = 'Shaft3D_default';
-        instanceDrShRCVi  = 'CVPrismatic_default';
-        instanceDrShRSh   = 'Rigid_Sedan_HambaLG_r';
-        instanceDrShRCVo  = 'CV_default';
+        instanceDiffA2     = 'Gear1DShafts3D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft3D_default';
+        instanceDrShA2CVi  = 'CVPrismatic_default';
+        instanceDrShA2Sh   = 'Rigid_Sedan_HambaLG_r';
+        instanceDrShA2CVo  = 'CV_default';
         
     case 'Axle1_None'
         instanceDriveline = 'Axle1_None';
         
+    case 'Axle2_None'
+        instanceDriveline = 'Axle2_None';
+        
     case 'fCVpCV_FC1m'
         % One driven shafts, FWD only
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
-        instanceDriveline = 'FDiff_FuelCell1Motor';
+        instanceDriveline  = 'Axle2_A1_A1Diff_FuelCell1Motor';
         
-        instanceDiffF     = 'Gear1DShafts3D_Sedan_Hamba_f';
-        instanceDrShF     = 'Shaft3D_default';
-        instanceDrShFCVi  = 'CVPrismatic_default';
-        instanceDrShFSh   = 'Rigid_Sedan_Hamba_f';
-        instanceDrShFCVo  = 'CV_default';
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_Hamba_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi   = 'CVPrismatic_default';
+        instanceDrShA1Sh    = 'Rigid_Sedan_Hamba_f';
+        instanceDrShA1CVo   = 'CV_default';
         
 end
 
 % Assemble structure of parameters for driveline
 Drv_struct               = VDatabase.Driveline.(instanceDriveline);
 if(~contains(instanceDriveline,'None'))
-    Drv_struct.DifferentialF = VDatabase.Differential.(instanceDiffF);
-    Drv_struct.DriveshaftFL  = VDatabase.Driveshaft.(instanceDrShF);
-    Drv_struct.DriveshaftFR  = VDatabase.Driveshaft.(instanceDrShF);
-    if(exist('instanceDiffR','var'))
+    if(exist('instanceDiffA1','var'))
+        Drv_struct.DifferentialA1 = VDatabase.Differential.(instanceDiffA1);
+    end
+    if(exist('instanceDrShA1','var'))
+        Drv_struct.DriveshaftL1  = VDatabase.Driveshaft.(instanceDrShA1);
+        Drv_struct.DriveshaftR1  = VDatabase.Driveshaft.(instanceDrShA1);
+    end
+    
+    if(exist('instanceDiffA2','var'))
         % If there is a differential in the rear, add to structure
-        Drv_struct.DifferentialR = VDatabase.Differential.(instanceDiffR);
+        Drv_struct.DifferentialA2 = VDatabase.Differential.(instanceDiffA2);
     end
-    if(exist('instanceDrShR','var'))
-        Drv_struct.DriveshaftRL  = VDatabase.Driveshaft.(instanceDrShR);
-        Drv_struct.DriveshaftRR  = VDatabase.Driveshaft.(instanceDrShR);
+    if(exist('instanceDrShA2','var'))
+        Drv_struct.DriveshaftL2  = VDatabase.Driveshaft.(instanceDrShA2);
+        Drv_struct.DriveshaftR2  = VDatabase.Driveshaft.(instanceDrShA2);
     end
     
-    if(exist('instanceDrShFCVi','var'))
+    if(exist('instanceDiffA3','var'))
+        % If there is a differential in the rear, add to structure
+        Drv_struct.DifferentialA3 = VDatabase.Differential.(instanceDiffA3);
+    end
+    if(exist('instanceDrShA3','var'))
+        Drv_struct.DriveshaftL3  = VDatabase.Driveshaft.(instanceDrShA3);
+        Drv_struct.DriveshaftR3  = VDatabase.Driveshaft.(instanceDrShA3);
+    end
+    
+    if(exist('instanceDrShA1CVi','var'))
         % Assemble structure for front joints and driveshaft
-        Drv_struct.DriveshaftFL.JointInboard  = VDatabase.JointInboard.(instanceDrShFCVi);
-        Drv_struct.DriveshaftFL.JointOutboard = VDatabase.JointOutboard.(instanceDrShFCVo);
-        Drv_struct.DriveshaftFL.Shaft         = VDatabase.Shaft.(instanceDrShFSh);
-        Drv_struct.DriveshaftFR.JointInboard  = VDatabase.JointInboard.(instanceDrShFCVi);
-        Drv_struct.DriveshaftFR.JointOutboard = VDatabase.JointOutboard.(instanceDrShFCVo);
-        Drv_struct.DriveshaftFR.Shaft         = VDatabase.Shaft.(instanceDrShFSh);
+        Drv_struct.DriveshaftL1.JointInboard  = VDatabase.JointInboard.(instanceDrShA1CVi);
+        Drv_struct.DriveshaftL1.JointOutboard = VDatabase.JointOutboard.(instanceDrShA1CVo);
+        Drv_struct.DriveshaftL1.Shaft         = VDatabase.Shaft.(instanceDrShA1Sh);
+        Drv_struct.DriveshaftR1.JointInboard  = VDatabase.JointInboard.(instanceDrShA1CVi);
+        Drv_struct.DriveshaftR1.JointOutboard = VDatabase.JointOutboard.(instanceDrShA1CVo);
+        Drv_struct.DriveshaftR1.Shaft         = VDatabase.Shaft.(instanceDrShA1Sh);
     end
     
-    if(exist('instanceDrShRCVi','var'))
+    if(exist('instanceDrShA2CVi','var'))
         % Assemble structure for rear joints and driveshaft
-        Drv_struct.DriveshaftRL.JointInboard  = VDatabase.JointInboard.(instanceDrShRCVi);
-        Drv_struct.DriveshaftRL.JointOutboard = VDatabase.JointOutboard.(instanceDrShRCVo);
-        Drv_struct.DriveshaftRL.Shaft         = VDatabase.Shaft.(instanceDrShRSh);
-        Drv_struct.DriveshaftRR.JointInboard  = VDatabase.JointInboard.(instanceDrShRCVi);
-        Drv_struct.DriveshaftRR.JointOutboard = VDatabase.JointOutboard.(instanceDrShRCVo);
-        Drv_struct.DriveshaftRR.Shaft         = VDatabase.Shaft.(instanceDrShRSh);
+        Drv_struct.DriveshaftL2.JointInboard  = VDatabase.JointInboard.(instanceDrShA2CVi);
+        Drv_struct.DriveshaftL2.JointOutboard = VDatabase.JointOutboard.(instanceDrShA2CVo);
+        Drv_struct.DriveshaftL2.Shaft         = VDatabase.Shaft.(instanceDrShA2Sh);
+        Drv_struct.DriveshaftR2.JointInboard  = VDatabase.JointInboard.(instanceDrShA2CVi);
+        Drv_struct.DriveshaftR2.JointOutboard = VDatabase.JointOutboard.(instanceDrShA2CVo);
+        Drv_struct.DriveshaftR2.Shaft         = VDatabase.Shaft.(instanceDrShA2Sh);
     end
+
+    if(exist('instanceDrShA3CVi','var'))
+        % Assemble structure for rear joints and driveshaft
+        Drv_struct.DriveshaftL3.JointInboard  = VDatabase.JointInboard.(instanceDrShA3CVi);
+        Drv_struct.DriveshaftL3.JointOutboard = VDatabase.JointOutboard.(instanceDrShA3CVo);
+        Drv_struct.DriveshaftL3.Shaft         = VDatabase.Shaft.(instanceDrShA3Sh);
+        Drv_struct.DriveshaftR3.JointInboard  = VDatabase.JointInboard.(instanceDrShA3CVi);
+        Drv_struct.DriveshaftR3.JointOutboard = VDatabase.JointOutboard.(instanceDrShA3CVo);
+        Drv_struct.DriveshaftR3.Shaft         = VDatabase.Shaft.(instanceDrShA3Sh);
+    end
+
 end
 % Copy data driveline data structure into Vehicle data structure
 Vehicle.Powertrain.Driveline = Drv_struct;

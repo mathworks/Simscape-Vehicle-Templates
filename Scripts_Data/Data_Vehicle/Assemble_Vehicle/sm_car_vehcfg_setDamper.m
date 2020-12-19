@@ -1,65 +1,64 @@
-function Vehicle = sm_car_vehcfg_setDamper(Vehicle,dam_opt)
+function Vehicle = sm_car_vehcfg_setDamper(Vehicle,instanceDampers,dam_opt)
 % Copy data from VDatabase to Vehicle data structure
 % 
-% dam_opt contains string indicating configuration of dampers.
-%      <indep/connected>_<front option>F<rear option>R_<platform>
+% instanceDampers       Name of damper configuration 
+%    Examples: 
+%      Axle1_Independent    - single axle, no connection between dampers
+%      Axle2_Interconnected - double axle, connection between left and right dampers
 %
-%   <indep/connected>   Independent, connected by axle, 
-%                           or single set of dampers for vehicle
-%   <front option>      Linear, nonlinear 
-%   <rear option>       Linear, nonlinear 
-%   <platform>          Abbreviation for Sedan Hamba "SH", etc.
+% dam_opt           <Axle 1 option>_<Axle 2 option>_<Axle 3 option>
+%     See code below to map options to VDatabase structure
 %
 % Copyright 2019-2020 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
 
+
+if(~strcmpi(instanceDampers,'noConfig'))
+    if(isfield(VDatabase.Dampers,instanceDampers))
+        % Copy data from database into Vehicle data structure
+        Vehicle.Chassis.Damper = VDatabase.Dampers.(instanceDampers);
+    else
+        warning(['Damper set configuration ' instanceDampers ' not found']);
+    end
+end
+
+damAxleData = strsplit(dam_opt,'_');
+numAxles    = length(damAxleData);
+
 % Switch to select instances for 
 %  How springs are connected              "Dampers"
 %  Spring model itself for front and rear "F", "R"
-switch dam_opt
-    case 'in_linFlinR_SHL'
-        instanceDampers = 'Independent_default';
-        instanceF = 'Linear_Sedan_HambaLG_f';
-        instanceR = 'Linear_Sedan_HambaLG_r';
-    case 'in_linFlinR_BM'
-        instanceDampers = 'Independent_default';
-        instanceF = 'Linear_Bus_Makhulu_f';
-        instanceR = 'Linear_Bus_Makhulu_r';
-    case 'in_linFlinR_SH'
-        instanceDampers = 'Independent_default';
-        instanceF = 'Linear_Sedan_Hamba_f';
-        instanceR = 'Linear_Sedan_Hamba_r';
-    case 'in_linStiffFlinStiffR_SHL'
-        instanceDampers = 'Independent_default';
-        instanceF = 'Linear_Sedan_HambaLG_stiff_f';
-        instanceR = 'Linear_Sedan_HambaLG_stiff_r';
-    case 'in_linFnlR_SHL'
-        instanceDampers = 'Independent_default';
-        instanceF = 'Linear_Sedan_HambaLG_f';
-        instanceR = 'Nonlinear_Sedan_HambaLG_r';
-    case 'con_nlFlinR_SHL'
-        instanceDampers = 'Interconnected_default';
-        instanceF = 'Nonlinear_Sedan_HambaLG_f';
-        instanceR = 'Linear_Sedan_HambaLG_r';
-    case 'in_linF_TrElu'
-        instanceDampers = 'Independent_1Axle';
-        instanceF = 'Linear_Trailer_Elula_f';        
-    case 'in_linF_TrThw'
-        instanceDampers = 'Independent_1Axle';
-        instanceF = 'Linear_Trailer_Thwala_f';        
-end
 
-% Copy data from database into Vehicle data structure
-Vehicle.Chassis.Damper = VDatabase.Dampers.(instanceDampers);
-if(exist('instanceF','var'))
-    % Not all connection options require variants at front and rear
-    Vehicle.Chassis.Damper.Front = VDatabase.Damper.(instanceF);
-end
-if(exist('instanceR','var'))
-    % Not all connection options require variants rear
-    Vehicle.Chassis.Damper.Rear  = VDatabase.Damper.(instanceR);
+for axle_i = 1:numAxles
+    switch damAxleData{axle_i}
+        case 'SHLlinA1',      Instance = 'Sedan_HambaLG_Linear_A1';
+        case 'SHLlinA2',      Instance = 'Sedan_HambaLG_Linear_A2';
+        case 'BMlinA1',       Instance = 'Bus_Makhulu_Linear_A1';
+        case 'BMlinA2',       Instance = 'Bus_Makhulu_Linear_A2';
+        case 'BM3linA2',      Instance = 'Bus_Makhulu_Axle3_Linear_A2';
+        case 'BM3linA3',      Instance = 'Bus_Makhulu_Axle3_Linear_A3';
+        case 'SHlinA1',       Instance = 'Sedan_Hamba_Linear_A1';
+        case 'SHlinA2',       Instance = 'Sedan_Hamba_Linear_A2';            
+        case 'SHliveA2',      Instance = 'Sedan_Hamba_LiveAxle_A2';
+        case 'SHLlinStiffA1', Instance = 'Sedan_HambaLG_Linear_stiff_A1';
+        case 'SHLlinStiffA2', Instance = 'Sedan_HambaLG_Linear_stiff_A2';
+        case 'SHLnonlinA1',   Instance = 'Sedan_HambaLG_Nonlinear_A1';
+        case 'SHLnonlinA2',   Instance = 'Sedan_HambaLG_Nonlinear_A2';
+        case 'ELUlinA1',      Instance = 'Trailer_Elula_Linear_A1';        
+        case 'THWlinA1',      Instance = 'Trailer_Thwala_Linear_A1';        
+        case 'None',          Instance = 'None';
+        otherwise,            Instance = 'notfound';
+    end
+    
+    if(strcmpi(Instance,'notfound'))
+        warning(['Damper data ' damAxleData{axle_i} ' not found.']);
+    elseif(~strcmpi(Instance,'none'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Damper.(instanceName) = VDatabase.Damper.(Instance);
+    end
+    
 end
 
 % Modify config string to indicate configuration has been modified

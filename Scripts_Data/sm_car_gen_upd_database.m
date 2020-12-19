@@ -83,4 +83,6 @@ end
 assignin('base',var_name,db_structure);
 
 % Return to base folder
-cd(fileparts(which('sm_car')))
+curr_proj = simulinkproject;
+cd(curr_proj.RootFolder)
+
