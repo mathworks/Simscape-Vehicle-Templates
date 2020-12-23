@@ -19,7 +19,7 @@ gate4       = 213;   % Exit  2nd set of cones
 gate5       = 224;   % Entry 3rd set of cones
 gate6       = 240;   % Entry 3rd set of cones
 
-gate7       = 290;   % End
+gate7       = 350;   % End
 
 v_lc        = 12;     % Speed during lane change (m/s)
 x_testv     = 50;    % Distance when target speed is reached (m)
