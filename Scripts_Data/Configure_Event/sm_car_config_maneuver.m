@@ -174,7 +174,7 @@ switch maneuver_str
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base',['Driver = DDatabase.Double_Lane_Change.' veh_inst ';']);
         sm_car_config_road(modelname,'Double Lane Change');
-        set_param(modelname,'StopTime','25');
+        set_param(modelname,'StopTime','30');
 
     % --- Drive Cycle FTP75
     case 'drive cycle ftp75'

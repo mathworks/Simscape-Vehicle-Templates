@@ -44,7 +44,8 @@ for veh_i = 1:length(veh_set)
                 end
                 Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
                 suffix_str = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_' get_param(bdroot,'Solver')];
-                filenamefig = [mdl '_' now_string '_' suffix_str '.png'];
+                test_suffix     = pad(num2str(testnum),3,'left','0');
+                filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
                 disp_str = suffix_str;
                 
                 disp(['Run ' num2str(testnum) ' ' disp_str '****']);
