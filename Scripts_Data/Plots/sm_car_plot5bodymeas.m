@@ -52,15 +52,18 @@ whl_inds = find([check_names{:}]);
 if(~isempty(whl_inds))
     whlnames = sort(rdbus_log_fieldnames(whl_inds));
     for whl_i = 1:length(whl_inds)
-    simlog_pz = simlog_RdBus.Values.(whlnames{whl_i}).gz.Data;
-    axle_num = str2num(whlnames{whl_i}(end));
-    plot(simlog_t, simlog_pz,'LineWidth', length(whl_inds)/2-axle_num+1,...
-        'DisplayName',whlnames{whl_i});
-    hold on
+        simlog_pz = simlog_RdBus.Values.(whlnames{whl_i}).gz.Data;
+        if(length(simlog_pz)==1)
+            simlog_pz = ones(size(simlog_t))*simlog_pz;
+        end
+        axle_num = str2num(whlnames{whl_i}(end));
+        plot(simlog_t, simlog_pz,'LineWidth', length(whl_inds)/2-axle_num+1,...
+            'DisplayName',whlnames{whl_i});
+        hold on
     end
     hold off
     grid on
-    title('Post Height')
+    title('Height Added to Road Surface (Post, Bumps)')
     ylabel('Height (m)')
     xlabel('Time (s)')
     legend('Location','Best')
