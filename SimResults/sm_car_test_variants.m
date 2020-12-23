@@ -118,8 +118,9 @@ for veh_i = 1:length(veh_set1)
                 % Assemble suffix for results image
                 trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
                 Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
-                suffix_str = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_' get_param(bdroot,'Solver')];
-                filenamefig = [mdl '_' now_string '_' suffix_str '.png'];
+                suffix_str  = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_' get_param(bdroot,'Solver')];
+                test_suffix = pad(num2str(testnum),3,'left','0');
+                filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
                 disp_str = suffix_str;
                 
                 disp(['Run ' num2str(testnum) ' ' disp_str '****']);
@@ -277,7 +278,8 @@ for veh_i = 1:length(veh_set9)
             trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
             Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
             suffix_str = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_' get_param(bdroot,'Solver')];
-            filenamefig = [mdl '_' now_string '_' suffix_str '.png'];
+            test_suffix     = pad(num2str(testnum),3,'left','0');
+            filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
             disp_str = suffix_str;
             
             % disp(' ')
@@ -427,16 +429,16 @@ sm_car_test_variants_testloop
 manv_set = {'WOT Braking'};
 solver_typ = {'variable step'};
 veh_set = {'Axle3_010'};
-trailer_set = {'Axle2_001','Axle2_009'};
+trailer_set = {'Axle2_001','Axle2_021'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
-%% Test Set 19 -- 3 Axle Truck Amandla trailer with slosh
-manv_set = {'Turn'};
+%% Test Set 19 -- 3 Axle Truck Amandla 
+manv_set = {'Double Lane Change'};
 solver_typ = {'variable step'};
 veh_set = {'Axle3_012'};
-trailer_set = {'Axle2_002', 'Axle2_007'};
-plotstr = 'sm_car_plot2whlspeed';
+trailer_set = {'Axle2_002', 'Axle2_004', 'Axle2_006', 'Axle2_008'};
+plotstr = 'sm_car_plot3maneuver(Maneuver,logsout_sm_car)';
 sm_car_test_variants_testloop
 
 %% Process results
