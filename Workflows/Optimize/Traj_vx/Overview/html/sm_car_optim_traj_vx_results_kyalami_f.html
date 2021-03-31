@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-10-22"><meta name="DC.source" content="sm_car_optim_traj_vx_results_kyalami_f.m"><style type="text/css">
+      --><title>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-27"><meta name="DC.source" content="sm_car_optim_traj_vx_results_kyalami_f.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -69,20 +69,21 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Kyalami Grand Prix Circuit. This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1          797.6         4.267      
-    1           1          797.6         1.067     Refine Mesh
-    2           2        299.891         2.133     Successful Poll
-    3           2        299.891        0.5333     Refine Mesh
-    4           5        260.959         1.067     Successful Poll
-    5           6        260.959        0.2667     Refine Mesh
-    6          11        260.959       0.06667     Refine Mesh
-    7          17        253.088        0.1333     Successful Poll
-    8          22        253.088       0.03333     Refine Mesh
-    9          28        252.377       0.06667     Successful Poll
-   10          34        252.377       0.01667     Refine Mesh
-   11          40        252.377      0.004167     Refine Mesh
+    0           1            794         4.267      
+    1           1            794         1.067     Refine Mesh
+    2           2          296.4         2.133     Successful Poll
+    3           2          296.4        0.5333     Refine Mesh
+    4           5        257.387         1.067     Successful Poll
+    5           5        257.387        0.2667     Refine Mesh
+    6          10        257.387       0.06667     Refine Mesh
+    7          16        249.034        0.1333     Successful Poll
+    8          21        249.034       0.03333     Refine Mesh
+    9          27         245.11       0.06667     Successful Poll
+   10          33         245.11       0.01667     Refine Mesh
+   11          39        244.454       0.03333     Successful Poll
+   12          45        244.454      0.008333     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 1509.8017
+Elapsed time for optimization = 1656.8078
 </pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_05.png" alt=""> <p class="footer">Copyright 2020 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)
@@ -95,18 +96,20 @@ Elapsed time for optimization = 1509.8017
 
 %% 
 % <html><h2>Results of Optimization</h2></html>
+
 Overview_Dir = pwd;
 cd(Overview_Dir)
 close all
 clear OptRes_*
 clear opt_iter
 
-open_system('sm_car');
-set_param(bdroot,'FastRestart','off');
-sm_car_load_vehicle_data('sm_car','164'); % (Flat roads, basic)
+mdl = 'sm_car';
+open_system(mdl);
+set_param(mdl,'FastRestart','off');
+sm_car_load_vehicle_data(mdl,'164'); % (Flat roads, basic)
 Vehicle = sm_car_vehcfg_checkConfig(Vehicle);
 
-sm_car_optim_traj_vx('CRG_Kyalami_f',25);
+sm_car_optim_traj_vx(mdl,'CRG_Kyalami_f',25);
 sm_car_optim_vx_plot(OptRes_CRG_Kyalami_f)
 
 cd(Overview_Dir)

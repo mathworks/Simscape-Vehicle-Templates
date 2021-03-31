@@ -1,0 +1,48 @@
+component translational_hardstop
+% Translational Hard Stop
+% This block represents a double-sided mechanical translational hard stop
+% that restricts motion of a body between upper and lower bounds. The stop
+% is implemented as a spring and damper that comes into contact with the 
+% slider as the gap is cleared.
+
+% Copyright 2016 The MathWorks, Inc.
+
+parameters
+    upper_bnd = {0.1 , 'm'    }; % Upper bound
+    lower_bnd = {0   , 'm'    }; % Lower bound
+    stiff_up  = {1e6 , 'N/m'  }; % Contact stiffness at upper bound
+    stiff_low = {1e6 , 'N/m'  }; % Contact stiffness at lower bound
+    D_up      = {150 , 'N*s/m'}; % Contact damping at upper bound
+    D_low     = {150 , 'N*s/m'}; % Contact damping at lower bound
+end
+
+inputs
+    x = {0, 'm'  }; % pos:left
+    v = {0, 'm/s'}; % vel:left
+end
+
+outputs
+    f = {0, 'N'}; %f:right
+end
+
+equations
+    % Parameter checking
+	assert(lower_bnd<upper_bnd)
+    assert(stiff_up>=0)
+    assert(stiff_low>=0)
+    assert(D_up>=0)
+    assert(D_low>=0)
+
+    if (x > upper_bnd)
+        % Slider hits upper bound
+        f == -(stiff_up * (x - upper_bnd) + D_up * v);
+    elseif (x < lower_bnd)
+        % Slider hits lower bound
+        f == -(stiff_low * (x - lower_bnd) + D_low * v);
+    else
+        % Slider is between hard stops
+        f == {0 'N'};
+    end
+end
+
+end

@@ -156,7 +156,7 @@ switch maneuver_str
         set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Plateau');
         sm_car_config_road(modelname,'Plateau Z Only');
 
-    % --- Plateau, height only (no slope at tire)
+    % --- Plateau
     case 'crg plateau'
         evalin('base',['Init = IDatabase.RDF_Plateau.' init_inst ';']);
         evalin('base',['Init_Trailer = IDatabase.RDF_Plateau.' init_inst_trl ';']);
@@ -174,7 +174,7 @@ switch maneuver_str
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base',['Driver = DDatabase.Double_Lane_Change.' veh_inst ';']);
         sm_car_config_road(modelname,'Double Lane Change');
-        set_param(modelname,'StopTime','30');
+        set_param(modelname,'StopTime','35');
 
     % --- Drive Cycle FTP75
     case 'drive cycle ftp75'

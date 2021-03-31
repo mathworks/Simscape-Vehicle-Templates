@@ -32,11 +32,18 @@ control_param.Brakes.lCylinderDiameter.Value = 0.01*5;
 control_param.Brakes.lMeanRadius.Value = 0.15;
 control_param.Brakes.NPads.Value = 2;
 
-control_param.Brakes.Req = 4*(control_param.Brakes.rMuKinetic.Value*pi*...
-    control_param.Brakes.lCylinderDiameter.Value^2*...
-    control_param.Brakes.lMeanRadius.Value*control_param.Brakes.NPads.Value/4);
+% Not Needed
+%control_param.Brakes.Req = 4*(control_param.Brakes.rMuKinetic.Value*pi*...
+%    control_param.Brakes.lCylinderDiameter.Value^2*...
+%    control_param.Brakes.lMeanRadius.Value*control_param.Brakes.NPads.Value/4);
 
-control_param.Brakes.pMax.Value = 8.2e6;
-control_param.Brakes.pMax.Units = 'Pa';
+control_param.Brakes.BrakeTorqueWheelFull.Value = 5182;
+control_param.Brakes.BrakeTorqueWheelFull.Units = 'N*m';
+control_param.Brakes.FullTorque2pCaliper.Value  = 0.984*0.7;
+control_param.Brakes.FullTorque2pCaliper.Units  = 'bar/(N*m)';
+control_param.Brakes.FullTorque2pCaliper.Comment = 'Convert Total Required Braking Torque to Total Required Caliper Pressure';
+
+%control_param.Brakes.pMax.Value = 8.2e6; % Not Needed
+%control_param.Brakes.pMax.Units = 'Pa';
 control_param.Brakes.Ndiff_front = 5;
 
