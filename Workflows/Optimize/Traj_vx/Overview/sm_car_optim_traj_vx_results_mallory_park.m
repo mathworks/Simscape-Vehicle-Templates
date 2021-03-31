@@ -15,12 +15,13 @@ close all
 clear OptRes_*
 clear opt_iter
 
-open_system('sm_car');
-set_param(bdroot,'FastRestart','off');
-sm_car_load_vehicle_data('sm_car','164'); % (Flat roads, basic)
+mdl = 'sm_car';
+open_system(mdl);
+set_param(mdl,'FastRestart','off');
+sm_car_load_vehicle_data(mdl,'164'); % (Flat roads, basic)
 Vehicle = sm_car_vehcfg_checkConfig(Vehicle);
 
-sm_car_optim_traj_vx('CRG_Mallory_Park',40);
+sm_car_optim_traj_vx(mdl,'CRG_Mallory_Park',40);
 sm_car_optim_vx_plot(OptRes_CRG_Mallory_Park)
 
 cd(Overview_Dir)

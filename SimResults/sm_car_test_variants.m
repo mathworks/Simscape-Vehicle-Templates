@@ -83,6 +83,8 @@ results_foldername = [mdl '_' now_string];
 %results_foldername = 'sm_car_201121_0028';
 mkdir(results_foldername)
 
+control_chg = 'none';
+
 %% Test Set 1 - Main tests in Fast Restart, no MF-Swift
 manv_set = {'WOT Braking','Low Speed Steer'};
 solver_typ = {'variable step'};
@@ -227,7 +229,7 @@ sm_car_test_variants_testloop
 manv_set = {'Double Lane Change'};
 solver_typ = {'variable step'};
 veh_set = [139 002 143];
-trailer_set = {'none','01','02'};
+trailer_set = {'none','03','02'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
@@ -405,7 +407,17 @@ trailer_set = {'none'};
 plotstr = 'sm_car_plot2whlspeed';
 sm_car_test_variants_testloop
 
-%% Test Set 15 -- 3 Axle Bus Makhulu 6x2, 6x4, Amandla 6x2 
+%% Test Set 15 -- Battery 2 Motor Regen 
+manv_set = {'WOT Braking'};
+solver_typ = {'variable step'};
+veh_set = [179 180];
+trailer_set = {'none'};
+plotstr = 'sm_car_plot8regen(logsout_sm_car)';
+control_chg = 'Battery 2 Motor';  % Change controller within testloop, after config_vehicle
+sm_car_test_variants_testloop
+control_chg = 'none';             % Reset control_chg for remaining maneuvers
+
+%% Test Set 16 -- 3 Axle Bus Makhulu 6x2, 6x4, Amandla 6x2 
 set_param([mdl '/Camera Frames'],'Commented','off');
 set_param(mdl,'SimMechanicsOpenEditorOnUpdate','on');
 bdclose(mdl)
@@ -425,7 +437,7 @@ trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
-%% Test Set 18 -- 3 Axle Truck Amandla trailer
+%% Test Set 17 -- 3 Axle Truck Amandla trailer
 manv_set = {'WOT Braking'};
 solver_typ = {'variable step'};
 veh_set = {'Axle3_010'};
@@ -433,7 +445,7 @@ trailer_set = {'Axle2_001','Axle2_021'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
-%% Test Set 19 -- 3 Axle Truck Amandla 
+%% Test Set 18 -- 3 Axle Truck Amandla 
 manv_set = {'Double Lane Change'};
 solver_typ = {'variable step'};
 veh_set = {'Axle3_012'};
