@@ -8,7 +8,7 @@
 % This subsystem models a driveline with a single power shaft that is
 % connected to differentials for both the front and rear.
 % 
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Overview
 % 

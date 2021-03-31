@@ -1,5 +1,5 @@
 %% 
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 bdclose all
 cd(fileparts(which('Aero_Coefficients.slx')))
 copyfile('Aero_Coefficients_noSSC.slx','Aero_Coefficients.slx');

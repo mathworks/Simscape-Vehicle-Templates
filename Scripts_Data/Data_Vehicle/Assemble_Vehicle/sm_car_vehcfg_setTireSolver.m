@@ -1,7 +1,7 @@
 function Vehicle = sm_car_vehcfg_setTireSolver(Vehicle,tiresolver_opt)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 %VDatabase = evalin('base','VDatabase');

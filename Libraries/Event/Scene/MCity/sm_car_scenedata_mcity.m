@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_mcity
 %% Scene parameters
-% Copyright 2020 The MathWorks, Inc.
+% Copyright 2020-2021 The MathWorks, Inc.
 
 curr_dir = pwd;
 cd(fileparts(which(mfilename)));

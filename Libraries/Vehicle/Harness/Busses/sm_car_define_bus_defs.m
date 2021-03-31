@@ -6,7 +6,7 @@ function buses = sm_car_define_bus_defs(Vehicle_DS)
 % data structure so that the objects are created match the selected
 % variants.
 
-% Copyright 2019-2020 The MathWorks, Inbuses.Controller.Road.
+% Copyright 2019-2021 The MathWorks, Inbuses.Controller.Road.
 
 % VehicleModel IO Def
 buses.Vehicle.Chassis.Body.CG.x = {'DocUnits', 'm', 'Description', ''};

@@ -6,7 +6,7 @@ function sm_car_trajectory_straight_constant_speed(varargin)
 % v_lc        Speed during lane change (m/s)
 % x_testv     Distance when target speed is reached (m)
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 % Move to this folder as a new .mat file will be created
 cd(fileparts(which(mfilename)))

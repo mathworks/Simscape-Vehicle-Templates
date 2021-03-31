@@ -8,7 +8,7 @@
 % This subsystem models a double-wishbone suspension for one corner of the
 % vehicle (front or rear, left or right).
 % 
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Overview
 %

@@ -7,7 +7,7 @@ function traj_coeff = CRG_Create_Mallory_Park
 %
 % If output is requested, provides default trajectory coefficients
 %
-% Copyright 2020 The MathWorks, Inc.
+% Copyright 2020-2021 The MathWorks, Inc.
 
 if(nargout == 0)
     road_opts.create_stl_files = true;

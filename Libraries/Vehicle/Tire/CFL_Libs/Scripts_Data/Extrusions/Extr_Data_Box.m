@@ -16,7 +16,7 @@ function [xy_data] = Extr_Data_Box(box_ox, box_ix, varargin)
 %   add 'plot' as the final argument
 %   >> Extr_Data_Box(10,5,'plot')
 
-% Copyright 2013-2020 The MathWorks, Inc.
+% Copyright 2013-2021 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

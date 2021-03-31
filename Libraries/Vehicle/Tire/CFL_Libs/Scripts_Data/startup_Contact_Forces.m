@@ -1,7 +1,7 @@
 function startup_Contact_Forces
 
 % Startup for Simscape Multibody Contact Force Library
-% Copyright 2014-2020 The MathWorks, Inc.
+% Copyright 2014-2021 The MathWorks, Inc.
 
 % Load library and display version to Command Window
 CFL_libname = 'Contact_Forces_Lib';

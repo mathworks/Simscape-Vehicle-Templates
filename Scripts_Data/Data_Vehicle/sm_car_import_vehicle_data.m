@@ -1,6 +1,6 @@
 function sm_car_vehicle_data = sm_car_import_vehicle_data(updateData,showMessage)
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 % Get VDatabase from workspace OR create new
 if(updateData)

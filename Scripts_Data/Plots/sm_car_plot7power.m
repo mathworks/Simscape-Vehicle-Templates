@@ -4,7 +4,7 @@ function sm_car_plot7power(logsout_data)
 %
 % Plot results from electric powertrains
 %
-% Copyright 2016-2020 The MathWorks, Inc.
+% Copyright 2016-2021 The MathWorks, Inc.
 
 % Reuse figure if it exists, else create new figure
 fig_handle_name =   'h7_sm_car';

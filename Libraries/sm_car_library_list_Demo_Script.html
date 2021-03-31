@@ -6,8 +6,8 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Simscape Vehicle Templates Library, Links to Component Files</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-21"><meta name="DC.source" content="sm_car_library_list_Demo_Script.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+      --><title>Simscape Vehicle Templates Library, Links to Component Files</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-05"><meta name="DC.source" content="sm_car_library_list_Demo_Script.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
 html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
@@ -23,7 +23,7 @@ a:visited { color:#004aa0; text-decoration:none; }
 
 p { padding:0px; margin:0px 0px 20px; }
 img { padding:0px; margin:0px 0px 20px; border:none; }
-p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
 
 ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
 ul li { padding:0px; margin:0px 0px 7px 0px; }
@@ -52,6 +52,7 @@ span.comment { color:#228B22 }
 span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
 
 .footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
@@ -70,12 +71,20 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <tr><a href="matlab:web('Simscape_Vehicle_Library_Demo_Script.html')">Return to Main Page</a><br>
 <br>
 <table border=1><tr>
+<td><b>Driver</b></td>
+<td><a href="matlab:open_system('Driver_Drive_Cycle.slx');">Drive_Cycle</a></td></tr>
+<td> Data (xlsx) </td></tr>
+<td><b>sm</b></td>
+<td><a href="matlab:open_system('sm_car_object_traffic_light.slx');">car_object_traffic_light</a></td></tr>
+<td> Data (xlsx) </td></tr>
 <td><b>Aero</b></td>
-<td><a href="matlab:open_system('Aero_Coefficients.slx');">Coefficients</a></td></tr>
+<td><a href="matlab:open_system('Aero_Coefficients.slx');">Coefficients</a></td>
 <td> Data (xlsx) </td>
-<td><a href="matlab:sm_car_winopen_file('sm_car_data_Aero_Coefficients.xlsx');">Coefficients(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Aero_Coefficients.xlsx');">Coefficients(.xlsx)</a></td></tr>
 <td><a href="matlab:open_system('Aero_Coefficients_complete.slx');">Coefficients_complete</a></td>
 <td><a href="matlab:open_system('Aero_Coefficients_noSSC.slx');">Coefficients_noSSC</a></td></tr>
+<td> Data (xlsx) </td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Aero_Coefficients.xlsx');">Coefficients(.xlsx)</a></td></tr>
 <td><b>AntiRollBar</b></td>
 <td><a href="matlab:open_system('AntiRollBar_Droplink.slx');">Droplink</a></td>
 <td><a href="matlab:open_system('AntiRollBar_None.slx');">None</a></td>
@@ -98,6 +107,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <td> Data (xlsx) </td></tr>
 <td><b>BodyGeometry</b></td>
 <td><a href="matlab:open_system('BodyGeometry_Sedan.slx');">Sedan</a></td>
+<td> Data (xlsx) </td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_BodyGeometry_CAD.xlsx');">CAD(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_BodyGeometry_Sedan.xlsx');">Sedan(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_BodyGeometry_Trailer.xlsx');">Trailer(.xlsx)</a></td></tr>
 <td><a href="matlab:open_system('BodyGeometry_Trailer.slx');">Trailer</a></td></tr>
 <td> Data (xlsx) </td>
 <td><a href="matlab:sm_car_winopen_file('sm_car_data_BodyGeometry_CAD.xlsx');">CAD(.xlsx)</a></td>
@@ -204,6 +217,23 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <td><b>Control</b></td>
 <td><a href="matlab:open_system('Control_FuelCell1Motor.slx');">FuelCell1Motor</a></td></tr>
 <td> Data (xlsx) </td></tr>
+<td><b>Power</b></td>
+<td><a href="matlab:open_system('Power_FuelCell1Motor.slx');">FuelCell1Motor</a></td>
+<td> Data (xlsx) </td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Electric2Motor.xlsx');">Electric2Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Electric3Motor.xlsx');">Electric3Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_FuelCell1Motor.xlsx');">FuelCell1Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Ideal1Motor.xlsx');">Ideal1Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Ideal2Motor.xlsx');">Ideal2Motor(.xlsx)</a></td></tr>
+<td><a href="matlab:open_system('Power_Ideal1Motor.slx');">Ideal1Motor</a></td>
+<td><a href="matlab:open_system('Power_None.slx');">None</a></td>
+<td><a href="matlab:open_system('Power_Ideal2Motor.slx');">Ideal2Motor</a></td></tr>
+<td> Data (xlsx) </td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Electric2Motor.xlsx');">Electric2Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Electric3Motor.xlsx');">Electric3Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_FuelCell1Motor.xlsx');">FuelCell1Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Ideal1Motor.xlsx');">Ideal1Motor(.xlsx)</a></td>
+<td><a href="matlab:sm_car_winopen_file('sm_car_data_Power_Ideal2Motor.xlsx');">Ideal2Motor(.xlsx)</a></td></tr>
 <td><b>Springs</b></td>
 <td><a href="matlab:open_system('Springs_Systems.slx');">Systems</a></td>
 <td><a href="matlab:open_system('Springs_Independent.slx');">Independent</a></td>
@@ -255,7 +285,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <td><a href="matlab:sm_car_winopen_file('sm_car_data_TireBody_CAD_270_70R22.xlsx');">CAD_270_70R22(.xlsx)</a></td>
 <td><a href="matlab:sm_car_winopen_file('sm_car_data_TireBody_Parameterized.xlsx');">Parameterized(.xlsx)</a></td></tr>
 </table><br>
-</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Simscape Vehicle Templates Library, Links to Component Files
 %

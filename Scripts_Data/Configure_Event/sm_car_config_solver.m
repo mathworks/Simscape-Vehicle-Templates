@@ -4,7 +4,7 @@ function sm_car_config_solver(mdl,simtype)
 %   This function configures the solvers.
 %   simtype is "variable step", "fixed step", or "fixed step slrt"
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 desktop_solver = 'ode23t';
 

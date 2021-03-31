@@ -9,7 +9,7 @@ function out_abs_test = sm_car_abs_test(test_vehicle_platform)
 % 4. Start test run from operating point
 %    with open-loop inputs shifted accordingly.
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 if (strcmpi(test_vehicle_platform,'hamba'))
     % Run test with Hamba

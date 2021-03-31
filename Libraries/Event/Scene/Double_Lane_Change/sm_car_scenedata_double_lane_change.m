@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_double_lane_change
 %% Floor and Grid parameters
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 scene_data.Name = 'Double_Lane_Change';
 scene_data.Dashes.pitch = 7.5;      % m

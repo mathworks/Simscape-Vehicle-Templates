@@ -4,7 +4,7 @@ function sm_car_crg_to_stl(crg_file,stl_file,varargin)
 %   Use CRG functions to generate MATLAB surface, 
 %   and convert that surface to an STL.
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 % Defaults
 x_extension = 0;

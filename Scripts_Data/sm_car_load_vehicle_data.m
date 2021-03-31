@@ -5,7 +5,7 @@ function sm_car_load_vehicle_data(mdl,carDataIndex)
 %    mdl:           Model name, specify 'none' to load data only.
 %    carDataIndex:  Index of vehicle data
 % 
-% Copyright 2019-2020 The MathWorks, Inc
+% Copyright 2019-2021 The MathWorks, Inc
 
 % Load desired vehicle data into variable Vehicle
 load(['Vehicle_' carDataIndex]);

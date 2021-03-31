@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle3
 % Code to create presets for 3-axle vehicle
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));

@@ -5,7 +5,7 @@ function Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,tiredyn_opt,tireFieldName)
 %
 % tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 
 % Find field that has tire model type

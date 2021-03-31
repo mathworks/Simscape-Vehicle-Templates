@@ -9,7 +9,7 @@
 % This subsystem models a driveline with independent power shafts and
 % differentials for both the front and rear.
 % 
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 %% Overview
 % 

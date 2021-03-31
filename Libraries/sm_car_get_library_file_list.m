@@ -2,7 +2,7 @@ function sm_car_get_library_file_list
 % Generates MATLAB file for publishing to HTML
 % that provides hyperlinks to component library files
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 % Find all Simulink files within Library subfolders
 cd(fileparts(which('sm_car_lib.slx')));

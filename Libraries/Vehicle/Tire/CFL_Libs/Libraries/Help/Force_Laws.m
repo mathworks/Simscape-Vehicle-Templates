@@ -4,7 +4,7 @@
 % <matlab:web('Contact_Forces_Demo_Script.html'); Simscape Multibody
 % Contact Forces Library>.  It applies for 2D and 3D contact forces.
 %
-% Copyright 2014-2020 The MathWorks, Inc.
+% Copyright 2014-2021 The MathWorks, Inc.
 
 
 

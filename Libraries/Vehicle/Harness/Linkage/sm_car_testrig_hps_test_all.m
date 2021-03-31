@@ -1,5 +1,5 @@
 % Script to test hardpoints in all suspension types
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 sm_car_testrig_hps_test('sm_car_testrig_susp_dwa_hp','Steer','none',0.1)
 sm_car_testrig_hps_test('sm_car_testrig_susp_dwa_hp','Steer','none',-0.1)

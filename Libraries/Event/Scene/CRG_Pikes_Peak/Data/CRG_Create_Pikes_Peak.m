@@ -4,7 +4,7 @@ function CRG_Create_Pikes_Peak
 % Creates CRG file for track with and without elevation.
 % Creates STL files based on data in CRG file.
 %
-% Copyright 2020 The MathWorks, Inc.
+% Copyright 2020-2021 The MathWorks, Inc.
 
 road_opts.create_stl_files = true;
 road_opts.create_no_elevation = true;

@@ -1,5 +1,5 @@
 Simscape Multibody Contact Forces Library
-Copyright 2014-2020 The MathWorks, Inc.
+Copyright 2014-2021 The MathWorks, Inc.
 
 This library contains contact force models for use with Simscape Multibody.
 They can be used for intermittent contact (parts bouncing off each other)
@@ -172,7 +172,7 @@ v 3.5 (R2016b)	Jan  2017	3D Composite Forces, Sphere-to-Plane Enabled
                    face of the box will encounter the belt.  It accepts the 
                    speed of the belt as an input signal (vx and/or vy)
                 3. Added Sphere-to-Plane Enabled Force.  This is used within the
-                   composite force´Face-to-Belt-Faces composite force
+                   composite forceÂ´Face-to-Belt-Faces composite force
                 4. Added example Gripper with Conveyor Belts (3D Applications). 
                    Uses the new forces to model a box that is transferred by a 
                    gripper between two conveyor belts.  One belt brings the box

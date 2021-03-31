@@ -7,7 +7,7 @@
 %
 % This subsystem models the mechanical parts representing the damper and bumpstop. 
 % 
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 %%
 %

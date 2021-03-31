@@ -1,7 +1,7 @@
 function scene_data = sm_car_scenedata_testrig_post
 % SM_SUSPENSION_TEMPLATES_PARAMS Parameters used in the model
 
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 scene_data.Name = 'Testrig_Post';
 
