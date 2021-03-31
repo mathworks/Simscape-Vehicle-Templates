@@ -37,6 +37,11 @@ for veh_i = 1:length(veh_set)
                 % Some maneuvers change vehicle type (CRG)
                 sm_car_config_vehicle(mdl); 
                 
+                % If necessary, change controller
+                if(~strcmp(control_chg,'none'))
+                    set_param([mdl '/Controller'],'popup_control',control_chg)
+                end
+                
                 % Assemble suffix for results image
                 trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
                 if(contains(lower(Trailer.config),'unstable') && ~strcmpi(trailer_type,'none'))
@@ -56,7 +61,8 @@ for veh_i = 1:length(veh_set)
                 
                 %set_param(mdl,'FastRestart','on')
                 %  Simulation for 1e-3 to eliminate initialization time'
-                temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
+                %  --- Removed to save compile time, check sim duration
+                %temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
                 
                 %out = [];
                 try

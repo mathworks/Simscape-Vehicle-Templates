@@ -1,6 +1,6 @@
 function sm_car_trajectory_double_lane_change
 % Function to construct double-lane change maneuver
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)))
 % Parameters for trajectory
@@ -19,7 +19,7 @@ gate4       = 213;   % Exit  2nd set of cones
 gate5       = 224;   % Entry 3rd set of cones
 gate6       = 240;   % Entry 3rd set of cones
 
-gate7       = 350;   % End
+gate7       = 500;   % End
 
 v_lc        = 12;     % Speed during lane change (m/s)
 x_testv     = 50;    % Distance when target speed is reached (m)
