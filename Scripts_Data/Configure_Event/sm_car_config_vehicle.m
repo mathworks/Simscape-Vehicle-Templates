@@ -25,12 +25,19 @@ if(bdIsLoaded(mdl))
     solverType = get_param(mdl,'SolverType');
     Vehicle = evalin('base','Vehicle');
     powertrain_class = Vehicle.Powertrain.Power.class.Value;
+    brakes_class     = Vehicle.Brakes.class.Value;
     
     if(contains(lower(powertrain_class),'fuelcell'))
         % Fuel cell: adjust controller and use daessc for variable step
         set_param([mdl '/Controller'],'popup_control','Fuel Cell 1 Motor');
         if(strcmpi(solverType,'variable-step'))
             set_param(mdl,'Solver','daessc');
+        end
+    elseif(strcmpi(brakes_class,'pressureabstract_discdisc') && ...
+            strcmpi(powertrain_class,'electric_a1_a2'))
+        set_param([mdl '/Controller'],'popup_control','Battery 2 Motor');
+        if(strcmpi(solverType,'variable-step'))
+            set_param(mdl,'Solver','ode23t');
         end
     else
         % Others: adjust controller and use ode23t for variable step
