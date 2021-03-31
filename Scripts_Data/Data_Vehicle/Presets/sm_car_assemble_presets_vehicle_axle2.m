@@ -1399,6 +1399,43 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 47: Sedan, MFeval, Battery 2 Motor for Regen
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_166;
+vehcfg = Vehicle.config;
+
+Vehicle.Brakes.class.Value = 'PressureAbstract_DiscDisc';
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_A1_A2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_regen'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 48: Sedan, MFSwift, Battery 2 Motor for Regen
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_167;
+vehcfg = Vehicle.config;
+
+Vehicle.Brakes.class.Value = 'PressureAbstract_DiscDisc';
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_A1_A2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_regen'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
 %% Return to main directory
 curr_proj = simulinkproject;
 cd(curr_proj.RootFolder)

@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2020 The MathWorks, Inc.
+Copyright 2018-2021 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -30,6 +30,15 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.1 -- Mar 2021**
+1. Fixed bug in Simscape Vehicle Templates interface to MFeval CPI tire model
+2. Updated regenerative braking model to properly account for available motor torque
+3. Added serial regenerative braking algorithm for battery 2 motor powertrain
+4. Added presets for battery 2 motor powertrain with brake-by-wire for serial regenerative braking
+5. Added optimization example for lap time that considers battery SOC in cost function
+6. Modified code to handle update to find_system() for active variants in R2021a
+7. Increased bandwidth of brake actuators in PedalAbstract
+
 **v2.0 -- Dec 2020**
 **Major changes in this release to enable multi-axle vehicles.**
 **Datasets compatible with earlier releases will need changes to work with this version.**

@@ -38,7 +38,13 @@
 % <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_track_mallory_park.m')));edit sm_car_scenedata_track_mallory_park.m;">Data</a></td>
 % <td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.Sedan_Hamba);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW_Sedan_Hamba);">Counterclockwise</a></td></tr>
 % </table><br>
-% <tr>Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
+% <br>
+% <tr><b><u>Workflow Examples</u></b><br>
+% <tr>1. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
+% <tr>2. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
+% <br>
+% <tr><b><u>Testing Examples</u></b><br>
+% <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>

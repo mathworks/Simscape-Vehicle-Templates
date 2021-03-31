@@ -1,8 +1,15 @@
 function sm_car_lib_maskInitTrigger(curblk)
 % Find other blocks to trigger
-f=Simulink.FindOptions('FollowLinks',1,'RegExp',1,'Variants','ActiveVariants');
+%if(verLessThan('matlab','9.10'))
+    evalin('base','warning off Simulink:Commands:FindSystemVariantsOptionRemoval');
+    f=Simulink.FindOptions('FollowLinks',1,'RegExp',1,'Variants','ActiveVariants');
+%else
+%    f=Simulink.FindOptions('FollowLinks',1,'RegExp',1,'MatchFilter',@Simulink.match.activeVariants);
+%end
+
 h=Simulink.findBlocks(curblk,'InitTriggerDropdown','.*',f);
 
+%disp(curblk);
 % Set up array to track systems that need to be triggered
 trigger_set = {getfullname(h) ones(size(h))};
 
