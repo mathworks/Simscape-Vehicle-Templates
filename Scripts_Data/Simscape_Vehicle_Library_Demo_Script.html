@@ -6,8 +6,8 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Simscape Vehicle Library</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-30"><meta name="DC.source" content="Simscape_Vehicle_Library_Demo_Script.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+      --><title>Simscape Vehicle Library</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-26"><meta name="DC.source" content="Simscape_Vehicle_Library_Demo_Script.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
 html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
@@ -23,7 +23,7 @@ a:visited { color:#004aa0; text-decoration:none; }
 
 p { padding:0px; margin:0px 0px 20px; }
 img { padding:0px; margin:0px 0px 20px; border:none; }
-p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
 
 ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
 ul li { padding:0px; margin:0px 0px 7px 0px; }
@@ -52,6 +52,7 @@ span.comment { color:#228B22 }
 span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
 
 .footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
@@ -72,6 +73,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <tr><b><u>Full Vehicle</u></b><br>
 <tr>1.  Vehicle: <a href="matlab:cd(fileparts(which('sm_car.slx')));sm_car;">Open Model</a>, <a href="matlab:web('sm_car.html');">Documentation</a><br>
 <tr>2.  Library: <a href="matlab:cd(fileparts(which('sm_car_lib.slx')));sm_car_lib;">Open Library</a><br>
+<br>
+<tr><b><u>Workflow Examples</u></b><br>
+<tr>1. <a href="matlab:web('Simscape_Vehicle_Templates_Exercises.html')">Vehicle Simulation Exercises</a><br>
+<tr>2. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
+<tr>3. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
+<br>
+<tr><b><u>Testing Examples</u></b><br>
+<tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a><br>
 <br>
 <tr><b><u>Vehicle Parameters</u></b> <br>
 <tr>1.  See Data: <a href="matlab:open('sm_car_library_list_Demo_Script.html');">Vehicle Data and Libraries</a>, <a href="matlab:edit sm_car_gen_init_database;">Init</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Maneuver.xlsx');">Maneuver</a>, <a href="matlab:edit sm_car_gen_driver_database;">Driver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Camera.xlsx');">Camera</a> (<a href="matlab:edit sm_car_import_vehicle_data_sheet;">see code</a>)<br>
@@ -104,13 +113,6 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_track_mallory_park.m')));edit sm_car_scenedata_track_mallory_park.m;">Data</a></td>
 <td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.Sedan_Hamba);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW_Sedan_Hamba);">Counterclockwise</a></td></tr>
 </table><br>
-<br>
-<tr><b><u>Workflow Examples</u></b><br>
-<tr>1. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
-<tr>2. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
-<br>
-<tr><b><u>Testing Examples</u></b><br>
-<tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a><br>
 <br>
 <tr><b><u>Component Test Harnesses</u></b><br>
 <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>
@@ -148,7 +150,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <br>
 </style>
 </style>
-</p><p>Copyright 2018-2020 The MathWorks&#8482;, Inc.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+</p><p>Copyright 2018-2020 The MathWorks&#8482;, Inc.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Simscape Vehicle Library
 %
@@ -158,6 +160,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % <tr><b><u>Full Vehicle</u></b><br>
 % <tr>1.  Vehicle: <a href="matlab:cd(fileparts(which('sm_car.slx')));sm_car;">Open Model</a>, <a href="matlab:web('sm_car.html');">Documentation</a><br> 
 % <tr>2.  Library: <a href="matlab:cd(fileparts(which('sm_car_lib.slx')));sm_car_lib;">Open Library</a><br> 
+% <br>
+% <tr><b><u>Workflow Examples</u></b><br>
+% <tr>1. <a href="matlab:web('Simscape_Vehicle_Templates_Exercises.html')">Vehicle Simulation Exercises</a><br>
+% <tr>2. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
+% <tr>3. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
+% <br>
+% <tr><b><u>Testing Examples</u></b><br>
+% <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Vehicle Parameters</u></b> <br>
 % <tr>1.  See Data: <a href="matlab:open('sm_car_library_list_Demo_Script.html');">Vehicle Data and Libraries</a>, <a href="matlab:edit sm_car_gen_init_database;">Init</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Maneuver.xlsx');">Maneuver</a>, <a href="matlab:edit sm_car_gen_driver_database;">Driver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Camera.xlsx');">Camera</a> (<a href="matlab:edit sm_car_import_vehicle_data_sheet;">see code</a>)<br> 
@@ -190,13 +200,6 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % <td><a href="matlab:cd(fileparts(which('sm_car_scenedata_track_mallory_park.m')));edit sm_car_scenedata_track_mallory_park.m;">Data</a></td>
 % <td>Plot Trajectory: <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.Sedan_Hamba);">Clockwise</a>, <a href="matlab:sm_car_plot_maneuver(MDatabase.Mallory_Park.CCW_Sedan_Hamba);">Counterclockwise</a></td></tr>
 % </table><br>
-% <br>
-% <tr><b><u>Workflow Examples</u></b><br>
-% <tr>1. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
-% <tr>2. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
-% <br>
-% <tr><b><u>Testing Examples</u></b><br>
-% <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>
