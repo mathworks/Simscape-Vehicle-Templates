@@ -3,7 +3,7 @@
 %
 % <enter plot description here if desired>
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 % Generate simulation results if they don't exist
 if ~exist('simlog_sm_car_testrig_quarter_car', 'var')
@@ -27,20 +27,20 @@ simlog_aCamber = logsout_sm_car_testrig_quarter_car.get('aCamber');
 simlog_aToe = logsout_sm_car_testrig_quarter_car.get('aToe');
 
 % Plot results
-simlog_handles(1) = subplot(1, 2, 1);
+simlog_handles(1) = subplot(1, 2, 2);
 plot(simlog_aCamber.Values.Data(:), simlog_pzTire-simlog_pzTire(1), 'LineWidth', 1)
 grid on
 title('Camber Curve')
-ylabel('Suspension Travel (m)')
 xlabel('Camber (deg)')
 text(0.05,0.9,get_param([bdroot '/Linkage'],'ActiveVariant'),...
     'Units','Normalized','Color',[1 1 1]*0.5);
 
-simlog_handles(2) = subplot(1, 2, 2);
+simlog_handles(2) = subplot(1, 2, 1);
 plot(simlog_aToe.Values.Data(:), simlog_pzTire-simlog_pzTire(1), 'LineWidth', 1)
 grid on
 title('Toe Curve')
 xlabel('Toe (deg)')
+ylabel('Suspension Travel (m)')
 
 % Remove temporary variables
 clear simlog_handles temp_colororder
