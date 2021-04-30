@@ -498,7 +498,8 @@ xlswrite(filename,res_out,sheetname,'A2');
 xlswrite(filename,{['''' datestr(now)]},sheetname,'R1');
 xlswrite(filename,{['''' computername]},sheetname,'R2');
 xlswrite(filename,{['''' version]},sheetname,'R3');
-xlswrite(filename,answer,sheetname,'R4');
+xlswrite(filename,{['''' 'MF-Swift Version: ' sm_car_check_mfswiftversion]},sheetname,'R4');
+xlswrite(filename,answer,sheetname,'R5');
 
 delvars = who('-regexp','Vehicle_\d\d\d');
 clear(delvars{:},'delvars');

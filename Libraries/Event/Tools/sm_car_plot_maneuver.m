@@ -1,6 +1,6 @@
 function sm_car_plot_maneuver(Maneuver,varargin)
 % Function to plot key parameters of predefined maneuver
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 if(nargin==1)
     plotInds = 0;
@@ -112,7 +112,7 @@ else
     title('Brake Pedal Travel');
     set(gca,'YLim',[0 1]);
     ah(3) = subplot(313);
-    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value,'-o');
+    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-o');
     ylabel('Angle (deg)')
     title('Steering Wheel Angle');
     xlabel('Time (s)');
