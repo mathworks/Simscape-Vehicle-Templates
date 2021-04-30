@@ -112,7 +112,7 @@ else
     title('Brake Pedal Travel');
     set(gca,'YLim',[0 1]);
     ah(3) = subplot(313);
-    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value,'-o');
+    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-o');
     ylabel('Angle (deg)')
     title('Steering Wheel Angle');
     xlabel('Time (s)');

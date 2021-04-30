@@ -6,8 +6,8 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Considering Regeneration Using Optimization, Kyalami (No Elevation Change)</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-28"><meta name="DC.source" content="sm_car_optim_traj_vx_regen_results_kyalami_f.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+      --><title>Minimize Lap Time Considering Regeneration Using Optimization, Kyalami (No Elevation Change)</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-31"><meta name="DC.source" content="sm_car_optim_traj_vx_regen_results_kyalami_f.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
 html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
@@ -23,7 +23,7 @@ a:visited { color:#004aa0; text-decoration:none; }
 
 p { padding:0px; margin:0px 0px 20px; }
 img { padding:0px; margin:0px 0px 20px; border:none; }
-p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
 
 ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
 ul li { padding:0px; margin:0px 0px 7px 0px; }
@@ -52,6 +52,7 @@ span.comment { color:#228B22 }
 span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
 
 .footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
@@ -66,28 +67,27 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Minimize Lap Time Considering Regeneration Using Optimization, Kyalami (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Kyalami Grand Prix Circuit. This optimization assumes no elevation to shorten the optimization process.  The cost function considers the loss in battery state of charge to factor in vehicle range to the optimization.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">Warning: ['sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1
-A2/Battery/Battery'] Parameter stateOfCharge references non-value variable
-Power.  This parameter will not be treated as a Simscape runtime parameter. 
-
+  </style></head><body><div class="content"><h1>Minimize Lap Time Considering Regeneration Using Optimization, Kyalami (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Kyalami Grand Prix Circuit. This optimization assumes no elevation to shorten the optimization process.  The cost function considers the loss in battery state of charge to factor in vehicle range to the optimization.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        821.526           4.7      
-    1           1        821.526         1.175     Refine Mesh
-    2           2         348.97          2.35     Successful Poll
-    3           2         348.97        0.5875     Refine Mesh
-    4           6        321.211         1.175     Successful Poll
-    5           7        321.211        0.2938     Refine Mesh
-    6          13        321.211       0.07344     Refine Mesh
-    7          21        319.882        0.1469     Successful Poll
-    8          27        319.882       0.03672     Refine Mesh
-    9          35        319.674       0.07344     Successful Poll
-   10          43        319.674       0.01836     Refine Mesh
-   11          51        319.356       0.03672     Successful Poll
-   12          59        319.356       0.00918     Refine Mesh
+    0           1        818.195           4.7      
+    1           1        818.195         1.175     Refine Mesh
+    2           2        348.289          2.35     Successful Poll
+    3           2        348.289        0.5875     Refine Mesh
+    4           6        321.669         1.175     Successful Poll
+    5           7        321.669        0.2938     Refine Mesh
+    6          13        321.669       0.07344     Refine Mesh
+    7          21        321.669       0.01836     Refine Mesh
+    8          29        321.357       0.03672     Successful Poll
+    9          37        321.173       0.07344     Successful Poll
+   10          45        320.868        0.1469     Successful Poll
+Warning: Limiting legend entries to 50. Specify a vector of graphics objects to
+display more than 50 entries. 
+   11          51        320.868       0.03672     Refine Mesh
+   12          58        320.868       0.00918     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 4354.2597
-</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_06.png" alt=""> <p class="footer">Copyright 2020-2021 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+Elapsed time for optimization = 5159.2115
+</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_regen_results_kyalami_f_06.png" alt=""> <p class="footer">Copyright 2020-2021 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Considering Regeneration Using Optimization, Kyalami (No Elevation Change)
 % 

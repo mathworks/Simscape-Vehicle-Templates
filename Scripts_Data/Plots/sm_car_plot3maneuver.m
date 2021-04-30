@@ -225,7 +225,7 @@ else
     % Plot Maneuver with Open-Loop Driver Commands
     % Extract simulation results
     logsout_DrvBus = logsout_sm_car.get('DrvBus');
-    logsout_aSteerWheel = logsout_DrvBus.Values.aSteerWheel;
+    logsout_aSteerWheel = logsout_DrvBus.Values.aSteerWheel*180/pi;
     logsout_rAccelPedal = logsout_DrvBus.Values.rAccelPedal;
     logsout_rBrakePedal = logsout_DrvBus.Values.rBrakePedal;
     
@@ -249,7 +249,7 @@ else
     set(gca,'YLim',[0 1]);
     
     ah(3) = subplot(313);
-    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value,'-o','LineWidth',2);
+    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-o','LineWidth',2);
     hold on
     plot(logsout_aSteerWheel.Time,logsout_aSteerWheel.Data,'--x','LineWidth',1);
     hold off
