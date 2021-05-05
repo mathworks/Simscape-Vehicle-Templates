@@ -30,9 +30,10 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
-**v2.2 -- Apr 2021**
+**v2.2 -- May 2021**
 1. Added exercises 1-7 to teach basics of Simscape Vehicle Templates
 2. Added library and code to work with Simcenter Tire 2021.1 (new .tir parser)
+3. Updated fuel cell variant to work with boost converter, averaged switch (R20a and higher only)
 
 **v2.1 -- Mar 2021**
 1. Fixed bug in Simscape Vehicle Templates interface to MFeval CPI tire model
