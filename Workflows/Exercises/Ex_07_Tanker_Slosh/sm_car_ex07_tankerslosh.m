@@ -31,30 +31,30 @@ sm_car_load_trailer_data(mdl,'Axle2_004');
 sm_car_config_maneuver(mdl,'Double Lane Change');
 sm_car_plot_maneuver(Maneuver)
 
-%% Step 5: Run simulation with slosh
+%% Step 4: Run simulation with slosh
 % This can be done from Simulink or from the MATLAB command line.
 
 sim(mdl)
 
-%% Step 6: Explore simulation results in Simulink Data Inspector
+%% Step 5: Explore simulation results in Simulink Data Inspector
 % Use the Simulink Data Inspector to plot the following quantities.
 
 sm_car_ex07_tankerslosh_plot1
 
-%% Step 7: Disable slosh
+%% Step 6: Disable slosh
 % Trailer parameters are adjusted to eliminate the slosh effect.
 sm_car_load_trailer_data(mdl,'Axle2_002');
 
-%% Step 8: Run simulation with slosh disabled.
+%% Step 7: Run simulation with slosh disabled.
 % This can be done from Simulink or from the MATLAB command line.
 
 sim(mdl)
 
-%% Step 9: Add simulation results to the Simulink Data Inspector
+%% Step 8: Add simulation results to the Simulink Data Inspector
 % Use the Simulink Data Inspector to plot the following quantities from the
 % both runs.
 
 sm_car_ex07_tankerslosh_plot2
 
 %%
-%close all
+close all

@@ -7,7 +7,7 @@
 % vehicle can be tested on custom drive cycles or using the Drive Cycle
 % Source from Powertrain Blockset.
 % 
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 
 %% Model
@@ -46,7 +46,9 @@ Driver = DDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.UrbanCycle1;
 Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 set_param(bdroot,'StopTime','195');
+set_param(bdroot,'MaxConsecutiveMinStep','500');
 sim('ssc_car_FuelCell1Motor');
+set_param(bdroot,'MaxConsecutiveMinStep','5');
 sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 
 %% Simulation Results from Simscape Logging:  Cycle 2
@@ -54,7 +56,7 @@ sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 Driver = DDatabase.DriveCycle_FTP75.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.FTP75;
 Init = IDatabase.DriveCycle_FTP75.Sedan_Hamba;
-set_param(bdroot,'StopTime','900');
+set_param(bdroot,'StopTime','2474');
 sim('ssc_car_FuelCell1Motor');
 sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 
