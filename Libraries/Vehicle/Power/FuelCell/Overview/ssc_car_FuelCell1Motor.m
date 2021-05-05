@@ -41,11 +41,14 @@ open_system('ssc_car_FuelCell1Motor/Vehicle/Powertrain/FuelCell1Motor/Fuel Cell/
 % is driven along a standard drive cycle.  Note that the battery is
 % recharged (current changes sign) while the fuel cell is only discharged.
 
+sm_car_load_vehicle_data('none','173');
 Driver = DDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.UrbanCycle1;
 Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 set_param(bdroot,'StopTime','195');
+set_param(bdroot,'MaxConsecutiveMinStep','500');
 sim('ssc_car_FuelCell1Motor');
+set_param(bdroot,'MaxConsecutiveMinStep','5');
 sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 
 %% Simulation Results from Simscape Logging:  Cycle 2
@@ -53,7 +56,7 @@ sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 Driver = DDatabase.DriveCycle_FTP75.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.FTP75;
 Init = IDatabase.DriveCycle_FTP75.Sedan_Hamba;
-set_param(bdroot,'StopTime','900');
+set_param(bdroot,'StopTime','2474');
 sim('ssc_car_FuelCell1Motor');
 sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 
