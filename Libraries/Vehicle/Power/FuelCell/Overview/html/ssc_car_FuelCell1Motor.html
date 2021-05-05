@@ -6,8 +6,8 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Vehicle with Fuel Cell Powertrain</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-11-26"><meta name="DC.source" content="ssc_car_FuelCell1Motor.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+      --><title>Vehicle with Fuel Cell Powertrain</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-05-04"><meta name="DC.source" content="ssc_car_FuelCell1Motor.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
 html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
@@ -23,7 +23,7 @@ a:visited { color:#004aa0; text-decoration:none; }
 
 p { padding:0px; margin:0px 0px 20px; }
 img { padding:0px; margin:0px 0px 20px; border:none; }
-p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
 
 ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
 ul li { padding:0px; margin:0px 0px 7px 0px; }
@@ -52,6 +52,7 @@ span.comment { color:#228B22 }
 span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
 
 .footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
@@ -66,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Vehicle with Fuel Cell Powertrain</h1><!--introduction--><p>This example shows a fuel cell powertrain modeled in Simscape.  A single fuel cell stack in parallel with a battery powers a single motor that propels the vehicle. The fuel cell is modeled using a custom domain to track the different species of gas that are used in the fuel cell.  The vehicle can be tested on custom drive cycles or using the Drive Cycle Source from Powertrain Blockset.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Model</a></li><li><a href="#2">Powertrain Subsystem</a></li><li><a href="#3">Fuel Cell Subsystem</a></li><li><a href="#4">Simulation Results from Simscape Logging:  Cycle 1</a></li><li><a href="#5">Simulation Results from Simscape Logging:  Cycle 2</a></li></ul></div><h2 id="1">Model</h2><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_01.png" alt=""> <h2 id="2">Powertrain Subsystem</h2><p>The fuel cell and battery are connected on a DC electrical network to the motor.  The control system determines how much power to draw from the battery and fuel cell.  During braking events, power is fed back into the battery to recharge it.  A thermal system modeled using a fluid network controls the temperature of the battery, DC-DC converters, and the motor.</p><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_02.png" alt=""> <h2 id="3">Fuel Cell Subsystem</h2><p>The flow of oxygen, hydrogen, nitrogen, and water is captured in a custom Simscape domain.  Equations for reactions and heat generated are implemented in Simscape language.  A thermal management system keeps the fuel cell at the optimal operating temperature.</p><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_03.png" alt=""> <h2 id="4">Simulation Results from Simscape Logging:  Cycle 1</h2><p>Plot shows how the current from the battery and fuel cell vary as the car is driven along a standard drive cycle.  Note that the battery is recharged (current changes sign) while the fuel cell is only discharged.</p><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_04.png" alt=""> <h2 id="5">Simulation Results from Simscape Logging:  Cycle 2</h2><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_05.png" alt=""> <p class="footer">Copyright 2019-2020 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>Vehicle with Fuel Cell Powertrain</h1><!--introduction--><p>This example shows a fuel cell powertrain modeled in Simscape.  A single fuel cell stack in parallel with a battery powers a single motor that propels the vehicle. The fuel cell is modeled using a custom domain to track the different species of gas that are used in the fuel cell.  The vehicle can be tested on custom drive cycles or using the Drive Cycle Source from Powertrain Blockset.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Model</a></li><li><a href="#2">Powertrain Subsystem</a></li><li><a href="#3">Fuel Cell Subsystem</a></li><li><a href="#4">Simulation Results from Simscape Logging:  Cycle 1</a></li><li><a href="#5">Simulation Results from Simscape Logging:  Cycle 2</a></li></ul></div><h2 id="1">Model</h2><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_01.png" alt=""> <h2 id="2">Powertrain Subsystem</h2><p>The fuel cell and battery are connected on a DC electrical network to the motor.  The control system determines how much power to draw from the battery and fuel cell.  During braking events, power is fed back into the battery to recharge it.  A thermal system modeled using a fluid network controls the temperature of the battery, DC-DC converters, and the motor.</p><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_02.png" alt=""> <h2 id="3">Fuel Cell Subsystem</h2><p>The flow of oxygen, hydrogen, nitrogen, and water is captured in a custom Simscape domain.  Equations for reactions and heat generated are implemented in Simscape language.  A thermal management system keeps the fuel cell at the optimal operating temperature.</p><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_03.png" alt=""> <h2 id="4">Simulation Results from Simscape Logging:  Cycle 1</h2><p>Plot shows how the current from the battery and fuel cell vary as the car is driven along a standard drive cycle.  Note that the battery is recharged (current changes sign) while the fuel cell is only discharged.</p><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_04.png" alt=""> <h2 id="5">Simulation Results from Simscape Logging:  Cycle 2</h2><img vspace="5" hspace="5" src="ssc_car_FuelCell1Motor_05.png" alt=""> <p class="footer">Copyright 2019-2020 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Vehicle with Fuel Cell Powertrain
 % 
@@ -111,11 +112,14 @@ open_system('ssc_car_FuelCell1Motor/Vehicle/Powertrain/FuelCell1Motor/Fuel Cell/
 % is driven along a standard drive cycle.  Note that the battery is
 % recharged (current changes sign) while the fuel cell is only discharged.
 
+sm_car_load_vehicle_data('none','173');
 Driver = DDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.UrbanCycle1;
 Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 set_param(bdroot,'StopTime','195');
+set_param(bdroot,'MaxConsecutiveMinStep','500');
 sim('ssc_car_FuelCell1Motor');
+set_param(bdroot,'MaxConsecutiveMinStep','5');
 sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 
 %% Simulation Results from Simscape Logging:  Cycle 2
@@ -123,7 +127,7 @@ sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 Driver = DDatabase.DriveCycle_FTP75.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.FTP75;
 Init = IDatabase.DriveCycle_FTP75.Sedan_Hamba;
-set_param(bdroot,'StopTime','900');
+set_param(bdroot,'StopTime','2474');
 sim('ssc_car_FuelCell1Motor');
 sm_car_plot7power(logsout_ssc_FuelCell1Motor);
 
