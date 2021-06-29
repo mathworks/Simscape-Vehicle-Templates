@@ -1,4 +1,4 @@
-function out_abs_test = sm_car_abs_test(test_vehicle_platform)
+function out_abs_test = sm_car_test_abs_function(test_vehicle_platform)
 % Run ABS test on Ice Patch scene.
 % 
 % test_vehicle_platform:    "Hamba" or "HambaLG"
@@ -13,14 +13,10 @@ function out_abs_test = sm_car_abs_test(test_vehicle_platform)
 
 if (strcmpi(test_vehicle_platform,'hamba'))
     % Run test with Hamba
-    load Vehicle_156
-    Vehicle = Vehicle_156;
-    assignin('base','Vehicle',Vehicle)
+    veh_index = '156';
 elseif (strcmpi(test_vehicle_platform,'hambalg'))
     % Run test with HambaLG
-    load Vehicle_130
-    Vehicle = Vehicle_130;
-    assignin('base','Vehicle',Vehicle)
+    veh_index = '130';
 end
 
 open_system('sm_car')
@@ -28,6 +24,7 @@ open_system('sm_car')
 %% Set up model to get operating point
 set_param('sm_car','SimMechanicsUnsatisfiedHighPriorityTargets','Error')
 set_param('sm_car','SimscapeUseOperatingPoints','off')
+sm_car_load_vehicle_data('sm_car',veh_index)
 sm_car_config_maneuver('sm_car','Ice Patch');
 sm_car_config_control_brake('sm_car',0)
 sm_car_config_vehicle('sm_car')

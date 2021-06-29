@@ -32,8 +32,11 @@ plot(simlog_aCamber.Values.Data(:), simlog_pzTire-simlog_pzTire(1), 'LineWidth',
 grid on
 title('Camber Curve')
 xlabel('Camber (deg)')
+try
 text(0.05,0.9,get_param([bdroot '/Linkage'],'ActiveVariant'),...
     'Units','Normalized','Color',[1 1 1]*0.5);
+catch
+end
 
 simlog_handles(2) = subplot(1, 2, 1);
 plot(simlog_aToe.Values.Data(:), simlog_pzTire-simlog_pzTire(1), 'LineWidth', 1)

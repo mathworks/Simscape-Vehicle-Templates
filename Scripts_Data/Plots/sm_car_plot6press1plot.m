@@ -23,10 +23,10 @@ temp_colororder = get(gca,'defaultAxesColorOrder');
 % Get simulation results
 logsout_VehBus = logsout_sm_car.get('VehBus');
 
-logsout_pFL = logsout_VehBus.Values.Brakes.pBrakeFL;
-logsout_pFR = logsout_VehBus.Values.Brakes.pBrakeFR;
-logsout_pRL = logsout_VehBus.Values.Brakes.pBrakeRL;
-logsout_pRR = logsout_VehBus.Values.Brakes.pBrakeRR;
+logsout_pFL = logsout_VehBus.Values.Brakes.pBrakeL1;
+logsout_pFR = logsout_VehBus.Values.Brakes.pBrakeR1;
+logsout_pRL = logsout_VehBus.Values.Brakes.pBrakeL2;
+logsout_pRR = logsout_VehBus.Values.Brakes.pBrakeR2;
 
 %simlog_pMCL = simlog_sm_car.Brakes.Disc.Actuator.Valves.Valves_FL.Orifice_Apply.A.p.series.values('psi');
 %simlog_pMCR = simlog_sm_car.Brakes.Disc.Actuator.Valves.Valves_FR.Orifice_Apply.A.p.series.values('psi');

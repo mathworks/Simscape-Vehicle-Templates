@@ -30,10 +30,10 @@ switch db_type
         db_file = 'sm_car_database_Driver.xlsx';
         mat_file = 'DDatabase_file.mat';
         var_name = 'DDatabase';
-    case 'Camera'
-        db_file = 'sm_car_database_Camera.xlsx';
-        mat_file = 'CDatabase_file.mat';
-        var_name = 'CDatabase';
+%    case 'Camera'
+%        db_file = 'sm_car_database_Camera.xlsx';
+%        mat_file = 'CDatabase_file.mat';
+%        var_name = 'CDatabase';
 end
 
 % Get info about Excel file
