@@ -20,10 +20,13 @@ for veh_i = 1:length(veh_set)
         else
             veh_suffix = veh_set{veh_i};
         end
-        eval(['Vehicle = Vehicle_' veh_suffix ';']);
-        sm_car_load_trailer_data(mdl,trailer_set{trl_i});
-        sm_car_config_vehicle(mdl);
+        % Load vehicle data, do not trigger variant selection
+        sm_car_load_vehicle_data('none',veh_suffix);
         
+        % Load trailer data, enable/disable trailer, trigger variant
+        % selection if trailer not 'none'
+        sm_car_load_trailer_data(mdl,trailer_set{trl_i});
+
         % Loop over all solver types to be tested
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});

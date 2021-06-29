@@ -142,7 +142,13 @@ switch lower(scenename)
     case 'plane grid'
         % No special commands
     case 'ice patch'
-        set_param(mu_scaling_h,'muFL_in','0.4','muFR_in','0.4','muRL_in','0.4','muRR_in','0.4')
+        set_param(mu_scaling_h,'muFL_in','0.4','muFR_in','0.4','muRL_in','0.4','muRR_in','0.4');
+        if(sum(contains(tirClass,'MFSwift')))
+            % Mask in Tire_MFSwift sets road type based on filename
+            % Must contain "external" to change to external road definition
+            roadFile = 'which(''<External Road>'')';
+        end
+        
     case 'crg kyalami'
         if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...

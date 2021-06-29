@@ -12,3 +12,10 @@ veh_body = strrep(veh_body,'Amandla3Axle','Amandla');
 
 camera_str = ['Camera = CDatabase.Camera.' strrep(veh_body,'HambaLG','Hamba') ';'];
 evalin('base',camera_str)
+
+if strcmpi(veh_body,'achilles')
+    Visual = sm_car_param_visual('fsae');
+else
+    Visual = sm_car_param_visual('default');
+end
+assignin('base','Visual',Visual);

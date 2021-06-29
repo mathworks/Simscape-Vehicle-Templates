@@ -6,6 +6,6 @@ sm_car_assemble_presets
 sm_car_gen_init_database;
 sm_car_gen_upd_database('Maneuver',0);
 sm_car_gen_driver_database;
-sm_car_gen_upd_database('Camera',0);
+CDatabase.Camera = sm_car_gen_camera_database;
 Scene = sm_car_import_scene_data;
 
