@@ -89,21 +89,23 @@ control_chg = 'none';
 manv_set = {'WOT Braking','Low Speed Steer'};
 solver_typ = {'variable step'};
 %veh_set1 = [0:1:15 16:16:112 113:1:127 128:1:147 161 163];
-veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147];
+veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 183];
 trailer_set = {'none'};
 
 for veh_i = 1:length(veh_set1)
     for trl_i = 1:length(trailer_set)
         veh_suffix = pad(num2str(veh_set1(veh_i)),3,'left','0');
-        eval(['Vehicle = Vehicle_' veh_suffix ';']);
-        sm_car_load_trailer_data('sm_car',trailer_set{trl_i});        
+
+        % Load data without triggering variant selection
+        sm_car_load_vehicle_data('none',veh_suffix); 
+        sm_car_load_trailer_data('none',trailer_set{trl_i});
         sm_car_config_vehicle(mdl);
         
         % Loop over all solver types to be tested
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});
             
-            sm_car_config_vehicle(mdl);
+            sm_car_config_vehicle(mdl); % config_solver can modify Vehicle
             
             set_param(mdl,'FastRestart','on')
             
@@ -188,7 +190,7 @@ sm_car_load_trailer_data('sm_car','none');
 %% Test Set 1a - Main tests NO Fast Restart
 manv_set = {'WOT Braking','Low Speed Steer'};
 solver_typ = {'variable step'};
-veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163];
+veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
@@ -196,7 +198,7 @@ sm_car_test_variants_testloop
 %% Test Set 2: Short Maneuvers
 manv_set = {'Double Lane Change','Ice Patch'};
 solver_typ = {'variable step'};
-veh_set = [12 142 145];
+veh_set = [12 142 145 184];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
@@ -204,7 +206,7 @@ sm_car_test_variants_testloop
 %% Test Set 3 -- Long Maneuvers
 manv_set = {'Mallory Park','Mallory Park CCW'};
 solver_typ = {'variable step'};
-veh_set = [12 142 116 143 166 169];
+veh_set = [12 142 116 143 166 169 184];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
@@ -252,7 +254,7 @@ sm_car_test_variants_testloop
 %% Test Set 9 -- Skidpad
 manv_set = {'Skidpad', 'Constant Radius Closed-Loop'};
 solver_typ = {'variable step'};
-veh_set = [139];
+veh_set = [139 184];
 trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
@@ -287,13 +289,9 @@ for veh_i = 1:length(veh_set9)
             % disp(' ')
             disp(['Run ' num2str(testnum) ' ' disp_str '****']);
             
-            % Save portion of test configuration to results variable
-            sm_car_res(testnum).Cars = Vehicle.config;
-            sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
-            
             out = [];
             try
-                out = sm_car_abs_test(veh_set9{veh_i});
+                out = sm_car_test_abs_function(veh_set9{veh_i});
                 test_success = 'Pass';
             catch
                 Elapsed_Sim_Time = toc;
@@ -301,6 +299,10 @@ for veh_i = 1:length(veh_set9)
             end
             
             %set_param(mdl,'FastRestart','off') % Change test config
+            
+            % Save portion of test configuration to results variable
+            sm_car_res(testnum).Cars = Vehicle.config;
+            sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
             
             if(~isempty(out))
                 % Simulation succeeded
@@ -417,7 +419,27 @@ control_chg = 'Battery 2 Motor';  % Change controller within testloop, after con
 sm_car_test_variants_testloop
 control_chg = 'none';             % Reset control_chg for remaining maneuvers
 
-%% Test Set 16 -- 3 Axle Bus Makhulu 6x2, 6x4, Amandla 6x2 
+%% Test Set 16 -- Torque Vectoring 
+manv_set = {'Turn'};
+solver_typ = {'variable step'};
+veh_set = [181];
+trailer_set = {'none'};
+plotstr = 'sm_car_plot1speed';
+control_chg = 'Torque Vector 4 Motor';  % Change controller within testloop, after config_vehicle
+sm_car_test_variants_testloop
+control_chg = 'none';                   % Reset control_chg for remaining maneuvers
+
+%% Test Set 17 -- Four Wheel Steer
+manv_set = {'Turn'};
+solver_typ = {'variable step'};
+veh_set = [185 188];
+trailer_set = {'none'};
+plotstr = 'sm_car_plot1speed';
+Control.Default.Steer.steer_ratio_axle2 = -1; % Set axle 2 steer ratio for tighter turns
+sm_car_test_variants_testloop
+Control.Default.Steer.steer_ratio_axle2 =  0; % Reset to default
+
+%% Test Set 18 -- 3 Axle Bus Makhulu 6x2, 6x4, Amandla 6x2 
 set_param([mdl '/Camera Frames'],'Commented','off');
 set_param(mdl,'SimMechanicsOpenEditorOnUpdate','on');
 bdclose(mdl)
@@ -437,7 +459,7 @@ trailer_set = {'none'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
-%% Test Set 17 -- 3 Axle Truck Amandla trailer
+%% Test Set 19 -- 3 Axle Truck Amandla trailer
 manv_set = {'WOT Braking'};
 solver_typ = {'variable step'};
 veh_set = {'Axle3_010'};
@@ -445,7 +467,7 @@ trailer_set = {'Axle2_001','Axle2_021'};
 plotstr = 'sm_car_plot1speed';
 sm_car_test_variants_testloop
 
-%% Test Set 18 -- 3 Axle Truck Amandla 
+%% Test Set 20 -- 3 Axle Truck Amandla 
 manv_set = {'Double Lane Change'};
 solver_typ = {'variable step'};
 veh_set = {'Axle3_012'};

@@ -39,7 +39,7 @@ wbase_dl = whl_base - whl_base_nominal;
 
 xy_grill = [0.7095 -0.2129];
 xy_ell_hood = Extr_Data_Ellipse(1.2949,0.3548,180,360-45,1).*[-1 -1]+[-0.5854 0.2129+wrad_dl];
-xy_ell_roof = Extr_Data_Ellipse(0.8514+wbase_dl/2,0.2483+wbase_dl/2*0.2483/0.8514,180+10,360-20,1).*[-1 -1]+[-2.1641-wbase_dl/2 0.7805+wrad_dl];
+xy_ell_roof = Extr_Data_Ellipse(0.8514*1.05+wbase_dl/2,0.2483+wbase_dl/2*0.2483/0.8514,180+10,360-20,1).*[-1 -1]+[-2.1641-wbase_dl/2 0.7805+wrad_dl];
 xy_trunk = [...
     -3.5477    0.7024;...
     -4.0798    0.6670]+[-wbase_dl wrad_dl];
@@ -117,4 +117,33 @@ if (nargin == 0 || strcmpi(showplot,'plot'))
     text(whl_rad*0.75*(cosd(wrad_label_ang)),whl_rad*0.75*(sind(wrad_label_ang)),'{\color{black}wheel\_cutout\_radius   }','HorizontalAlignment','right','VerticalAlignment','Bottom');
     hold off
     box on;
+    
+        % Figure name
+    figString = ['h2_' mfilename];
+    % Only create a figure if no figure exists
+    figExist = 0;
+    fig_hExist = evalin('base',['exist(''' figString ''')']);
+    if (fig_hExist)
+        figExist = evalin('base',['ishandle(' figString ') && strcmp(get(' figString ', ''type''), ''figure'')']);
+    end
+    if ~figExist
+        fig_h = figure('Name',figString);
+        assignin('base',figString,fig_h);
+    else
+        fig_h = evalin('base',figString);
+    end
+    figure(fig_h)
+    clf(fig_h)
+
+    plot(xy_grill(:,1),xy_grill(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_grill');hold on
+    plot(xy_ell_hood(:,1),xy_ell_hood(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_ell_hood');
+    plot(xy_ell_roof(:,1),xy_ell_roof(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_ell_roof');
+    plot(xy_trunk(:,1),xy_trunk(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_trunk');
+    plot(xy_ell_rear1(:,1),xy_ell_rear1(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_ell_rear1');
+    plot(xy_ell_rear2(:,1),xy_ell_rear2(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_ell_rear2');
+    plot(xy_ell_rear3(:,1),xy_ell_rear3(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_ell_rear3');
+    plot(xy_ell_rear4(:,1),xy_ell_rear4(:,2),'-','Marker','o','MarkerSize',2,'LineWidth',1,'DisplayName','xy_ell_rear4');
+    hold off
+    axis equal
+    legend('Location','Best')
 end

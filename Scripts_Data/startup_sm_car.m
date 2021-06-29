@@ -25,7 +25,8 @@ end
 assignin('base','MFSwifttbx_folders',MFSwifttbx_folders);
 
 %% Load visualization and other parameters in workspace
-evalin('base','sm_car_param_visual');
+Visual = sm_car_param_visual('default');
+assignin('base','Visual',Visual);
 
 %% Load/Create VDatabase
 % if they do not exist already (first time project is run)
@@ -73,7 +74,8 @@ sm_car_gen_upd_database('Maneuver',1);
 sm_car_gen_driver_database;
 
 %% Load Camera Frame Database
-sm_car_gen_upd_database('Camera',1);
+CDatabase.Camera = sm_car_gen_camera_database;
+assignin('base','CDatabase',CDatabase)
 
 %% Load driving surface parameters
 Scene = sm_car_import_scene_data;

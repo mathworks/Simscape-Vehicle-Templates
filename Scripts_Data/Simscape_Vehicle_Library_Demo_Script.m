@@ -13,7 +13,11 @@
 % <tr>3. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testing Examples</u></b><br>
-% <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a><br>
+% <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_batt2mot_regen1.png');">Results</a><br>
+% <tr>2. Torque Vectoring: <a href="matlab:sm_car_test_torque_vectoring">Run</a>, <a href="matlab:edit('sm_car_test_torque_vectoring.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_torque_vectoring.png');">Results</a><br>
+% <tr>3. Four-Wheel Steering: <a href="matlab:sm_car_test_four_wheel_steering">Run</a>, <a href="matlab:edit('sm_car_test_four_wheel_steering.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_four_wheel_steering.png');">Results</a><br>
+% <tr>4. Anti-Lock Brakes: <a href="matlab:sm_car_test_abs">Run</a>, <a href="matlab:edit('sm_car_test_abs.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_abs.png');">Results</a><br>
+% <tr>5. Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Vehicle Parameters</u></b> <br>
 % <tr>1.  See Data: <a href="matlab:open('sm_car_library_list_Demo_Script.html');">Vehicle Data and Libraries</a>, <a href="matlab:edit sm_car_gen_init_database;">Init</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Maneuver.xlsx');">Maneuver</a>, <a href="matlab:edit sm_car_gen_driver_database;">Driver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Camera.xlsx');">Camera</a> (<a href="matlab:edit sm_car_import_vehicle_data_sheet;">see code</a>)<br> 
