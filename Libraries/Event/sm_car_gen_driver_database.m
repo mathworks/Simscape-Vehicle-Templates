@@ -36,6 +36,33 @@ drv.drvCycle.Filter.Measured.Value  = 125.6637;      % Hz
 Driver.(veh_name) = drv;
 clear drv
 
+%% Default Driver - FSAE Achilles
+veh_name = 'FSAE_Achilles';
+drv.Lateral.NForward.Value          = 1;          % (no units) 
+drv.Lateral.NReverse.Value          = 2.5;        % (no units)
+drv.Lateral.xWheelbase.Value        = 1.53;      % m
+drv.Lateral.aMaxSteer.Value         = 80;         % deg
+drv.Lateral.fSteerCutoff.Value      = 314.159265; % rad/s
+
+drv.Long.mVehicle.Value             = 200;       % kg
+drv.Long.FTractive.Value            = 17297;      % N
+drv.Long.tDriver.Value              = 0.05;       % s
+drv.Long.xPreview.Value             = 20;         % s
+drv.Long.NDragRoll.Value            = 200;        % N       
+drv.Long.NDragRollDriveline.Value   = 2.5;        % N/(m/s)
+drv.Long.NDragAero.Value            = 0;          % N/(m^2/s^2)
+drv.Long.gGravity.Value             = 9.80665;       % m/s^2
+drv.Long.fAccelCutoff.Value         = 31.4159265; % 1/s
+drv.Long.fBrakeCutoff.Value         = 31.4159265; % 1/s
+
+drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
+drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
+drv.drvCycle.Filter.Reference.Value = 10.0;       % Hz
+drv.drvCycle.Filter.Measured.Value  = 125.6637;      % Hz
+
+Driver.(veh_name) = drv;
+clear drv
+
 %% Default Driver - Sedan HambaLG
 veh_name = 'Sedan_HambaLG';
 drv.Lateral.NForward.Value  = 1;          % (no units) 

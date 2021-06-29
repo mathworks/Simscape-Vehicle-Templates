@@ -30,6 +30,18 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.3 -- June 2021**
+1.  Added basic torque vectoring algorithm (rear axle only).
+2.  Added 2 templates for double-wishbone suspension, pushrod to upper arm.
+3.  Added anti-roll bar with rod linkage.
+4.  Added preset based on Formula SAE car sizing.
+5.  Adjusted controller and steering systems to permit steering on multiple axles.
+6.  Camera frame definitions from MATLAB (was Excel), adjusted Mechanics Explorer configuration
+7.  Added basic control parameters for default, ideal powertrain.
+8.  Added display elements for battery temperature with test script.
+9.  Fixed Ice Patch maneuver, Swift tire (use external road).
+10. Updated model for replaying results in Unreal to show two vehicles.
+
 **v2.2 -- May 2021**
 1. Added exercises 1-7 to teach basics of Simscape Vehicle Templates
 2. Added library and code to work with Simcenter Tire 2021.1 (new .tir parser)

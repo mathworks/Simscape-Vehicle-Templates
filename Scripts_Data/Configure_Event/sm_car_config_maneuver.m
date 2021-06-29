@@ -22,6 +22,7 @@ switch veh_body
     case 'amandla3axle', veh_inst = 'Truck_Amandla'; init_inst = 'Truck_Amandla';
     case 'makhulu',      veh_inst = 'Bus_Makhulu';   init_inst = 'Bus_Makhulu';
     case 'makhulu3axle', veh_inst = 'Bus_Makhulu';   init_inst = 'Bus_Makhulu_Axle3';
+    case 'achilles',     veh_inst = 'FSAE_Achilles'; init_inst = 'FSAE_Achilles';
     otherwise
         error(['Vehicle type ' veh_body ' not recognized.']);
 end

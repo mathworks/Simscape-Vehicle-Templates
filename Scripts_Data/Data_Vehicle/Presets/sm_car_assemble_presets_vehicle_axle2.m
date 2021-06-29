@@ -1435,6 +1435,184 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 49: Sedan, MFeval, Ideal 4 motor
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_139;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L1_R1_L2_R2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D_r1D_4sh_SH');
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_4motor'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 50: Sedan, MFSwift, Ideal 4 motor
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_140;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L1_R1_L2_R2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D_r1D_4sh_SH');
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_4motor'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 51: Achilles, MFEval, Ideal 2 motor
+veh_ind = veh_ind+1;
+
+vehcfg_set = {
+    'Aero',         'Sedan_HambaLG',                                '';...
+    'Body',         'FSAE_Achilles',                                '';...
+    'BodyGeometry', 'FSAE_Achilles',                                '';...
+    'BodyLoad',     'None',                                         '';...
+    'Passenger',    'None',                                         '';...
+    'Power',        'Ideal_A1_A2_default',                          '';...
+    'Brakes',       'Axle2_PedalAbstract_DiscDisc_FSAE_Achilles',   '';...
+    'Springs',      'Axle2_Independent',                            'AClinA1_AClinA2';...
+    'Dampers',      'Axle2_Independent',                            'AClinA1_AClinA2';...
+    'Susp',         'DoubleWishbonePushUA_FSAE_Achilles_f',         'SuspA1';
+    'Susp',         'DoubleWishbonePushUAnoSteer_FSAE_Achilles_r',  'SuspA2';
+    'Steer',        'WheelDrivenRack1UJoint_Achilles',              'SuspA1';...
+    'Steer',        'None_default',                                 'SuspA2';...
+    'DriverHuman',  'None',                                         'SuspA1';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_f',                  'SuspA1';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_r',                  'SuspA2';...
+    'Tire',         'MFEval_Generic_190_50R10',                     'TireA1';
+    'Tire',         'MFEval_Generic_190_50R10',                     'TireA2';
+    'TireDyn',      'steady',                                       'TireA1';
+    'TireDyn',      'steady',                                       'TireA2';
+    'Driveline',    'f1Dr1D_SHL',                                   ''};
+
+Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
+Vehicle.config = 'Achilles_dwpua_MFEval_steady_f1Dr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 51: Achilles, MFEval, Ideal 2 motor
+veh_ind = veh_ind+1;
+
+vehcfg_set = {
+    'Aero',         'Sedan_HambaLG',                                '';...
+    'Body',         'FSAE_Achilles',                                '';...
+    'BodyGeometry', 'FSAE_Achilles',                                '';...
+    'BodyLoad',     'None',                                         '';...
+    'Passenger',    'None',                                         '';...
+    'Power',        'Ideal_A1_A2_default',                          '';...
+    'Brakes',       'Axle2_PedalAbstract_DiscDisc_FSAE_Achilles',   '';...
+    'Springs',      'Axle2_Independent',                            'AClinA1_AClinA2';...
+    'Dampers',      'Axle2_Independent',                            'AClinA1_AClinA2';...
+    'Susp',         'DoubleWishbonePushUA_FSAE_Achilles_f',         'SuspA1';
+    'Susp',         'DoubleWishbonePushUAnoSteer_FSAE_Achilles_r',  'SuspA2';
+    'Steer',        'WheelDrivenRack1UJoint_Achilles',              'SuspA1';...
+    'Steer',        'None_default',                                 'SuspA2';...
+    'DriverHuman',  'None',                                         'SuspA1';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_f',                  'SuspA1';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_r',                  'SuspA2';...
+    'Tire',         'MFSwift_Generic_190_50R10',                    'TireA1';
+    'Tire',         'MFSwift_Generic_190_50R10',                    'TireA2';
+    'TireDyn',      'steady',                                       'TireA1';
+    'TireDyn',      'steady',                                       'TireA2';
+    'Driveline',    'f1Dr1D_SHL',                                   ''};
+
+Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
+Vehicle.config = 'Achilles_dwpua_MFSwift_steady_f1Dr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 52: Sedan, MFeval, four wheel steering
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_139;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Rack_Sedan_Hamba_r','SuspA2');
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_4whlstr'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 53: Sedan, MFSwift, four wheel steering
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_140;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Rack_Sedan_Hamba_r','SuspA2');
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_4whlstr'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 54: Sedan, MFeval, 2 Motor no cooling, four wheel steering
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_166;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_15DOF2Mot_MFEval_steady_fCVpCVr1D_4whlstr';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 55: Sedan, MFSwift, 2 Motor no cooling, four wheel steering
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_167;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_15DOF2Mot_MFSwift_steady_fCVpCVr1D_4whlstr';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
 
 %% Return to main directory
 curr_proj = simulinkproject;

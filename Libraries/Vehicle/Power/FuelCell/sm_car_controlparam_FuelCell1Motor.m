@@ -13,6 +13,9 @@ control_param.FuelCell.tempTgt = 80;
 control_param.Power.RegenBrkCutOff = [0 1];
 control_param.Power.RegenBrkSpd_bpt = [5 9];
 
+control_param.Steer.steer_ratio_axle2 = 0;
+control_param.Steer.steer_ratio_axle3 = 0;
+
 control_param.Driver.Long.Ki = 1;
 control_param.Driver.Long.Kp = 2;
 

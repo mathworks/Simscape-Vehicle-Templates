@@ -15,6 +15,8 @@ control_param.Power.RegenBrkSpd_bpt = [5 9];
 
 control_param.Driver.Long.Ki = 1;
 control_param.Driver.Long.Kp = 2;
+control_param.Steer.steer_ratio_axle2 = 0;
+control_param.Steer.steer_ratio_axle3 = 0;
 
 % Copy motor lookup tables exactly
 VDatabase = evalin('base','VDatabase');

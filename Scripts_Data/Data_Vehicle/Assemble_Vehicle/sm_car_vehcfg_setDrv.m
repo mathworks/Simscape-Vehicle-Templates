@@ -180,6 +180,12 @@ switch drv_opt
         
         instanceDrShA2     = 'Shaft1D_default';
         
+    case 'f1D_r1D_4sh_SH'
+        % Four driven shafts
+        % Front: 1D shafts
+        % Rear:  1D shafts
+        instanceDriveline = 'Axle2_L1_R1_L2_R2_default';
+        
     case 'fCVpCVrCVpCV_SHL'
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
         % Rear : 3D shafts for power: CV-prismatic-driveshaft-CV
