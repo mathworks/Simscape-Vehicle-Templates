@@ -9,7 +9,7 @@ function Vehicle = sm_car_vehcfg_setDrv(Vehicle,drv_opt)
 %   <rear differential>    Same as front
 %   <platform>             Abbreviation for Sedan Hamba "SH", etc.
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
@@ -179,6 +179,12 @@ switch drv_opt
         instanceDrShA1CVo   = 'CV_default';
         
         instanceDrShA2     = 'Shaft1D_default';
+        
+    case 'f1D_r1D_4sh_SH'
+        % Four driven shafts
+        % Front: 1D shafts
+        % Rear:  1D shafts
+        instanceDriveline = 'Axle2_L1_R1_L2_R2_default';
         
     case 'fCVpCVrCVpCV_SHL'
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV

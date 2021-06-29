@@ -14,7 +14,7 @@ function sm_car_gen_upd_database(db_type,db_update)
 %   db_update 0 - Generate variable.  Read from Excel, 
 %             1 - Update variable. Only read from Excel if file has changed
 % 
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 %% Select database file, MAT file, and workspace variable name
 switch db_type
@@ -30,10 +30,10 @@ switch db_type
         db_file = 'sm_car_database_Driver.xlsx';
         mat_file = 'DDatabase_file.mat';
         var_name = 'DDatabase';
-    case 'Camera'
-        db_file = 'sm_car_database_Camera.xlsx';
-        mat_file = 'CDatabase_file.mat';
-        var_name = 'CDatabase';
+%    case 'Camera'
+%        db_file = 'sm_car_database_Camera.xlsx';
+%        mat_file = 'CDatabase_file.mat';
+%        var_name = 'CDatabase';
 end
 
 % Get info about Excel file

@@ -2,7 +2,7 @@ function sm_car_gen_init_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 %% Vehicle-level data
 %   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
@@ -12,6 +12,7 @@ disp(['Generating IDatabase from ' mfilename]);
 vehicle_data = {...
     'Sedan_Hamba',       2       0.35                0.025;
     'Sedan_HambaLG',     2       0.4225              0.06;
+    'FSAE_Achilles',     2       0.23323             0;
     'Bus_Makhulu',       2       0.4640              0;
     'Bus_Makhulu_Axle3', 3       0.4640              0;
     'Truck_Amandla',     3       0.6731              0;
@@ -106,7 +107,7 @@ InitSet.CRG_Nurburgring_N.Instance     = '';
 InitSet.CRG_Nurburgring_N.Data         = {...
     'aChassis','rad', 0,  -0.0468,  0;
     'vChassis','m/s', 1,   0,       0;
-    'sChassis','m',   9,   0,       0.37};
+    'sChassis','m',   13,   0,       0.6};
 
 %% Scene CRG Nurburgring Nordschleife No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Nurburgring_N_F.Type   = 'CRG_Nurburgring_N_F';
@@ -169,7 +170,7 @@ InitSet.Double_Lane_Change.Type   = 'Double_Lane_Change';
 InitSet.Double_Lane_Change.Instance     = '';
 InitSet.Double_Lane_Change.Data         = {...
     'aChassis','rad', 0,   0,     0;
-    'vChassis','m/s', 1,   0,     0;
+    'vChassis','m/s', 2.5, 0,     0;
     'sChassis','m',   5,  -3.35,  0};
 
 %% Scene Skidpad, Slow Start
