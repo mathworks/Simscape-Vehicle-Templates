@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HarnessInformation>
   <ModelMetadata>
-    <P Name="ModelUUID">85de4553-dfa0-459e-abfe-aafdbe4f658a</P>
+    <P Name="ModelUUID">2a0815ec-0e1c-45b0-a613-185d73a1732d</P>
     <P Name="OwnerBDName">sm_car_lib</P>
   </ModelMetadata>
   <Harness>
@@ -41,46 +41,6 @@ Align Axis Two Points</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|0|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_transform_align2pts</P>
-    <P Name="ExistingBuildFolder"/>
-    <P Name="FunctionInterfaceName"/>
-  </Harness>
-  <Harness>
-    <P Name="Name">sm_car_harness_linkage</P>
-    <P Name="Description">Test Harness for Suspension Linkage
-Copyright 2018-2020 The MathWorks, Inc.
-</P>
-    <P Name="CreatedBy">smiller</P>
-    <P Name="CreatedOn">Thu Jul 18 11:33:58 2019</P>
-    <P Name="ModifiedBy">smiller</P>
-    <P Name="LastSaved">Sat Nov 21 20:42:49 2020</P>
-    <P Name="Owner">5504</P>
-    <P Name="OwnerType">SS_HARNESS</P>
-    <P Name="OwnerPath">Suspensions/Linkage</P>
-    <P Name="Directory"/>
-    <P Name="FileName">sm_car_harness_linkage.slx</P>
-    <P Name="SavedVersion">9.2</P>
-    <P Name="HarnessUUID">cc2b57c8-c8d2-49ed-b857-00fea163b61e</P>
-    <P Name="HarnessConnectionsMap">||0,0,0,0|5547,5548,5550,5549,5557,5551,5552,5566|5545,5546</P>
-    <P Name="VerificationMode">0</P>
-    <P Name="HarnessOwnerCheckSum">0,0,0,0</P>
-    <P Name="RebuildOnOpen">false</P>
-    <P Name="RebuildModelData">false</P>
-    <P Name="Graphical">true</P>
-    <P Name="DriveFcnCallWithTS">true</P>
-    <P Name="ScheduleInitTermReset">false</P>
-    <P Name="AutoShapeInputs">false</P>
-    <P Name="SLDVCompatible">no</P>
-    <P Name="SynchronizationMode">0</P>
-    <P Name="IsImported">false</P>
-    <P Name="PostRebuildCB"/>
-    <P Name="IsCodeContext">false</P>
-    <P Name="SchedulerBlock">0</P>
-    <P Name="SourceTypeString">None</P>
-    <P Name="SinkTypeString">None</P>
-    <P Name="CustomSourcePath"/>
-    <P Name="CustomSinkPath"/>
-    <P Name="BlockSIDs">0|0|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||||sm_car_harness_linkage</P>
     <P Name="ExistingBuildFolder"/>
     <P Name="FunctionInterfaceName"/>
   </Harness>
