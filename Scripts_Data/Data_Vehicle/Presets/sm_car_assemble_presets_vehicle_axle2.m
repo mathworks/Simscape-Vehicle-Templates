@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle2
 % Script to generate Vehicle data structures for various configurations
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -1373,7 +1373,7 @@ Vehicle = sm_car_vehcfg_setBrakes(Vehicle,'Axle2_PressureAbstract_DiscDisc_Bus_M
 Vehicle.Brakes.Axle1.Caliper.lCylinderDiameter.Value = Vehicle.Brakes.Axle1.Caliper.lCylinderDiameter.Value*5;
 
 % Assemble configuration description in string
-Vehicle.config = 'Makhulu_dwb_MFSwift_steady_fwd3D_FuelCell';
+Vehicle.config = 'Makhulu_dwb_MFSwift2x_steady_fwd3D_FuelCell';
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
@@ -1606,6 +1606,262 @@ Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
 
 % Assemble configuration description in string
 Vehicle.config = 'Hamba_15DOF2Mot_MFSwift_steady_fCVpCVr1D_4whlstr';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 56: Sedan Hamba MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_140;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 57: Sedan Hamba MFMbody Live Axle
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_159;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 58: Sedan Hamba MFMbody EMotor 2x
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_161;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 59: Sedan Hamba MFMbody EMotor 3x
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_163;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 60: Sedan Hamba MFMbody, 15DOF
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_165;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 61: Sedan Hamba MFMbody, 15DOF E2x Cool
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_167;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 62: Sedan Hamba MFMbody, 15DOF E3x Cool
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_169;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 63: Sedan Hamba MFMbody, 15DOF Fuel Cell
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_173;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 64: Sedan Hamba MFMbody, 15DOF E2x Reg
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_180;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 65: FSAE Achilles MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_184;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_190_50R10','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_190_50R10','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 66: Makhulu 6whl MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_145;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
+%% Custom Configuration 67: Makhulu 4whl MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_146;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 68: Makhulu 6whl MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_177;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 69: Hamba 15DOF steady_f1dr1d_SHL MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_170;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 70: Hamba dwb steady ideal 4motor MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_182;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 

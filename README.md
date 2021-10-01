@@ -30,6 +30,11 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.4 -- September 2021**
+1.  Added option to use Simscape Multibody tire model (R2021b and higher)
+2.  Fixed parameterization of rim and tire mass, inertia
+3.  Changed "Inertia" parameter to "mjRim" for rim mass and inertia
+
 **v2.3 -- June 2021**
 1.  Added basic torque vectoring algorithm (rear axle only).
 2.  Added 2 templates for double-wishbone suspension, pushrod to upper arm.
