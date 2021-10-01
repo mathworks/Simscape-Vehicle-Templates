@@ -30,6 +30,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.5 -- October 2021**
+1.  Increased initial speed for racetrack events to avoid wheels losing traction at start.
+
 **v2.4 -- September 2021**
 1.  Added option to use Simscape Multibody tire model (R2021b and higher)
 2.  Fixed parameterization of rim and tire mass, inertia
