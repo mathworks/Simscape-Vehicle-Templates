@@ -1249,8 +1249,8 @@ classdef Solver
                 [~,Gyk] = obj.calculateFy(tirParams, postProInputs, internalParams, modes, starVar, incrVar, Fy0, muy);
                 
                 Mzp90 = Mzp_inf.*(2/pi).*atan(QCRP2.*R0.*abs(phit)).*Gyk; % [Eqn (4.103) Page 188 - Book]
-                
-                zeta7 = (2/pi).*acos(Mzp90./(abs(Drp))); % Eqn from the manual
+                % zeta7 = (2/pi).*acos(Mzp90./(abs(Drp))); % Eqn from the manual
+                zeta7 = (2/pi).*acos(Mzp90./(max(Mzp90,abs(Drp)))); % Correction to avoid acos(>1)
                 zeta8 = 1 + Drp;
             else
                 zeta0 = 1;

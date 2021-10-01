@@ -5,7 +5,7 @@ function Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,tireFiel
 %
 % tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 % Find field that has tire model type
 if(sum(strcmp(Vehicle.Chassis.(tireFieldName).class.Value,{'Tire2x'})))
@@ -47,8 +47,21 @@ elseif(strcmpi(tireType,'MFSwift'))
 elseif(strcmpi(tireType,'Testrig_Post'))
     % No message - contact type is not relevant
     contact_class = 'no contact model';
-else
+elseif(strcmpi(tireType,'MFEval'))
     % No contact model options for MFeval tire
+    warning('sm_car:Vehicle_Config:TireContact',...
+        ['Tire type ' tireType ' does not support contact option ' tirecontact_opt '.']);
+    contact_class = 'no contact model';
+elseif(strcmpi(tireType,'MFMbody'))
+    switch tirecontact_opt
+        case 'smooth',              contact_class = 'smooth';
+        otherwise
+            warning('sm_car:Vehicle_Config:TireContact',...
+                ['Tire type ' tireType ' does not support contact option ' tirecontact_opt '.']);
+            contact_class = 'no contact model';
+    end
+else
+    % No contact model options for other tires, such as CFL tire
     warning('sm_car:Vehicle_Config:TireContact',...
         ['Tire type ' tireType ' does not support contact option ' tirecontact_opt '.']);
     contact_class = 'no contact model';
@@ -68,7 +81,7 @@ if(~strcmp(contact_class,'no contact model'))
         % Case with single tire
         Vehicle.Chassis.(tireFieldName).Contact.Value = contact_class;
     end
-    
+
     % Modify config string to indicate configuration has been modified
     veh_config_set = strsplit(Vehicle.config,'_');
     veh_body =  veh_config_set{1};

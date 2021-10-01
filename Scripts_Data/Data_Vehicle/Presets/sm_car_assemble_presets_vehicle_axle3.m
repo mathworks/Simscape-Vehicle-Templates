@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle3
 % Code to create presets for 3-axle vehicle
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -435,6 +435,132 @@ assignin('base','vehcfg_set',vehcfg_set);
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Amandla3Axle_15DOF_MFSwift_steady_6x4Gen';
 
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Bus Makhulu 3Axle 15DOF MFMbody 6x2 
+load_veh = [vehNamePref '002'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Bus Makhulu 3Axle 15DOF MFMbody 6x4 
+load_veh = [vehNamePref '003'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Bus Makhulu 3Axle Double Wishbone MFMbody 6x2 
+load_veh = [vehNamePref '006'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_270_70R22','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_270_70R22','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Truck Amandla 3Axle 15DOF MFMbody 6x2 
+load_veh = [vehNamePref '010'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_430_50R38','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_430_50R38','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_430_50R38','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Truck Amandla 3Axle 15DOF MFMbody 6x4 
+load_veh = [vehNamePref '011'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_430_50R38','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_430_50R38','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_430_50R38','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Semi Truck 3Axle 15DOF MFMbody 6x2 
+load_veh = [vehNamePref '013'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_430_50R38','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_Generic_430_50R38','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_Generic_430_50R38','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Semi Truck 3Axle 15DOF MFMbody 6x4 
+load_veh = [vehNamePref '015'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_430_50R38','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_Generic_430_50R38','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_Generic_430_50R38','TireA3');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
 veh_3Axle_ind = veh_3Axle_ind+1;
 veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
 eval([veh_var_name ' = Vehicle;']);
