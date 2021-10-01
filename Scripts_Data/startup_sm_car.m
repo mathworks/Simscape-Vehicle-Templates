@@ -1,6 +1,6 @@
 function startup_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 
@@ -23,6 +23,14 @@ end
 % Add MF-Swift software to path if it can be found
 [~,MFSwifttbx_folders]=sm_car_startupMFSwift;
 assignin('base','MFSwifttbx_folders',MFSwifttbx_folders);
+
+% Add folders with Simscape Multibody tire subsystem to path 
+% if MATLAB version R2021b or higher
+if verLessThan('matlab', '9.11')
+    addpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody_None']);
+else
+    addpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody']);
+end
 
 %% Load visualization and other parameters in workspace
 Visual = sm_car_param_visual('default');
@@ -57,10 +65,17 @@ assignin('base','VDatabase',VDatabase);
 if(isempty(which('Vehicle_100.mat')))
     sm_car_assemble_presets
 end
-load('Vehicle_139'); %#ok<LOAD>
-assignin('base','Vehicle',Vehicle_139);
-load('Trailer_01'); %#ok<LOAD>
-assignin('base','Trailer',Trailer_01);
+if verLessThan('matlab', '9.11')
+    load('Vehicle_139'); %#ok<LOAD>
+    assignin('base','Vehicle',Vehicle_139);
+    load('Trailer_01'); %#ok<LOAD>
+    assignin('base','Trailer',Trailer_01);
+else
+    load('Vehicle_189'); %#ok<LOAD>
+    assignin('base','Vehicle',Vehicle_189);
+    load('Trailer_07'); %#ok<LOAD>
+    assignin('base','Trailer',Trailer_07);
+end
 
 %% Load Initial Vehicle state database
 %sm_car_gen_upd_database('Init',1);

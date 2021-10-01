@@ -26,7 +26,11 @@ set_param(mdl,'SimscapeLogToSDI','on')
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-sm_car_load_vehicle_data('sm_car','179');
+if verLessThan('matlab', '9.11')
+    sm_car_load_vehicle_data(mdl,'179'); % MFeval tire
+else
+    sm_car_load_vehicle_data(mdl,'197'); % Multibody tire, R21b and higher
+end
 sm_car_load_trailer_data('sm_car','None');
 sm_car_config_vehicle('sm_car');
 

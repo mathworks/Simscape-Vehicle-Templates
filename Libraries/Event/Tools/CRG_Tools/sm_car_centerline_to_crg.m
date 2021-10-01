@@ -7,7 +7,7 @@ function sm_car_centerline_to_crg(road_name,road_opts)
 % <root file name>_centerline.crg   Centerline definition
 % <root file name>_centerline.stl   Centerline geometry
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 % Basic settings
 root_outfiles = strrep(road_name,' ','_');
@@ -38,6 +38,14 @@ if(strcmpi(road_opts.datasrc,'gps'))
     Distance_m = tbl.Distance_m(2:end);
     Latitude   = tbl.latitude(2:end);
     Longitude  = tbl.longitude(2:end);
+    
+    % Remove sequential, duplicate points
+    LongLatAlt = [Longitude Latitude Altitude_m];
+    valid_inds = [1 (sum([LongLatAlt(2:end,:) == LongLatAlt(1:end-1,:)],2)~=3)];
+    Distance_m = Distance_m(valid_inds);
+    Latitude = Latitude(valid_inds);
+    Longitude = Longitude(valid_inds);
+    Longitude = Longitude(valid_inds);
     
     if(road_opts.reverse)
         Altitude_m = flipud(Altitude_m);
@@ -78,6 +86,14 @@ elseif(strcmpi(road_opts.datasrc,'xyz'))
     z_o         = tbl.z_m(2:end);
     Distance_m  = tbl.Distance_m(2:end);
     
+	% Remove sequential, duplicate points
+    xyz_o = [x_o y_o z_o];
+    valid_inds = find([1; (sum([xyz_o(2:end,:) == xyz_o(1:end-1,:)],2)~=3)]);
+    x_o = x_o(valid_inds);
+    y_o = y_o(valid_inds);
+    z_o = z_o(valid_inds);
+    Distance_m = Distance_m(valid_inds);
+
     if(road_opts.reverse)
         x_o = flipud(x_o);
         y_o = flipud(y_o);
@@ -212,7 +228,12 @@ dat = crg_read([root_outfiles '.crg']);
 %% --- Regenerate CRG attempting to match start and end points
 x_ctr = dat.rx;
 y_ctr = dat.ry;
-z_ctr = dat.rz;
+
+if(isfield(dat,'rz'))
+    z_ctr = dat.rz;
+else
+    z_ctr = zeros(size(x_ctr));
+end
 
 % Calculate distance along trajectory.
 % Used for interpolation.
@@ -360,6 +381,10 @@ movefile(...
     [root_outfiles '_centerline.crg'],['..' filesep])
 
 %% Plot Centerline
+if(~isfield(dat,'rz'))
+    dat.rz = zeros(size(x_ctr));
+end
+
 dat_ctr = [0 cumsum( sqrt( (diff(dat.rx)).^2 + (diff(dat.ry)).^2 + (diff(dat.rz)).^2))];
 label_str = sprintf('Road: %s',...
     strrep(root_outfiles,'_',' '));
@@ -509,8 +534,8 @@ if(create_no_elevation)
     road_f = road;
     
     % Set elevation and slope to 0
-%    road_f.z = 0; % Overwrite previous data
-%    road_f.z = zeros(length(x_ctr),4) ;   % Local road elevation deltas
+    %    road_f.z = 0; % Overwrite previous data
+    %    road_f.z = zeros(length(x_ctr),4) ;   % Local road elevation deltas
     road_f.z = zeros(size(road.z)) ;   % Local road elevation deltas
     road_f.s = zeros(1,length(x_ctr)-1); % Slope in percentage (0 to 1)
     road_f.b = 0; % Banking

@@ -1,7 +1,10 @@
 function sm_car_05_setup_bump_dlc(mdl)
 % Load the default Vehicle configuration data.
-preset_ind = '139';
-sm_car_load_vehicle_data(mdl,preset_ind);
+if verLessThan('matlab', '9.11')
+    sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
+else
+    sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
+end
 
 % Configure the model, maneuver, trailer and other event options.
 sm_car_config_maneuver(mdl,'Double Lane Change');

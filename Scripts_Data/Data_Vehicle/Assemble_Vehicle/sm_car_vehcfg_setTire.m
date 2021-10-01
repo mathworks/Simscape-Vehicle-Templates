@@ -13,7 +13,7 @@ function Vehicle = sm_car_vehcfg_setTire(Vehicle,tire_opt,tireFieldName)
 %
 % tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
@@ -33,11 +33,11 @@ end
 if(contains(tire_opt,'_Generic_'))
     tire_opt = strrep(tire_opt,'Generic_','');
     tire_body = 'Parameterized';
-    tire_2xinst   = replace(tire_opt,{'MFEval_','MFSwift_','Delft_'},'');
+    tire_2xinst   = replace(tire_opt,{'MFMbody_','MFEval_','MFSwift_','Delft_'},'');
 else
     tire_opt = strrep(tire_opt,'_CAD','');
     % Create tire_body variable with selected CAD option
-    tire_body   = replace(tire_opt,{'MFEval','MFSwift','Delft'},'CAD');
+    tire_body   = replace(tire_opt,{'MFMbody','MFEval','MFSwift','Delft'},'CAD');
     tire_2xinst = replace(tire_body,'CAD_','');
 end
 
@@ -58,10 +58,14 @@ else
     % **Future Enhancement** 
     % Additional logic will be needed for >2 tires
     % Instance is also currently hardcoded 
-    Vehicle.Chassis.(tireFieldName) = VDatabase.Tire.(['Tire2x_' tire_2xinst]);
-    Vehicle.Chassis.(tireFieldName).TireInner = VDatabase.Tire.(tire_opt);
-    Vehicle.Chassis.(tireFieldName).TireOuter = VDatabase.Tire.(tire_opt);
-    
+    if(isfield(VDatabase.Tire,['Tire2x_' tire_2xinst]))
+        Vehicle.Chassis.(tireFieldName) = VDatabase.Tire.(['Tire2x_' tire_2xinst]);
+        Vehicle.Chassis.(tireFieldName).TireInner = VDatabase.Tire.(tire_opt);
+        Vehicle.Chassis.(tireFieldName).TireOuter = VDatabase.Tire.(tire_opt);
+    else
+        error(['No tire field ''Tire2x_' tire_2xinst ' in VDatabase.Tire']);
+    end
+
     if(isfield(VDatabase.TireBody,[tire_body '_2x']))
         % If geometry with two tires in database, assign that geometry
         % to outer wheel, no geometry to inner wheel

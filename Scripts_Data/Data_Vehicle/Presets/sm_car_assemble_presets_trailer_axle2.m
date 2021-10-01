@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_trailer_axle2
 % Code to create presets for 2-axle trailer
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -623,4 +623,190 @@ eval([veh_var_name ' = Trailer;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Trailer.config]);
 
+%% Kumanzi 15DOF NoLoad MFMbody
+load_veh = [vehNamePref '001'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Kumanzi 15DOF NoSlosh MFMbody
+load_veh = [vehNamePref '003'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Kumanzi 15DOF CylSlosh MFMbody
+load_veh = [vehNamePref '005'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Kumanzi 15DOF PendNoSlosh MFMbody
+load_veh = [vehNamePref '007'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Kumanzi 15DOF PendSlosh MFMbody
+load_veh = [vehNamePref '009'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Generic Tanker 15DOF NoLoad MFMbody
+load_veh = [vehNamePref '011'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Generic Tanker 15DOF CylNoSlosh MFMbody
+load_veh = [vehNamePref '013'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Generic Tanker 15DOF CylSlosh MFMbody
+load_veh = [vehNamePref '015'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Generic Tanker 15DOF PendNoSlosh MFMbody
+load_veh = [vehNamePref '017'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Generic Tanker 15DOF PendSlosh MFMbody
+load_veh = [vehNamePref '019'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Generic Box 15DOF MFMbody
+load_veh = [vehNamePref '021'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_Generic_430_50R38','TireA2');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
 
