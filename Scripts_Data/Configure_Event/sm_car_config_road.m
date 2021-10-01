@@ -3,7 +3,7 @@ function sm_car_config_road(modelname,scenename)
 %   sm_car_config_road(modelname,tirename)
 %   This function configures the model to have a specified surface.
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 % Find variant subsystems for inputs
 f=Simulink.FindOptions('LookUnderMasks','all');
@@ -398,7 +398,7 @@ end
 % Adjusts it if road surface requires it
 % ** Assumes front and rear have same tire model
 % Vehicle
-if(~strcmpi(tirClass{1},'mfeval'))
+if(~strcmpi(tirClass{1},'mfeval') && ~strcmpi(tirClass{1},'mfmbody'))
     temp_config = Vehicle.config;
     for axle_i = 1:length(tireFields)
         tireField = tireFields{axle_i};
@@ -408,7 +408,7 @@ if(~strcmpi(tirClass{1},'mfeval'))
 end
 
 % Trailer
-if(~strcmpi(trailer_type,'none') && ~strcmpi(tirClassTr{1},'mfeval'))
+if(~strcmpi(trailer_type,'none') && ~strcmpi(tirClassTr{1},'mfeval')&& ~strcmpi(tirClassTr{1},'mfmbody'))
     % Contact setting necessary for Delft and MF-Swift software
     % Only adjust if trailer is active
     temp_config = Trailer.config;

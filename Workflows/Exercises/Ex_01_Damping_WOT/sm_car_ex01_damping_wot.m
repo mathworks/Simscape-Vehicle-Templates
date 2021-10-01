@@ -18,7 +18,11 @@ open_system(mdl)
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-sm_car_load_vehicle_data(mdl,'139');
+if verLessThan('matlab', '9.11')
+    sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
+else
+    sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
+end
 
 %% Step 3: Configure Event
 % This can be done from the MATLAB UI or the MATLAB Command line. It

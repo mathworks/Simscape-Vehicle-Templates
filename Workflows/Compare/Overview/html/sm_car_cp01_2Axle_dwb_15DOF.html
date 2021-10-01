@@ -1,0 +1,102 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Compare Tire Forces for Double Wishbone and Abstract Suspensions</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-09-28"><meta name="DC.source" content="sm_car_cp01_2Axle_dwb_15DOF.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Compare Tire Forces for Double Wishbone and Abstract Suspensions</h1><!--introduction--><p>The commands below run the two simulations and compare the resulting tire forces. The code below can be modified to perform other comparisons.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Run Comparison</a></li><li><a href="#2">Compare Normal Force</a></li><li><a href="#3">Compare Lateral Force</a></li><li><a href="#4">Compare Forces and Torques for Left Front Wheel</a></li></ul></div><h2 id="1">Run Comparison</h2><pre class="codeinput">sm_car_run_two_sims(<span class="string">'sm_car'</span>,<span class="string">'Double Lane Change'</span>,<span class="string">'DoubleWish'</span>,<span class="string">'139'</span>,<span class="string">'none'</span>,<span class="string">'15DOF'</span>,<span class="string">'164'</span>,<span class="string">'none'</span>);
+</pre><h2 id="2">Compare Normal Force</h2><pre class="codeinput">sm_car_plot11_compare_tire_force_torque(<span class="string">'DoubleWish'</span>, log_A_DoubleWish, <span class="string">'15DOF'</span>, log_B_15DOF, <span class="string">'var'</span>,<span class="string">'Fz'</span>, <span class="string">'vehicle'</span>,<span class="string">'Double Lane Change'</span>)
+</pre><img vspace="5" hspace="5" src="sm_car_cp01_2Axle_dwb_15DOF_01.png" alt=""> <h2 id="3">Compare Lateral Force</h2><pre class="codeinput">sm_car_plot11_compare_tire_force_torque(<span class="string">'DoubleWish'</span>, log_A_DoubleWish, <span class="string">'15DOF'</span>, log_B_15DOF, <span class="string">'var'</span>,<span class="string">'Fy'</span>, <span class="string">'vehicle'</span>,<span class="string">'Double Lane Change'</span>)
+</pre><img vspace="5" hspace="5" src="sm_car_cp01_2Axle_dwb_15DOF_02.png" alt=""> <h2 id="4">Compare Forces and Torques for Left Front Wheel</h2><pre class="codeinput">sm_car_plot11_compare_tire_force_torque(<span class="string">'DoubleWish'</span>, log_A_DoubleWish, <span class="string">'15DOF'</span>, log_B_15DOF, <span class="string">'wheel'</span>, <span class="string">'WhlL1'</span>, <span class="string">'vehicle'</span>,<span class="string">'Double Lane Change'</span>)
+</pre><img vspace="5" hspace="5" src="sm_car_cp01_2Axle_dwb_15DOF_03.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
+</pre><p class="footer">Copyright 2018-2021 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Compare Tire Forces for Double Wishbone and Abstract Suspensions
+% 
+% The commands below run the two simulations and compare the resulting tire
+% forces. The code below can be modified to perform other comparisons.
+%
+% Copyright 2018-2021 The MathWorks, Inc.
+
+%% Run Comparison
+sm_car_run_two_sims('sm_car','Double Lane Change','DoubleWish','139','none','15DOF','164','none');
+
+%% Compare Normal Force
+sm_car_plot11_compare_tire_force_torque('DoubleWish', log_A_DoubleWish, '15DOF', log_B_15DOF, 'var','Fz', 'vehicle','Double Lane Change')
+
+%% Compare Lateral Force
+sm_car_plot11_compare_tire_force_torque('DoubleWish', log_A_DoubleWish, '15DOF', log_B_15DOF, 'var','Fy', 'vehicle','Double Lane Change')
+
+%% Compare Forces and Torques for Left Front Wheel
+sm_car_plot11_compare_tire_force_torque('DoubleWish', log_A_DoubleWish, '15DOF', log_B_15DOF, 'wheel', 'WhlL1', 'vehicle','Double Lane Change')
+
+%%
+close all
+
+
+
+
+##### SOURCE END #####
+--></body></html>

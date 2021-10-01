@@ -5,7 +5,7 @@ function Vehicle = sm_car_vehcfg_setTireSlip(Vehicle,tireslip_opt,tireFieldName)
 %
 % tireFieldName    Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 
 % Find field that has tire model type
@@ -49,6 +49,14 @@ elseif(strcmpi(tireType,'MFSwift'))
         case 'uncombined',        slip_class = '(xxxx3) uncombined';
         case 'combined',          slip_class = '(xxxx4) combined';
         case 'combined+turnslip', slip_class = '(xxxx5) combined+turnslip';
+    end
+elseif(strcmpi(tireType,'MFMbody'))
+    switch tireslip_opt
+        case 'combined',          slip_class = 'combined';
+        otherwise
+            slip_class = 'steady-state';
+            warning('sm_car:Vehicle_Config:TireSlip',...
+                ['Tire type ' tireType ' does not support dynamics option ' tireslip_opt '.']);
     end
 end
 
