@@ -2,7 +2,7 @@ function sm_car_gen_init_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 %% Vehicle-level data
 %   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
@@ -33,9 +33,9 @@ InitSet.Flat.Data      = {...
 InitSet.Mallory_Park.Type = 'Mallory_Park';
 InitSet.Mallory_Park.Instance     = '';
 InitSet.Mallory_Park.Data         = {...
-    'aChassis','rad', 0, 0,       0;
-    'vChassis','m/s', 1, 0,       0;
-    'sChassis','m',   0, 0,       0};
+    'aChassis','rad', 0,  0,       0;
+    'vChassis','m/s', 10, 0,       0;
+    'sChassis','m',   0,  0,       0};
 
 %% Scene Mallory Park, Counter-clockwise Lap, Slow Start
 InitSet.Mallory_Park_CCW.Type = 'Mallory_Park';
@@ -58,80 +58,80 @@ InitSet.CRG_Kyalami.Type   = 'CRG_Kyalami';
 InitSet.CRG_Kyalami.Instance     = '';
 InitSet.CRG_Kyalami.Data         = {...
     'aChassis','rad', 0,  -0.025,  0;
-    'vChassis','m/s', 1,   0,      0;
+    'vChassis','m/s', 10,   0,      0;
     'sChassis','m',   6,   0,      0.17};
 
 %% Scene CRG Kyalami No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Kyalami_F.Type   = 'CRG_Kyalami_F';
 InitSet.CRG_Kyalami_F.Instance     = '';
 InitSet.CRG_Kyalami_F.Data         = {...
-    'aChassis','rad', 0,   0,      0;
-    'vChassis','m/s', 1,   0,      0;
-    'sChassis','m',   6,   0,      0.17};    % INCORRECT
+    'aChassis','rad', 0,    0,      0;
+    'vChassis','m/s', 10,   0,      0;
+    'sChassis','m',   6,    0,      0.17};    % INCORRECT
 
 %% Scene CRG Mallory Park, Standard Lap, Slow Start
 InitSet.CRG_Mallory_Park.Type   = 'CRG_Mallory_Park';
 InitSet.CRG_Mallory_Park.Instance     = '';
 InitSet.CRG_Mallory_Park.Data         = {...
     'aChassis','rad', 0,   0.0368,  0;
-    'vChassis','m/s', 1,   0,       0;
+    'vChassis','m/s', 10,   0,       0;
     'sChassis','m',   6,   0,      -0.18};
 
 %% Scene CRG Mallory Park No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Mallory_Park_F.Type   = 'CRG_Mallory_Park_F';
 InitSet.CRG_Mallory_Park_F.Instance     = '';
 InitSet.CRG_Mallory_Park_F.Data         = {...
-    'aChassis','rad', 0,   0,       0;
-    'vChassis','m/s', 1,   0,       0;
-    'sChassis','m',   6,   0,       0};
+    'aChassis','rad', 0,    0,       0;
+    'vChassis','m/s', 10,   0,       0;
+    'sChassis','m',   6,    0,       0};
 
 %% Scene CRG Customizable Event, Standard Lap, Slow Start
 InitSet.CRG_Custom.Type   = 'CRG_Custom';
 InitSet.CRG_Custom.Instance     = '';
 InitSet.CRG_Custom.Data         = {...
     'aChassis','rad', 0,   0.0368,  0;
-    'vChassis','m/s', 1,   0,       0;
+    'vChassis','m/s', 10,   0,       0;
     'sChassis','m',   6,   0,      -0.18};
 
 %% Scene CRG Customizable Event No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Custom_F.Type   = 'CRG_Custom_F';
 InitSet.CRG_Custom_F.Instance     = '';
 InitSet.CRG_Custom_F.Data         = {...
-    'aChassis','rad', 0,   0,       0;
-    'vChassis','m/s', 1,   0,       0;
-    'sChassis','m',   6,   0,       0};
+    'aChassis','rad', 0,    0,       0;
+    'vChassis','m/s', 10,   0,       0;
+    'sChassis','m',   6,    0,       0};
 
 %% Scene CRG Nurburgring Nordschleife, Standard Lap, Slow Start
 InitSet.CRG_Nurburgring_N.Type   = 'CRG_Nurburgring_N';
 InitSet.CRG_Nurburgring_N.Instance     = '';
 InitSet.CRG_Nurburgring_N.Data         = {...
     'aChassis','rad', 0,  -0.0468,  0;
-    'vChassis','m/s', 1,   0,       0;
+    'vChassis','m/s', 10,   0,       0;
     'sChassis','m',   13,   0,       0.6};
 
 %% Scene CRG Nurburgring Nordschleife No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Nurburgring_N_F.Type   = 'CRG_Nurburgring_N_F';
 InitSet.CRG_Nurburgring_N_F.Instance     = '';
 InitSet.CRG_Nurburgring_N_F.Data         = {...
-    'aChassis','rad', 0,   0,       0;
-    'vChassis','m/s', 1,   0,       0;
-    'sChassis','m',   9,   0,       0};
+    'aChassis','rad', 0,    0,       0;
+    'vChassis','m/s', 10,   0,       0;
+    'sChassis','m',   9,    0,       0};
 
 %% Scene CRG Suzuka Circuit, Standard Lap, Slow Start
 InitSet.CRG_Suzuka.Type   = 'CRG_Suzuka';
 InitSet.CRG_Suzuka.Instance     = '';
 InitSet.CRG_Suzuka.Data         = {...
     'aChassis','rad', 0,   0.0400,  0;
-    'vChassis','m/s', 1,   0,       0;
-    'sChassis','m',   9,   0,       0.33};
+    'vChassis','m/s', 10,   0,       0;
+    'sChassis','m',   9,   0,        -0.35};
 
 %% Scene CRG Suzuka Circuit No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Suzuka_F.Type   = 'CRG_Suzuka_F';
 InitSet.CRG_Suzuka_F.Instance     = '';
 InitSet.CRG_Suzuka_F.Data         = {...
-    'aChassis','rad', 0,   0,       0;
-    'vChassis','m/s', 1,   0,       0;
-    'sChassis','m',   9,   0,       0.37};   % INCORRECT
+    'aChassis','rad', 0,    0,       0;
+    'vChassis','m/s', 10,   0,       0;
+    'sChassis','m',   9,    0,       0};   % INCORRECT
 
 %% Scene CRG Pikes Peak Uphill, Slow Start
 InitSet.CRG_Pikes_Peak.Type   = 'CRG_Pikes_Peak';
