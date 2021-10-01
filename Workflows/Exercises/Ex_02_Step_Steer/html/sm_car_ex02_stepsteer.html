@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Customize Step Steer Test</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-28"><meta name="DC.source" content="sm_car_ex02_stepsteer.m"><style type="text/css">
+      --><title>Customize Step Steer Test</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-09-30"><meta name="DC.source" content="sm_car_ex02_stepsteer.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -69,7 +69,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
   </style></head><body><div class="content"><h1>Customize Step Steer Test</h1><!--introduction--><p>The commands below run the vehicle through a step steer test by modifying the parameters for a maneuver.  In the adjusted maneuver, the driver accelerates, releases the accelerator pedal, and then applies a step input to the steering wheel.  The final steering angle differs in the two tests, and we can see differences in roll angle and vehicle speed. The Simulink Data Inspector let us easily compare vehicle body measurements.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Step 1: Open Model</a></li><li><a href="#2">Step 2: Configure Model</a></li><li><a href="#3">Step 3: Select Event</a></li><li><a href="#4">Step 4: Modify Event</a></li><li><a href="#5">Step 5: Run simulation with nominal damping</a></li><li><a href="#6">Step 6: Explore simulation results in Simulink Data Inspector</a></li><li><a href="#7">Step 7: Increase step input to the steering wheel</a></li><li><a href="#8">Step 8: Run simulation with increased steer angle</a></li><li><a href="#9">Step 9: Add simulation results to the Simulink Data Inspector</a></li></ul></div><h2 id="1">Step 1: Open Model</h2><p>This can be done from the MATLAB UI, project shortcut, or MATLAB Command line.</p><pre class="codeinput">mdl = <span class="string">'sm_car'</span>;
 open_system(mdl)
-</pre><img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_01.png" alt=""> <h2 id="2">Step 2: Configure Model</h2><p>This can be done from the MATLAB UI or the MATLAB Command line.  It involves loading a data structure into the MATLAB workspace that includes the desired vehicle model configuration and parameters</p><pre class="codeinput">sm_car_load_vehicle_data(mdl,<span class="string">'139'</span>);
+</pre><img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_01.png" alt=""> <h2 id="2">Step 2: Configure Model</h2><p>This can be done from the MATLAB UI or the MATLAB Command line.  It involves loading a data structure into the MATLAB workspace that includes the desired vehicle model configuration and parameters</p><pre class="codeinput"><span class="keyword">if</span> verLessThan(<span class="string">'matlab'</span>, <span class="string">'9.11'</span>)
+    sm_car_load_vehicle_data(mdl,<span class="string">'139'</span>); <span class="comment">% MFeval tire</span>
+<span class="keyword">else</span>
+    sm_car_load_vehicle_data(mdl,<span class="string">'189'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
+<span class="keyword">end</span>
 </pre><h2 id="3">Step 3: Select Event</h2><p>This can be done from the MATLAB UI or the MATLAB Command line. It configures the driver model for open/closed loop maneuvers and loads the necessary parameters into the MATLAB workspace.</p><p>The plot shows the actions the driver will take during this maneuver. You can produce this plot from the MATLAB UI or the MATLAB Command line.</p><pre class="codeinput">sm_car_config_maneuver(<span class="string">'sm_car'</span>,<span class="string">'Turn'</span>);
 sm_car_plot_maneuver(Maneuver)
 subplot(311);
@@ -117,8 +121,11 @@ open_system(mdl)
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-sm_car_load_vehicle_data(mdl,'139');
-
+if verLessThan('matlab', '9.11')
+    sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
+else
+    sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
+end
 
 %% Step 3: Select Event
 % This can be done from the MATLAB UI or the MATLAB Command line. It

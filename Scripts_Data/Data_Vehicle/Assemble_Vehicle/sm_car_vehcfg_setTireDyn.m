@@ -5,7 +5,7 @@ function Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,tiredyn_opt,tireFieldName)
 %
 % tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 
 % Find field that has tire model type
@@ -49,6 +49,14 @@ elseif(strcmpi(tireType,'MFSwift'))
         case 'ring',   dyn_class = '(xxx3x) rigid-ring';
         otherwise
             dyn_class = '(xxx0x) steady-state';
+            warning('sm_car:Vehicle_Config:TireDynamics',...
+                ['Tire type ' tireType ' does not support dynamics option ' tiredyn_opt '.']);
+    end
+elseif(strcmpi(tireType,'MFMbody'))
+    switch tiredyn_opt
+        case 'steady', dyn_class = 'steady-state';
+        otherwise
+            dyn_class = 'steady-state';
             warning('sm_car:Vehicle_Config:TireDynamics',...
                 ['Tire type ' tireType ' does not support dynamics option ' tiredyn_opt '.']);
     end

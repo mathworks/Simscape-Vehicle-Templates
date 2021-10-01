@@ -24,6 +24,14 @@ else
     rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_None']);
 end
 
+% Remove folders with Simscape Multibody tire subsystem to path 
+% if MATLAB version R2021b or higher
+if verLessThan('matlab', '9.11')
+    rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody_None']);
+else
+    rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody']);
+end
+
 custom_code = dir('**/custom_abs.ssc');
 cd(custom_code.folder)
 cd('..')
