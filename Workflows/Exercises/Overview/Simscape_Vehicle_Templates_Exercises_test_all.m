@@ -1,3 +1,4 @@
+bdclose all
 Simulink.sdi.clear
 cd(fileparts(which('sm_car_ex01_damping_wot.m')))
 publish('sm_car_ex01_damping_wot.m','showCode',true)

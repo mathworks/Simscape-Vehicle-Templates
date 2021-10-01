@@ -1,5 +1,5 @@
 function traj_coeff = setup_optim_traj_vx(mdl,trackname)
-% Copyright 2013-2020 MathWorks, Inc.
+% Copyright 2013-2021 MathWorks, Inc.
 % Get trajectory parameters
 
 switch(trackname)

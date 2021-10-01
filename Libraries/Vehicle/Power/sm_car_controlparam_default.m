@@ -1,6 +1,6 @@
 function control_param = sm_car_controlparam_default
 %% Scene parameters
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 control_param.Name = 'Default';
 
