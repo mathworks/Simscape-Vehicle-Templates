@@ -55,9 +55,13 @@ if(~isempty(fname_inds_tire))
         config.(tireField)        = Vehicle.Chassis.(tireField).Instance;
         
         if(sum(strcmp(Vehicle.Chassis.(tireField).class.Value,{'Tire2x'})))
-            config.([tireField '_Dynamics']) = Vehicle.Chassis.(tireField).TireInner.Dynamics.Value;
+            if(isfield(Vehicle.Chassis.(tireField).TireInner,'Dynamics'))
+                config.([tireField '_Dynamics']) = Vehicle.Chassis.(tireField).TireInner.Dynamics.Value;
+            end
         else
-            config.([tireField '_Dynamics']) = Vehicle.Chassis.(tireField).Dynamics.Value;
+            if(isfield(Vehicle.Chassis.(tireField),'Dynamics'))
+                config.([tireField '_Dynamics']) = Vehicle.Chassis.(tireField).Dynamics.Value;
+            end
         end
     end
 end

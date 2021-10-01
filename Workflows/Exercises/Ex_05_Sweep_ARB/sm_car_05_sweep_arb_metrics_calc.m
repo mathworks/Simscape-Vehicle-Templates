@@ -32,8 +32,15 @@ roadRL = roadBus.Values.L2.gz.Data;
 roadRR = roadBus.Values.R2.gz.Data;
 
 % Get unloaded tyre radius.
-dataPath = evalin('base',"which(Vehicle.Chassis.TireA1.tirFile.Value)");
-temptirparams = mfeval.readTIR(dataPath);
+% Handle case where tirFile field contains "which" or only filename.
+file_str = evalin('base','Vehicle.Chassis.TireA1.tirFile.Value');
+if(contains(file_str,'which'))
+    tire_file = eval(file_str);
+else
+    tire_file = which(file_str);
+end
+
+temptirparams = mfeval.readTIR(tire_file);
 r = temptirparams.UNLOADED_RADIUS;
 
 % Compute max roll angle for t > 15 seconds.

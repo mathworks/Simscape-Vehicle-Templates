@@ -13,7 +13,7 @@ MASS                     ='kg'
 TIME                     ='second'
 $----------------------------------------------------------------model
 [MODEL]
-FITTYP                   = 60                $Magic Formula Version number             
+FITTYP                   = 62                $Magic Formula Version number             
 TYRESIDE                 ='Left'
 LONGVL                   = 16.667            $Measurement speed         
 VXLOW                    = 1                 $Lower boundary of slip calculation      
@@ -26,6 +26,10 @@ WIDTH                    = 0.270             $Nominal section width of the tyre
 RIM_RADIUS               = 0.2794            $Nominal rim radius
 RIM_WIDTH                = 0.2286            $Rim width         
 ASPECT_RATIO             = 0.7               $Nominal aspect ratio
+$-------------------------------------------------operating conditions
+[OPERATING_CONDITIONS]
+INFLPRES                 = 220000            $Tyre inflation pressure
+NOMPRES                  = 220000            $Nominal tyre inflation pressure
 $--------------------------------------------------------------inertia
 [INERTIA]
 MASS                     = 70                $Tyre Mass
@@ -49,6 +53,15 @@ Q_V2                     = 0                 $Vertical stiffness increase with s
 Q_FZ2                    = 1.0E-4            $Quadratic term in load vs. deflection
 Q_FCX                    = 0                 $Longitudinal force influence on vertical stiffness
 Q_FCY                    = 0                 $Lateral force influence on vertical stiffness
+Q_CAM                    = 0                 $Stiffness reduction due to camber         
+PFZ1                     = 0                 $Pressure effect on vertical stiffness
+Q_FCY2                   = 0                 $Explicit load dependency for including the lateral force influence on vertical stiffness
+Q_CAM1                   = 0                 $Linear load dependent camber angle influence on vertical stiffness
+Q_CAM2                   = 0                 $Quadratic load dependent camber angle influence on vertical stiffness
+Q_CAM3                   = 0.5119            $Linear load and camber angle dependent reduction on vertical stiffness
+Q_FYS1                   = 0                 $Combined camber angle and side slip angle effect on vertical stiffness (constant)
+Q_FYS2                   = 0                 $Combined camber angle and side slip angle linear effect on vertical stiffness
+Q_FYS3                   = 0                 $Combined camber angle and side slip angle quadratic effect on vertical stiffness
 BOTTOM_OFFST             = 0.01              $Distance to rim when bottoming starts to occur
 BOTTOM_STIFF             = 2000000           $Vertical stiffness of bottomed tyre
 $-------------------------------------------------------------structural
@@ -68,23 +81,29 @@ DAMP_RESIDUAL            = 0.0020            $Residual damping (proportional to 
 DAMP_VLOW                = 0.0010            $Additional low speed damping (proportional to stiffness)
 Q_BVX                    = 0                 $Load and speed influence on in-plane translation stiffness
 Q_BVT                    = 0                 $Load and speed influence on in-plane rotation stiffness
+PCFX1                    = 0                 $Tyre overall longitudinal stiffness vertical deflection dependency linear term
+PCFX2                    = 0                 $Tyre overall longitudinal stiffness vertical deflection dependency quadratic term
+PCFX3                    = 0                 $Tyre overall longitudinal stiffness pressure dependency
+PCFY1                    = 0                 $Tyre overall lateral stiffness vertical deflection dependency linear term
+PCFY2                    = 0                 $Tyre overall lateral stiffness vertical deflection dependency quadratic term
+PCFY3                    = 0                 $Tyre overall lateral stiffness pressure dependency
+PCMZ1                    = 0                 $Tyre overall yaw stiffness pressure dependency
 $--------------------------------------------------------contact_patch
 [CONTACT_PATCH]
-Q_A2                     = 0.01916           $Linear load term in contact length
-Q_A1                     = 0.18426           $Square root load term in contact length
-Q_LBF                    = 1                 $Length of basic function
-Q_LOS1                   = 0                 $Basic function offset threshold
-Q_LOS2                   = 0.2               $Basic function offset scaling factor with basic function length
-Q_LIMP1                  = 0.8               $Linear contact length term in basic function shift
-Q_LIMP3                  = 1                 $Scaling factor for quasi-static longitudinal enveloping force
-Q_LIMP4                  = 1                 $Scaling factor for dynamic longitudinal enveloping force
-ELLIPS_SHIFT             = 0.8               $Scaling of distance between front and rear ellipsoid
+Q_RA1                    = 0.6715            $Square root term in contact length equation
+Q_RA2                    = 0.7308            $Linear term in contact length equation
+Q_RB1                    = 1.0588            $Root term in contact width equation
+Q_RB2                    = -1.1863           $Linear term in contact width equationELLIPS_SHIFT             = 0.8               $Scaling of distance between front and rear ellipsoid
 ELLIPS_LENGTH            = 1                 $Semi major axis of ellipsoid
 ELLIPS_HEIGHT            = 1                 $Semi minor axis of ellipsoid 
 ELLIPS_ORDER             = 1.8               $Order of ellipsoid 
 ELLIPS_MAX_STEP          = 0.025             $Maximum height of road step 
 ELLIPS_NWIDTH            = 10                $Number of parallel ellipsoids 
 ELLIPS_NLENGTH           = 10                $Number of ellipsoids at sides of contact patch 
+$---------------------------------------------inflation_pressure_range
+[INFLATION_PRESSURE_RANGE]
+PRESMIN                  = 10000             $Minimum valid tyre inflation pressure         
+PRESMAX                  = 1000000           $Minimum valid tyre inflation pressure         
 $-------------------------------------------------vertical_force_range
 [VERTICAL_FORCE_RANGE]
 FZMIN                    = 100               $Minimum allowed wheel load         
@@ -152,6 +171,10 @@ RCX1                     = 0.901             $Shape factor for combined slip Fx 
 REX1                     = -1.008            $Curvature factor of combined Fx         
 REX2                     = -2.756            $Curvature factor of combined Fx with load         
 RHX1                     = 0                 $Shift factor for combined slip Fx reduction         
+PPX1                     = 0                 $linear influence of inflation pressure on longitudinal slip stiffness         
+PPX2                     = 0                 $quadratic influence of inflation pressure on longitudinal slip stiffness         
+PPX3                     = 0                 $linear influence of inflation pressure on peak longitudinal friction         
+PPX4                     = 0                 $quadratic influence of inflation pressure on peak longitudinal friction         
 $----------------------------------------------------------overturning
 [OVERTURNING_COEFFICIENTS]
 QSX1                     = 0                 $Lateral force induced overturning moment         
@@ -165,6 +188,10 @@ QSX8                     = -0.9629           $Lateral force with load on Mx
 QSX9                     = 0.13372           $B-factor of lateral force with load on Mx         
 QSX10                    = 0                 $Vertical force with camber on Mx         
 QSX11                    = 5                 $B-factor of vertical force with camber on Mx         
+QSX12                    = 0                 $Camber squared induced overturning moment         
+QSX13                    = 0                 $Lateral force induced overturning moment         
+QSX14                    = 0                 $Lateral force induced overturning moment with camber  
+PPMX1                    = 0                 $Influence of inflation pressure on overturning moment        
 $--------------------------------------------------------------lateral
 [LATERAL_COEFFICIENTS]
 PCY1                     = 1.7965            $Shape factor Cfy for lateral forces         
@@ -189,6 +216,11 @@ PVY1                     = 0                 $Vertical shift in Svy/Fz at Fznom
 PVY2                     = 0                 $Variation of shift Svy/Fz with load         
 PVY3                     = 0                 $Variation of shift Svy/Fz with camber         
 PVY4                     = 0                 $Variation of shift Svy/Fz with camber and load         
+PPY1                     = 0                 $influence of inflation pressure on cornering stiffness         
+PPY2                     = 0                 $influence of inflation pressure on dependency of nominal tyre load on cornering stiffness         
+PPY3                     = 0                 $linear influence of inflation pressure on lateral peak friction         
+PPY4                     = 0                 $quadratic influence of inflation pressure on lateral peak friction         
+PPY5                     = 0                 $Influence of inflation pressure on camber stiffness  
 RBY1                     = 4.934             $Slope factor for combined Fy reduction         
 RBY2                     = 2.183             $Variation of slope Fy reduction with alpha         
 RBY3                     = 0                 $Shift term for alpha in slope Fy reduction         
@@ -210,6 +242,10 @@ QSY1                     = 0.01              $Rolling resistance torque coeffici
 QSY2                     = 0                 $Rolling resistance torque depending on Fx         
 QSY3                     = 0                 $Rolling resistance torque depending on speed         
 QSY4                     = 0                 $Rolling resistance torque depending on speed ^4         
+QSY5                     = 0                 $Rolling resistance torque depending on camber squared  
+QSY6                     = 0                 $Rolling resistance torque depending on load and camber squared         
+QSY7                     = 0                 $Rolling resistance torque coefficient load dependency  
+QSY8                     = 0                 $Rolling resistance torque coefficient pressure dependency         
 $-------------------------------------------------------------aligning
 [ALIGNING_COEFFICIENTS]
 QBZ1                     = 5.857             $Trail slope factor for trail Bpt at Fznom         
@@ -239,6 +275,8 @@ QHZ1                     = 0                 $Trail horizontal shift Sht at Fzno
 QHZ2                     = 0                 $Variation of shift Sht with load         
 QHZ3                     = -0.03495          $Variation of shift Sht with camber         
 QHZ4                     = -0.006854         $Variation of shift Sht with camber and load         
+PPZ1                     = 0                 $effect of inflation pressure on length of pneumatic trail          
+PPZ2                     = 0                 $Influence of inflation pressure on residual aligning torque  
 SSZ1                     = 0                 $Nominal value of s/R0: effect of Fx on Mz         
 SSZ2                     = -0.03332          $Variation of distance s/R0 with Fy/Fznom         
 SSZ3                     = 0                 $Variation of distance s/R0 with camber         

@@ -50,6 +50,14 @@ elseif(strcmpi(tireType,'MFSwift'))
         case 'combined',          slip_class = '(xxxx4) combined';
         case 'combined+turnslip', slip_class = '(xxxx5) combined+turnslip';
     end
+elseif(strcmpi(tireType,'MFMbody'))
+    switch tireslip_opt
+        case 'combined',          slip_class = 'combined';
+        otherwise
+            slip_class = 'steady-state';
+            warning('sm_car:Vehicle_Config:TireSlip',...
+                ['Tire type ' tireType ' does not support dynamics option ' tireslip_opt '.']);
+    end
 end
 
 % Set field for slips setting

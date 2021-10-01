@@ -52,6 +52,14 @@ elseif(strcmpi(tireType,'MFSwift'))
             warning('sm_car:Vehicle_Config:TireDynamics',...
                 ['Tire type ' tireType ' does not support dynamics option ' tiredyn_opt '.']);
     end
+elseif(strcmpi(tireType,'MFMbody'))
+    switch tiredyn_opt
+        case 'steady', dyn_class = 'steady-state';
+        otherwise
+            dyn_class = 'steady-state';
+            warning('sm_car:Vehicle_Config:TireDynamics',...
+                ['Tire type ' tireType ' does not support dynamics option ' tiredyn_opt '.']);
+    end
 end
 
 % Set field for dynamics setting

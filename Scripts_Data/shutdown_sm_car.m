@@ -1,6 +1,6 @@
 function shutdown_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 
@@ -22,6 +22,14 @@ if (~isempty(MFSwifttbx_folders))
     end
 else
     rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_None']);
+end
+
+% Remove folders with Simscape Multibody tire subsystem to path 
+% if MATLAB version R2021b or higher
+if verLessThan('matlab', '9.11')
+    rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody_None']);
+else
+    rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody']);
 end
 
 custom_code = dir('**/custom_abs.ssc');
