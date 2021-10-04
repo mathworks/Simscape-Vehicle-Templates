@@ -77,7 +77,7 @@ else
     fname_inds_tireTr = startsWith(chassis_fnamesTr,'Tire');
     tireFieldsTr = chassis_fnamesTr(fname_inds_tireTr);
     tireFieldsTr = sort(tireFieldsTr); % Order important for copying Body sAxle values
-    
+
     for axle_i = 1:length(tireFieldsTr)
         tireField = tireFieldsTr{axle_i};
         % Get tire class and settings
@@ -148,153 +148,162 @@ switch lower(scenename)
             % Must contain "external" to change to external road definition
             roadFile = 'which(''<External Road>'')';
         end
-        
+        if(sum([contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
+            error_str = sprintf(['Simscape Multibody tire cannot be used for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components CANNOT be ''MFMbody''']);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
     case 'crg kyalami'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file
         roadFile = 'which(''CRG_Kyalami.crg'')';
-        
+
         set_param(modelname,'StopTime','261')
-        
+
     case 'crg kyalami f'
         if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
             % Set file flat road for MF-Swift
             roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
-        
+
         set_param(modelname,'StopTime','261')
-        
+
     case 'crg mallory park'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file
         roadFile = 'which(''CRG_Mallory_Park.crg'')';
-        
+
         set_param(modelname,'StopTime','200')
-        
+
     case 'crg mallory park f'
         if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
             % Set file flat road for MF-Swift
             roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
-        
+
         set_param(modelname,'StopTime','200')
-        
+
     case 'crg custom'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file
         roadFile = 'which(''CRG_Custom.crg'')';
-        
+
         set_param(modelname,'StopTime','200')
-        
+
     case 'crg custom f'
         if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
             % Set file flat road for MF-Swift
             roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
-        
+
         set_param(modelname,'StopTime','200')
-        
+
     case 'crg nurburgring n'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file
         roadFile = 'which(''CRG_Nurburgring_N.crg'')';
-        
+
     case 'crg nurburgring n f'
         if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
             % Set file flat road for MF-Swift
             roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
-        
+
     case 'crg pikes peak'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file
         roadFile = 'which(''CRG_Pikes_Peak.crg'')';
-        
+
     case 'crg suzuka'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file
         roadFile = 'which(''CRG_Suzuka.crg'')';
-        
+
     case 'crg suzuka f'
         if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
             % Select CRG file
             roadFile  = 'which(''TNO_FlatRoad.rdf'')';
         end
-        
+
     case 'rdf rough road'
         if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') ...
-                contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift')]))
+                contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift') ...
+                contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire software only for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select RDF file for rough road
         roadFile = 'which(''Rough_Road.rdf'')';
-        
+
         % Set stop time to stop at end of road
         set_param(modelname,'StopTime','30')
-        
+
     case 'rdf plateau'
         if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') ...
-                contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift')]))
+                contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift') ...
+                contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire software only for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select RDF file for rough road
         roadFile = 'which(''Plateau_Road.rdf'')';
-        
+
         % Set stop time to stop at end of road
         set_param(modelname,'StopTime','30')
-        
+
     case 'plateau z only'
         if(sum(contains(tirClass,'MFSwift')))
             % Mask in Tire_MFSwift sets road type based on filename
@@ -305,19 +314,26 @@ switch lower(scenename)
             % Necessary to change contact method of Delft Tyre software
             tirecontact_opt = 'moving';
         end
-        
+        if(sum([contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
+            error_str = sprintf(['Simscape Multibody tire cannot be used for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components CANNOT be ''MFMbody''']);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
     case 'crg plateau'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
                 '--> All values for active components should be ''Delft'' or ''MFSwift''']);
             errordlg(error_str,'Wrong Tire Software')
         end
-        
+
         % Select CRG file for slope
         roadFile = 'which(''CRG_Plateau.crg'')';
-        
+
     case 'rough road z only'
         if(sum(contains(tirClass,'MFSwift')))
             % Mask in Tire_MFSwift sets road type based on filename
@@ -328,7 +344,14 @@ switch lower(scenename)
             % Necessary to change contact method of Delft Tyre software
             tirecontact_opt = 'moving';
         end
-        
+        if(sum([contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
+            error_str = sprintf(['Simscape Multibody tire cannot be used for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components CANNOT be ''MFMbody''']);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
     case 'track mallory park'
         % No special commands
     case 'two lane road'
@@ -347,7 +370,7 @@ switch lower(scenename)
         % -- Extract size from Instance
         % -- Get comparable field from VDatabase
         % -- Fill in Tire Body from original Vehicle structure
-        
+
         % Front
         for axle_i = 1:length(tireFields)
             tireField = tireFields{axle_i};
@@ -363,7 +386,7 @@ switch lower(scenename)
                 Vehicle.Chassis.(tireField).TireOuter.TireBody = tirBody_Out{axle_i};
             end
         end
-        
+
 end
 set_param([modelname '/World'],'popup_scene',scenename);
 
@@ -371,7 +394,7 @@ set_param([modelname '/World'],'popup_scene',scenename);
 % Vehicle
 for axle_i = 1:length(tireFields)
     tireField = tireFields{axle_i};
-    
+
     if(~strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
         Vehicle.Chassis.(tireField).roadFile.Value = roadFile;
     else
