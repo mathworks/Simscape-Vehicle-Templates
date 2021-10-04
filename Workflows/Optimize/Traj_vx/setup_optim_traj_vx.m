@@ -47,9 +47,9 @@ set_param([mdl '/Check'],'start_check_time_end_lap','5');
 % Set higher initial speed to avoid spinning the tires
 % as vehicle starts the lap first time
 Init = evalin('base','Init');
-Init.Axle1.nWheel.Value(1:2) = Init.Axle1.nWheel.Value(1:2)*20;
-Init.Axle2.nWheel.Value(1:2) = Init.Axle2.nWheel.Value(1:2)*20;
-Init.Chassis.vChassis.Value = Init.Chassis.vChassis.Value*20;
+Init.Axle1.nWheel.Value(1:2) = Init.Axle1.nWheel.Value(1:2)*2;
+Init.Axle2.nWheel.Value(1:2) = Init.Axle2.nWheel.Value(1:2)*2;
+Init.Chassis.vChassis.Value = Init.Chassis.vChassis.Value*2;
 assignin('base','Init',Init');
 
 % Turn Fast Restart on
