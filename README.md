@@ -30,6 +30,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.5.1 -- October 2021**
+1.  Reduced scaling factor for initial speed in lap time optimizations.
+
 **v2.5 -- October 2021**
 1.  Increased initial speed for racetrack events to avoid wheels losing traction at start.
 
