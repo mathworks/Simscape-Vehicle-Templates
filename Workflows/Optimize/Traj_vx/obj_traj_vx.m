@@ -1,6 +1,6 @@
 function F  = obj_traj_vx(x,mdl,trackname,h_vx,h_xy)
 % Objective function to optimize trajectory of car (velocity along path)
-% Copyright 2020 The MathWorks, Inc.
+% Copyright 2020-2021 The MathWorks, Inc.
 
 load_system(mdl);
 
@@ -76,6 +76,8 @@ opt_iter.latdev  = max_ld;
 opt_iter.x       = VehBus.Values.World.x.Data;
 opt_iter.y       = VehBus.Values.World.y.Data;
 opt_iter.vx      = VehBus.Values.Chassis.Body.CG.vx.Data;
+opt_iter.bgx      = VehBus.Values.Chassis.Body.CG.gx.Data;
+opt_iter.bgy      = VehBus.Values.Chassis.Body.CG.gy.Data;
 opt_iter.xpath   = dist_car;
 opt_iter.traj_x  = new_trajectory.xTrajectory.Value;
 opt_iter.traj_vx = new_trajectory.vx.Value;
