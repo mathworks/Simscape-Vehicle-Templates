@@ -24,7 +24,7 @@ end
 [~,MFSwifttbx_folders]=sm_car_startupMFSwift;
 assignin('base','MFSwifttbx_folders',MFSwifttbx_folders);
 
-% Add folders with Simscape Multibody tire subsystem to path 
+% Add folders with Simscape Multibody tire subsystem to path
 % if MATLAB version R2021b or higher
 if verLessThan('matlab', '9.11')
     addpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody_None']);
@@ -53,7 +53,7 @@ if(~exist('VDatabase','var'))
             'This can take up to 10 minutes.';
             'Next time the data is loaded from .mat files which is much faster,';
             'and only Excel files that have been changed will be loaded.'
-            };        
+            };
         msgbox(msg,'First Time Load','help')
         VDatabase = sm_car_import_vehicle_data(0,1);
     end
@@ -127,16 +127,26 @@ cd(fileparts(which('sm_car.slx')))
 limitDerivativePerturbations()
 daesscSetMultibody()
 
-%% If this is the top level project, open HTML script
-% Do not open it if this is a referenced project.
-this_project = simulinkproject;
-if(this_project.Information.TopLevel == 1)
-    web('Simscape_Vehicle_Library_Demo_Script.html');
+% If running in a parallel pool
+% do not open model or demo script
+open_start_content = 1;
+if(~isempty(ver('parallel')))
+    if(~isempty(getCurrentTask()))
+        open_start_content = 0;
+    end
 end
 
-%% Open app
-evalin('base','sm_car_vehcfg_run');
+if(open_start_content)
+    %% If this is the top level project, open HTML script
+    % Do not open it if this is a referenced project.
+    this_project = simulinkproject;
+    if(this_project.Information.TopLevel == 1)
+        web('Simscape_Vehicle_Library_Demo_Script.html');
+    end
 
-%% Open model
-sm_car
+    %% Open app
+    evalin('base','sm_car_vehcfg_run');
 
+    %% Open model
+    sm_car
+end
