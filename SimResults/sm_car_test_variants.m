@@ -198,7 +198,7 @@ sm_car_test_variants_testloop
 %% Test Set 2: Short Maneuvers
 manv_set = {'Double Lane Change','Ice Patch'};
 solver_typ = {'variable step'};
-veh_set = [12 142 145 184];
+veh_set = [12 142 145 184 204];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
@@ -466,9 +466,7 @@ solver_typ = {'variable step'};
 veh_set = [185 188];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
-Control.Default.Steer.steer_ratio_axle2 = -1; % Set axle 2 steer ratio for tighter turns
 sm_car_test_variants_testloop
-Control.Default.Steer.steer_ratio_axle2 =  0; % Reset to default
 
 %% Test Set 18 -- 3 Axle Bus Makhulu 6x2, Amandla 6x2, Bus 6x4
 set_param([mdl '/Camera Frames'],'Commented','off');

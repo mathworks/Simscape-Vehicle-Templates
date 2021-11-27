@@ -27,7 +27,11 @@ if(~MFSwifttbxOnPath)
         selected_dir = filesep;  % Specify custom path here
     end
     
-    mfstartup_files=dir([selected_dir filesep '**/mfswift_startup.m']);
+    if(ispc)
+        mfstartup_files = dir([selected_dir filesep '**' filesep 'mfswift_startup.m']);
+    else
+        mfstartup_files = [];
+    end
     
     if(selected_dir(end)==filesep || isnumeric(selected_dir) || isempty(mfstartup_files) )
         %uiwait(warndlg(sprintf('%s\n%s\n%s\n%s','TNO Delft-Tyre MATLAB Toolbox not found.','You need to select the subfolder where the software is installed.','Run startup script again to select another directory,','or add toolbox manually to the MATLAB path.'),'MATLAB Toolbox Not Found'));

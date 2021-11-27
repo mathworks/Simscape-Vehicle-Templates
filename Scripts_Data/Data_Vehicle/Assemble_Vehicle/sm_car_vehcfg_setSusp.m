@@ -37,8 +37,12 @@ if(isfield(VDatabase.Linkage,susp_opt))
     
     % Copy Linkage instance data to Vehicle data structure
     Vehicle.Chassis.(suspFieldName).Linkage = VDatabase.Linkage.(susp_opt);
-    Vehicle.Chassis.(suspFieldName).class.Value = 'Linkage';
-
+    if(contains(susp_opt,'Decoupled'))
+        Vehicle.Chassis.(suspFieldName).class.Value = 'Decoupled';
+    else
+        Vehicle.Chassis.(suspFieldName).class.Value = 'Linkage';
+    end
+    
     if(~isfield(Vehicle.Chassis.(suspFieldName),'AntiRollBar'))
         Vehicle.Chassis.(suspFieldName).AntiRollBar = VDatabase.AntiRollBar.None;
         %disp('Note: AntiRollBar was not present; configuration set to ''None''.');
