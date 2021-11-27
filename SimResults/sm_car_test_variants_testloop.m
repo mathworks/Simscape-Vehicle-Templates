@@ -67,7 +67,7 @@ for veh_i = 1:length(veh_set)
                 %  --- Removed to save compile time, check sim duration
                 %temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
                 
-                %out = [];
+                out = [];
                 try
                     out = sim(mdl);  % Unique for ABS Test
                     test_success = 'Pass';

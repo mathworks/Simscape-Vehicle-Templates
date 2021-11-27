@@ -6,8 +6,8 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-27"><meta name="DC.source" content="sm_car_optim_traj_vx_results_nurburgring_f.m"><style type="text/css">
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+      --><title>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-11-23"><meta name="DC.source" content="sm_car_optim_traj_vx_results_nurburgring_f.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
 html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
@@ -23,7 +23,7 @@ a:visited { color:#004aa0; text-decoration:none; }
 
 p { padding:0px; margin:0px 0px 20px; }
 img { padding:0px; margin:0px 0px 20px; border:none; }
-p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
 
 ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
 ul li { padding:0px; margin:0px 0px 7px 0px; }
@@ -52,6 +52,7 @@ span.comment { color:#228B22 }
 span.string { color:#A020F0 }
 span.untermstring { color:#B20000 }
 span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
 
 .footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
 .footer p { margin:0px; }
@@ -69,28 +70,27 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Nurburgring Nordschleife.  This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1           3623             4      
-    1           2        2434.21             8     Successful Poll
-    2           3        1486.09            16     Successful Poll
-    3           4        1486.09             4     Refine Mesh
-    4           7        1246.98             8     Successful Poll
-    5          10        1246.98             2     Refine Mesh
-    6          13        1154.75             4     Successful Poll
-    7          16         1007.2             8     Successful Poll
-    8          19         1007.2             2     Refine Mesh
-    9          22         1007.2           0.5     Refine Mesh
-   10          28        991.477             1     Successful Poll
-   11          34         972.46             2     Successful Poll
-   12          38         972.46           0.5     Refine Mesh
-   13          44         972.46         0.125     Refine Mesh
-   14          50         972.46       0.03125     Refine Mesh
-   15          56        971.528        0.0625     Successful Poll
-   16          62        971.528       0.01563     Refine Mesh
-   17          68          971.3       0.03125     Successful Poll
-   18          74          971.3      0.007813     Refine Mesh
+    0           1           3624             4      
+    1           2        2434.83             8     Successful Poll
+    2           3        1486.31            16     Successful Poll
+    3           4        1486.31             4     Refine Mesh
+    4           7        1247.02             8     Successful Poll
+    5          10        946.878            16     Successful Poll
+    6          11        946.878             4     Refine Mesh
+    7          14        946.878             1     Refine Mesh
+    8          20        946.878          0.25     Refine Mesh
+    9          26        946.878        0.0625     Refine Mesh
+   10          32        945.104         0.125     Successful Poll
+   11          38        945.104       0.03125     Refine Mesh
+   12          44        944.215        0.0625     Successful Poll
+   13          50        944.215       0.01562     Refine Mesh
+Warning: Limiting legend entries to 50. Specify a vector of graphics objects to
+display more than 50 entries. 
+   14          56        943.929       0.03125     Successful Poll
+   15          62        943.929      0.007812     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 15480.966
-</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_05.png" alt=""> <p class="footer">Copyright 2021 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+Elapsed time for optimization = 18309.7883
+</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_06.png" alt=""> <p class="footer">Copyright 2020-2021 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)
 % 
@@ -112,11 +112,25 @@ clear opt_iter
 mdl = 'sm_car';
 open_system(mdl);
 set_param(mdl,'FastRestart','off');
-sm_car_load_vehicle_data(mdl,'164'); % (Flat roads, basic)
+if(verLessThan('matlab','9.11'))
+    sm_car_load_vehicle_data(mdl,'164'); % (Hamba 15DOF, MFeval)
+    load GGV_Hamba_0to40      % GGV_data for sedan
+else
+    sm_car_load_vehicle_data(mdl,'193'); % (Hamba 15DOF, Multibody tire)
+    load GGV_Hamba_0to40      % GGV_data for sedan
+
+    % Alternate: FSAE Vehicle
+    %sm_car_load_vehicle_data(mdl,'198'); % (FSAE, Mbody)
+    %load GGV_Achilles_0to40   % GGV_data for FSAE
+
+end
+
 Vehicle = sm_car_vehcfg_checkConfig(Vehicle);
 
 sm_car_optim_traj_vx(mdl,'CRG_Nurburgring_N_f',25);
 sm_car_optim_vx_plot(OptRes_CRG_Nurburgring_N_f)
+
+sm_car_optim_vx_plot_GGV(OptRes_CRG_Nurburgring_N_f,'bestworst',GGV_data)
 
 cd(Overview_Dir)
 close(3)

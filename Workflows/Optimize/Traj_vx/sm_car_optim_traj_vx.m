@@ -103,6 +103,7 @@ OptRes = evalin('base',['OptRes_' trackname ]);
 OptRes(end).final = x;
 OptRes(end).xref  = Maneuver.Trajectory.x.Value;
 OptRes(end).yref  = Maneuver.Trajectory.y.Value;
+OptRes(end).Vehicle  = evalin('base','Vehicle');
 
 % Write final results back to workspace for plotting
 assignin('base',['OptRes_' trackname],OptRes)

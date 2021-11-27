@@ -9,7 +9,7 @@ function Vehicle = sm_car_vehcfg_setDamper(Vehicle,instanceDampers,dam_opt)
 % dam_opt           <Axle 1 option>_<Axle 2 option>_<Axle 3 option>
 %     See code below to map options to VDatabase structure
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
@@ -42,7 +42,9 @@ for axle_i = 1:numAxles
         case 'SHlinA1',       Instance = 'Sedan_Hamba_Linear_A1';
         case 'SHlinA2',       Instance = 'Sedan_Hamba_Linear_A2';            
         case 'AClinA1',       Instance = 'FSAE_Achilles_Linear_A1';
-        case 'AClinA2',       Instance = 'FSAE_Achilles_Linear_A2';            
+        case 'AClinA2',       Instance = 'FSAE_Achilles_Linear_A2';
+        case 'ACdecLinA1',    Instance = 'FSAE_Achilles_DWDec_Linear_A1';
+        case 'ACdecLinA2',    Instance = 'FSAE_Achilles_DWDec_Linear_A2';            
         case 'SHliveA2',      Instance = 'Sedan_Hamba_LiveAxle_A2';
         case 'SHLlinStiffA1', Instance = 'Sedan_HambaLG_Linear_stiff_A1';
         case 'SHLlinStiffA2', Instance = 'Sedan_HambaLG_Linear_stiff_A2';
