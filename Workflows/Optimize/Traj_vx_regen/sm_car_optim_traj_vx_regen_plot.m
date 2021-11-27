@@ -25,11 +25,6 @@ end
 lt_ind_start = find(lt<10000,1);
 lt_inds_valid = [lt_inds(lt_ind_start:end)];
 
-paramset = reshape([optResStruct(:).param],length(optResStruct(end).final),[])';
-%paramset = reshape([optResStruct(lt_inds_valid).param],length(optResStruct(end).final),[])';
-
-iter_min_inds = find(paramset == optResStruct(end).final);
-%iter_min = iter_min_inds(1);
 iter_max = lt_inds_valid(1);
 
 cost_fcn_set = [optResStruct(:).cost_fcn];

@@ -45,21 +45,21 @@ end
 
 if(existCurrentData)
     % Reuse figure if it exists, else create new figure
-fig_handle_name =   'h7_sm_car';
-
-Init_type = evalin('base','Init.Type');
-
-handle_var = evalin('base',['who(''' fig_handle_name ''')']);
-if(isempty(handle_var))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-elseif ~isgraphics(evalin('base',handle_var{:}))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-end
-figure(evalin('base',fig_handle_name))
-clf(evalin('base',fig_handle_name))
-
-temp_colororder = get(gca,'defaultAxesColorOrder');
-
+    fig_handle_name =   'h7_sm_car';
+    
+    Init_type = evalin('base','Init.Type');
+    
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+    
+    temp_colororder = get(gca,'defaultAxesColorOrder');
+    
     simlog_handles(1) = subplot(211);
     plot(logsout_t,logsout_sVeh,'LineWidth',1);
     %plot(logsout_t,logsout_aPitch,'LineWidth',1,'Color',temp_colororder(6,:));
