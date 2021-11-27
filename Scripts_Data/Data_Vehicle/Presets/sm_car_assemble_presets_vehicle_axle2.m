@@ -1475,7 +1475,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 veh_ind = veh_ind+1;
 
 vehcfg_set = {
-    'Aero',         'Sedan_HambaLG',                                '';...
+    'Aero',         'FSAE_Achilles',                                '';...
     'Body',         'FSAE_Achilles',                                '';...
     'BodyGeometry', 'FSAE_Achilles',                                '';...
     'BodyLoad',     'None',                                         '';...
@@ -1506,11 +1506,11 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
-%% Custom Configuration 51: Achilles, MFEval, Ideal 2 motor
+%% Custom Configuration 51: Achilles, MFSwift, Ideal 2 motor
 veh_ind = veh_ind+1;
 
 vehcfg_set = {
-    'Aero',         'Sedan_HambaLG',                                '';...
+    'Aero',         'FSAE_Achilles',                                '';...
     'Body',         'FSAE_Achilles',                                '';...
     'BodyGeometry', 'FSAE_Achilles',                                '';...
     'BodyLoad',     'None',                                         '';...
@@ -1862,6 +1862,109 @@ Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
 
 % Assemble configuration description in string
 Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 71: Achilles DW Decoupled MFeval
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_183;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DWDecoupled_Achilles_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DWDecoupledNoSteer_Achilles_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Decoupled','ACdecLinA1_ACdecLinA2');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Decoupled','ACdecLinA1_ACdecLinA2');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA1');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'_dwpua','_dwdec');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 71: Achilles DW Decoupled MFSwift
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_204;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFSwift_Generic_190_50R10','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFSwift_Generic_190_50R10','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFEval','MFSwift');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 72: FSAE Achilles MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_205;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_190_50R10','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_190_50R10','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 73: Achilles FiveLink Decoupled MFeval
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_204;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'L5Decoupled_Achilles_f','SuspA1');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'dwdec','5ldec');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 74: Achilles FiveLink Decoupled MFSwift
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_205;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'L5Decoupled_Achilles_f','SuspA1');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'dwdec','5ldec');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 75: Achilles FiveLink Decoupled MFMbody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_206;
+vehcfg = Vehicle.config;
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'L5Decoupled_Achilles_f','SuspA1');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'dwdec','5ldec');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
