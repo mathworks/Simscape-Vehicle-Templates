@@ -3,7 +3,7 @@ function sm_car_config_maneuver(modelname,maneuver)
 %   sm_car_config_maneuver(modelname,maneuver)
 %   This function configures the model to execute the desired maneuver.
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2021 The MathWorks, Inc.
 
 % Find variant subsystems for settings
 f=Simulink.FindOptions('regexp',1);
@@ -47,12 +47,20 @@ set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','None'
 
 % Assume typical simulation stop conditions
 set_param([modelname '/Check'],'start_check_time','5','stop_speed','0.1');
+set_param([modelname '/Check'],'start_check_time_max_speed','20000','max_speed','0.4');
 set_param([modelname '/Check'],'start_check_time_ld','10000','lat_dev_threshold','8');
 set_param([modelname '/Check'],'start_check_time_end_lap','10000');
 set_param(override_h,'popup_override_type','None');
 
 % Assume no wind
 sm_car_config_wind(modelname,0,0)
+
+% Assume constant gravity
+set_param([modelname '/World'],'popup_gravity','Constant');
+
+% Assume no constrants on vehicle
+set_param([modelname '/Vehicle/Vehicle Constraint'],'LabelModeActiveChoice','NoConstraint');
+
 
 % Assume all points on trajectory will be checked
 set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','No');

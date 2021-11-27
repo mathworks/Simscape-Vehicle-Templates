@@ -30,6 +30,19 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.6 -- November 2021**
+1.  Added decoupled suspension linkages: double wishbone, double wishbone no steer, 5 link.
+2.  Added decoupled roll and heave stiffness and damping
+3.  Added method for generating GGV diagram by sweeping gravity vector and aero loads
+4.  Added option to constrain vehicle with no yaw (for GGV tests)
+5.  Added option to vary gravity vector (for GGV tests)
+6.  Added option to terminate simulation based on maximum speed (for GGV tests)
+7.  Added unique aero settings for sedan and FSAE vehicle
+8.  Adjusted project startup script to work with parallel simulations
+9.  Adjusted four-wheel steering algorithm to make rear steer gain speed-dependent, updated test
+10. Fixed plots for showing fastest lap from optimization
+11. Fixed startup script to avoid 'dir(**/*)' command on Mac and Linux (for MF-Swift)
+
 **v2.5.1 -- October 2021**
 1.  Reduced scaling factor for initial speed in lap time optimizations.
 
