@@ -1,4 +1,4 @@
-% Copyright 2012-2021 The MathWorks, Inc.
+% Copyright 2012-2022 The MathWorks, Inc.
 
 SPL_libname = 'Multibody_Parts_Lib';
 load_system(SPL_libname);

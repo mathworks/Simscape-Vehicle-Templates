@@ -1,5 +1,5 @@
 % Script to test many configurations of vehicle model
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 cd(fileparts(which('sm_car_testrig_quarter_car.slx')));
 cd('Results')

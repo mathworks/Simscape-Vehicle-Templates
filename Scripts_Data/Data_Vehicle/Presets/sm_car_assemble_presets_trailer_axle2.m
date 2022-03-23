@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_trailer_axle2
 % Code to create presets for 2-axle trailer
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));

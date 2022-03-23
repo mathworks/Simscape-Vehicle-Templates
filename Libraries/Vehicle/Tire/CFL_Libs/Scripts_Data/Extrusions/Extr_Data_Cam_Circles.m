@@ -19,7 +19,7 @@ function [xy_data] = Extr_Data_Cam_Circles(rad1, rad2, d, radh1, radh2, varargin
 %   add 'plot' as the final argument
 %   >> Extr_Data_Cam_Circles(4,3,5,1,0,'plot')
 
-% Copyright 2012-2021 The MathWorks, Inc.
+% Copyright 2012-2022 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

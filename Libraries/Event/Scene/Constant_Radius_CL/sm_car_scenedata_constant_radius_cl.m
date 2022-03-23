@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_constant_radius_cl
 %% Skidpad parameters
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 scene_data.Name = 'Constant_Radius_CL';
 scene_data.Path.d            = 30;

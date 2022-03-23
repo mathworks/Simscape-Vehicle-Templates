@@ -3,7 +3,7 @@ function sm_car_config_logging(modelname)
 %   sm_car_config_logging(modelname)
 %   This function configures the logging for the Simscape Vehicle Templates Model.
 %
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 ph = get_param([modelname '/Driver'],'PortHandles');
 set_param(ph.Outport(1),...

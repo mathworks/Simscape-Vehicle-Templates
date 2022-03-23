@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_track_mallory_park_obstacle
 %% Floor and Grid parameters
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 scene_data.Name = 'Mallory_Park_Obstacle';
 scene_data.Track.w   = 10;          % m

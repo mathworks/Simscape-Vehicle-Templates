@@ -1,5 +1,5 @@
 function sm_car_open_chrome(url_address)
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 if(ispc)
     eval(['!start chrome "' url_address '"']);

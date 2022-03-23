@@ -17,7 +17,7 @@ function [xy_data] = Extr_Data_Block_NotchCircle(box_x, box_y, notch_rad, notch_
 %   add 'plot' as the final argument
 %   >> Extr_Data_Block_NotchCircle(2,1,0.7,45,0.2,'plot')
 
-% Copyright 2012-2021 The MathWorks, Inc.
+% Copyright 2012-2022 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

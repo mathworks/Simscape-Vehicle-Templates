@@ -4,7 +4,7 @@
 % algorithms using the Nurburgring Nordschleife.  This optimization
 % assumes no elevation to shorten the optimization process.
 % 
-% Copyright 2020-2021 The MathWorks, Inc.
+% Copyright 2020-2022 The MathWorks, Inc.
 
 %%
 % <html><h2>Results of Optimization</h2></html>

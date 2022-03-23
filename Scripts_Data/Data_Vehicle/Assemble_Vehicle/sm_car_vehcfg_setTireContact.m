@@ -5,7 +5,7 @@ function Vehicle = sm_car_vehcfg_setTireContact(Vehicle,tirecontact_opt,tireFiel
 %
 % tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 % Find field that has tire model type
 if(sum(strcmp(Vehicle.Chassis.(tireFieldName).class.Value,{'Tire2x'})))

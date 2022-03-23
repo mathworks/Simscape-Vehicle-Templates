@@ -9,7 +9,7 @@
 % This subsystem models two independent ideal torque sources connected to
 % the driveline by two separate shafts.
 % 
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 %% Overview
 % 

@@ -3,7 +3,7 @@ function Camera =  sm_car_define_camera_hamba
 %
 % Adjust frame locations below
 %
-% Copyright 2021 The MathWorks, Inc.
+% Copyright 2021-2022 The MathWorks, Inc.
 
 % Offset from vehicle reference to camera reference
 %   Vehicle Reference: Frame where camera frame subsystem is attached

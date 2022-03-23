@@ -2,7 +2,7 @@ function sm_car_check_tire_model(modelname)
 %sm_car_check_tire_model  Check if tire software is available for selected tire
 %   sm_car_check_tire_model(modelname)
 %
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 %if(verLessThan('matlab','9.10'))
     evalin('base','warning off Simulink:Commands:FindSystemVariantsOptionRemoval');

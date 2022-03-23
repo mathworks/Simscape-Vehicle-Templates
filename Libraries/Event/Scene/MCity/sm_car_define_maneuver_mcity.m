@@ -3,7 +3,7 @@
 % Execute this script section by section to create new maneuver
 % using a UI to select waypoints in the MCity scene
 
-% Copyright 2020-2021 The MathWorks, Inc.
+% Copyright 2020-2022 The MathWorks, Inc.
 
 % Interactively Select Waypoints
 

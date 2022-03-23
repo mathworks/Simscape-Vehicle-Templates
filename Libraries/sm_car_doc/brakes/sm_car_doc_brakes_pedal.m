@@ -9,7 +9,7 @@
 % The pressure applied to the brake is controlled by an input signal
 % representing the amount the driver has depressed the brake pedal.
 % 
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 
 %% Overview

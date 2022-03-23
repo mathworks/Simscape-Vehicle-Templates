@@ -30,6 +30,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.6 -- March 2022**
+Added version compatible with R2022a
+
 **v2.6 -- November 2021**
 1.  Added decoupled suspension linkages: double wishbone, double wishbone no steer, 5 link.
 2.  Added decoupled roll and heave stiffness and damping

@@ -1,5 +1,5 @@
 Simscape Multibody Parts Library
-Copyright 2017-2021 The MathWorks, Inc.
+Copyright 2017-2022 The MathWorks, Inc.
 
 This set of examples shows you how to create parameterized parts for Simscape Multibody
 and example MATLAB scripts for defining general extrusions.  The parts have been used in a 

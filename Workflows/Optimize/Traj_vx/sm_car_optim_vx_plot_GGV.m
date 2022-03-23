@@ -18,7 +18,7 @@ function sm_car_optim_vx_plot_GGV(optResStruct,varargin)
 % Example: 
 %   sm_car_optim_vx_plot_GGV(OptRes_CRG_Mallory_Park,'bestworst')
 
-% Copyright 2021 The MathWorks, Inc.
+% Copyright 2021-2022 The MathWorks, Inc.
 
 if(nargin==1)
     plotTraces = 'all';

@@ -2,7 +2,7 @@
 % in sedan with powertrain that has battery and 2 motors.
 % Manuever is simple acceleration and deceleration.
 
-% Copyright 2019-2021 The MathWorks, Inc
+% Copyright 2019-2022 The MathWorks, Inc
 
 % Open model and configure vehicle
 open_system('sm_car');

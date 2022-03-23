@@ -1,5 +1,5 @@
 % Plot time-based results from GGV sweep for inspection 
-% Copyright 2021 The MathWorks, Inc.
+% Copyright 2021-2022 The MathWorks, Inc.
 
 % Clear results figure if it already exists.
 if exist('sm_car_ggv_traces', 'var')

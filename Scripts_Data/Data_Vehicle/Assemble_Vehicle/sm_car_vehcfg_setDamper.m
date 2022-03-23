@@ -9,7 +9,7 @@ function Vehicle = sm_car_vehcfg_setDamper(Vehicle,instanceDampers,dam_opt)
 % dam_opt           <Axle 1 option>_<Axle 2 option>_<Axle 3 option>
 %     See code below to map options to VDatabase structure
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

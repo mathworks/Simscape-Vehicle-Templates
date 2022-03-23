@@ -1,7 +1,7 @@
 function [tire_radius, tireFields] = sm_car_vehcfg_getTireRadius(Vehicle)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 % Find fieldnames for tires
 chassis_fnames = fieldnames(Vehicle.Chassis);

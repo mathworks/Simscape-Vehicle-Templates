@@ -3,7 +3,7 @@ function CFL_contact_setModel(mdlname,contactModel)
 % Simscape Multibody Contact Force Library. Pass the name of the model as
 % an argument to this function.
 
-% Copyright 2014-2021 The MathWorks, Inc.
+% Copyright 2014-2022 The MathWorks, Inc.
 
 CF_bpth=find_system(mdlname,'RegExp','on','LookUnderMasks','on','FollowLinks','on','force_law','.*');
 CF_bpth_box2box=find_system(mdlname,'RegExp','on','LookUnderMasks','on','FollowLinks','on','force_law_box2box','.*');

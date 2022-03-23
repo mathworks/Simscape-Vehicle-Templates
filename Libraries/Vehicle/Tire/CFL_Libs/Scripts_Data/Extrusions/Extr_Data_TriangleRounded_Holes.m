@@ -19,7 +19,7 @@ function [xy_data] = Extr_Data_TriangleRounded_Holes(L, H, xL, ri, ro, varargin)
 %   add 'plot' as the final argument
 %   >> Extr_Data_TriangleRounded_Holes(6,4,0.33,1,2,'plot')
 %
-% Copyright 2014-2021 The MathWorks, Inc.
+% Copyright 2014-2022 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

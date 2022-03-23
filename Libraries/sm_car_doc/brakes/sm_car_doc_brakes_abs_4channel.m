@@ -9,7 +9,7 @@
 % The pressure applied to the brake is controlled by pressure at the master
 % cylinder and commands to the apply and release valves at each corner.
 % 
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 
 %% Overview

@@ -16,7 +16,7 @@ function [simOut, simInput, filename_ggv] = sm_car_sweep_ggv_pts(baseModelName,V
 % Example:
 % [simOut, simInput, filename_ggv] = sm_car_sweep_ggv_pts('sm_car',Vehicle,4,[0 15 30],false);
 
-% Copyright 2021 The MathWorks, Inc.
+% Copyright 2021-2022 The MathWorks, Inc.
 
 %% Model name
 modelName     = [baseModelName '_test_ggv_new'];

@@ -1,6 +1,6 @@
 % Script to test many configurations under many events
 % Not a complete sweep of all combinations, but every variant is activated
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 maneuver_list = {...
     'CRG Mallory Park',       'CMP';
@@ -291,6 +291,7 @@ for veh_i = 1:length(veh_set9)
             veh_suffix = pad(num2str(veh_suffix_set(veh_i)),3,'left','0');
             
             sm_car_res(testnum).Mane = manv_set{m_i};
+            sm_car_load_vehicle_data('sm_car',veh_suffix); % Configure vehicle, then maneuver
             sm_car_config_maneuver(mdl,manv_set{m_i});
             
             % Assemble suffix for results image

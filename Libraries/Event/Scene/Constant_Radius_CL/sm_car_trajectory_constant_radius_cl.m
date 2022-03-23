@@ -1,6 +1,6 @@
 function sm_car_trajectory_constant_radius_cl
 % Function to construct constant radius closed-loop maneuver
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)))
 

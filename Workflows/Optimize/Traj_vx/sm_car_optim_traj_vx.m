@@ -8,7 +8,7 @@ function sm_car_optim_traj_vx(mdl, trackname, maxIter)
 % 
 %   3D surface: 'CRG_Kyalami' 
 %
-% Copyright 2020-2021 The MathWorks, Inc.
+% Copyright 2020-2022 The MathWorks, Inc.
 
 
 % Select vehicle configuration (basic, flat roads only)

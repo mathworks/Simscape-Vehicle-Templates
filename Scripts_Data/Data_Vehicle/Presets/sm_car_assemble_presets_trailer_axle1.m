@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_trailer_axle1
 % Script to generate Vehicle data structures for various configurations
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));

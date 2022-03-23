@@ -2,7 +2,7 @@ function [MFSwifttbx_pth,MFSwifttbx_folders]=sm_car_startupMFSwift
 % DETERMINE IF MF-SWIFT DIRECTORY IS ON PATH
 % CHECK IF TOOLBOX ALREADY ON PATH
 
-% Copyright 2014-2021 The MathWorks, Inc.
+% Copyright 2014-2022 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 path_preMFSwift = strsplit(path,';');
