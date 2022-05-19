@@ -9,7 +9,7 @@ function CRG_Create_Plateau
 road_opts.create_stl_files = true;
 road_opts.create_no_elevation = false;
 road_opts.create_stl_files_f = false;
-road_opts.decim_data = 1;
+road_opts.decim_data = 0.1;
 road_opts.decim_alti = 1;
 road_opts.road_width = 6;      % Half width of the road
 road_opts.blending_distance = 0;

@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2021 The MathWorks, Inc.
+Copyright 2018-2022 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -30,8 +30,11 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
-**v2.6 -- March 2022**
-Added version compatible with R2022a
+**v2.7 -- May 2022**
+1.  Simscape Multibody tire can be used on uneven roads with slope and banking (CRG defined, R2022a and higher)
+2.  Added files for OpenCRG v1.1.2 under Apache license
+3.  Models tested with Siemens MF-Tyre/MF-Swift Software v2022.1
+4.  Replaced two geometry files to address issue on Mac only
 
 **v2.6 -- November 2021**
 1.  Added decoupled suspension linkages: double wishbone, double wishbone no steer, 5 link.

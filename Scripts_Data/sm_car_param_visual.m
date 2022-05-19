@@ -46,6 +46,9 @@ Visual.SteeringShafts.clr   = Visual.clr.gray;
 Visual.SteeringPinion.clr   = Visual.clr.gray;
 Visual.SteeringWheel.clr    = Visual.clr.gray;
 
+Visual.TireContactPlane.clr = Visual.clr.gray;
+Visual.TireContactPlane.opc = 0.25;
+
 Visual.PaceCar.body.clr     = Visual.clr.red;
 
 % Emblem

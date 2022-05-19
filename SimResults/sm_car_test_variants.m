@@ -189,6 +189,7 @@ sm_car_load_trailer_data('sm_car','none');
 
 %% Test Set 1a - Main tests NO Fast Restart
 manv_set = {'WOT Braking','Low Speed Steer'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184];
 trailer_set = {'none'};
@@ -197,6 +198,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 2: Short Maneuvers
 manv_set = {'Double Lane Change','Ice Patch'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [12 142 145 184 204];
 trailer_set = {'none'};
@@ -205,6 +207,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 3 -- Long Maneuvers
 manv_set = {'Mallory Park','Mallory Park CCW'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [12 142 116 143 166 169 184];
 if(~verLessThan('MATLAB','9.11'))
@@ -216,6 +219,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 4 -- Steering
 manv_set = {'Low Speed Steer'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [151:155];
 trailer_set = {'none'};
@@ -224,6 +228,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 5 -- Fixed Step Simple Suspension
 manv_set = {'WOT Braking','Low Speed Steer','Turn'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'fixed step'};
 veh_set = [4 116 124 141 145];
 if(~verLessThan('MATLAB','9.11'))
@@ -235,6 +240,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 6 -- Trailers
 manv_set = {'Double Lane Change'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 002 145];
 trailer_set = {'none','03','02'};
@@ -249,6 +255,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 7 -- Trailer Disturbance
 manv_set = {'Trailer Disturbance'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139];
 trailer_set = {'01','05'};
@@ -257,6 +264,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 8 -- Testrig
 manv_set = {'Testrig 4 Post'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [149];
 trailer_set = {'none'};
@@ -265,6 +273,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 9 -- Skidpad
 manv_set = {'Skidpad', 'Constant Radius Closed-Loop'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 184];
 if(~verLessThan('MATLAB','9.11'))
@@ -363,6 +372,7 @@ sm_car_load_trailer_data('sm_car','none');
 
 %% Test Set 11 -- RDF Plateau, Delft Tyre only
 manv_set = {'RDF Plateau'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [171 172];
 trailer_set = {'none'};
@@ -371,6 +381,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 11a -- Plateau Z Only, MFeval, MF-Swift, Delft
 manv_set = {'Plateau Z Only'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 165 171];
 trailer_set = {'none'};
@@ -379,6 +390,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 11b -- CRG Plateau, MF-Swift, Delft
 manv_set = {'CRG Plateau'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [165 171];
 trailer_set = {'none'};
@@ -387,6 +399,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 12 -- RDF Rough Road, Delft Tyre only
 manv_set = {'RDF Rough Road'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [171 172];
 trailer_set = {'none'};
@@ -395,23 +408,37 @@ sm_car_test_variants_testloop
 
 %% Test Set 12a -- Rough Road Z Only, MFeval tires only
 manv_set = {'Rough Road Z Only'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 165 171];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot5bodymeas'};
 sm_car_test_variants_testloop
 
-%% Test Set 12 -- CRG Tests
+%% Test Set 12b -- CRG Tests
 manv_set = {'CRG Mallory Park','CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity', 'CRG Kyalami','CRG Kyalami F','CRG Nurburgring N','CRG Nurburgring N F','CRG Suzuka','CRG Suzuka F','CRG Pikes Peak','CRG Pikes Peak Down'};
+stoptime_set = [-1 -1   -1   -1    -1 -1  30 -1 30 -1 30 30];
 solver_typ = {'variable step'};
 veh_set = [170];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
-%% Test Set 12 -- CRG Tests Mbody
+%% Test Set 12c -- CRG Tests Mbody (FLAT)
 if(~verLessThan('MATLAB','9.11'))
     manv_set = {'CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity','CRG Kyalami F','CRG Nurburgring N F','CRG Suzuka F'};
+    stoptime_set = -1*ones(size(manv_set));
+    solver_typ = {'variable step'};
+    veh_set = [202];
+    trailer_set = {'none'};
+    plotstr = {'sm_car_plot1speed'};
+    sm_car_test_variants_testloop
+end
+
+%% Test Set 12d -- CRG Tests Mbody
+if(~verLessThan('MATLAB','9.12'))
+    manv_set = {'CRG Mallory Park', 'CRG Kyalami','CRG Plateau'};
+    stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = [202];
     trailer_set = {'none'};
@@ -421,6 +448,7 @@ end
 
 %% Test Set 13 -- Drive Cycle FTP75
 manv_set = {'Drive Cycle FTP75' 'Drive Cycle UrbanCycle1'};
+stoptime_set = [30 -1];
 solver_typ = {'variable step'};
 veh_set = [173 165];
 trailer_set = {'none'};
@@ -429,6 +457,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 14 -- CRG Plateau Fuel Cell
 manv_set = {'CRG Plateau'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [173];
 trailer_set = {'none'};
@@ -437,6 +466,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 15 -- Battery 2 Motor Regen 
 manv_set = {'WOT Braking'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [179 180];
 if(~verLessThan('MATLAB','9.11'))
@@ -450,6 +480,7 @@ control_chg = 'none';             % Reset control_chg for remaining maneuvers
 
 %% Test Set 16 -- Torque Vectoring 
 manv_set = {'Turn'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [182];
 if(~verLessThan('MATLAB','9.11'))
@@ -463,6 +494,7 @@ control_chg = 'none';                   % Reset control_chg for remaining maneuv
 
 %% Test Set 17 -- Four Wheel Steer
 manv_set = {'Turn'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [185 188];
 trailer_set = {'none'};
@@ -483,6 +515,7 @@ sm_car_config_maneuver(mdl,'WOT Braking');
 sm_car_load_trailer_data(mdl,'none');
 
 manv_set = {'WOT Braking'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_000', 'Axle3_008', 'Axle3_003'};
 if(~verLessThan('MATLAB','9.11'))
@@ -494,6 +527,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 19 -- 3 Axle Truck Amandla trailer MFSwift
 manv_set = {'WOT Braking'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_010'};
 trailer_set = {'Axle2_001','Axle2_021'};
@@ -503,6 +537,7 @@ sm_car_test_variants_testloop
 %% Test Set 19 -- 3 Axle Truck Amandla trailer Mbody
 if(~verLessThan('MATLAB','9.11'))
     manv_set = {'WOT Braking'};
+    stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = {'Axle3_019'};
     trailer_set = {'Axle2_022','Axle2_032'};
@@ -512,6 +547,7 @@ end
 
 %% Test Set 20 -- 3 Axle Truck Amandla MFeval
 manv_set = {'Double Lane Change'};
+stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_012'};
 trailer_set = {'Axle2_002', 'Axle2_004', 'Axle2_006', 'Axle2_008'};

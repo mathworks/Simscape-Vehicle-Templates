@@ -41,7 +41,7 @@ if(strcmpi(road_opts.datasrc,'gps'))
     
     % Remove sequential, duplicate points
     LongLatAlt = [Longitude Latitude Altitude_m];
-    valid_inds = [1 (sum([LongLatAlt(2:end,:) == LongLatAlt(1:end-1,:)],2)~=3)];
+    valid_inds = find([1 ;(sum([LongLatAlt(2:end,:) == LongLatAlt(1:end-1,:)],2)~=3)]);
     Distance_m = Distance_m(valid_inds);
     Latitude = Latitude(valid_inds);
     Longitude = Longitude(valid_inds);

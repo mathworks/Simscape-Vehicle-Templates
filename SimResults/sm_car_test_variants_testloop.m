@@ -69,6 +69,9 @@ for veh_i = 1:length(veh_set)
                 
                 out = [];
                 try
+                    if(stoptime_set(m_i)~=-1)
+                        set_param(mdl,'StopTime',num2str(stoptime_set(m_i)))
+                    end
                     out = sim(mdl);  % Unique for ABS Test
                     test_success = 'Pass';
                 catch
