@@ -1,6 +1,6 @@
 function shutdown_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 
@@ -20,6 +20,7 @@ if (~isempty(MFSwifttbx_folders))
     for mfs_i = 1:length(MFSwifttbx_folders)
         rmpath(MFSwifttbx_folders{mfs_i})
     end
+    evalin('base','clear MFSwifttbx_folders');
 else
     rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_None']);
 end

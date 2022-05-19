@@ -7,7 +7,7 @@ function sm_car_centerline_to_crg(road_name,road_opts)
 % <root file name>_centerline.crg   Centerline definition
 % <root file name>_centerline.stl   Centerline geometry
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 % Basic settings
 root_outfiles = strrep(road_name,' ','_');
@@ -41,7 +41,7 @@ if(strcmpi(road_opts.datasrc,'gps'))
     
     % Remove sequential, duplicate points
     LongLatAlt = [Longitude Latitude Altitude_m];
-    valid_inds = [1 (sum([LongLatAlt(2:end,:) == LongLatAlt(1:end-1,:)],2)~=3)];
+    valid_inds = find([1 ;(sum([LongLatAlt(2:end,:) == LongLatAlt(1:end-1,:)],2)~=3)]);
     Distance_m = Distance_m(valid_inds);
     Latitude = Latitude(valid_inds);
     Longitude = Longitude(valid_inds);
