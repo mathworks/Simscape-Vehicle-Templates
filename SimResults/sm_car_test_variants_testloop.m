@@ -6,7 +6,7 @@
 %  trailer_set = {'none'};
 %  plotstr = {'sm_car_plot1speed'};
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 % Loop over set of vehicles
 for veh_i = 1:length(veh_set)
@@ -69,6 +69,9 @@ for veh_i = 1:length(veh_set)
                 
                 out = [];
                 try
+                    if(stoptime_set(m_i)~=-1)
+                        set_param(mdl,'StopTime',num2str(stoptime_set(m_i)))
+                    end
                     out = sim(mdl);  % Unique for ABS Test
                     test_success = 'Pass';
                 catch
