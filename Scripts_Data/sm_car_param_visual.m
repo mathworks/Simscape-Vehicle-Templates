@@ -1,5 +1,5 @@
 function Visual = sm_car_param_visual(car_option)
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 %% Colors
 Visual.clr.blue        = [0.2 0.4 0.6];
@@ -45,6 +45,9 @@ Visual.SteeringRack.clr     = Visual.clr.bluepure;
 Visual.SteeringShafts.clr   = Visual.clr.gray;
 Visual.SteeringPinion.clr   = Visual.clr.gray;
 Visual.SteeringWheel.clr    = Visual.clr.gray;
+
+Visual.TireContactPlane.clr = Visual.clr.gray;
+Visual.TireContactPlane.opc = 0.25;
 
 Visual.PaceCar.body.clr     = Visual.clr.red;
 
