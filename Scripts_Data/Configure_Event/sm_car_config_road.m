@@ -3,7 +3,7 @@ function sm_car_config_road(modelname,scenename)
 %   sm_car_config_road(modelname,tirename)
 %   This function configures the model to have a specified surface.
 %
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
 % Find variant subsystems for inputs
 f=Simulink.FindOptions('LookUnderMasks','all');
@@ -136,7 +136,18 @@ end
 % Set ground to have high friction everywhere
 set_param(mu_scaling_h,'muFL_in','1','muFR_in','1','muRL_in','1','muRR_in','1')
 
+% Specific checks for combinations
+% Non-flat CRG files
 
+if(verLessThan('matlab','9.12'))
+    checkNonFlatCRG = sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]);
+    messgNonFlatCRG1 = 'Configure model to use Delft Tire or MF-Swift software for this maneuver.';
+    messgNonFlatCRG2 = '--> All values for active components should be ''Delft'' or ''MFSwift''';
+else
+    checkNonFlatCRG = sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]);
+    messgNonFlatCRG1 = 'Configure model to use Delft Tire, MF-Swift, or Simscape  for this maneuver.';
+    messgNonFlatCRG2 = '--> All values for active components should be ''Delft'', ''MFSwift'', or ''Simscape''';
+end
 % Switch based on requested road surface
 switch lower(scenename)
     case 'plane grid'
@@ -157,11 +168,12 @@ switch lower(scenename)
         end
 
     case 'crg kyalami'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -179,11 +191,11 @@ switch lower(scenename)
         set_param(modelname,'StopTime','261')
 
     case 'crg mallory park'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -201,11 +213,11 @@ switch lower(scenename)
         set_param(modelname,'StopTime','200')
 
     case 'crg custom'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -223,11 +235,11 @@ switch lower(scenename)
         set_param(modelname,'StopTime','200')
 
     case 'crg nurburgring n'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -241,11 +253,11 @@ switch lower(scenename)
         end
 
     case 'crg pikes peak'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -253,11 +265,11 @@ switch lower(scenename)
         roadFile = 'which(''CRG_Pikes_Peak.crg'')';
 
     case 'crg suzuka'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -323,11 +335,11 @@ switch lower(scenename)
         end
 
     case 'crg plateau'
-        if(sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
-            error_str = sprintf(['Configure model to use Delft Tire or MF-Swift software for this maneuver.\n' ...
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
-                '--> All values for active components should be ''Delft'' or ''MFSwift''']);
+                messgNonFlatCRG2]);
             errordlg(error_str,'Wrong Tire Software')
         end
 
@@ -405,8 +417,7 @@ for axle_i = 1:length(tireFields)
 end
 
 % Trailer
-
-for axle_i = 1:length(tireFieldsTr)
+for axleTr_i = 1:length(tireFieldsTr)
     tireField = tireFields{axleTr_i};
     if(~strcmp(Trailer.Chassis.(tireField).class.Value,'Tire2x'))
         Trailer.Chassis.(tireField).roadFile.Value = roadFile;
