@@ -25,4 +25,7 @@ for scene_i = 1:length(scene_data_file_list)
     scene_data.(unique_names{end}) = new_scene_data;
 end
 
+scene_data.Reference.yaw   = 0; % rad
+scene_data.Reference.pitch = 0; % rad
+scene_data.Reference.roll  = 0; % rad
 cd(curr_dir)
