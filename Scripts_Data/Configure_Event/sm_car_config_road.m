@@ -364,6 +364,18 @@ switch lower(scenename)
             errordlg(error_str,'Wrong Tire Software')
         end
 
+    case 'crg rough road'
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                messgNonFlatCRG2]);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
+        % Select CRG file for slope
+        roadFile = 'which(''CRG_Rough_Road.crg'')';
+
     case 'track mallory park'
         % No special commands
     case 'two lane road'
