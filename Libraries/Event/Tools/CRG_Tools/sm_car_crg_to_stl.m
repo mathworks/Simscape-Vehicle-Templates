@@ -124,9 +124,10 @@ if (strcmpi(showplot,'plot'))
     clf(fig_h)
     
     % Plot surface
-    surf(x1',y1',z1')
+    surf(x1',y1',z1','LineStyle','none')
     title(strrep(stl_file,'_','\_'));
     axis equal
+    box on
 end
 
 

@@ -6,8 +6,8 @@ function sm_car_scene_stl_create(scene_data)
 %   scene_data      Scene.<scene name>
 %
 %   Example: sm_car_scene_stl_create(Scene.CRG_Mallory_Park_F)
-%   
-% Copyright 2020-2022 The MathWorks, Inc.
+%
+% Copyright 2020-2021 The MathWorks, Inc.
 
 curr_dir = pwd;
 
@@ -15,12 +15,12 @@ curr_dir = pwd;
 road_STL_file = scene_data.Geometry.filename;
 existSTL = exist(road_STL_file,'file');
 if(existSTL == 0)
-    
+
     % Check if CRG file exists
     road_CRG_file = scene_data.CRGfile ;
     existCRG = exist(road_CRG_file,'file');
     if(existCRG == 2)
-        
+
         % Get root name of CRG file
         [p,f,~] = fileparts(which(road_CRG_file));
         % Move to folder where CRG file is stored
@@ -35,27 +35,29 @@ if(existSTL == 0)
 end
 
 % Check if CRG file exists for centerline
-ctr_STL_file = scene_data.Geometry.centerline.filename;
-existSTL = exist(ctr_STL_file,'file');
-if(existSTL == 0)
-    
-    % Check if CRG file exists for centerline
-    % Filename: <road crg file>_centerline.crg
-    [~,f_ctr,~] = fileparts(scene_data.Geometry.centerline.filename);
-    ctrline_CRG_file = [f_ctr '.crg'];
-    existCRG = exist(ctrline_CRG_file,'file');
-    if(existCRG == 2)        
-        
-        % Get root name of CRG file
-        [p,f_ctr,~] = fileparts(which(ctrline_CRG_file));
-        % Move to folder where CRG file is stored
-        cd(p);
-        
-        % Create STL file with the same name
-        disp(['Creating ' f_ctr '.stl']);
-        sm_car_crg_to_stl(...
-            [f_ctr '.crg'],...
-            [f_ctr '.stl'],0,'n');
+if(isfield(scene_data.Geometry,'centerline'))
+    ctr_STL_file = scene_data.Geometry.centerline.filename;
+    existSTL = exist(ctr_STL_file,'file');
+    if(existSTL == 0)
+
+        % Check if CRG file exists for centerline
+        % Filename: <road crg file>_centerline.crg
+        [~,f_ctr,~] = fileparts(scene_data.Geometry.centerline.filename);
+        ctrline_CRG_file = [f_ctr '.crg'];
+        existCRG = exist(ctrline_CRG_file,'file');
+        if(existCRG == 2)
+
+            % Get root name of CRG file
+            [p,f_ctr,~] = fileparts(which(ctrline_CRG_file));
+            % Move to folder where CRG file is stored
+            cd(p);
+
+            % Create STL file with the same name
+            disp(['Creating ' f_ctr '.stl']);
+            sm_car_crg_to_stl(...
+                [f_ctr '.crg'],...
+                [f_ctr '.stl'],0,'n');
+        end
     end
 end
 
