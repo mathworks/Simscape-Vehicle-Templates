@@ -174,7 +174,13 @@ for ip = 1 : np
     z01 = double(z(iu  , iv+1));
     z11 = double(z(iu+1, iv+1)) - (z10 + z01);
     z01 = z01 - z00;
-    piz = (z11*vi + z10)*ui + z01*vi + z00;
+
+    % Change SteveM. - piz, bdou, and bdou need constant types for codegen
+    % Original code had different types for even/uneven v vector
+    % Code now ensures all three quantities are type single
+    %piz = (z11*vi + z10)*ui + z01*vi + z00;
+    pizd = (z11*vi + z10)*ui + z01*vi + z00;
+    piz  = single(pizd);
 
     % add slope
     if nrz > 0
@@ -195,9 +201,11 @@ for ip = 1 : np
     if ui ~= du % ui was limited to [0 1] border interval
         switch bdmu % border_mode_u
             case 1 % set zero
-                piz = bdou;
+                %piz = bdou; 
+                piz = single(bdou); % Change SteveM - codegen
             case 2 % keep last
-                piz = piz + bdou;
+                %piz = piz + bdou;
+                piz = piz + single(bdou); % Change SteveM - codegen
         end
     end
 
@@ -205,9 +213,11 @@ for ip = 1 : np
     if vi ~= dv % vi was limited to [0 1] border interval
         switch bdmv % border_mode_v
             case 1 % set zero
-                piz = bdov;
+                %piz = bdov;
+                piz = single(bdov);
             case 2 % keep last
-                piz = piz + bdov;
+                %piz = piz + bdov;
+                piz = piz + single(bdov);
         end
     end
 
