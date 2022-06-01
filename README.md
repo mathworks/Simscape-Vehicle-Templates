@@ -30,6 +30,12 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.8 -- June 2022**
+1.  Added code to define CRG surface from grid of points 
+2.  Added event CRG Rough Road
+3.  Added code to test protecting vehicle model
+4.  Updated suspension linkage parameterization to enable run-time parameter tuning in protected models
+
 **v2.7 -- May 2022**
 1.  Simscape Multibody tire can be used on uneven roads with slope and banking (CRG defined, R2022a and higher)
 2.  Added files for OpenCRG v1.1.2 under Apache license
