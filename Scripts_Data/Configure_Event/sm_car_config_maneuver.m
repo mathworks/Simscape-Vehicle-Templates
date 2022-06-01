@@ -146,6 +146,17 @@ switch maneuver_str
         set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Rough_Road');
         sm_car_config_road(modelname,'Rough Road Z Only');
 
+    % --- Rough Road (CRG
+    case 'crg rough road'
+        evalin('base',['Init = IDatabase.RDF_Rough_Road.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.RDF_Rough_Road.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.RDF_Rough_Road.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Straight_Constant_Speed.' veh_inst ';']);
+        set_param(modelname,'StopTime','34');
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Rough_Road);');
+        sm_car_config_road(modelname,'CRG Rough Road');
+
     % --- Plateau based on RDF file
     case 'rdf plateau'
         evalin('base',['Init = IDatabase.RDF_Plateau.' init_inst ';']);

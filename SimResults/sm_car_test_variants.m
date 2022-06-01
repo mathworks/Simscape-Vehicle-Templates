@@ -14,6 +14,7 @@ maneuver_list = {...
     'CRG Pikes Peak',         'CPU';
     'CRG Pikes Peak Down',    'CPD';
     'CRG Plateau',            'CPL';
+    'CRG Rough Road',         'CRR';
     'Mallory Park Obstacle',  'MPO';
     'Mallory Park',           'MPK';
     'Mallory Park CCW'        'MPC';
@@ -443,6 +444,26 @@ if(~verLessThan('MATLAB','9.12'))
     veh_set = [202];
     trailer_set = {'none'};
     plotstr = {'sm_car_plot1speed'};
+    sm_car_test_variants_testloop
+end
+
+%% Test Set 12e -- CRG Rough Road MF-Swift
+manv_set = {'CRG Rough Road'};
+stoptime_set = -1*ones(size(manv_set));
+solver_typ = {'variable step'};
+veh_set = [140];
+trailer_set = {'none'};
+plotstr = {'sm_car_plot5bodymeas'};
+sm_car_test_variants_testloop
+
+%% Test Set 12f -- CRG Rough Road Mbody
+if(~verLessThan('MATLAB','9.12'))
+    manv_set = {'CRG Rough Road'};
+    stoptime_set = -1*ones(size(manv_set));
+    solver_typ = {'variable step'};
+    veh_set = [189];
+    trailer_set = {'none'};
+    plotstr = {'sm_car_plot5bodymeas'};
     sm_car_test_variants_testloop
 end
 
