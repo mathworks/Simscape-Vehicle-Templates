@@ -19,6 +19,7 @@
 % <tr>4. Anti-Lock Brakes: <a href="matlab:sm_car_test_abs">Run</a>, <a href="matlab:edit('sm_car_test_abs.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_abs.png');">Results</a><br>
 % <tr>5. Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
 % <tr>6. Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
+% <tr>7. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_quarter_car.slx')));open_system('sm_car_testrig_quarter_car');">Open Model</a><br>
