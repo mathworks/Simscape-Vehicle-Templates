@@ -30,6 +30,10 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.9 -- July 2022**
+1.  Added default value for roadFile to sm_car_data_Tire_MFMbody.xlsx 
+2.  Enabled scrollable setting on configuration app 
+
 **v2.8 -- June 2022**
 1.  Added code to define CRG surface from grid of points 
 2.  Added event CRG Rough Road
