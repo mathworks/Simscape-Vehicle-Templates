@@ -148,12 +148,14 @@ clear drv
 % Maneuvers with longitudinal and lateral driver
 cl_manv_longLat = {...
     'CRG_Custom';
+    'CRG_Hockenheim';
     'CRG_Kyalami';
     'CRG_Mallory_Park';
     'CRG_Nurburgring_N';
     'CRG_Pikes_Peak';
     'CRG_Suzuka';
     'Double_Lane_Change';
+    'Double_Lane_Change_ISO3888';
     'MCity';
     'Mallory_Park';
     'Constant_Radius_CL';
