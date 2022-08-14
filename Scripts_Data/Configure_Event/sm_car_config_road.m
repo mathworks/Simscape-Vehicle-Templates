@@ -167,6 +167,29 @@ switch lower(scenename)
             errordlg(error_str,'Wrong Tire Software')
         end
 
+    case 'crg hockenheim'
+        
+        if(checkNonFlatCRG)
+            error_str = sprintf([messgNonFlatCRG1 '\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                messgNonFlatCRG2]);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
+        % Select CRG file
+        roadFile = 'which(''CRG_Hockenheim.crg'')';
+
+        set_param(modelname,'StopTime','261')
+
+    case 'crg hockenheim f'
+        if(~sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval')]))
+            % Set file flat road for MF-Swift
+            roadFile  = 'which(''TNO_FlatRoad.rdf'')';
+        end
+
+        set_param(modelname,'StopTime','261')
+
     case 'crg kyalami'
         
         if(checkNonFlatCRG)

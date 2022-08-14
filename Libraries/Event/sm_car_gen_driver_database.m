@@ -2,7 +2,7 @@ function sm_car_gen_driver_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 %% Vehicle-level data
 %   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
@@ -148,12 +148,14 @@ clear drv
 % Maneuvers with longitudinal and lateral driver
 cl_manv_longLat = {...
     'CRG_Custom';
+    'CRG_Hockenheim';
     'CRG_Kyalami';
     'CRG_Mallory_Park';
     'CRG_Nurburgring_N';
     'CRG_Pikes_Peak';
     'CRG_Suzuka';
     'Double_Lane_Change';
+    'Double_Lane_Change_ISO3888';
     'MCity';
     'Mallory_Park';
     'Constant_Radius_CL';
