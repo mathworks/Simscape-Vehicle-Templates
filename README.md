@@ -30,6 +30,11 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.10 -- August 2022**
+1.  Steering wheel geometry can be set to FSAE (Formula Student)
+2.  Added Double Lane Change ISO 3888 (conforms to ISO standard)
+3.  Added event CRG Hockenheim, CRG Hockenheim F
+
 **v2.9 -- July 2022**
 1.  Added default value for roadFile to sm_car_data_Tire_MFMbody.xlsx 
 2.  Enabled scrollable setting on configuration app 
