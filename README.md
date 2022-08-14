@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2021 The MathWorks, Inc.
+Copyright 2018-2022 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -30,6 +30,27 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.10 -- August 2022**
+1.  Steering wheel geometry can be set to FSAE (Formula Student)
+2.  Added Double Lane Change ISO 3888 (conforms to ISO standard)
+3.  Added event CRG Hockenheim, CRG Hockenheim F
+
+**v2.9 -- July 2022**
+1.  Added default value for roadFile to sm_car_data_Tire_MFMbody.xlsx 
+2.  Enabled scrollable setting on configuration app 
+
+**v2.8 -- June 2022**
+1.  Added code to define CRG surface from grid of points 
+2.  Added event CRG Rough Road
+3.  Added code to test protecting vehicle model
+4.  Updated suspension linkage parameterization to enable run-time parameter tuning in protected models
+
+**v2.7 -- May 2022**
+1.  Simscape Multibody tire can be used on uneven roads with slope and banking (CRG defined, R2022a and higher)
+2.  Added files for OpenCRG v1.1.2 under Apache license
+3.  Models tested with Siemens MF-Tyre/MF-Swift Software v2022.1
+4.  Replaced two geometry files to address issue on Mac only
+
 **v2.6 -- November 2021**
 1.  Added decoupled suspension linkages: double wishbone, double wishbone no steer, 5 link.
 2.  Added decoupled roll and heave stiffness and damping
