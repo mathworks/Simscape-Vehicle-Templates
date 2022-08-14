@@ -196,6 +196,16 @@ switch maneuver_str
         sm_car_config_road(modelname,'Double Lane Change');
         set_param(modelname,'StopTime','35');
 
+    % --- Double Lane Change ISO3888
+    case 'double lane change iso3888'
+        evalin('base',['Init = IDatabase.Double_Lane_Change_ISO3888.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Double_Lane_Change_ISO3888.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Double_Lane_Change_ISO3888.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Double_Lane_Change_ISO3888.' veh_inst ';']);
+        sm_car_config_road(modelname,'Double Lane Change ISO3888');
+        set_param(modelname,'StopTime','35');
+
     % --- Drive Cycle FTP75
     case 'drive cycle ftp75'
         evalin('base',['Init = IDatabase.DriveCycle_FTP75.' init_inst ';']);
@@ -310,6 +320,30 @@ switch maneuver_str
         sm_car_config_road(modelname,'MCity');
         set_param(modelname,'StopTime','50');
 
+    % --- crg hockenheim
+    case 'crg hockenheim'
+        evalin('base',['Init = IDatabase.CRG_Hockenheim.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.CRG_Hockenheim.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.CRG_Hockenheim.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.CRG_Hockenheim.' veh_inst ';']);
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Hockenheim);');
+        sm_car_config_road(modelname,'CRG Hockenheim');
+        set_param(modelname,'StopTime','400');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');        
+
+    % --- crg hockenheim f 
+    case 'crg hockenheim f'
+        evalin('base',['Init = IDatabase.CRG_Hockenheim_F.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.CRG_Hockenheim_F.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.CRG_Hockenheim_F.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.CRG_Hockenheim.' veh_inst ';']);
+        evalin('base','sm_car_scene_stl_create(Scene.CRG_Hockenheim_F);');
+        sm_car_config_road(modelname,'CRG Hockenheim F');
+        set_param(modelname,'StopTime','400');
+        set_param([modelname '/Check'],'start_check_time_end_lap','20');
+                
     % --- crg kyalami
     case 'crg kyalami'
         evalin('base',['Init = IDatabase.CRG_Kyalami.' init_inst ';']);

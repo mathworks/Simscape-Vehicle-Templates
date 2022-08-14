@@ -2,7 +2,7 @@ function sm_car_gen_init_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 
 %% Vehicle-level data
 %   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
@@ -52,6 +52,22 @@ InitSet.MCity.Data      = {...
     'aChassis','rad', 0,         0,      4.7124;
     'vChassis','m/s', 1,         0,      0;
     'sChassis','m',   76.3631, 167.1242, 0};
+
+%% Scene CRG Hockenheim, Standard Lap, Slow Start
+InitSet.CRG_Hockenheim.Type   = 'CRG_Hockenheim';
+InitSet.CRG_Hockenheim.Instance     = '';
+InitSet.CRG_Hockenheim.Data         = {...
+    'aChassis','rad', 0,  0.025*3-0.01,  0;
+    'vChassis','m/s', 10,   0,      0;
+    'sChassis','m',   6,   0,      -0.35};
+
+%% Scene CRG Kyalami No Elevation, Standard Lap, Slow Start
+InitSet.CRG_Hockenheim_F.Type   = 'CRG_Hockenheim_F';
+InitSet.CRG_Hockenheim_F.Instance     = '';
+InitSet.CRG_Hockenheim_F.Data         = {...
+    'aChassis','rad', 0,    0,      0;
+    'vChassis','m/s', 10,   0,      0;
+    'sChassis','m',   6,    0,      0.17};    % INCORRECT
 
 %% Scene CRG Kyalami, Standard Lap, Slow Start
 InitSet.CRG_Kyalami.Type   = 'CRG_Kyalami';
@@ -169,6 +185,14 @@ InitSet.RDF_Plateau.Data         = {...
 InitSet.Double_Lane_Change.Type   = 'Double_Lane_Change';
 InitSet.Double_Lane_Change.Instance     = '';
 InitSet.Double_Lane_Change.Data         = {...
+    'aChassis','rad', 0,   0,     0;
+    'vChassis','m/s', 2.5, 0,     0;
+    'sChassis','m',   5,  -3.35,  0};
+
+%% Scene Double Lane Change, Slow Start
+InitSet.Double_Lane_Change_ISO3888.Type   = 'Double_Lane_Change_ISO3888';
+InitSet.Double_Lane_Change_ISO3888.Instance     = '';
+InitSet.Double_Lane_Change_ISO3888.Data         = {...
     'aChassis','rad', 0,   0,     0;
     'vChassis','m/s', 2.5, 0,     0;
     'sChassis','m',   5,  -3.35,  0};

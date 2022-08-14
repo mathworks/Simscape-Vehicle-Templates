@@ -5,6 +5,8 @@
 maneuver_list = {...
     'CRG Mallory Park',       'CMP';
     'CRG Mallory Park F',     'CMF';
+    'CRG Hockenheim',         'CHO';
+    'CRG Hockenheim F',       'CHF';
     'CRG Kyalami',            'CKY';
     'CRG Kyalami F',          'CKF';
     'CRG Nurburgring N',      'CNN';
@@ -20,6 +22,7 @@ maneuver_list = {...
     'Mallory Park CCW'        'MPC';
     'MCity',                  'MCI';
     'Double Lane Change',     'DLC';
+    'Double Lane Change ISO3888',     'DLI';
     'Ice Patch',              'IPA';
     'CRG Slope',              'CSL';
     'WOT Braking',            'WOT';
@@ -417,8 +420,8 @@ plotstr = {'sm_car_plot5bodymeas'};
 sm_car_test_variants_testloop
 
 %% Test Set 12b -- CRG Tests
-manv_set = {'CRG Mallory Park','CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity', 'CRG Kyalami','CRG Kyalami F','CRG Nurburgring N','CRG Nurburgring N F','CRG Suzuka','CRG Suzuka F','CRG Pikes Peak','CRG Pikes Peak Down'};
-stoptime_set = [-1 -1   -1   -1    -1 -1  30 -1 30 -1 30 30];
+manv_set = {'CRG Mallory Park','CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity', 'CRG Hockenheim','CRG Hockenheim F', 'CRG Kyalami','CRG Kyalami F','CRG Nurburgring N','CRG Nurburgring N F','CRG Suzuka','CRG Suzuka F','CRG Pikes Peak','CRG Pikes Peak Down'};
+stoptime_set = [-1 -1   -1   -1    -1   -1    -1 -1  30 -1 30 -1 30 30];
 solver_typ = {'variable step'};
 veh_set = [170];
 trailer_set = {'none'};

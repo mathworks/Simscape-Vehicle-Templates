@@ -1,7 +1,7 @@
 function Vehicle = sm_car_vehcfg_setPower(Vehicle,power_opt)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2020 The MathWorks, Inc.
 VDatabase = evalin('base','VDatabase');
 
 % If subfield Cooling has been defined save the settings
@@ -11,7 +11,7 @@ if(isfield(Vehicle,'Powertrain'))
     if(isfield(Vehicle.Powertrain,'Power'))
         % Check for Power field for creation of Vehicle data structure
         if(isfield(Vehicle.Powertrain.Power,'Cooling'))
-            temp_cooling = Vehicle.Powertrain.Power;
+            temp_cooling = Vehicle.Powertrain.Power.Cooling;
         end
     end
 end
