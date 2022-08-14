@@ -11,7 +11,7 @@ if(isfield(Vehicle,'Powertrain'))
     if(isfield(Vehicle.Powertrain,'Power'))
         % Check for Power field for creation of Vehicle data structure
         if(isfield(Vehicle.Powertrain.Power,'Cooling'))
-            temp_cooling = Vehicle.Powertrain.Power;
+            temp_cooling = Vehicle.Powertrain.Power.Cooling;
         end
     end
 end
