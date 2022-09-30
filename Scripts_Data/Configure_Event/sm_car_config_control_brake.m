@@ -4,14 +4,18 @@ function sm_car_config_control_brake(mdl,ctrl_opt)
 % ctrl_opt      0   ABS control disabled
 %               1   ABS control enabled
 %
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2022 The MathWorks, Inc.
 
-bc_h = find_system(mdl,'LookUnderMasks','on','Name','Brake Control');
+% NOTE - Set find options carefully.
+%        DO NOT let it search for AllVariants without compiling 
+f    = Simulink.FindOptions('FollowLinks',1,'LookUnderMasks','All','Variants','ActiveVariants');
+bc_h = Simulink.findBlocks(mdl,'Name','Brake Control',f);
+
 if(~isempty(bc_h))
     if(ctrl_opt)
-        set_param(char(bc_h),'popup_brake_control','ABS');
+        set_param(bc_h,'popup_brake_control','ABS');
     else
-        set_param(char(bc_h),'popup_brake_control','Pedal');
+        set_param(bc_h,'popup_brake_control','Pedal');
     end
 else
     warning('Brake Control system not found');

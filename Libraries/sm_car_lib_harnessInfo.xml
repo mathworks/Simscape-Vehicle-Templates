@@ -12,6 +12,7 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="OwnerType">SS_HARNESS</P>
     <P Name="OwnerPath">Utilities/Transform
 Align Axis Two Points</P>
+    <P Name="LockMode">off</P>
     <P Name="Directory"/>
     <P Name="FileName">sm_car_harness_transform_align2pts.slx</P>
     <P Name="SavedVersion">9.2</P>
@@ -23,6 +24,7 @@ Align Axis Two Points</P>
     <P Name="RebuildModelData">false</P>
     <P Name="Graphical">true</P>
     <P Name="DriveFcnCallWithTS">true</P>
+    <P Name="OwnerBDName">sm_car_lib</P>
     <P Name="ScheduleInitTermReset">false</P>
     <P Name="AutoShapeInputs">false</P>
     <P Name="SLDVCompatible">no</P>
@@ -37,47 +39,6 @@ Align Axis Two Points</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|0|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_transform_align2pts</P>
-    <P Name="ExistingBuildFolder"/>
-    <P Name="FunctionInterfaceName"/>
-  </Harness>
-  <Harness>
-    <P Name="Name">sm_car_harness_sensor_body</P>
-    <P Name="Description"> 
-Copyright 2020 The MathWorks, Inc.</P>
-    <P Name="CreatedBy">smiller</P>
-    <P Name="CreatedOn">Fri Jul 19 14:33:24 2019</P>
-    <P Name="ModifiedBy">smiller</P>
-    <P Name="LastSaved">Sat Nov 21 20:43:44 2020</P>
-    <P Name="Owner">7858</P>
-    <P Name="OwnerType">SS_HARNESS</P>
-    <P Name="OwnerPath">Sensors/Body Sensor</P>
-    <P Name="Directory"/>
-    <P Name="FileName">sm_car_harness_sensor_body.slx</P>
-    <P Name="SavedVersion">9.2</P>
-    <P Name="HarnessUUID">0a8d3a1b-04b0-4463-9efd-7f304f67a35a</P>
-    <P Name="HarnessConnectionsMap">|0|0,0,0,0|7876|</P>
-    <P Name="VerificationMode">0</P>
-    <P Name="HarnessOwnerCheckSum">0,0,0,0</P>
-    <P Name="RebuildOnOpen">false</P>
-    <P Name="RebuildModelData">false</P>
-    <P Name="Graphical">true</P>
-    <P Name="DriveFcnCallWithTS">true</P>
-    <P Name="ScheduleInitTermReset">false</P>
-    <P Name="AutoShapeInputs">false</P>
-    <P Name="SLDVCompatible">no</P>
-    <P Name="SynchronizationMode">0</P>
-    <P Name="IsImported">false</P>
-    <P Name="PostRebuildCB"/>
-    <P Name="IsCodeContext">false</P>
-    <P Name="SchedulerBlock">0</P>
-    <P Name="SourceTypeString">None</P>
-    <P Name="SinkTypeString">None</P>
-    <P Name="CustomSourcePath"/>
-    <P Name="CustomSinkPath"/>
-    <P Name="BlockSIDs">0|3|0|0|0|0|0</P>
-    <P Name="OpenGraphs">||||sm_car_harness_sensor_body</P>
-    <P Name="ExistingBuildFolder"/>
-    <P Name="FunctionInterfaceName"/>
   </Harness>
   <Harness>
     <P Name="Name">sm_car_harness_body_to_world</P>
@@ -90,6 +51,7 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="Owner">8443</P>
     <P Name="OwnerType">SS_HARNESS</P>
     <P Name="OwnerPath">Body/Body to World</P>
+    <P Name="LockMode">off</P>
     <P Name="Directory"/>
     <P Name="FileName">sm_car_harness_body_to_world.slx</P>
     <P Name="SavedVersion">9.2</P>
@@ -101,6 +63,7 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="RebuildModelData">false</P>
     <P Name="Graphical">true</P>
     <P Name="DriveFcnCallWithTS">true</P>
+    <P Name="OwnerBDName">sm_car_lib</P>
     <P Name="ScheduleInitTermReset">false</P>
     <P Name="AutoShapeInputs">false</P>
     <P Name="SLDVCompatible">no</P>
@@ -115,11 +78,5 @@ Copyright 2020 The MathWorks, Inc.</P>
     <P Name="CustomSinkPath"/>
     <P Name="BlockSIDs">0|3|0|0|0|0|0</P>
     <P Name="OpenGraphs">||||sm_car_harness_body_to_world</P>
-    <P Name="ExistingBuildFolder"/>
-    <P Name="FunctionInterfaceName"/>
   </Harness>
-  <ModelMetadata>
-    <P Name="ModelUUID">5be47c51-36e2-4fba-8664-a53f207461cc</P>
-    <P Name="OwnerBDName">sm_car_lib</P>
-  </ModelMetadata>
 </HarnessInformation>
