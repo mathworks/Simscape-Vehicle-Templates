@@ -5,6 +5,12 @@ function CFL_contact_setModel(mdlname,contactModel)
 
 % Copyright 2014-2022 The MathWorks, Inc.
 
+f=Simulink.FindOptions('FollowLinks',1,'LookUnderMasks','All','RegExp',1);
+CF_bpth=Simulink.findBlocks(mdlname,'friction_law','.*',f);
+CF_bpth_box2box=Simulink.findBlocks(mdlname,'force_law_box2box','.*',f);
+CF_bpth_box2belt=Simulink.findBlocks(mdlname,'force_law_box2belt','.*',f);
+CF_bpth_sph2belt=Simulink.findBlocks(mdlname,'force_law_sph2bel','.*',f);
+
 CF_bpth=find_system(mdlname,'RegExp','on','LookUnderMasks','on','FollowLinks','on','force_law','.*');
 CF_bpth_box2box=find_system(mdlname,'RegExp','on','LookUnderMasks','on','FollowLinks','on','force_law_box2box','.*');
 CF_bpth_box2belt=find_system(mdlname,'RegExp','on','LookUnderMasks','on','FollowLinks','on','force_law_box2belt','.*');

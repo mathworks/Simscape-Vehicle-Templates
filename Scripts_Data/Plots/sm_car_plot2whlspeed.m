@@ -57,7 +57,7 @@ ylabel('Speed (km/hr)')
 xlabel('Time (s)')
 legend('Location','Best');
 
-temp_tire_sys = find_system(bdroot,'LookUnderMasks','on','FollowLinks','on','Name','Tire A1');
+temp_tire_sys = find_system(bdroot,'Variants','ActiveVariants','LookUnderMasks','on','FollowLinks','on','Name','Tire R1');
 temp_tire_sys_vehi = find(contains(temp_tire_sys,'/Vehicle/Chassis/'));
 tire_variant_name = char(get_param(temp_tire_sys(temp_tire_sys_vehi),'ActiveVariant'));
 text(0.1,0.8,sprintf('Tire %s\nSteps: %d',tire_variant_name,length(logsout_vxVeh.Time)),'Units','Normalized','Color',[1 1 1]*0.5);

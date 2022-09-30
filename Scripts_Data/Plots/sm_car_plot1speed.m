@@ -81,7 +81,7 @@ xlabel('Time (s)')
 legend({'Vx','Vy'},'Location','South');
 
 subplot(2,2,2)
-temp_tire_sys = find_system(bdroot,'LookUnderMasks','on','FollowLinks','on','Name','Tire A1');
+temp_tire_sys = find_system(bdroot,'Variants','ActiveVariants','LookUnderMasks','on','FollowLinks','on','Name','Tire R1');
 temp_tire_sys_vehi = find(contains(temp_tire_sys,'/Vehicle/Chassis/'));
 temp_tirevar = char(get_param(temp_tire_sys(temp_tire_sys_vehi),'ActiveVariant'));
 text(0.05,0.85,sprintf('Tire %s\nSteps: %d',temp_tirevar,length(logsout_vxVeh.Time)),'Units','Normalized','Color',[1 1 1]*0.5);
