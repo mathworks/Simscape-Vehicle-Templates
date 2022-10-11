@@ -30,6 +30,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.12 -- October 2022**
+1.  Fixed plotting script in workshop exercise 6 (temperature -> cell_temperature)
+
 **v2.11 -- September 2022**
 1.  Added function sm_car_lib_activeVariantBlock.m to get active variant for variant subsystem icon 
 2.  Adjusted variant subsystems to use sm_car_lib_activeVariantBlock.m
