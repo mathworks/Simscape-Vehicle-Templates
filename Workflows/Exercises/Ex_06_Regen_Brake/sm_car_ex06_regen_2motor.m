@@ -92,7 +92,7 @@ sim(mdl)
 % <td><b>Vehicle Body Speed</b><br>VehBus.Chassis.Body.CG.vx</td>
 % <td><b>Front Axle Motor Torque</b><br>sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Motor_A1.Motor.torque_elec<br><b>Front Right Brake Torque</b><br>sm_car.Vehicle.Vehicle.Brakes.PressureAbstract_DiscDisc.Sensing_Torque_R1.Ideal_Torque_Sensor.T</td></tr>
 % <td><b>Battery State of Charge</b><br>sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Battery.Battery.stateOfCharge</td>
-% <td><b>Battery Temperature</b><br>sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Battery.Battery.temperature</td></tr>
+% <td><b>Battery Temperature</b><br>sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Battery.Battery.cell_temperature</td></tr>
 % </table><br>
 % </html> 
 
