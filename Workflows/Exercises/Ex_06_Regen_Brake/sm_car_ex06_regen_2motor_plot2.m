@@ -33,7 +33,11 @@ title('Battery State of Charge');
 xlabel('Time');
 
 subplot(224)
-BattdegC_runB = simlog_sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Battery.Battery.temperature.series.values;
+if(verLessThan('matlab','9.12'))
+    BattdegC_runB = simlog_sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Battery.Battery.temperature.series.values;
+else
+    BattdegC_runB = simlog_sm_car.Vehicle.Vehicle.Powertrain.Power.Electric_A1_A2.Battery.Battery.cell_temperature.series.values;
+end
 plot(time_runA, BattdegC_runA)
 hold on
 plot(time_runB, BattdegC_runB)
