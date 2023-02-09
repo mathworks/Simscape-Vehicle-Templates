@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle2
 % Script to generate Vehicle data structures for various configurations
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -1965,6 +1965,65 @@ Vehicle = sm_car_vehcfg_setSusp(Vehicle,'L5Decoupled_Achilles_f','SuspA1');
 
 % Assemble configuration description in string
 Vehicle.config = strrep(vehcfg,'dwdec','5ldec');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 36: Hamba 15DOF, MFEval, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_139;
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L1_R1_L2_R2_default');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D_r1D_4sh_SH');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_15DOF4MotC_MFEval_steady_f1Dr1D4sh';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 36: Hamba 15DOF, MFSwift, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_210;
+vehcfg = Vehicle.config;
+
+% Swap in MF-Swift Tires
+Vehicle.Chassis.TireA1 = VDatabase.Tire.MFSwift_213_40R21;
+Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
+Vehicle.Chassis.TireA2 = VDatabase.Tire.MFSwift_213_40R21;
+Vehicle.Chassis.TireA2.TireBody = VDatabase.TireBody.CAD_213_40R21;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFEval','MFSwift');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 36: Hamba 15DOF, MFMbody, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_210;  % 15 DOF MFEval
+vehcfg = Vehicle.config;
+
+% Swap in Magic Formula Tire Models from Simscape Multibody
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFEval','MFMbody');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
