@@ -30,6 +30,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.13 -- February 2023**
+1.  Added 4 electric motor powertrain for 2 axle car
+
 **v2.12 -- October 2022**
 1.  Fixed plotting script in workshop exercise 6 (temperature -> cell_temperature)
 
