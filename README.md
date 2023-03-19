@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2022 The MathWorks, Inc.
+Copyright 2018-2023 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -30,6 +30,22 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.14 -- March 2023**
+1.  Adjusted hardpoints for all linkage suspensions (shorter control arms, shock placement)
+2.  Added linkage parameterizations for Sedan Hamba (Five Link Shock to Rear, Split Lower Arm Shock to Front)
+3.  Softened springs in Sedan Hamba
+4.  Added script to check hardpoint consistency between linkage, spring, and damper systems
+5.  Added measurement bus from within Linkage subsystems
+6.  Enabled steering variant to be adjusted and keep location of driver 
+7.  Added steering testrig, camera testrig
+8.  Eliminated unsupported parameters in Truck_430_50R38.tir
+9.  Added shock model with endstop on upper hardpoint
+9.  Linked all shocks to library Linkage_Shock.slx
+10. Adjusted and republished Overview
+11. Detached test harnesses from sm_car_lib.slx
+12. Converted hydraulic brakes 4 channel to Isothermal Liquid domain (R2020a and higher)
+13. Compatible with MF-Swift v2212
+
 **v2.13 -- February 2023**
 1.  Added 4 electric motor powertrain for 2 axle car
 

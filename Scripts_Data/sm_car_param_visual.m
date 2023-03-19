@@ -64,11 +64,11 @@ Visual.PaceCar.body.opc    = 0.1;
 if(strcmpi(car_option,'default'))
     
     % Shock Visualization
-    Visual.Shock.dead_length    = 0.01;
-    Visual.Shock.piston.len     = 0.025;
-    Visual.Shock.cap.len        = 0.025;
-    Visual.Shock.bumpstop.len   = 0.05;
-    Visual.Shock.cyl.rad        = 0.05;
+    Visual.Shock.dead_length = 0.005;
+    Visual.Shock.piston.len  = 0.01;
+    Visual.Shock.cap.len     = 0.005;
+    Visual.Shock.bumpstop.len= 0.01;
+    Visual.Shock.cyl.rad     = 0.03;
     
     %Visual.body.hp = [0 0 0.4225-0.1]; % Not needed?
     Visual.body.opc             = 0.3;
@@ -101,14 +101,14 @@ if(strcmpi(car_option,'default'))
     Visual.DriveshaftCVs.rad  = 0.03;
     Visual.Axle.rad           = 0.025;
     
-else   
+else
     % Shock Visualization
-    Visual.Shock.dead_length    = 0.005;
-    Visual.Shock.piston.len     = 0.0125;
-    Visual.Shock.cap.len        = 0.0125;
-    Visual.Shock.bumpstop.len   = 0.0125;
-    Visual.Shock.cyl.rad        = 0.025;
-
+    Visual.Shock.dead_length = 0.005;
+    Visual.Shock.piston.len  = 0.01;
+    Visual.Shock.cap.len     = 0.005;
+    Visual.Shock.bumpstop.len= 0.01;
+    Visual.Shock.cyl.rad     = 0.025;
+    
     %Visual.body.hp = [0 0 0.4225-0.1]; % Not needed?
     Visual.body.opc             = 0.3;
     

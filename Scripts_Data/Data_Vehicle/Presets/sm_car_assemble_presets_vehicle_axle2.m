@@ -385,6 +385,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFEval_213_40R21;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
@@ -425,6 +426,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFSwift_213_40R21;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
@@ -465,6 +467,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFEval_213_40R21;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
@@ -509,6 +512,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFSwift_213_40R21;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
@@ -554,6 +558,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','BMlinA1_BMlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFEval_270_70R22;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_270_70R22;
@@ -598,6 +603,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','BMlinA1_BMlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFEval_270_70R22;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_270_70R22;
@@ -639,6 +645,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','BMlinA1_BMlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFSwift_270_70R22;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_270_70R22;
@@ -734,6 +741,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.CFL_213_40R21;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.Parameterized;
@@ -774,6 +782,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.Testrig_Post_213_40R21;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
@@ -815,6 +824,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','BMlinA1_BMlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.Testrig_Post_270_70R22;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_270_70R22;
@@ -915,7 +925,7 @@ Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackDrivenShafts_Sedan_HambaLG_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_HambaLG;
 
 % Assemble configuration description in string
-Vehicle.config = 'HambaLG_dwb_MFEval_steady_RackStaticShafts';
+Vehicle.config = 'HambaLG_dwb_MFEval_steady_RackDrivenShafts';
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
@@ -978,6 +988,7 @@ Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','BMlinA1_BMlinA2_None');
 
 Vehicle.Chassis.TireA1 = VDatabase.Tire.MFEval_270_70R22;
 Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_270_70R22;
@@ -1549,6 +1560,12 @@ vehcfg = Vehicle.config;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_Sedan_Hamba_f','SuspA2');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Rack_Sedan_Hamba_r','SuspA2');
 
+% Since front suspension (with steering) has been placed on rear
+% also put springs and dampers from front on rear
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_Hamba_Linear_A1;
+
+
 % Assemble configuration description in string
 Vehicle.config = [vehcfg '_4whlstr'];
 
@@ -1565,6 +1582,11 @@ vehcfg = Vehicle.config;
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_Sedan_Hamba_f','SuspA2');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Rack_Sedan_Hamba_r','SuspA2');
+
+% Since front suspension (with steering) has been placed on rear
+% also put springs and dampers from front on rear
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_Hamba_Linear_A1;
 
 % Assemble configuration description in string
 Vehicle.config = [vehcfg '_4whlstr'];
