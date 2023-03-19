@@ -1,5 +1,5 @@
 % Script to test battery display blocks
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 % Open project sm_car
 % Move to folder with these files in it

@@ -9,7 +9,7 @@
 % The pressure applied to the brake is controlled by an input signal
 % representing the pressure at each brake caliper.
 % 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 
 %% Overview

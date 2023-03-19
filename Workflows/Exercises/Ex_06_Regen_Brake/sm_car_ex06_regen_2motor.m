@@ -10,7 +10,7 @@
 % tests. We plot data from Simscape Logging in the Simulink Data Inspector
 % to explore the simulation results.
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command

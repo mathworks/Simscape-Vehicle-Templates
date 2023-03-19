@@ -16,7 +16,7 @@
 % quasi-steady state behavior.  These tests can be run sequentially or in
 % parallel.
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 %% Open model
 

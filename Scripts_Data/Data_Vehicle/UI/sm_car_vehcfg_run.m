@@ -1,7 +1,7 @@
 % Script to run (instead of edit) vehicle configuration app
 % and ensure only one copy of the UI is opened.
 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 if(exist('sm_car_vehcfg_uifigure','var'))
     if(length(sm_car_vehcfg_uifigure.findprop('UIFigure'))==1)

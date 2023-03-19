@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_rdf_plateau
 %% RDF Plateau parameters
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 scene_data.Name           = 'RDF_Plateau';
 scene_data.Road.filename  = 'Plateau_Road.rdf';

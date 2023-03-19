@@ -1,7 +1,7 @@
 function Vehicle = sm_car_vehcfg_setSteer(Vehicle,steer_opt,suspFieldName)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

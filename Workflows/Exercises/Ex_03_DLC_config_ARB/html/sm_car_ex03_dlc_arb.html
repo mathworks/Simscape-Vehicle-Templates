@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Configure Vehicle for Double Lane Change</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-03-02"><meta name="DC.source" content="sm_car_ex03_dlc_arb.m"><style type="text/css">
+      --><title>Configure Vehicle for Double Lane Change</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-03-13"><meta name="DC.source" content="sm_car_ex03_dlc_arb.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -90,7 +90,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'None'</span
 Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'Droplink_Sedan_Hamba_r'</span>,<span class="string">'SuspA2'</span>);
 </pre><h2 id="14">Step 11: Trigger model update to match Vehicle data structure</h2><p>Changes to the Vehicle data structure need to be applied to the model. This process can be triggered by the MATLAB app or the MATLAB command line</p><pre class="codeinput">sm_car_config_vehicle(<span class="string">'sm_car'</span>);
 </pre><pre class="codeinput">close <span class="string">all</span>
-</pre><p class="footer">Copyright 2018-2022 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
+</pre><p class="footer">Copyright 2018-2023 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Configure Vehicle for Double Lane Change
 % 
@@ -100,7 +100,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'Droplink_Se
 % configuration we enable the anti-roll bar, in the other we disable it. The
 % Simulink Data Inspector let us easily compare vehicle body measurements.
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB app, project shortcut, or MATLAB Command

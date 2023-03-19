@@ -3,7 +3,7 @@ function sm_car_sweep_ggv_pts_presim(modelName, stop_time)
 %    Configures model for GGV test.   
 %    Required to ensure model is properly configured on parallel workers.
 
-% Copyright 2021-2022 The MathWorks, Inc.
+% Copyright 2021-2023 The MathWorks, Inc.
 
 % Ensure correct dataset is loaded into workspace
 evalin('base','Vehicle = Vehicle_GGV_Sweep;')

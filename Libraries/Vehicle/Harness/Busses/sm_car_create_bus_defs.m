@@ -11,7 +11,7 @@ function sm_car_create_bus_defs(Vehicle_DS)
 % >> who *BusDef
 % >> clear *BusDef
 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 buses = sm_car_define_bus_defs(Vehicle_DS);
 

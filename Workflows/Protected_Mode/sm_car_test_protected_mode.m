@@ -1,5 +1,5 @@
 % Test tuning parameters in Model Reference Protected Mode
-% Copyright 2022 The MathWorks, Inc.
+% Copyright 2022-2023 The MathWorks, Inc.
 
 % Move to folder where code is located
 cd(fileparts(which(mfilename)));

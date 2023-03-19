@@ -1,7 +1,7 @@
 function Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,cooling_opt)
 % Set Power.Cooling fields of Vehicle data structure
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 
 if(isfield(Vehicle.Powertrain.Power,'Cooling'))

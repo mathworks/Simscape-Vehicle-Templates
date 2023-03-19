@@ -5,7 +5,7 @@ function sm_car_load_trailer_data(mdl,trailerDataIndex)
 %    trailerDataIndex:  Index of vehicle data
 %                       Specify 'none' to turn off trailer
 %
-% Copyright 2019-2022 The MathWorks, Inc
+% Copyright 2019-2023 The MathWorks, Inc
 
 % Load desired vehicle data into variable Vehicle
 if(strcmpi(trailerDataIndex,'none'))

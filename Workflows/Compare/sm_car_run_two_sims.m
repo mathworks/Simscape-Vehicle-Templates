@@ -15,7 +15,7 @@ function sm_car_run_two_sims(mdl, eventName, nameA, vehPresetA, trlPresetA, name
 %    trlPresetB  String with name of trailer preset for test
 %                For use with sm_car_load_trailer()
 %
-% Copyright 2021-2022 The MathWorks, Inc.
+% Copyright 2021-2023 The MathWorks, Inc.
 
 % Load and run configuration 1
 open_system(mdl)

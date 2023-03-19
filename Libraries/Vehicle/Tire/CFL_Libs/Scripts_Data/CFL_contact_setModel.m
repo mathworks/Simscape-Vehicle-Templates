@@ -3,7 +3,7 @@ function CFL_contact_setModel(mdlname,contactModel)
 % Simscape Multibody Contact Force Library. Pass the name of the model as
 % an argument to this function.
 
-% Copyright 2014-2022 The MathWorks, Inc.
+% Copyright 2014-2023 The MathWorks, Inc.
 
 f=Simulink.FindOptions('FollowLinks',1,'LookUnderMasks','All','RegExp',1);
 CF_bpth=Simulink.findBlocks(mdlname,'friction_law','.*',f);

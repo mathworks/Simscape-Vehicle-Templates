@@ -1,5 +1,5 @@
 % Script to regenerate all databases and presets
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 VDatabase = sm_car_import_vehicle_data(0,1);
 sm_car_assemble_presets

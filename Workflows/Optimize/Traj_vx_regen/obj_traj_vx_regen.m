@@ -1,6 +1,6 @@
 function F  = obj_traj_vx_regen(x,mdl,trackname,h_vx,h_xy)
 % Objective function to optimize trajectory of car (velocity along path)
-% Copyright 2020-2022 The MathWorks, Inc.
+% Copyright 2020-2023 The MathWorks, Inc.
 
 load_system(mdl);
 

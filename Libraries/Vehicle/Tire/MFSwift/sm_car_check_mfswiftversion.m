@@ -1,5 +1,5 @@
 function mfswift_ver = sm_car_check_mfswiftversion
-% Copyright 2021-2022 The MathWorks, Inc.
+% Copyright 2021-2023 The MathWorks, Inc.
 % Returns version of MF-Swift software
 
 % Version obtained from Mask Description of MF-Swift Simscape block

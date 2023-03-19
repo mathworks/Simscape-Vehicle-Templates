@@ -4,7 +4,7 @@ function sm_car_config_control_brake(mdl,ctrl_opt)
 % ctrl_opt      0   ABS control disabled
 %               1   ABS control enabled
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 % NOTE - Set find options carefully.
 %        DO NOT let it search for AllVariants without compiling 

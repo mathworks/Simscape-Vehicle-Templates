@@ -4,7 +4,7 @@ function sm_car_create_rough_road_rdf(varargin)
 %
 %   showplot   'y' to plot profile for left and right sides
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)));
 

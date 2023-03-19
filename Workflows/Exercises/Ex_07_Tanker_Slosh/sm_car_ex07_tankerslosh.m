@@ -6,7 +6,7 @@
 % with the sloshing disabled. The Simulink Data Inspector let us easily
 % compare vehicle and trailer body measurements.
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command

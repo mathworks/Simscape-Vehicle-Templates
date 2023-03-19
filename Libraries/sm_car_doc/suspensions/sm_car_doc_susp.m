@@ -10,7 +10,7 @@
 % interface.  Each can be configured for use on the left or right side of
 % the vehicle.
 % 
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 %% 
 % 

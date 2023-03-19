@@ -1,6 +1,6 @@
 %% Using the Simscape Multibody Contact Forces Library
 % 
-% Copyright 2014-2022 The MathWorks, Inc.
+% Copyright 2014-2023 The MathWorks, Inc.
 
 
 

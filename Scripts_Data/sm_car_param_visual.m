@@ -1,5 +1,5 @@
 function Visual = sm_car_param_visual(car_option)
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 %% Colors
 Visual.clr.blue        = [0.2 0.4 0.6];

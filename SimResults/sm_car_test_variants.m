@@ -1,6 +1,6 @@
 % Script to test many configurations under many events
 % Not a complete sweep of all combinations, but every variant is activated
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2023 The MathWorks, Inc.
 
 maneuver_list = {...
     'CRG Mallory Park',       'CMP';
@@ -149,7 +149,7 @@ for veh_i = 1:length(veh_set1)
                 
                 if(~isempty(out))
                     % Simulation succeeded
-                    logsout_sm_car = out.logsout_sm_car;
+                    logsout_sm_car = out.logsout_sm_car;  % Only if Fast Restart is used
                     logsout_VehBus = logsout_sm_car.get('VehBus');
                     logsout_xCar = logsout_VehBus.Values.World.x;
                     logsout_yCar = logsout_VehBus.Values.World.y;

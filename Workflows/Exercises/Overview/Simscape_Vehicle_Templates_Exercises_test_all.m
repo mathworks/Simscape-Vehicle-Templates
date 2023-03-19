@@ -18,9 +18,9 @@ Simulink.sdi.clear
 cd(fileparts(which('sm_car_vehicle_metrics_soln.mlx')))
 sm_car_vehicle_metrics_soln
 
-cd(fileparts(which('sm_car_05_sweep_arb.mlx')))
-sm_car_05_sweep_arb
-Simulink.sdi.clear
+% cd(fileparts(which('sm_car_05_sweep_arb.mlx')))
+% sm_car_05_sweep_arb
+% Simulink.sdi.clear
 
 bdclose('sm_car');
 

@@ -4,7 +4,7 @@
 % Plot results of vehicle test: position, x and y velocity components,
 % vehicle speed, and steering input.
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 % Check for simulation results if they don't exist
 if ~exist('logsout_sm_car', 'var')
