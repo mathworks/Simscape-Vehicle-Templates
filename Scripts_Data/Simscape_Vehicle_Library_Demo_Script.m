@@ -1,4 +1,15 @@
-%% Simscape Vehicle Library
+%% Simscape(TM) Vehicle Templates
+%
+% Simscape(TM) Vehicle Templates are designed to help engineers model and
+% simulate vehicles using Simscape products. This includes one-axle,
+% two-axle, multi-axle vehicles, and trailers that are integrated with
+% powertrain and chassis controls.
+% 
+% The templates include a vehicle model that you can configure for
+% different powertrain architectures, driveline concepts, and suspension
+% designs. You can also use a MATLAB® app to help you configure the vehicle
+% and the test scenario. A modular library of components gives you a
+% starting point to create custom vehicle models.
 %
 % <html>
 % <span style="font-family:Arial">
@@ -24,9 +35,12 @@
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_quarter_car.slx')));open_system('sm_car_testrig_quarter_car');">Open Model</a><br>
 % <tr>2.  Half-Car Testrig, Achilles Push Rod: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_pushrodua.slx')));open_system('sm_car_testrig_half_car_test_pushrodua');">Open Model</a><br>
-% <tr>3.  Half-Car Testrig, Achilles Double-Wishbone Decoupled: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_dwdecoupled.slx')));open_system('sm_car_testrig_half_car_test_dwdecoupled');">Open Model</a><br>
-% <tr>4.  Half-Car Testrig, Achilles Double-Wishbone Decoupled, No Steering: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_dwdecoupled_nosteer.slx')));open_system('sm_car_testrig_half_car_test_dwdecoupled_nosteer');">Open Model</a><br>
-% <tr>5.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_l5decoupled.slx')));open_system('sm_car_testrig_half_car_test_l5decoupled');">Open Model</a><br>
+% <tr>3.  Half-Car Testrig, Achilles Push Rod, No Steering: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_pushrodua_noSteer.slx')));open_system('sm_car_testrig_half_car_test_pushrodua_noSteer');">Open Model</a><br>
+% <tr>4.  Half-Car Testrig, Achilles Double-Wishbone Decoupled: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_dwdecoupled.slx')));open_system('sm_car_testrig_half_car_test_dwdecoupled');">Open Model</a><br>
+% <tr>5.  Half-Car Testrig, Achilles Double-Wishbone Decoupled, No Steering: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_dwdecoupled_nosteer.slx')));open_system('sm_car_testrig_half_car_test_dwdecoupled_nosteer');">Open Model</a><br>
+% <tr>6.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_l5decoupled.slx')));open_system('sm_car_testrig_half_car_test_l5decoupled');">Open Model</a><br>
+% <tr>7.  Steering Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_steering.slx')));open_system('sm_car_testrig_steering');">Open Model</a><br>
+% <tr>8.  Camera Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_Camera.slx')));open_system('sm_car_testrig_Camera');">Open Model</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>
@@ -95,5 +109,5 @@
 % </style>
 % </html>
 % 
-% Copyright 2018-2020 The MathWorks(TM), Inc.
+% Copyright 2018-2023 The MathWorks(TM), Inc.
 

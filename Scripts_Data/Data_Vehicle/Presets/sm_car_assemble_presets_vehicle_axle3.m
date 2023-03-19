@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle3
 % Code to create presets for 3-axle vehicle
-% Copyright 2019-2021 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -367,11 +367,11 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Semi Truck 15DOF MFSwift 6x2
 tire_ind = find(strcmp(vehcfg_set(:,1),'Tire'));
 tirA1_ind = find(strcmp(vehcfg_set(:,3),'TireA1'));
-vehcfg_set{intersect(tire_ind,tirA1_ind),2} = 'MFEval_Generic_430_50R38';
+vehcfg_set{intersect(tire_ind,tirA1_ind),2} = 'MFSwift_Generic_430_50R38';
 tirA2_ind = find(strcmp(vehcfg_set(:,3),'TireA2'));
-vehcfg_set{intersect(tire_ind,tirA2_ind),2} = 'MFEval_2x_Generic_430_50R38';
+vehcfg_set{intersect(tire_ind,tirA2_ind),2} = 'MFSwift_2x_Generic_430_50R38';
 tirA3_ind = find(strcmp(vehcfg_set(:,3),'TireA3'));
-vehcfg_set{intersect(tire_ind,tirA3_ind),2} = 'MFEval_2x_Generic_430_50R38';
+vehcfg_set{intersect(tire_ind,tirA3_ind),2} = 'MFSwift_2x_Generic_430_50R38';
 assignin('base','vehcfg_set',vehcfg_set);
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Amandla3Axle_15DOF_MFSwift_steady_6x2Gen';

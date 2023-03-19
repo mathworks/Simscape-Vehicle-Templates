@@ -21,8 +21,25 @@ if(strcmpi(Vehicle.Chassis.(suspFieldName).class.Value,'simple'))
     end
 end
 
+% If DriverHuman data exists within Steer already, store it and
+% re-insert it into the data structure.
+dh_exists = false;
+if(isfield(Vehicle.Chassis.(suspFieldName),'Steer'))
+    if(isfield(Vehicle.Chassis.(suspFieldName).Steer,'DriverHuman'))
+        dh_exists = true;
+        dh_data = Vehicle.Chassis.(suspFieldName).Steer.DriverHuman;
+    end
+end
+        
 % Copy data from database into Vehicle data structure
 Vehicle.Chassis.(suspFieldName).Steer = VDatabase.Steer.(steer_opt);
+
+% If DriverHuman data was already in Steer, re-insert it
+% Note that DriverHuman location may not be compatible with Steer
+% as the human needs to be close to the steering wheel mount hardpoint
+if(dh_exists)
+    Vehicle.Chassis.(suspFieldName).Steer.DriverHuman = dh_data;
+end
 
 % Modify config string to indicate configuration has been modified
 veh_config_set = strsplit(Vehicle.config,'_');
