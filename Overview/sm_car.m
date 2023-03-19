@@ -7,14 +7,14 @@
 % MathWorks products. A modular library of components gives users a great
 % starting point for creating custom vehicle models
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 
 %% Model
 open_system('sm_car')
 load Vehicle_160
 Vehicle = Vehicle_160;
-Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Active_1_Loop');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
 sm_car_config_vehicle('sm_car')
 
 ann_h = find_system('sm_car','FindAll', 'on','type','annotation','Tag','ModelFeatures');
@@ -41,45 +41,45 @@ open_system('sm_car/Vehicle/Vehicle/Chassis','force')
 
 %% Suspension, Front Axle Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1','force')
 
 %% Suspension, Front Axle, Linkage Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force')
 
 %% Suspension, Front Axle, Linkage L Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage%20L','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage%20L','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L','force')
 
 %% Suspension, Double Wishbone Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage%20L/DoubleWishbone','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage%20L/DoubleWishbone','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L/DoubleWishbone','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L/DoubleWishbone','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L/DoubleWishbone','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L/DoubleWishbone','force')
 
 %% Steer Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','force')
 
 %% Steer Rack Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','force')
 
 
 %% Brakes Subsystem
@@ -93,8 +93,8 @@ open_system('sm_car/Vehicle/Vehicle/Brakes','force')
 %
 % <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Brakes/Pedal','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force')
+%set_param('sm_car/Vehicle/Vehicle/Brakes/PedalAbstract DiscDisc','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Brakes/PedalAbstract DiscDisc','force')
 
 %% Brakes, ABS 4 Channel Subsystem
 %
@@ -104,23 +104,23 @@ open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force')
 %Vehicle = Vehicle_130;
 %sm_car_config_vehicle('sm_car')
 
-set_param('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel','force')
+set_param('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4','force')
 
 %% Brakes, ABS 4 Channel Valves Subsystem
 %
 % <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/ABS%204%20Channel/Valves','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel/Valves','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel/Valves','force')
+set_param('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4/Valves','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4/Valves','force')
 
 
-%% Tire FL Subsystem
+%% Tire L1 Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%FL/MFEval','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%L1/MFEval','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Chassis/Tire FL/MFEval','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/Tire FL/MFEval','force')
+%set_param('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFEval','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFEval','force')
 
 %% Powertrain Subsystem
 %
@@ -131,25 +131,25 @@ open_system('sm_car/Vehicle/Vehicle/Powertrain','force')
 
 %% Driveline, Two Powered Shafts Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1%20A2%20A1Diff%20A2Diff','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','force')
+%set_param('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1 A2 A1Diff A2Diff','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1 A2 A1Diff A2Diff','force')
 
 
 %% Power, Electric Two Motors Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor,'force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric%20A1%20A2,'force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor','force')
+%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2','force')
 
 %% Power, Cooling System Two Motors Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active%201%20Loop,'force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric%20A1%20A2/Thermal/Liquid%20Loop1,'force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active 1 Loop','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active 1 Loop','force')
+%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liquid Loop1','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liquid Loop1','force')
 
 
 %% Simulation Results from Simscape Logging
