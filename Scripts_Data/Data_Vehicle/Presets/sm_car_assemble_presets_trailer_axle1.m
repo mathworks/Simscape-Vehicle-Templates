@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_trailer_axle1
 % Script to generate Vehicle data structures for various configurations
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2021 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -258,6 +258,61 @@ eval([veh_var_name ' = Trailer;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Trailer.config]);
 
+%% Trailer Elula Swift dwa
+vehcfg_set = {
+    'Aero',         'Trailer_Elula',      '';...
+	'AntiRollBar',  'Droplink_Trailer1Axle_f',       'SuspA1';...
+    'Body',         'Trailer_Elula',      '';...
+    'BodyGeometry', 'Basic_Trailer_Elula',      '';...
+    'Power',        'None',     '';...
+    'Brakes',       'Axle1_None',    '';...
+    'Springs',      'Axle1_Independent','ELUlinA1';...
+    'Dampers',      'Axle1_Independent','ELUlinA1';...
+    'Susp',         'DoubleWishboneA_Trailer1Axle_f',     'SuspA1';
+    'Steer',        'None_default',    'SuspA1';...
+    'Tire',         'MFSwift_CAD_145_70R13',      'TireA1';
+    'TireDyn',      'steady',  'TireA1';
+    'Driveline',    'Axle1_None',       ''};
+
+assignin('base','vehcfg_set',vehcfg_set); % For debugging
+
+% Assemble vehicle
+Trailer = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
+Trailer.config = 'Elula_dwa_Swift';
+
+trl_1Axle_ind = trl_1Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_1Axle_ind),2,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
+
+%% Trailer Thwala Swift dwa
+vehcfg_set = {
+    'Aero',         'Trailer_Thwala',      '';...
+	'AntiRollBar',  'Droplink_Trailer1Axle_f',       'SuspA1';...
+    'Body',         'Trailer_Thwala',      '';...
+    'BodyGeometry', 'CAD_Trailer_Thwala',      '';...
+    'Power',        'None',     '';...
+    'Brakes',       'Axle1_None',    '';...
+    'Springs',      'Axle1_Independent','THWlinA1';...
+    'Dampers',      'Axle1_Independent','THWlinA1';...
+    'Susp',         'DoubleWishboneA_Trailer1Axle_f',     'SuspA1';
+    'Steer',        'None_default',    'SuspA1';...
+    'Tire',         'MFSwift_CAD_145_70R13',      'TireA1';
+    'TireDyn',      'steady',  'TireA1';
+    'Driveline',    'Axle1_None',       ''};
+
+assignin('base','vehcfg_set',vehcfg_set); % For debugging
+
+% Assemble vehicle
+Trailer = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
+Trailer.config = 'Thwala_dwa_Swift';
+
+trl_1Axle_ind = trl_1Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_1Axle_ind),2,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);
 
 
 
