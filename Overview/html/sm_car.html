@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Full Vehicle with Multibody Suspension</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-06-14"><meta name="DC.source" content="sm_car.m"><style type="text/css">
+      --><title>Full Vehicle with Multibody Suspension</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-03-05"><meta name="DC.source" content="sm_car.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,12 +66,14 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Full Vehicle with Multibody Suspension</h1><!--introduction--><p>This example uses the Simscape Vehicle Templates to model and simulate vehicles using Simscape products.  This includes one-axle, two-axle, multi-axle and trailers.  It includes a highly configurable vehicle model that is integrated with controllers and other content from other MathWorks products. A modular library of components gives users a great starting point for creating custom vehicle models</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Model</a></li><li><a href="#3">Car Subsystem</a></li><li><a href="#4">Chassis Subsystem</a></li><li><a href="#5">Suspension, Front Axle Subsystem</a></li><li><a href="#6">Suspension, Front Axle, Linkage Subsystem</a></li><li><a href="#7">Suspension, Front Axle, Linkage L Subsystem</a></li><li><a href="#8">Suspension, Double Wishbone Subsystem</a></li><li><a href="#9">Steer Subsystem</a></li><li><a href="#10">Steer Rack Subsystem</a></li><li><a href="#11">Brakes Subsystem</a></li><li><a href="#12">Brakes, Pedal Subsystem</a></li><li><a href="#13">Brakes, ABS 4 Channel Subsystem</a></li><li><a href="#14">Brakes, ABS 4 Channel Valves Subsystem</a></li><li><a href="#15">Tire FL Subsystem</a></li><li><a href="#16">Powertrain Subsystem</a></li><li><a href="#17">Driveline, Two Powered Shafts Subsystem</a></li><li><a href="#18">Power, Electric Two Motors Subsystem</a></li><li><a href="#19">Power, Cooling System Two Motors Subsystem</a></li><li><a href="#20">Simulation Results from Simscape Logging</a></li><li><a href="#22">Full Throttle, Braking, MFEval Tires</a></li><li><a href="#23">Front Steering, Sequence Steer, Step Torque, MFEval Tires</a></li><li><a href="#24">Double-Lane Change, MFEval Tires</a></li></ul></div><h2 id="1">Model</h2><img vspace="5" hspace="5" src="sm_car_01.png" alt=""> <p><img vspace="5" hspace="5" src="sm_car_mechExp_Sedan_PikesPeakUp.png" alt=""> </p><h2 id="3">Car Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_02.png" alt=""> <h2 id="4">Chassis Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_03.png" alt=""> <h2 id="5">Suspension, Front Axle Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_04.png" alt=""> <h2 id="6">Suspension, Front Axle, Linkage Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_05.png" alt=""> <h2 id="7">Suspension, Front Axle, Linkage L Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage%20L','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_06.png" alt=""> <h2 id="8">Suspension, Double Wishbone Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage%20L/DoubleWishbone','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_07.png" alt=""> <h2 id="9">Steer Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_08.png" alt=""> <h2 id="10">Steer Rack Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_09.png" alt=""> <h2 id="11">Brakes Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_10.png" alt=""> <h2 id="12">Brakes, Pedal Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_11.png" alt=""> <h2 id="13">Brakes, ABS 4 Channel Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/ABS%204%20Channel','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_12.png" alt=""> <h2 id="14">Brakes, ABS 4 Channel Valves Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/ABS%204%20Channel/Valves','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_13.png" alt=""> <h2 id="15">Tire FL Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%FL/MFEval','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_14.png" alt=""> <h2 id="16">Powertrain Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_15.png" alt=""> <h2 id="17">Driveline, Two Powered Shafts Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_16.png" alt=""> <h2 id="18">Power, Electric Two Motors Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor,'force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_17.png" alt=""> <h2 id="19">Power, Cooling System Two Motors Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active%201%20Loop,'force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_18.png" alt=""> <h2 id="20">Simulation Results from Simscape Logging</h2><p>Plot results of vehicle test: position, x and y velocity components, vehicle speed, and steering input.</p><pre class="codeoutput">Turning off MFEval warnings...
+  </style></head><body><div class="content"><h1>Full Vehicle with Multibody Suspension</h1><!--introduction--><p>This example uses the Simscape Vehicle Templates to model and simulate vehicles using Simscape products.  This includes one-axle, two-axle, multi-axle and trailers.  It includes a highly configurable vehicle model that is integrated with controllers and other content from other MathWorks products. A modular library of components gives users a great starting point for creating custom vehicle models</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Model</a></li><li><a href="#3">Car Subsystem</a></li><li><a href="#4">Chassis Subsystem</a></li><li><a href="#5">Suspension, Front Axle Subsystem</a></li><li><a href="#6">Suspension, Front Axle, Linkage Subsystem</a></li><li><a href="#7">Suspension, Front Axle, Linkage L Subsystem</a></li><li><a href="#8">Suspension, Double Wishbone Subsystem</a></li><li><a href="#9">Steer Subsystem</a></li><li><a href="#10">Steer Rack Subsystem</a></li><li><a href="#11">Brakes Subsystem</a></li><li><a href="#12">Brakes, Pedal Subsystem</a></li><li><a href="#13">Brakes, ABS 4 Channel Subsystem</a></li><li><a href="#14">Brakes, ABS 4 Channel Valves Subsystem</a></li><li><a href="#15">Tire L1 Subsystem</a></li><li><a href="#16">Powertrain Subsystem</a></li><li><a href="#17">Driveline, Two Powered Shafts Subsystem</a></li><li><a href="#18">Power, Electric Two Motors Subsystem</a></li><li><a href="#19">Power, Cooling System Two Motors Subsystem</a></li><li><a href="#20">Simulation Results from Simscape Logging</a></li><li><a href="#22">Full Throttle, Braking, MFEval Tires</a></li><li><a href="#23">Front Steering, Sequence Steer, Step Torque, MFEval Tires</a></li><li><a href="#24">Double-Lane Change, MFEval Tires</a></li></ul></div><h2 id="1">Model</h2><img vspace="5" hspace="5" src="sm_car_01.png" alt=""> <p><img vspace="5" hspace="5" src="sm_car_mechExp_Sedan_PikesPeakUp.png" alt=""> </p><h2 id="3">Car Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_02.png" alt=""> <h2 id="4">Chassis Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_03.png" alt=""> <h2 id="5">Suspension, Front Axle Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_04.png" alt=""> <h2 id="6">Suspension, Front Axle, Linkage Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_05.png" alt=""> <h2 id="7">Suspension, Front Axle, Linkage L Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage%20L','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_06.png" alt=""> <h2 id="8">Suspension, Double Wishbone Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage%20L/DoubleWishbone','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_07.png" alt=""> <h2 id="9">Steer Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_08.png" alt=""> <h2 id="10">Steer Rack Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_09.png" alt=""> <h2 id="11">Brakes Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_10.png" alt=""> <h2 id="12">Brakes, Pedal Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_11.png" alt=""> <h2 id="13">Brakes, ABS 4 Channel Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/ABS%204%20Channel','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_12.png" alt=""> <h2 id="14">Brakes, ABS 4 Channel Valves Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/ABS%204%20Channel/Valves','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_13.png" alt=""> <h2 id="15">Tire L1 Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%L1/MFEval','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_14.png" alt=""> <h2 id="16">Powertrain Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_15.png" alt=""> <h2 id="17">Driveline, Two Powered Shafts Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1%20A2%20A1Diff%20A2Diff','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_16.png" alt=""> <h2 id="18">Power, Electric Two Motors Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric%20A1%20A2,'force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_17.png" alt=""> <h2 id="19">Power, Cooling System Two Motors Subsystem</h2><p><a href="matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric%20A1%20A2/Thermal/Liquid%20Loop1,'force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="sm_car_18.png" alt=""> <h2 id="20">Simulation Results from Simscape Logging</h2><p>Plot results of vehicle test: position, x and y velocity components, vehicle speed, and steering input.</p><pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
 Solver:CoeffChecks:Eyk -- OFF
 Solver:Limits:Exceeded -- OFF
 Solver:CoeffChecks:Et -- OFF
 Solver:CoeffChecks:Exa -- OFF
-</pre><h2 id="22">Full Throttle, Braking, MFEval Tires</h2><img vspace="5" hspace="5" src="sm_car_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_20.png" alt=""> <h2 id="23">Front Steering, Sequence Steer, Step Torque, MFEval Tires</h2><img vspace="5" hspace="5" src="sm_car_21.png" alt=""> <img vspace="5" hspace="5" src="sm_car_22.png" alt=""> <h2 id="24">Double-Lane Change, MFEval Tires</h2><img vspace="5" hspace="5" src="sm_car_23.png" alt=""> <img vspace="5" hspace="5" src="sm_car_24.png" alt=""> <img vspace="5" hspace="5" src="sm_car_25.png" alt=""> <img vspace="5" hspace="5" src="sm_car_26.png" alt=""> <p class="footer">Copyright 2018-2020 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+Disabling trailer by default.
+</pre><h2 id="22">Full Throttle, Braking, MFEval Tires</h2><img vspace="5" hspace="5" src="sm_car_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_20.png" alt=""> <h2 id="23">Front Steering, Sequence Steer, Step Torque, MFEval Tires</h2><img vspace="5" hspace="5" src="sm_car_21.png" alt=""> <img vspace="5" hspace="5" src="sm_car_22.png" alt=""> <h2 id="24">Double-Lane Change, MFEval Tires</h2><img vspace="5" hspace="5" src="sm_car_23.png" alt=""> <img vspace="5" hspace="5" src="sm_car_24.png" alt=""> <img vspace="5" hspace="5" src="sm_car_25.png" alt=""> <img vspace="5" hspace="5" src="sm_car_26.png" alt=""> <p class="footer">Copyright 2018-2023 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Full Vehicle with Multibody Suspension
 %
@@ -82,14 +84,14 @@ Solver:CoeffChecks:Exa -- OFF
 % MathWorks products. A modular library of components gives users a great
 % starting point for creating custom vehicle models
 %
-% Copyright 2018-2020 The MathWorks, Inc.
+% Copyright 2018-2023 The MathWorks, Inc.
 
 
 %% Model
 open_system('sm_car')
 load Vehicle_160
 Vehicle = Vehicle_160;
-Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Active_1_Loop');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
 sm_car_config_vehicle('sm_car')
 
 ann_h = find_system('sm_car','FindAll', 'on','type','annotation','Tag','ModelFeatures');
@@ -116,45 +118,45 @@ open_system('sm_car/Vehicle/Vehicle/Chassis','force')
 
 %% Suspension, Front Axle Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1','force')
 
 %% Suspension, Front Axle, Linkage Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force')
 
 %% Suspension, Front Axle, Linkage L Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage%20L','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage%20L','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L','force')
 
 %% Suspension, Double Wishbone Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage%20L/DoubleWishbone','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage%20L/DoubleWishbone','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L/DoubleWishbone','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Linkage L/DoubleWishbone','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L/DoubleWishbone','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L/DoubleWishbone','force')
 
 %% Steer Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer','force')
 
 %% Steer Rack Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspF/Linkage/Steer/Rack','force')
+set_param('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Steer/Rack','force')
 
 
 %% Brakes Subsystem
@@ -168,8 +170,8 @@ open_system('sm_car/Vehicle/Vehicle/Brakes','force')
 %
 % <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Brakes/Pedal','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force')
+%set_param('sm_car/Vehicle/Vehicle/Brakes/PedalAbstract DiscDisc','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Brakes/PedalAbstract DiscDisc','force')
 
 %% Brakes, ABS 4 Channel Subsystem
 %
@@ -179,23 +181,23 @@ open_system('sm_car/Vehicle/Vehicle/Brakes/Pedal','force')
 %Vehicle = Vehicle_130;
 %sm_car_config_vehicle('sm_car')
 
-set_param('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel','force')
+set_param('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4','force')
 
 %% Brakes, ABS 4 Channel Valves Subsystem
 %
 % <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Brakes/ABS%204%20Channel/Valves','force'); Open Subsystem>
 
-set_param('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel/Valves','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Brakes/ABS 4 Channel/Valves','force')
+set_param('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4/Valves','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4/Valves','force')
 
 
-%% Tire FL Subsystem
+%% Tire L1 Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%FL/MFEval','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%L1/MFEval','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Chassis/Tire FL/MFEval','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/Tire FL/MFEval','force')
+%set_param('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFEval','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFEval','force')
 
 %% Powertrain Subsystem
 %
@@ -206,25 +208,25 @@ open_system('sm_car/Vehicle/Vehicle/Powertrain','force')
 
 %% Driveline, Two Powered Shafts Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1%20A2%20A1Diff%20A2Diff','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/IndepFRDiffFDiffR','force')
+%set_param('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1 A2 A1Diff A2Diff','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Powertrain/Driveline/A1 A2 A1Diff A2Diff','force')
 
 
 %% Power, Electric Two Motors Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor,'force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric%20A1%20A2,'force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor','force')
+%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2','force')
 
 %% Power, Cooling System Two Motors Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active%201%20Loop,'force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric%20A1%20A2/Thermal/Liquid%20Loop1,'force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active 1 Loop','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric2Motor/Thermal/Active 1 Loop','force')
+%set_param('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liquid Loop1','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liquid Loop1','force')
 
 
 %% Simulation Results from Simscape Logging
