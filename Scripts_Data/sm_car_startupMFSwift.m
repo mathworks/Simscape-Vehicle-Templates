@@ -41,8 +41,10 @@ if(~MFSwifttbxOnPath)
     else
         disp(['Searching for ' libraryName '...']);
         for mfi = 1:length(mfstartup_files)
-            yrInd = regexp(mfstartup_files(mfi).folder,'\d\d\d\d.\d');
-            yrStr(mfi) = str2num(mfstartup_files(mfi).folder((yrInd:yrInd+5)));
+            %disp(mfstartup_files(mfi).folder)
+            yrInd = regexp(mfstartup_files(mfi).folder,'\d\d\d.*\\mathworks');
+            yrEnd = regexp(mfstartup_files(mfi).folder,'\\mathworks');
+            yrStr(mfi) = str2num(mfstartup_files(mfi).folder((yrInd:yrEnd-1)));
         end
         [~,mfInd] = max(yrStr);
 
@@ -60,6 +62,8 @@ if(~MFSwifttbxOnPath)
             library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2021p1'];
         elseif(mfswift_ver==2022.1)
             library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2022p1'];
+        elseif(mfswift_ver==2212)
+            library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2212'];
         end
         addpath(library_path);
         % Add opencrg tools to path
@@ -82,6 +86,8 @@ else
         library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2021p1'];
     elseif(mfswift_ver==2022.1)
         library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2022p1'];
+	elseif(mfswift_ver==2212)
+    	library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2212'];
     end
     if(isempty(library_path))
         warning('off','backtrace')

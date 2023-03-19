@@ -421,7 +421,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 12b -- CRG Tests
 manv_set = {'CRG Mallory Park','CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity', 'CRG Hockenheim','CRG Hockenheim F', 'CRG Kyalami','CRG Kyalami F','CRG Nurburgring N','CRG Nurburgring N F','CRG Suzuka','CRG Suzuka F','CRG Pikes Peak','CRG Pikes Peak Down'};
-stoptime_set = [-1 -1   -1   -1    -1   -1    -1 -1  30 -1 30 -1 30 30];
+stoptime_set = [-1 -1   -1   -1    -1   -1    150 150  30 400 30 -1 30 30];
 solver_typ = {'variable step'};
 veh_set = [170];
 trailer_set = {'none'};

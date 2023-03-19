@@ -92,9 +92,6 @@ $--------------------------------------------------------contact_patch
 [CONTACT_PATCH]
 Q_RA1                    = 0.6715            $Square root term in contact length equation
 Q_RA2                    = 0.7308            $Linear term in contact length equation
-Q_LBF                    = 1                 $Length of basic function
-Q_LOS1                   = 0                 $Basic function offset threshold
-Q_LOS2                   = 0.2               $Basic function offset scaling factor with basic function length
 Q_RB1                    = 1.0588            $Root term in contact width equation
 ELLIPS_SHIFT             = 0.8               $Scaling of distance between front and rear ellipsoid
 ELLIPS_LENGTH            = 1                 $Semi major axis of ellipsoid
