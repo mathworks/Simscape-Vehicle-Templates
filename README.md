@@ -30,6 +30,11 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.15 -- September 2023**
+1.  Mass and inertia of driver and passengers are adjustable
+2.  Added test harness to check driver and passenger mass
+3.  Compatible with MF-Swift v2306
+
 **v2.14 -- March 2023**
 1.  Adjusted hardpoints for all linkage suspensions (shorter control arms, shock placement)
 2.  Added linkage parameterizations for Sedan Hamba (Five Link Shock to Rear, Split Lower Arm Shock to Front)
