@@ -16,7 +16,7 @@ function [xy_data] = Extr_Data_Frustum_Conical(cone_or, cone_th, varargin)
 %   add 'plot' as the final argument
 %   >> Extr_Data_Frustum_Conical(5,60,4,4,'plot')
 
-% Copyright 2017-2022 The MathWorks, Inc.
+% Copyright 2017-2023 The MathWorks, Inc.
 
 % Default data to show diagram
 showplot = 'n';

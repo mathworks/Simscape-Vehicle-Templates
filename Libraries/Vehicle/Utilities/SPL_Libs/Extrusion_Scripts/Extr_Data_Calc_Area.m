@@ -14,7 +14,7 @@ function area = Extr_Data_Calc_Area(xy_poly)
 %
 % as i ranges over [1, N] and i+1 is computed in modular fashion.
 
-% Copyright 2017-2022 The MathWorks, Inc.
+% Copyright 2017-2023 The MathWorks, Inc.
 
 area = sum(sum(xy_poly .* ([1 -1] .* circshift(xy_poly, [-1 1])))) / 2;
 
