@@ -30,6 +30,11 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.15 -- September 2023**
+1.  Mass and inertia of driver and passengers are adjustable
+2.  Added test harness to check driver and passenger mass
+3.  Compatible with MF-Swift v2306
+
 **v2.14 -- March 2023**
 1.  Adjusted hardpoints for all linkage suspensions (shorter control arms, shock placement)
 2.  Added linkage parameterizations for Sedan Hamba (Five Link Shock to Rear, Split Lower Arm Shock to Front)
@@ -40,11 +45,11 @@ adjust the libraries so that variant can be selected.
 7.  Added steering testrig, camera testrig
 8.  Eliminated unsupported parameters in Truck_430_50R38.tir
 9.  Added shock model with endstop on upper hardpoint
-9.  Linked all shocks to library Linkage_Shock.slx
-10. Adjusted and republished Overview
-11. Detached test harnesses from sm_car_lib.slx
-12. Converted hydraulic brakes 4 channel to Isothermal Liquid domain (R2020a and higher)
-13. Compatible with MF-Swift v2212
+10. Linked all shocks to library Linkage_Shock.slx
+11. Adjusted and republished Overview
+12. Detached test harnesses from sm_car_lib.slx
+13. Converted hydraulic brakes 4 channel to Isothermal Liquid domain (R2020a and higher)
+14. Compatible with MF-Swift v2212
 
 **v2.13 -- February 2023**
 1.  Added 4 electric motor powertrain for 2 axle car
