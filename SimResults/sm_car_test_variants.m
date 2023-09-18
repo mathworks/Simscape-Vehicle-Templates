@@ -111,7 +111,7 @@ for veh_i = 1:length(veh_set1)
             
             sm_car_config_vehicle(mdl); % config_solver can modify Vehicle
             
-            set_param(mdl,'FastRestart','on')
+            %set_param(mdl,'FastRestart','on')
             
             %  Simulation for 1e-3 to eliminate initialization time'
             temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
@@ -149,7 +149,7 @@ for veh_i = 1:length(veh_set1)
                 
                 if(~isempty(out))
                     % Simulation succeeded
-                    logsout_sm_car = out.logsout_sm_car;  % Only if Fast Restart is used
+                    %logsout_sm_car = out.logsout_sm_car;  % Only if Fast Restart is used
                     logsout_VehBus = logsout_sm_car.get('VehBus');
                     logsout_xCar = logsout_VehBus.Values.World.x;
                     logsout_yCar = logsout_VehBus.Values.World.y;
