@@ -16,6 +16,9 @@ adjust the libraries so that variant can be selected.
 
 **Please visit the [Simscape Vehicle Templates](https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html) page** for animations and videos that show what you can do with these models.
 
+**See also these slides for more details on how the templates work: [Simscape Vehicle Templates PDF](https://content.mathworks.com/viewer/650bf0f0aedcbc278788fb2d)**
+
+
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
 [![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
