@@ -1,6 +1,6 @@
 function sm_car_trajectory_double_lane_change
 % Function to construct double-lane change maneuver
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)))
 % Parameters for trajectory

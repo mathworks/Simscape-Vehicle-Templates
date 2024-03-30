@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_crg_nurburgring_n_f
 %% Scene parameters
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 curr_dir = pwd;
 cd(fileparts(which(mfilename)));

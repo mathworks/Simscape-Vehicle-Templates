@@ -33,6 +33,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.15 -- March 2024**
+1.  Compatible with R2024a. Updated scripts to run with Fast Restart
+
 **v2.15 -- September 2023**
 1.  Mass and inertia of driver and passengers are adjustable
 2.  Added test harness to check driver and passenger mass
@@ -182,7 +185,6 @@ adjust the libraries so that variant can be selected.
 8. Revised full test scripts - more modular, eliminate FastRestart warnings
    (sm_car_test_variants.m, added sm_car_test_variants_testloop.m)
 
-### **Release History**
 **v1.3 -- July 2020**
 
 1. Changed sm_car top level to accommodate overrides from obstacles in scenes

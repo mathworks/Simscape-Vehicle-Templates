@@ -4,7 +4,7 @@ function CRG_Create_Rough_Road
 % Creates CRG file for rough road grid
 % Creates STL files based on data in CRG file.
 %
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 road_opts.create_stl_files = true;
 road_opts.decim_data = 0.1;
