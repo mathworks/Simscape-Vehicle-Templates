@@ -2,7 +2,7 @@ function sm_car_gen_init_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2020 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 %% Vehicle-level data
 %   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
@@ -184,10 +184,18 @@ InitSet.RDF_Plateau.Data         = {...
 %% Scene Double Lane Change, Slow Start
 InitSet.Double_Lane_Change.Type   = 'Double_Lane_Change';
 InitSet.Double_Lane_Change.Instance     = '';
+
+% Adjustments due to Unreal scene change in R2022b
+if(verLessThan('matlab','9.13'))
+    sChassisY = -3.35;
+else
+    sChassisY = -3.35-2.5;
+end
+
 InitSet.Double_Lane_Change.Data         = {...
     'aChassis','rad', 0,   0,     0;
     'vChassis','m/s', 2.5, 0,     0;
-    'sChassis','m',   5,  -3.35,  0};
+    'sChassis','m',   5,  sChassisY,  0};
 
 %% Scene Double Lane Change, Slow Start
 InitSet.Double_Lane_Change_ISO3888.Type   = 'Double_Lane_Change_ISO3888';
