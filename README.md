@@ -30,6 +30,15 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.16 -- April 2024**
+1.  Compatible with MF-Swift v2312
+2.  Adjusted double-lane change to match Unreal scene (R2022b and higher)
+3.  Made project shortcuts compatible with MATLAB Online
+4.  Fixed capitalization error in sm_car_database_Maneuver.xlsx (...Hockenheim_F_ --> Hockenheim_f_)
+
+**v2.15 -- March 2024**
+1.  Compatible with R2024a. Updated scripts to run with Fast Restart
+
 **v2.15 -- September 2023**
 1.  Mass and inertia of driver and passengers are adjustable
 2.  Added test harness to check driver and passenger mass
