@@ -4,7 +4,13 @@ function sm_car_trajectory_double_lane_change
 
 cd(fileparts(which(mfilename)))
 % Parameters for trajectory
-maneuver_lateral_offset    = -3.35; % m
+
+% Adjustments due to Unreal scene change in R2022b
+if(verLessThan('matlab','9.13'))
+    maneuver_lateral_offset    = -3.35; % m
+else
+    maneuver_lateral_offset    = -3.35-2.5; % m
+end
 cone_set_lat_separation    = 4.2;   % m
 
 % Longitudinal gate locations (m)

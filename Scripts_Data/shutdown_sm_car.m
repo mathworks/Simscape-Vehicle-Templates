@@ -1,6 +1,6 @@
 function shutdown_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2022 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 
@@ -36,7 +36,7 @@ end
 custom_code = dir('**/custom_abs.ssc');
 cd(custom_code.folder)
 cd('..')
-bdclose('Custom_lib')
+bdclose all
 pause(1)
 ssc_clean Custom
 cd(fileparts(which('sm_car.slx')))
