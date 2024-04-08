@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2024 The MathWorks, Inc.
+Copyright 2018-2023 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -16,9 +16,6 @@ adjust the libraries so that variant can be selected.
 
 **Please visit the [Simscape Vehicle Templates](https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html) page** for animations and videos that show what you can do with these models.
 
-**See also these slides for more details on how the templates work: [Simscape Vehicle Templates PDF](https://content.mathworks.com/viewer/650bf0f0aedcbc278788fb2d)**
-
-
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
 [![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
@@ -33,6 +30,12 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v2.16 -- April 2024**
+1.  Compatible with MF-Swift v2312
+2.  Adjusted double-lane change to match Unreal scene (R2022b and higher)
+3.  Made project shortcuts compatible with MATLAB Online
+4.  Fixed capitalization error in sm_car_database_Maneuver.xlsx (...Hockenheim_F_ --> Hockenheim_f_)
+
 **v2.15 -- March 2024**
 1.  Compatible with R2024a. Updated scripts to run with Fast Restart
 
@@ -185,6 +188,7 @@ adjust the libraries so that variant can be selected.
 8. Revised full test scripts - more modular, eliminate FastRestart warnings
    (sm_car_test_variants.m, added sm_car_test_variants_testloop.m)
 
+### **Release History**
 **v1.3 -- July 2020**
 
 1. Changed sm_car top level to accommodate overrides from obstacles in scenes
