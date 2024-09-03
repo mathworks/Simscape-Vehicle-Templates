@@ -8,7 +8,7 @@ function Vehicle = sm_car_vehcfg_setSusp(Vehicle,susp_opt,suspFieldName)
 %   <suspension type>   Type of suspension (double wishbone, etc.)
 %   <platform>          Abbreviation for Sedan Hamba "SH", etc.
 %
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

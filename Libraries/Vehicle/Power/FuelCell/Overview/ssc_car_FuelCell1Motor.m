@@ -7,7 +7,7 @@
 % vehicle can be tested on custom drive cycles or using the Drive Cycle
 % Source from Powertrain Blockset.
 % 
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 
 %% Model

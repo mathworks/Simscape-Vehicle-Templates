@@ -1,7 +1,7 @@
 function sm_car_assemble_presets_DelftTyre
 % Script to generate Vehicle data structures for various configurations
 % Uses primarily Delft Tyre 6.2.0.2
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));

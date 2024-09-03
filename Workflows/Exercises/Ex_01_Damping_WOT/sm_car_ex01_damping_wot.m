@@ -6,7 +6,7 @@
 % measurements to see the effect of this parameter value on vehicle
 % dynamics.
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command
@@ -18,11 +18,7 @@ open_system(mdl)
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-if verLessThan('matlab', '9.11')
-    sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
-else
-    sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
-end
+sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
 
 %% Step 3: Configure Event
 % This can be done from the MATLAB UI or the MATLAB Command line. It

@@ -16,7 +16,7 @@ function [simOut, simInput, filename_ggv] = sm_car_sweep_ggv_pts(baseModelName,V
 % Example:
 % [simOut, simInput, filename_ggv] = sm_car_sweep_ggv_pts('sm_car',Vehicle,4,[0 15 30],false);
 
-% Copyright 2021-2023 The MathWorks, Inc.
+% Copyright 2021-2024 The MathWorks, Inc.
 
 %% Model name
 modelName     = [baseModelName '_test_ggv_new'];
@@ -61,7 +61,7 @@ set_param([modelName '/Road/Input fWindCar'],...
     'dWind','0');
 
 % Ensure model is properly configured
-sm_car_config_vehicle(modelName);
+sm_car_config_vehicle(modelName,false);
 
 % Ensure Vehicle data structure has all required values
 Vehicle = sm_car_vehcfg_checkConfig(Vehicle);

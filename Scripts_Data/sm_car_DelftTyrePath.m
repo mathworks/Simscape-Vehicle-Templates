@@ -1,6 +1,6 @@
 function path_str = sm_car_DelftTyrePath(DelftTyrePathMLTbx)
 % Function to get relevant folders for sm_car_lib
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 path_str1 = strrep(DelftTyrePathMLTbx,...
         [filesep 'MATLAB' filesep 'Toolbox'],...
