@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Configure Vehicle for Double Lane Change</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-03-30">
+<meta name="DC.date" content="2024-08-31">
 <meta name="DC.source" content="sm_car_ex03_dlc_arb.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -125,12 +125,7 @@ open_system(mdl)
 </pre>
 <img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_01.png" alt=""> <h2 id="2">Step 2: Configure Model</h2>
 <p>This can be done from the MATLAB app or the MATLAB Command line. It involves loading a data structure into the MATLAB workspace that includes the desired vehicle model configuration and parameters</p>
-<pre class="codeinput">
-<span class="keyword">if</span> verLessThan(<span class="string">'matlab'</span>, <span class="string">'9.11'</span>)
-    sm_car_load_vehicle_data(mdl,<span class="string">'139'</span>); <span class="comment">% MFeval tire</span>
-<span class="keyword">else</span>
-    sm_car_load_vehicle_data(mdl,<span class="string">'189'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
-<span class="keyword">end</span>
+<pre class="codeinput">sm_car_load_vehicle_data(mdl,<span class="string">'189'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
 </pre>
 <p>Note presence of anti-roll bar in model</p>
 <pre class="codeinput">open_system(<span class="string">'sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage'</span>,<span class="string">'force'</span>);
@@ -159,7 +154,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'None'</span
 </pre>
 <h2 id="9">Step 7: Trigger model update to match Vehicle data structure</h2>
 <p>Changes to the Vehicle data structure need to be applied to the model. This process can be triggered by the MATLAB app or the MATLAB command line</p>
-<pre class="codeinput">sm_car_config_vehicle(<span class="string">'sm_car'</span>);
+<pre class="codeinput">sm_car_config_vehicle(<span class="string">'sm_car'</span>,true);
 </pre>
 <p>Note that anti-roll bar has been removed</p>
 <pre class="codeinput">open_system(<span class="string">'sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage'</span>,<span class="string">'force'</span>);
@@ -179,11 +174,11 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'Droplink_Se
 </pre>
 <h2 id="14">Step 11: Trigger model update to match Vehicle data structure</h2>
 <p>Changes to the Vehicle data structure need to be applied to the model. This process can be triggered by the MATLAB app or the MATLAB command line</p>
-<pre class="codeinput">sm_car_config_vehicle(<span class="string">'sm_car'</span>);
+<pre class="codeinput">sm_car_config_vehicle(<span class="string">'sm_car'</span>,true);
 </pre>
 <pre class="codeinput">close <span class="string">all</span>
 </pre>
-<p class="footer">Copyright 2018-2023 The MathWorks, Inc.<br>
+<p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
 <br>
 </p>
@@ -198,7 +193,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'Droplink_Se
 % configuration we enable the anti-roll bar, in the other we disable it. The
 % Simulink Data Inspector let us easily compare vehicle body measurements.
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB app, project shortcut, or MATLAB Command
@@ -210,11 +205,7 @@ open_system(mdl)
 % This can be done from the MATLAB app or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-if verLessThan('matlab', '9.11')
-    sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
-else
-    sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
-end
+sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
 
 %%
 % Note presence of anti-roll bar in model
@@ -257,7 +248,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA2');
 % Changes to the Vehicle data structure need to be applied to the model.
 % This process can be triggered by the MATLAB app or the MATLAB command
 % line
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 
 %%
 % Note that anti-roll bar has been removed
@@ -286,7 +277,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'Droplink_Sedan_Hamba_r','SuspA2'
 % Changes to the Vehicle data structure need to be applied to the model.
 % This process can be triggered by the MATLAB app or the MATLAB command
 % line
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 
 %%
 close all

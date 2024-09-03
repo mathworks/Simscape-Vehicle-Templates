@@ -4,23 +4,7 @@ function sm_car_plot7power(logsout_data)
 %
 % Plot results from electric powertrains
 %
-% Copyright 2016-2023 The MathWorks, Inc.
-
-% Reuse figure if it exists, else create new figure
-fig_handle_name =   'h7_sm_car';
-
-Init_type = evalin('base','Init.Type');
-
-handle_var = evalin('base',['who(''' fig_handle_name ''')']);
-if(isempty(handle_var))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-elseif ~isgraphics(evalin('base',handle_var{:}))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-end
-figure(evalin('base',fig_handle_name))
-clf(evalin('base',fig_handle_name))
-
-temp_colororder = get(gca,'defaultAxesColorOrder');
+% Copyright 2016-2024 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus  = logsout_data.get('VehBus');
@@ -39,16 +23,31 @@ end
 
 
 if(existCurrentData)
+    % Reuse figure if it exists, else create new figure
+    fig_handle_name =   'h7_sm_car';
+
+    Init_type = evalin('base','Init.Type');
+
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+
+    temp_colororder = get(gca,'defaultAxesColorOrder');
     simlog_handles(1) = subplot(211);
     plot(logsout_t,logsout_sVeh,'LineWidth',1);
     set(gca,'Position',[0.1300    0.7119    0.7750    0.2121]);
     ylabel('Speed (km/hr)');
     title('Vehicle Speed','FontSize',12);
-    
+
     simlog_handles(2) = subplot(212);
     plot(logsout_t,logsout_iBatt,'LineWidth',1);
     hold on
-       if(exist('logsout_iFC','var'))
+    if(exist('logsout_iFC','var'))
         plot(logsout_t,logsout_iFC,'--','Color',temp_colororder(2,:),'LineWidth',1);
     end
     ylim = get(gca,'YLim');
@@ -71,11 +70,11 @@ if(existCurrentData)
     end
     legend(legendstr,'Location','NorthEast');
     linkaxes(simlog_handles,'x')
-    
+
     xlabel('Time (sec)');
     ylabel('Current (A) / SOC');
 else
-    error('No battery current data found');
+    warning('No battery current data found');
 end
 
 

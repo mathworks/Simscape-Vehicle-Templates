@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Model Liquid Slosh in Trailer</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-03-28">
+<meta name="DC.date" content="2024-08-31">
 <meta name="DC.source" content="sm_car_ex07_tankerslosh.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -116,16 +116,8 @@ open_system(mdl)
 </pre>
 <img vspace="5" hspace="5" src="sm_car_ex07_tankerslosh_01.png" alt=""> <h2 id="2">Step 2: Configure Model</h2>
 <p>This can be done from the MATLAB UI or the MATLAB Command line. It involves loading a data structure into the MATLAB workspace that includes the desired vehicle model configuration and parameters</p>
-<pre class="codeinput">
-<span class="keyword">if</span> verLessThan(<span class="string">'matlab'</span>, <span class="string">'9.11'</span>)
-    <span class="comment">% MFeval tire</span>
-    sm_car_load_vehicle_data(mdl,<span class="string">'Axle3_008'</span>);
-    sm_car_load_trailer_data(mdl,<span class="string">'Axle2_004'</span>);
-<span class="keyword">else</span>
-    <span class="comment">% Multibody tire, R21b and higher</span>
-    sm_car_load_vehicle_data(mdl,<span class="string">'Axle3_019'</span>);
-    sm_car_load_trailer_data(mdl,<span class="string">'Axle2_024'</span>);
-<span class="keyword">end</span>
+<pre class="codeinput">sm_car_load_vehicle_data(mdl,<span class="string">'Axle3_019'</span>);
+sm_car_load_trailer_data(mdl,<span class="string">'Axle2_024'</span>);
 </pre>
 <h2 id="3">Step 3: Select Event</h2>
 <p>This can be done from the MATLAB UI or the MATLAB Command line. It configures the driver model for open/closed loop maneuvers and loads the necessary parameters into the MATLAB workspace.</p>
@@ -143,14 +135,7 @@ sm_car_plot_maneuver(Maneuver)
 </pre>
 <img vspace="5" hspace="5" src="sm_car_ex07_tankerslosh_04.png" alt=""> <h2 id="6">Step 6: Disable slosh</h2>
 <p>Trailer parameters are adjusted to eliminate the slosh effect.</p>
-<pre class="codeinput">
-<span class="keyword">if</span> verLessThan(<span class="string">'matlab'</span>, <span class="string">'9.11'</span>)
-    <span class="comment">% MFeval tire</span>
-    sm_car_load_trailer_data(mdl,<span class="string">'Axle2_002'</span>);
-<span class="keyword">else</span>
-    <span class="comment">% Multibody tire, R21b and higher</span>
-    sm_car_load_trailer_data(mdl,<span class="string">'Axle2_023'</span>);
-<span class="keyword">end</span>
+<pre class="codeinput">sm_car_load_trailer_data(mdl,<span class="string">'Axle2_023'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
 </pre>
 <h2 id="7">Step 7: Run simulation with slosh disabled.</h2>
 <p>This can be done from Simulink or from the MATLAB command line.</p>
@@ -162,7 +147,7 @@ sm_car_plot_maneuver(Maneuver)
 </pre>
 <img vspace="5" hspace="5" src="sm_car_ex07_tankerslosh_05.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
 </pre>
-<p class="footer">Copyright 2018-2023 The MathWorks, Inc.<br>
+<p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
 <br>
 </p>
@@ -177,7 +162,7 @@ sm_car_plot_maneuver(Maneuver)
 % with the sloshing disabled. The Simulink Data Inspector let us easily
 % compare vehicle and trailer body measurements.
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command
@@ -189,15 +174,8 @@ open_system(mdl)
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-if verLessThan('matlab', '9.11')
-    % MFeval tire
-    sm_car_load_vehicle_data(mdl,'Axle3_008'); 
-    sm_car_load_trailer_data(mdl,'Axle2_004');
-else
-    % Multibody tire, R21b and higher
-    sm_car_load_vehicle_data(mdl,'Axle3_019'); 
-    sm_car_load_trailer_data(mdl,'Axle2_024');
-end
+sm_car_load_vehicle_data(mdl,'Axle3_019'); 
+sm_car_load_trailer_data(mdl,'Axle2_024');
 
 %% Step 3: Select Event
 % This can be done from the MATLAB UI or the MATLAB Command line. It
@@ -221,17 +199,10 @@ sm_car_ex07_tankerslosh_plot1
 
 %% Step 6: Disable slosh
 % Trailer parameters are adjusted to eliminate the slosh effect.
-if verLessThan('matlab', '9.11')
-    % MFeval tire
-    sm_car_load_trailer_data(mdl,'Axle2_002');
-else
-    % Multibody tire, R21b and higher
-    sm_car_load_trailer_data(mdl,'Axle2_023');
-end
+sm_car_load_trailer_data(mdl,'Axle2_023'); % Multibody tire, R21b and higher
 
 %% Step 7: Run simulation with slosh disabled.
 % This can be done from Simulink or from the MATLAB command line.
-
 sim(mdl)
 
 %% Step 8: Add simulation results to the Simulink Data Inspector

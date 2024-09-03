@@ -1,7 +1,7 @@
 % Script to test four wheel steering in sedan 
 % Manuever is simple step steer.
 
-% Copyright 2019-2023 The MathWorks, Inc
+% Copyright 2019-2024 The MathWorks, Inc
 
 % Test four wheel steering
 open_system('sm_car');

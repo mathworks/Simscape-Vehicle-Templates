@@ -3,7 +3,7 @@
 % The commands below run the two simulations and compare the resulting tire
 % forces. The code below can be modified to perform other comparisons.
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Run Two Tests
 sm_car_run_two_sims('sm_car_Axle3','Double Lane Change','NoSlosh','Axle3_009','Axle2_002','Slosh','Axle3_009','Axle2_004');

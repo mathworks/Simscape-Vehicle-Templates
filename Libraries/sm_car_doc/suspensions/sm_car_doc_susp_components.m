@@ -8,7 +8,7 @@
 %
 % List of components with specific documentation
 % 
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% 
 % 

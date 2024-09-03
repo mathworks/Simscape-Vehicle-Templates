@@ -3,11 +3,11 @@
 %
 % <enter plot description here if desired>
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 % Generate simulation results if they don't exist
 if ~exist('simlog_sm_car_testrig_quarter_car', 'var')
-    sim('sm_car_testrig_quarter_car')
+    sim('testrig_quarter_car')
 end
 
 % Reuse figure if it exists, else create new figure

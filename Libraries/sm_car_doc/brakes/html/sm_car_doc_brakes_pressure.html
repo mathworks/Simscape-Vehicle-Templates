@@ -69,7 +69,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
   </style></head><body><div class="content"><h1>Brakes, Pressure Input</h1><!--introduction--><p>
 <a href="../../sm_car_doc_overview.html">Home</a> &gt;
 <a href="./sm_car_doc_brakes.html">Brakes</a> &gt;
-</p><p>This subsystem models the brakes for all four corners of the vehicle, The pressure applied to the brake is controlled by an input signal representing the pressure at each brake caliper.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Overview</a></li><li><a href="#2">Model</a></li></ul></div><h2 id="1">Overview</h2><p>The Pressure variant of the brake subsystem has:</p><div><ul><li>Simscape Bus connections for each corner</li><li>Input signal bus for the control of the braking system</li><li>Input signal bus for inputs from the driver (brake caliper pressure)</li></ul></div><img vspace="5" hspace="5" src="sm_car_doc_brakes_pressure_01.png" alt=""> <h2 id="2">Model</h2><p>The brake caliper and pads are modeled using the Disc Brake block from Simscape Driveline.  The actuators are ideal with a first order filter to smooth the input to the brakes.</p><p>The input signal to each actuator is the pressure at the brake caliper. This permits the brake pressure to be calculated by an external function for empirical models of brake hydraulic systems and to include the effects of the control system.</p><p>The control signals are not used in this variant.</p><img vspace="5" hspace="5" src="sm_car_doc_brakes_pressure_02.png" alt=""> <p class="footer">Copyright 2019-2023 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+</p><p>This subsystem models the brakes for all four corners of the vehicle, The pressure applied to the brake is controlled by an input signal representing the pressure at each brake caliper.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Overview</a></li><li><a href="#2">Model</a></li></ul></div><h2 id="1">Overview</h2><p>The Pressure variant of the brake subsystem has:</p><div><ul><li>Simscape Bus connections for each corner</li><li>Input signal bus for the control of the braking system</li><li>Input signal bus for inputs from the driver (brake caliper pressure)</li></ul></div><img vspace="5" hspace="5" src="sm_car_doc_brakes_pressure_01.png" alt=""> <h2 id="2">Model</h2><p>The brake caliper and pads are modeled using the Disc Brake block from Simscape Driveline.  The actuators are ideal with a first order filter to smooth the input to the brakes.</p><p>The input signal to each actuator is the pressure at the brake caliper. This permits the brake pressure to be calculated by an external function for empirical models of brake hydraulic systems and to include the effects of the control system.</p><p>The control signals are not used in this variant.</p><img vspace="5" hspace="5" src="sm_car_doc_brakes_pressure_02.png" alt=""> <p class="footer">Copyright 2019-2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Brakes, Pressure Input 
 %
@@ -82,7 +82,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % The pressure applied to the brake is controlled by an input signal
 % representing the pressure at each brake caliper.
 % 
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 
 %% Overview

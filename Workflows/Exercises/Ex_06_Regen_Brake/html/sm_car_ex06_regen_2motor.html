@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Explore Regenerative Braking</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-03-28">
+<meta name="DC.date" content="2024-08-31">
 <meta name="DC.source" content="sm_car_ex06_regen_2motor.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -132,14 +132,9 @@ open_system(mdl)
 </pre>
 <h2 id="3">Step 3: Configure Vehicle Model</h2>
 <p>This can be done from the MATLAB UI or the MATLAB Command line. It involves loading a data structure into the MATLAB workspace that includes the desired vehicle model configuration and parameters</p>
-<pre class="codeinput">
-<span class="keyword">if</span> verLessThan(<span class="string">'matlab'</span>, <span class="string">'9.11'</span>)
-    sm_car_load_vehicle_data(mdl,<span class="string">'179'</span>); <span class="comment">% MFeval tire</span>
-<span class="keyword">else</span>
-    sm_car_load_vehicle_data(mdl,<span class="string">'197'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
-<span class="keyword">end</span>
+<pre class="codeinput">sm_car_load_vehicle_data(mdl,<span class="string">'197'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
 sm_car_load_trailer_data(<span class="string">'sm_car'</span>,<span class="string">'None'</span>);
-sm_car_config_vehicle(<span class="string">'sm_car'</span>);
+sm_car_config_vehicle(<span class="string">'sm_car'</span>,true);
 </pre>
 <p>The powertrain has been configured to have two electric motors, one for the front axle and one for the rear.</p>
 <pre class="codeinput">open_system([mdl <span class="string">'/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2'</span>],<span class="string">'force'</span>);
@@ -217,7 +212,7 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 </pre>
 <img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_10.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
 </pre>
-<p class="footer">Copyright 2018-2023 The MathWorks, Inc.<br>
+<p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
 <br>
 </p>
@@ -236,7 +231,7 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 % tests. We plot data from Simscape Logging in the Simulink Data Inspector
 % to explore the simulation results.
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command
@@ -252,13 +247,9 @@ set_param(mdl,'SimscapeLogToSDI','on')
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-if verLessThan('matlab', '9.11')
-    sm_car_load_vehicle_data(mdl,'179'); % MFeval tire
-else
-    sm_car_load_vehicle_data(mdl,'197'); % Multibody tire, R21b and higher
-end
+sm_car_load_vehicle_data(mdl,'197'); % Multibody tire, R21b and higher
 sm_car_load_trailer_data('sm_car','None');
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 
 %%
 % The powertrain has been configured to have two electric motors, one for

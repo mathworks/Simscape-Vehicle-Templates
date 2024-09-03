@@ -6,7 +6,7 @@
 % function considers the loss in battery state of charge to factor in
 % vehicle range to the optimization.
 % 
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 %% Simulation Model
 

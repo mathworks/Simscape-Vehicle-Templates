@@ -1,12 +1,12 @@
 %% Minimize Lap Time Using Optimization, Mallory Park (No Elevation Change)
-% 
+%
 % This example shows how to minimize lap times using optimization
 % algorithms using the Mallory Park Racing Circuit.  This optimization
 % assumes no elevation to shorten the optimization process.
-% 
-% Copyright 2020-2023 The MathWorks, Inc.
+%
+% Copyright 2020-2024 The MathWorks, Inc.
 
-%% 
+%%
 % <html><h2>Results of Optimization</h2></html>
 
 Overview_Dir = pwd;
@@ -17,19 +17,17 @@ clear opt_iter
 
 mdl = 'sm_car';
 open_system(mdl);
-set_param(mdl,'FastRestart','off');
-if(verLessThan('matlab','9.11'))
-    sm_car_load_vehicle_data(mdl,'164'); % (Hamba 15DOF, MFeval)
-    load GGV_Hamba_0to40      % GGV_data for sedan
-else
-    sm_car_load_vehicle_data(mdl,'193'); % (Hamba 15DOF, Multibody tire)
-    load GGV_Hamba_0to40      % GGV_data for sedan
+set_param(find_system('sm_car','FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
 
-    % Alternate: FSAE Vehicle
-    %sm_car_load_vehicle_data(mdl,'198'); % (FSAE, Mbody)
-    %load GGV_Achilles_0to40   % GGV_data for FSAE
+sm_car_load_vehicle_data(mdl,'193'); % (Hamba 15DOF, Multibody tire)
+load GGV_Hamba_0to40      % GGV_data for sedan
 
-end
+% Alternate: FSAE Vehicle
+%sm_car_load_vehicle_data(mdl,'198'); % (FSAE, Mbody)
+%load GGV_Achilles_0to40   % GGV_data for FSAE
+
+sm_car_config_variants(mdl);
+set_param(mdl,'FastRestart','on');
 
 Vehicle = sm_car_vehcfg_checkConfig(Vehicle);
 
@@ -44,9 +42,9 @@ close(4)
 close(5)
 close(6)
 close(7)
-%% 
+%%
 % <html><h2>Results of Optimization with Formula Student Vehicle</h2></html>
-% 
+%
 % Here is the GGV diagram for the fastest lap with a Formula Student
 % Vehicle. The vehicle aerodynamics enable a larger downforce which permits
 % higher speeds in the corners which is visible in the funnel-shaped

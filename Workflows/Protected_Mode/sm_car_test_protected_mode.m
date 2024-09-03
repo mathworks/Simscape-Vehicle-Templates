@@ -1,5 +1,5 @@
 % Test tuning parameters in Model Reference Protected Mode
-% Copyright 2022-2023 The MathWorks, Inc.
+% Copyright 2022-2024 The MathWorks, Inc.
 
 % Move to folder where code is located
 cd(fileparts(which(mfilename)));
@@ -36,7 +36,7 @@ end
 %sm_car_load_vehicle_data('sm_car','209'); % FSAE 5Link Decoupled
 
 sm_car_config_maneuver('sm_car','WOT Braking');
-sm_car_config_vehicle(bdroot);
+sm_car_config_vehicle(bdroot,true);
 
 %% Save under new name
 save_system(orig_mdl,mdl);

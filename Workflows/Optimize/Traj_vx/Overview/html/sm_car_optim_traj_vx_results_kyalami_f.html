@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-11-22"><meta name="DC.source" content="sm_car_optim_traj_vx_results_kyalami_f.m"><style type="text/css">
+      -->
+<title>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-31">
+<meta name="DC.source" content="sm_car_optim_traj_vx_results_kyalami_f.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,25 +72,40 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Kyalami Grand Prix Circuit. This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)</h1>
+<!--introduction-->
+<p>This example shows how to minimize lap times using optimization algorithms using the Kyalami Grand Prix Circuit. This optimization assumes no elevation to shorten the optimization process.</p>
+<!--/introduction-->
+<p><h2>Results of Optimization</h2></p>
+<pre class="codeoutput">
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        795.502         4.267      
-    1           1        795.502         1.067     Refine Mesh
-    2           2        297.068         2.133     Successful Poll
-    3           2        297.068        0.5333     Refine Mesh
-    4           5        257.729         1.067     Successful Poll
-    5           5        257.729        0.2667     Refine Mesh
-    6          10        257.729       0.06667     Refine Mesh
-    7          16         249.37        0.1333     Successful Poll
-    8          21         249.37       0.03333     Refine Mesh
-    9          27        245.391       0.06667     Successful Poll
-   10          33        245.391       0.01667     Refine Mesh
-   11          39        243.513       0.03333     Successful Poll
-   12          45        243.513      0.008333     Refine Mesh
-Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 1455.2794
-</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_06.png" alt=""> <p class="footer">Copyright 2020-2023 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+    0           1        795.522         4.267      
+    1           1        795.522         1.067     Refine Mesh
+    2           2        297.045         2.133     Successful Poll
+    3           2        297.045        0.5333     Refine Mesh
+    4           5        257.732         1.067     Successful Poll
+    5           5        257.732        0.2667     Refine Mesh
+    6          10        257.732       0.06667     Refine Mesh
+    7          16        249.346        0.1333     Successful Poll
+    8          21        249.346       0.03333     Refine Mesh
+    9          27        245.395       0.06667     Successful Poll
+   10          33        245.395       0.01667     Refine Mesh
+   11          39        243.478       0.03333     Successful Poll
+   12          45        243.478      0.008333     Refine Mesh
+patternsearch stopped because the mesh size was less than options.MeshTolerance.
+Elapsed time for optimization = 1867.4079
+</pre>
+<img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_kyalami_f_07.png" alt=""> <p class="footer">Copyright 2020-2024 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Using Optimization, Kyalami (No Elevation Change)
 % 
@@ -93,7 +113,7 @@ Elapsed time for optimization = 1455.2794
 % algorithms using the Kyalami Grand Prix Circuit. This optimization
 % assumes no elevation to shorten the optimization process.
 % 
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 %% 
 % <html><h2>Results of Optimization</h2></html>
@@ -139,4 +159,6 @@ close(7)
 close all
 %bdclose all
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

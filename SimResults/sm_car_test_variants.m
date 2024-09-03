@@ -1,6 +1,6 @@
 % Script to test many configurations under many events
 % Not a complete sweep of all combinations, but every variant is activated
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 maneuver_list = {...
     'CRG Mallory Park',       'CMP';
@@ -96,6 +96,12 @@ solver_typ = {'variable step'};
 veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 183];
 trailer_set = {'none'};
 
+currRel = matlabRelease;
+useFastRestart = true;
+if(isMATLABReleaseOlderThan('R2023a'))
+    useFastRestart = true;
+end
+
 for veh_i = 1:length(veh_set1)
     for trl_i = 1:length(trailer_set)
         veh_suffix = pad(num2str(veh_set1(veh_i)),3,'left','0');
@@ -103,15 +109,15 @@ for veh_i = 1:length(veh_set1)
         % Load data without triggering variant selection
         sm_car_load_vehicle_data('none',veh_suffix); 
         sm_car_load_trailer_data('none',trailer_set{trl_i});
-        sm_car_config_vehicle(mdl);
+        %sm_car_config_vehicle(mdl,false);
         
         % Loop over all solver types to be tested
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});
-            
-            sm_car_config_vehicle(mdl); % config_solver can modify Vehicle
-            
-            set_param(mdl,'FastRestart','on')
+            sm_car_config_vehicle(mdl,false); % config_solver can modify Vehicle
+            if(useFastRestart)
+                set_param(mdl,'FastRestart','on')
+            end
             
             %  Simulation for 1e-3 to eliminate initialization time'
             temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
@@ -139,7 +145,12 @@ for veh_i = 1:length(veh_set1)
                 
                 out = [];
                 try
-                    out = sim(mdl);
+                    if(useFastRestart)
+                        out = sim(mdl);
+                    else
+                        sim(mdl); % No fast restart
+                        out.logsout_sm_car = logsout_sm_car;
+                    end
                     test_success = 'Pass';
                 catch ME
                     disp(['Error: ' ME.message ', ' ME.identifier]);
@@ -149,7 +160,7 @@ for veh_i = 1:length(veh_set1)
                 
                 if(~isempty(out))
                     % Simulation succeeded
-                    logsout_sm_car = out.logsout_sm_car;  % Only if Fast Restart is used
+                    logsout_sm_car = out.logsout_sm_car; % With Fast Restart
                     logsout_VehBus = logsout_sm_car.get('VehBus');
                     logsout_xCar = logsout_VehBus.Values.World.x;
                     logsout_yCar = logsout_VehBus.Values.World.y;
@@ -479,11 +490,11 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
-%% Test Set 14 -- CRG Plateau Fuel Cell
-manv_set = {'CRG Plateau'};
+%% Test Set 14 -- DC1 Fuel Cell
+manv_set = {'Drive Cycle UrbanCycle1'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [173];
+veh_set = [196];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot2whlspeed'};
 sm_car_test_variants_testloop

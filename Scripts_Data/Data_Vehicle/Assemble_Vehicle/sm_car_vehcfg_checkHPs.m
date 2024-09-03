@@ -19,7 +19,7 @@ function hp_check_sum = sm_car_vehcfg_checkHPs(Vehicle,varargin)
 %    Shock hardpoints with damper hardpoints
 %    Shock endstops with Damper endstops
 %
-% Copyright 2023 The MathWorks, Inc.
+% Copyright 2023-2024 The MathWorks, Inc.
 
 showres = false;
 if(nargin>1)
@@ -162,3 +162,4 @@ if(~isempty(susp_field_inds))
         end
     end
 end
+

@@ -1,6 +1,6 @@
 function control_param = sm_car_controlparam_FuelCell1Motor
 %% Scene parameters
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 control_param.Name = 'FuelCell1Motor';
 

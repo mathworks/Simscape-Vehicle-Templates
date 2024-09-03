@@ -1,7 +1,7 @@
 component cell_voltage
     % Fuel Cell Voltage Model
     %
-    % Copyright 2020-2023 The MathWorks, Inc.
+    % Copyright 2020-2024 The MathWorks, Inc.
 
     nodes
         H = foundation.thermal.thermal;   %H:left

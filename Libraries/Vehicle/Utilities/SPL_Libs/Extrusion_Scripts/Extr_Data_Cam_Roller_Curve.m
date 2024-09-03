@@ -18,7 +18,7 @@ function [xy_data] = Extr_Data_Cam_Roller_Curve(cam_xsec,roller_rad,inout,vararg
 %   add 'plot' as the final argument
 %   >> Extr_Data_Cam_Roller_Curve([sind(1:4:360)' 1.5*cosd(1:4:360)'],0.2,'Outside','plot')
 
-% Copyright 2017-2023 The MathWorks, Inc.
+% Copyright 2017-2024 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

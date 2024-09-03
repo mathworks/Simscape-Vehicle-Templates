@@ -1,6 +1,6 @@
 % Script to generate Vehicle and Trailer data structures for various configurations
 %
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 sm_car_assemble_presets_vehicle_axle2
 sm_car_assemble_presets_trailer_axle1

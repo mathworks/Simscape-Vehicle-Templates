@@ -17,7 +17,7 @@ function fig_h = sm_car_plot_ggv_surf(GGV_data, varargin)
 %       hold_fig             true to retain figure on plot, false for new plot
 %       surf_clr             Color for the surface as an RGB triplet
 
-% Copyright 2021-2023 The MathWorks, Inc.
+% Copyright 2021-2024 The MathWorks, Inc.
 
 %% Plot GGV with Surface
 % Clear results figure if it already exists.

@@ -54,7 +54,7 @@ for veh_i = 0:(num_config-1)
     sldiagviewer.diary('on')
     try
         % Configure vehicle
-        sm_car_config_vehicle(mdl)
+        sm_car_config_vehicle(mdl,false)
         % Run model to generate error during initialization
         set_param(mdl,'SimulationCommand','Start','StopTime','0.0001');
         while(~strcmp(get_param(bdroot,'SimulationStatus'),'stopped'))
