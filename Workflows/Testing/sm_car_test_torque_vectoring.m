@@ -3,12 +3,12 @@
 % that have independent motors on the rear axle.
 % Manuever is simple step steer.
 
-% Copyright 2019-2022 The MathWorks, Inc
+% Copyright 2019-2024 The MathWorks, Inc
 
 % Test Torque Vectoring 
 open_system('sm_car');
-sm_car_load_vehicle_data('sm_car','181'); % Ideal powertrain
-%sm_car_load_vehicle_data('sm_car','169');  % Electric powertrain
+%sm_car_load_vehicle_data('sm_car','181'); % Ideal powertrain
+sm_car_load_vehicle_data('sm_car','169');  % Electric powertrain
 
 % Set up maneuver
 sm_car_config_maneuver('sm_car','Turn');
@@ -18,7 +18,9 @@ Maneuver.Brake.rPedal.Value  = Maneuver.Brake.rPedal.Value*0;
 
 % Enable Torque vectoring
 set_param('sm_car/Controller','popup_control','Torque Vector 4 Motor');
-set_param('sm_car/Controller/TrqVec 4Motor/Power_TqVec/Torque Vectoring','aSteerWheel_enable','4*pi/180');
+%set_param('sm_car/Controller/TrqVec 4Motor/Power_TqVec/Torque Vectoring','aSteerWheel_enable','4*pi/180');
+Control.Ideal_L1_R1_L2_R2_default.aSteerWheel_enable = 4*pi/180;
+Control.TrqVec.aSteerWheel_enable = Control.Ideal_L1_R1_L2_R2_default.aSteerWheel_enable;
 
 % Run test
 set_param('sm_car','FastRestart','on','ReturnWorkspaceOutputs','on');
@@ -38,13 +40,17 @@ results_yCar_TV_on = logsout_VehBus.Values.World.y;
 clear simlog_sm_car logsout_sm_car out
 
 % Turn torque vectoring off for a test
-set_param('sm_car/Controller/TrqVec 4Motor/Power_TqVec/Torque Vectoring','aSteerWheel_enable','4*pi/180*100');
+%set_param('sm_car/Controller/TrqVec 4Motor/Power_TqVec/Torque Vectoring','aSteerWheel_enable','4*pi/180*100');
+Control.Ideal_L1_R1_L2_R2_default.aSteerWheel_enable = 4*pi/180*100;
+Control.TrqVec.aSteerWheel_enable = Control.Ideal_L1_R1_L2_R2_default.aSteerWheel_enable;
 out = sim('sm_car');
 set_param('sm_car','FastRestart','off','ReturnWorkspaceOutputs','off');
 warning('on','physmod:common:gl:sli:rtp:InvalidNonValueReferenceMask');
 
 % Turn Torque Vectoring back on
-set_param('sm_car/Controller/TrqVec 4Motor/Power_TqVec/Torque Vectoring','aSteerWheel_enable','4*pi/180');
+%set_param('sm_car/Controller/TrqVec 4Motor/Power_TqVec/Torque Vectoring','aSteerWheel_enable','4*pi/180');
+Control.Ideal_L1_R1_L2_R2_default.aSteerWheel_enable = 4*pi/180;
+Control.TrqVec.aSteerWheel_enable = Control.Ideal_L1_R1_L2_R2_default.aSteerWheel_enable;
 
 % Save results
 simlog_sm_car = out.get('simlog_sm_car');

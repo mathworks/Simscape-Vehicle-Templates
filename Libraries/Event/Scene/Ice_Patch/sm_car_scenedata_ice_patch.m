@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_ice_patch
 %% Floor and Grid parameters
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 scene_data.Name = 'Ice_Patch';
 scene_data.Plane.l = 400;           % m

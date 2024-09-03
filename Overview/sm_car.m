@@ -7,15 +7,15 @@
 % MathWorks products. A modular library of components gives users a great
 % starting point for creating custom vehicle models
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 
 %% Model
 open_system('sm_car')
-load Vehicle_160
-Vehicle = Vehicle_160;
+load Vehicle_191
+Vehicle = Vehicle_191;
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
-sm_car_config_vehicle('sm_car')
+sm_car_config_vehicle('sm_car',true)
 
 ann_h = find_system('sm_car','FindAll', 'on','type','annotation','Tag','ModelFeatures');
 for i=1:length(ann_h)
@@ -102,7 +102,7 @@ open_system('sm_car/Vehicle/Vehicle/Brakes/PedalAbstract DiscDisc','force')
 
 %load Vehicle_130
 %Vehicle = Vehicle_130;
-%sm_car_config_vehicle('sm_car')
+%sm_car_config_vehicle('sm_car',true)
 
 set_param('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4','LinkStatus','none')
 open_system('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4','force')
@@ -117,10 +117,10 @@ open_system('sm_car/Vehicle/Vehicle/Brakes/HydraulicValves Channel4/Valves','for
 
 %% Tire L1 Subsystem
 %
-% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%L1/MFEval','force'); Open Subsystem>
+% <matlab:open_system('sm_car');open_system('sm_car/Vehicle/Vehicle/Chassis/Tire%L1/MFMbody','force'); Open Subsystem>
 
-%set_param('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFEval','LinkStatus','none')
-open_system('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFEval','force')
+%set_param('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFMbody','LinkStatus','none')
+open_system('sm_car/Vehicle/Vehicle/Chassis/Tire L1/MFMbody','force')
 
 %% Powertrain Subsystem
 %
@@ -161,9 +161,9 @@ open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liqu
 
 bdclose('sm_car')
 load_system('sm_car')
-load Vehicle_000
-Vehicle = Vehicle_000;
-sm_car_config_vehicle('sm_car')
+load Vehicle_191.mat
+Vehicle = Vehicle_191;
+sm_car_config_vehicle('sm_car',true)
 
 warning('off','Solver61:CoeffChecks:Eyk')
 warning('off','Solver61:Limits:Exceeded')

@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-11-23"><meta name="DC.source" content="sm_car_optim_traj_vx_results_nurburgring_f.m"><style type="text/css">
+      -->
+<title>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-31">
+<meta name="DC.source" content="sm_car_optim_traj_vx_results_nurburgring_f.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,30 +72,45 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Nurburgring Nordschleife.  This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)</h1>
+<!--introduction-->
+<p>This example shows how to minimize lap times using optimization algorithms using the Nurburgring Nordschleife. This optimization assumes no elevation to shorten the optimization process.</p>
+<!--/introduction-->
+<p><h2>Results of Optimization</h2></p>
+<pre class="codeoutput">
 
 Iter     Func-count       f(x)      MeshSize     Method
     0           1           3624             4      
     1           2        2434.83             8     Successful Poll
-    2           3        1486.31            16     Successful Poll
-    3           4        1486.31             4     Refine Mesh
-    4           7        1247.02             8     Successful Poll
-    5          10        946.878            16     Successful Poll
-    6          11        946.878             4     Refine Mesh
-    7          14        946.878             1     Refine Mesh
-    8          20        946.878          0.25     Refine Mesh
-    9          26        946.878        0.0625     Refine Mesh
-   10          32        945.104         0.125     Successful Poll
-   11          38        945.104       0.03125     Refine Mesh
-   12          44        944.215        0.0625     Successful Poll
-   13          50        944.215       0.01562     Refine Mesh
+    2           3         1486.3            16     Successful Poll
+    3           4         1486.3             4     Refine Mesh
+    4           7        1247.01             8     Successful Poll
+    5          10         946.87            16     Successful Poll
+    6          11         946.87             4     Refine Mesh
+    7          14         946.87             1     Refine Mesh
+    8          20         946.87          0.25     Refine Mesh
+    9          26         946.87        0.0625     Refine Mesh
+   10          32        945.055         0.125     Successful Poll
+   11          38        945.055       0.03125     Refine Mesh
+   12          44        944.212        0.0625     Successful Poll
+   13          50        944.212       0.01562     Refine Mesh
 Warning: Limiting legend entries to 50. Specify a vector of graphics objects to
 display more than 50 entries. 
-   14          56        943.929       0.03125     Successful Poll
-   15          62        943.929      0.007812     Refine Mesh
-Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 18309.7883
-</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_06.png" alt=""> <p class="footer">Copyright 2020-2022 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+   14          56         943.94       0.03125     Successful Poll
+   15          62         943.94      0.007812     Refine Mesh
+patternsearch stopped because the mesh size was less than options.MeshTolerance.
+Elapsed time for optimization = 21244.9133
+</pre>
+<img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_nurburgring_f_07.png" alt=""> <p class="footer">Copyright 2020-2024 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Using Optimization, Nurburgring Nordschleife (No Elevation Change)
 % 
@@ -98,7 +118,7 @@ Elapsed time for optimization = 18309.7883
 % algorithms using the Nurburgring Nordschleife.  This optimization
 % assumes no elevation to shorten the optimization process.
 % 
-% Copyright 2020-2022 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 %%
 % <html><h2>Results of Optimization</h2></html>
@@ -144,4 +164,6 @@ close(7)
 %close all
 %bdclose all
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

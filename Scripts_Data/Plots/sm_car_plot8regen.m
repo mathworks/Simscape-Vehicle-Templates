@@ -4,7 +4,7 @@ function sm_car_plot8regen(logsout_data)
 %
 % Plot results from electric powertrains
 %
-% Copyright 2016-2022 The MathWorks, Inc.
+% Copyright 2016-2024 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus  = logsout_data.get('VehBus');

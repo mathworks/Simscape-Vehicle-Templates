@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle2
 % Script to generate Vehicle data structures for various configurations
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -2046,6 +2046,55 @@ Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
 
 % Assemble configuration description in string
 Vehicle.config = strrep(vehcfg,'MFEval','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 37: Achilles, DoubleWisbone, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_198;  % 15 DOF MFEval
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_FSAE_Achilles_f;
+Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_FSAE_Achilles_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_FSAE_Achilles_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_FSAE_Achilles_r;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_DW_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_DW_Linear_A2;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_DW_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.FSAE_Achilles_DW_Linear_A2;
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L1_R1_L2_R2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D_r1D_4sh_SH');
+Vehicle = sm_car_vehcfg_setBodyGeometry(Vehicle,'CAD_FSAE_Achilles');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'WheelDrivenRack1UJoint_Ch2_Achilles','SuspA1');
+
+% Assemble configuration description in string
+vehcfg = strrep(vehcfg,'dwpua','DWishbone');
+Vehicle.config = strrep(vehcfg,'steady','4MotorCool');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 38: Achilles, DWDecoupled, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_206;  % 15 DOF MFEval
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L1_R1_L2_R2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D_r1D_4sh_SH');
+Vehicle = sm_car_vehcfg_setBodyGeometry(Vehicle,'CAD_FSAE_Achilles');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'WheelDrivenRack1UJoint_Ch2_Achilles','SuspA1');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'steady','4MotorCool');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 

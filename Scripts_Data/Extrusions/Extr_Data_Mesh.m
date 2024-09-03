@@ -18,7 +18,7 @@ function [xy_data] = Extr_Data_Mesh(lenX, lenY, numHx, numHy, hx, hy, varargin)
 %   add 'plot' as the final argument
 %   >> Extr_Data_Mesh(3,3,3,2,0.8,0.8,'plot')
 
-% Copyright 2017-2022 The MathWorks, Inc.
+% Copyright 2017-2024 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

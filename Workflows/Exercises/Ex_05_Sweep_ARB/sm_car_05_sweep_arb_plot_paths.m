@@ -1,5 +1,5 @@
 % Script to plot paths of vehicle from sweep of anti-roll bar stiffness
-% Copyright 2021-2022 The MathWorks, Inc.
+% Copyright 2021-2024 The MathWorks, Inc.
 
 if(exist('simOut','var'))
     

@@ -14,7 +14,7 @@ function sm_car_gen_upd_database(db_type,db_update)
 %   db_update 0 - Generate variable.  Read from Excel, 
 %             1 - Update variable. Only read from Excel if file has changed
 % 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Select database file, MAT file, and workspace variable name
 switch db_type

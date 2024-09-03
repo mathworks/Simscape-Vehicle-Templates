@@ -13,7 +13,7 @@ function Vehicle = sm_car_vehcfg_setTire(Vehicle,tire_opt,tireFieldName)
 %
 % tireFieldName     Field name in Vehicle data structure where tire data is stored
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

@@ -10,7 +10,7 @@
 % has constraints that prevent the upright from rotating freely about its
 % vertical axis.  It cannot be used for an axle that has a steering system.
 % 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Overview
 %

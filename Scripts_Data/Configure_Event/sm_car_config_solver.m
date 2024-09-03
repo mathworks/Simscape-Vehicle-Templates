@@ -4,7 +4,7 @@ function sm_car_config_solver(mdl,simtype)
 %   This function configures the solvers.
 %   simtype is "variable step", "fixed step", or "fixed step slrt"
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 desktop_solver = 'ode23t';
 
@@ -15,7 +15,11 @@ realtime_globalSolver = 'ode3';
 
 
 f=Simulink.FindOptions('FollowLinks',0,'RegExp',1);
-solverBlock_pth=Simulink.findBlocks(mdl,'ReferenceBlock','sm_car_lib/Environment/CarWorldConfig');
+solverBlock_pth=Simulink.findBlocks(mdl,'ReferenceBlock','World_Config_Utilities/CarWorldConfig');
+
+if(isempty(solverBlock_pth))
+    warning(['Cannot find subsystem in ' mdl ' to set Local Solver.'])
+end
 
 Vehicle = evalin('base','Vehicle');
 

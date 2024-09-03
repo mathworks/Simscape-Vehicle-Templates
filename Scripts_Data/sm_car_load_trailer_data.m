@@ -5,7 +5,7 @@ function sm_car_load_trailer_data(mdl,trailerDataIndex)
 %    trailerDataIndex:  Index of vehicle data
 %                       Specify 'none' to turn off trailer
 %
-% Copyright 2019-2022 The MathWorks, Inc
+% Copyright 2019-2024 The MathWorks, Inc
 
 % Load desired vehicle data into variable Vehicle
 if(strcmpi(trailerDataIndex,'none'))
@@ -23,7 +23,7 @@ else
     if(~strcmpi(mdl,'none'))
         if(bdIsLoaded(mdl))
             set_param([mdl '/Vehicle'],'popup_trailer','On');
-            sm_car_config_vehicle(mdl);
+            sm_car_config_vehicle(mdl,false);
             trl_body = sm_car_vehcfg_getTrailerType(mdl);
             evalin('base',['Init_Trailer = IDatabase.Flat.Trailer_' trl_body ';']);
         end

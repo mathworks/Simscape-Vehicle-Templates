@@ -15,14 +15,14 @@ function sm_car_run_two_sims(mdl, eventName, nameA, vehPresetA, trlPresetA, name
 %    trlPresetB  String with name of trailer preset for test
 %                For use with sm_car_load_trailer()
 %
-% Copyright 2021-2022 The MathWorks, Inc.
+% Copyright 2021-2024 The MathWorks, Inc.
 
 % Load and run configuration 1
 open_system(mdl)
 sm_car_load_vehicle_data(mdl,vehPresetA);
 sm_car_load_trailer_data(mdl,trlPresetA);
 sm_car_config_maneuver(mdl,eventName);
-sm_car_config_vehicle(mdl);
+sm_car_config_vehicle(mdl,false);
 sim(mdl)
 
 % Extract relevant data
@@ -33,7 +33,7 @@ assignin('base',matlab.lang.makeValidName(['log_A_' nameA]),logsout_A);
 sm_car_load_vehicle_data(mdl,vehPresetB);
 sm_car_load_trailer_data(mdl,trlPresetB);
 sm_car_config_maneuver(mdl,eventName);
-sm_car_config_vehicle(mdl);
+sm_car_config_vehicle(mdl,false);
 sim(mdl)
 
 % Extract relevant data

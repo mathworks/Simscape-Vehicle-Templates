@@ -1,6 +1,6 @@
 function shutdown_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 
@@ -25,18 +25,12 @@ else
     rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_None']);
 end
 
-% Remove folders with Simscape Multibody tire subsystem to path 
-% if MATLAB version R2021b or higher
-if verLessThan('matlab', '9.11')
-    rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody_None']);
-else
-    rmpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody']);
-end
-
+%% Remove custom libraries
+cd(fileparts(which('sm_car.slx')))
 custom_code = dir('**/custom_abs.ssc');
 cd(custom_code.folder)
 cd('..')
-bdclose all
+bdclose('Custom_lib')
 pause(1)
 ssc_clean Custom
 cd(fileparts(which('sm_car.slx')))
@@ -47,6 +41,7 @@ daesscSetMultibody([])
 
 %% Close app
 try
-   evalin('base','sm_car_vehcfg_uifigure.UIFigure.delete');
+   evalin('base','sm_car_vehcfg_uifigure.delete');
+   evalin('base','clear sm_car_vehcfg_uifigure');
 catch
 end

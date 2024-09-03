@@ -1,6 +1,6 @@
-function sm_car_trajectory_double_lane_change
+function sm_car_trajectory_double_lane_change(showPlot)
 % Function to construct double-lane change maneuver
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)))
 % Parameters for trajectory
@@ -50,45 +50,48 @@ y_new  = interp1(x_waypoints, y_waypoints,  x_new, 'pchip');
 vx_new = interp1(x_waypoints, vx_waypoints, x_new, 'pchip');
 
 % Plot waypoints and interpolated trajectory
-fig_handle_name = 'h1_sm_car_double_lane_change';
+if(showPlot)
+    fig_handle_name = 'h1_sm_car_double_lane_change';
 
-handle_var = evalin('base',['who(''' fig_handle_name ''')']);
-if(isempty(handle_var))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-elseif ~isgraphics(evalin('base',handle_var{:}))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+
+    plot(-y_waypoints,x_waypoints,'bo');
+    hold on
+    plot(-y_new,x_new,'r-x')
+    hold off
+    xlabel('Lateral Distance (m)')
+    ylabel('Longitudinal Distance (m)');
+    title('Double-Lane Change Trajectory');
+    legend({'Waypoints','Interpolated'},'Location','Best');
+    axis equal
 end
-figure(evalin('base',fig_handle_name))
-clf(evalin('base',fig_handle_name))
-
-plot(-y_waypoints,x_waypoints,'bo');
-hold on
-plot(-y_new,x_new,'r-x')
-hold off
-xlabel('Lateral Distance (m)')
-ylabel('Longitudinal Distance (m)');
-title('Double-Lane Change Trajectory');
-legend({'Waypoints','Interpolated'},'Location','Best');
-axis equal
-
 % Calculate distance traveled
 xTrajectory_new = [0 cumsum(sqrt((diff(x_new)).^2+diff(y_new).^2))];
 
-fig_handle_name = 'h2_sm_car_double_lane_change';
+if(showPlot)
+    fig_handle_name = 'h2_sm_car_double_lane_change';
 
-handle_var = evalin('base',['who(''' fig_handle_name ''')']);
-if(isempty(handle_var))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-elseif ~isgraphics(evalin('base',handle_var{:}))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+    subplot(211)
+    plot(xTrajectory_new,vx_new)
+    xlabel('Distance Traveled (m)');
+    ylabel('Target Speed (m/s)');
+    title('Target Speed Along Trajectory');
 end
-figure(evalin('base',fig_handle_name))
-clf(evalin('base',fig_handle_name))
-subplot(211)
-plot(xTrajectory_new,vx_new)
-xlabel('Distance Traveled (m)');
-ylabel('Target Speed (m/s)');
-title('Target Speed Along Trajectory');
 
 % Calculate target yaw angle (rad)
 yaw_interval = 2; % 10
@@ -103,11 +106,13 @@ aYaw_new = atan2(...
 
 aYaw_new = [repmat(aYaw_new(1),1,yaw_interval) aYaw_new];
 
-subplot(212)
-plot(xTrajectory_new,aYaw_new,'-o')
-xlabel('Distance Traveled (m)');
-ylabel('Target Yaw Angle (rad)');
-title('Target Yaw Angle Along Trajectory');
+if(showPlot)
+    subplot(212)
+    plot(xTrajectory_new,aYaw_new,'-o')
+    xlabel('Distance Traveled (m)');
+    ylabel('Target Yaw Angle (rad)');
+    title('Target Yaw Angle Along Trajectory');
+end
 
 % Assign parameters for trajectory definition
 x.Value = x_new;

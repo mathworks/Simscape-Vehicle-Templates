@@ -1,6 +1,6 @@
 % Script to test many configurations under many events
 % Not a complete sweep of all combinations, but every variant is activated
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 maneuver_list = {...
     'CRG Mallory Park',       'CMP';
@@ -103,14 +103,12 @@ for veh_i = 1:length(veh_set1)
         % Load data without triggering variant selection
         sm_car_load_vehicle_data('none',veh_suffix); 
         sm_car_load_trailer_data('none',trailer_set{trl_i});
-        sm_car_config_vehicle(mdl);
+        %sm_car_config_vehicle(mdl,false);
         
         % Loop over all solver types to be tested
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});
-            
-            sm_car_config_vehicle(mdl); % config_solver can modify Vehicle
-            
+            sm_car_config_vehicle(mdl,false); % config_solver can modify Vehicle
             set_param(mdl,'FastRestart','on')
             
             %  Simulation for 1e-3 to eliminate initialization time'
@@ -479,11 +477,11 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
-%% Test Set 14 -- CRG Plateau Fuel Cell
-manv_set = {'CRG Plateau'};
+%% Test Set 14 -- DC1 Fuel Cell
+manv_set = {'Drive Cycle UrbanCycle1'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [173];
+veh_set = [196];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot2whlspeed'};
 sm_car_test_variants_testloop

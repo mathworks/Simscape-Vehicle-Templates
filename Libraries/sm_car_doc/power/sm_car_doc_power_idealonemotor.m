@@ -9,7 +9,7 @@
 % This subsystem models an ideal torque source connected to the driveline
 % by a single shaft.
 % 
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Overview
 % 

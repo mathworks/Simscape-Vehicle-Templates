@@ -2,7 +2,7 @@ function TNOtbx_pth=GetTNODelftTyrePath
 % DETERMINE IF TNO DELFT-TYRE TOOLBOX DIRECTORY IS ON PATH
 % CHECK IF TOOLBOX ALREADY ON PATH
 
-% Copyright 2014-2022 The MathWorks, Inc.
+% Copyright 2014-2024 The MathWorks, Inc.
 
 TNOtbxOnPath = ~isempty(which('s_delfttyre_sti'));
 

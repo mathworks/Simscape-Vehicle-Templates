@@ -1,10 +1,11 @@
 function sm_car_05_setup_bump_dlc(mdl)
 % Load the default Vehicle configuration data.
-sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
+%sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
+sm_car_load_vehicle_data(mdl,'189'); % MFeval tire
 
 % Configure the model, maneuver, trailer and other event options.
 sm_car_config_maneuver(mdl,'Double Lane Change');
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',false);
 
 %% Add bump to double lane change maneuver
 % Create road data for bump
