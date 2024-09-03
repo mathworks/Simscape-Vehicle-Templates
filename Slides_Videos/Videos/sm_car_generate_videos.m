@@ -1,4 +1,4 @@
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 cd(fileparts(which(mfilename)));
 load CameraXML
 cam_views = fieldnames(CameraXML);
@@ -40,13 +40,13 @@ for view_i = 1:length(view_set)
             eval(['load(''Vehicle_' veh_suffix ''');']);
             eval(['Vehicle = Vehicle_' veh_suffix ';']);
             sm_car_load_trailer_data('sm_car',trailer_set{trl_i});
-            sm_car_config_vehicle(mdl);
+            sm_car_config_vehicle(mdl,false);
             for m_i = 1:size(maneuver_vnt,1)
                 sm_car_config_maneuver(mdl,maneuver_vnt{m_i,1});
                 if(strcmp(view_set{view_i},'View_Susp_FL'))
                     Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 1 1 1]);
                 end
-                sm_car_config_vehicle(mdl); % Some maneuvers change vehicle type (CRG)
+                sm_car_config_vehicle(mdl,false); % Some maneuvers change vehicle type (CRG)
                 
                 if(strcmpi(maneuver_vnt{m_i,1},'Mallory Park'))
                     set_param(mdl,'StopTime','130')
@@ -119,10 +119,10 @@ for view_i = 1:length(view_set)
             eval(['load(''Vehicle_' veh_suffix ''');']);
             eval(['Vehicle = Vehicle_' veh_suffix ';']);
             sm_car_load_trailer_data('sm_car',trailer_set{trl_i});
-            sm_car_config_vehicle(mdl);
+            sm_car_config_vehicle(mdl,false);
             for m_i = 1:size(maneuver_vnt,1)
                 sm_car_config_maneuver(mdl,maneuver_vnt{m_i,1});
-                sm_car_config_vehicle(mdl); % Some maneuvers change vehicle type (CRG)
+                sm_car_config_vehicle(mdl,false); % Some maneuvers change vehicle type (CRG)
                 
                 if(strcmpi(maneuver_vnt{m_i,1},'Mallory Park'))
                     set_param(mdl,'StopTime','130')
@@ -194,10 +194,10 @@ for view_i = 1:length(view_set)
             eval(['load(''Vehicle_' veh_suffix ''');']);
             eval(['Vehicle = Vehicle_' veh_suffix ';']);
             sm_car_load_trailer_data('sm_car',trailer_set{trl_i});
-            sm_car_config_vehicle(mdl);
+            sm_car_config_vehicle(mdl,false);
             for m_i = 1:size(maneuver_vnt,1)
                 sm_car_config_maneuver(mdl,maneuver_vnt{m_i,1});
-                sm_car_config_vehicle(mdl); % Some maneuvers change vehicle type (CRG)
+                sm_car_config_vehicle(mdl,false); % Some maneuvers change vehicle type (CRG)
                 
                 if(strcmpi(maneuver_vnt{m_i,1},'Mallory Park'))
                     set_param(mdl,'StopTime','130')

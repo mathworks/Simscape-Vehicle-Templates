@@ -4,7 +4,7 @@ function Q = calcCondHeat(T, TTbl, hfgTbl, h_i, mdot_c, x_i)
 %
 % Species: nitrogen, oxygen, hydrogen, water 
 %
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 % Inputs:
 %  T       -- Temperature

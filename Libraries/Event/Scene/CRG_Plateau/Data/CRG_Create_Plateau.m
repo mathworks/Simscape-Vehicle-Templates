@@ -4,7 +4,7 @@ function CRG_Create_Plateau
 % Creates CRG file for track with and without elevation.
 % Creates STL files based on data in CRG file.
 %
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 road_opts.create_stl_files = true;
 road_opts.create_no_elevation = false;

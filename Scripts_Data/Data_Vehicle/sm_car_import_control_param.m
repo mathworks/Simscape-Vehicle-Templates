@@ -2,7 +2,8 @@ function control_param = sm_car_import_control_param
 
 curr_dir = pwd;
 cd(fileparts(which('sm_car.slx')));
-control_param_file_list = dir('**/sm_car_controlparam_*.m');
+dirStr = ['.' filesep 'Libraries' filesep '**' filesep 'sm_car_controlparam_*.m'];
+control_param_file_list = dir(dirStr);
 
 [~, alpha_ind] = sort({control_param_file_list.name});
 

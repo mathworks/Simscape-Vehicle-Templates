@@ -1,6 +1,6 @@
 function startup_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 
@@ -23,14 +23,6 @@ end
 % Add MF-Swift software to path if it can be found
 [~,MFSwifttbx_folders]=sm_car_startupMFSwift;
 assignin('base','MFSwifttbx_folders',MFSwifttbx_folders);
-
-% Add folders with Simscape Multibody tire subsystem to path
-% if MATLAB version R2021b or higher
-if verLessThan('matlab', '9.11')
-    addpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody_None']);
-else
-    addpath([curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFMbody' filesep 'MFMbody']);
-end
 
 %% Load visualization and other parameters in workspace
 Visual = sm_car_param_visual('default');
@@ -82,7 +74,9 @@ end
 sm_car_gen_init_database;
 
 %% Load Maneuver database
-sm_car_gen_upd_database('Maneuver',1);
+%sm_car_gen_upd_database('Maneuver',1);
+MDatabase = sm_car_import_maneuver_data;
+assignin('base','MDatabase',MDatabase);
 
 %% Load Driver database
 %sm_car_gen_upd_database('Driver',1);
@@ -98,6 +92,7 @@ assignin('base','Scene',Scene);
 
 %% Load control parameters
 Control = sm_car_import_control_param;
+Control.TrqVec = Control.Ideal_L1_R1_L2_R2_default;
 assignin('base','Control',Control);
 
 %% Load default maneuver - WOT Braking (basic)
@@ -109,6 +104,7 @@ evalin('base','Camera = CDatabase.Camera.Hamba;');
 evalin('base','Init_Trailer = IDatabase.Flat.Trailer_Thwala;');
 
 %% Create custom components for drag calculation
+cd(fileparts(which('sm_car.slx')))
 custom_code = dir('**/custom_abs.ssc');
 cd(custom_code.folder)
 ssc_build
@@ -145,7 +141,7 @@ if(open_start_content)
     end
 
     %% Open app
-    evalin('base','sm_car_vehcfg_run');
+    evalin('base','sm_car_vehcfg_uifigure = sm_car_vehcfg;');
 
     %% Open model
     sm_car

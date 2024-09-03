@@ -7,7 +7,7 @@
 % </html>
 %
 % 
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Block
 %

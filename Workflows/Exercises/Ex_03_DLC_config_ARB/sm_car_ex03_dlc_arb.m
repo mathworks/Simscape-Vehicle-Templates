@@ -6,7 +6,7 @@
 % configuration we enable the anti-roll bar, in the other we disable it. The
 % Simulink Data Inspector let us easily compare vehicle body measurements.
 %
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB app, project shortcut, or MATLAB Command
@@ -18,11 +18,7 @@ open_system(mdl)
 % This can be done from the MATLAB app or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-if verLessThan('matlab', '9.11')
-    sm_car_load_vehicle_data(mdl,'139'); % MFeval tire
-else
-    sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
-end
+sm_car_load_vehicle_data(mdl,'189'); % Multibody tire, R21b and higher
 
 %%
 % Note presence of anti-roll bar in model
@@ -65,7 +61,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA2');
 % Changes to the Vehicle data structure need to be applied to the model.
 % This process can be triggered by the MATLAB app or the MATLAB command
 % line
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 
 %%
 % Note that anti-roll bar has been removed
@@ -94,7 +90,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'Droplink_Sedan_Hamba_r','SuspA2'
 % Changes to the Vehicle data structure need to be applied to the model.
 % This process can be triggered by the MATLAB app or the MATLAB command
 % line
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 
 %%
 close all

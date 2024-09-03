@@ -1,5 +1,5 @@
 % Script to publish all optimization results for each track
-% Copyright 2020-2023 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 warning('off','Simulink:Engine:MdlFileShadowedByFile');
 warning('off','Simulink:Harness:WarnABoutNameShadowingOnActivation');
@@ -28,12 +28,13 @@ warning('off','Simulink:Harness:WarnABoutNameShadowingOnActivation');
 %open_system('sm_car');
 
 % Loop to publish
-for i=1:length(filenames_m)
+for i = 1:length(filenames_m)
     if ~(contains(filenames_m{i},'publish_all'))
         publish(filenames_m{i},'showCode',false)
         %disp(filenames_m{i});
     end
     cd(Overview_Optim_Dir)
+    bdclose all
 end
 
 bdclose all

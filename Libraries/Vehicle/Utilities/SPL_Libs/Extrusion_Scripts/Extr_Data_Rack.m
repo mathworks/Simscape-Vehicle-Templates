@@ -17,7 +17,7 @@ function [xy_data] = Extr_Data_Rack(pitch, numteeth, Tb, varargin)
 % final argument >> Extr_Data_Rack(1,5,0.5,'plot')
 
 
-% Copyright 2012-2022 The MathWorks, Inc.
+% Copyright 2012-2024 The MathWorks, Inc.
 
 Ap = 14.5*pi/180*0; % Pressure Angle
 showplot = 'n';

@@ -1,7 +1,7 @@
 function Vehicle = sm_car_vehcfg_setPower(Vehicle,power_opt)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2023 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 VDatabase = evalin('base','VDatabase');
 
 % If subfield Cooling has been defined save the settings

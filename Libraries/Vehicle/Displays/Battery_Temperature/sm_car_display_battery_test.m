@@ -1,5 +1,5 @@
 % Script to test battery display blocks
-% Copyright 2018-2023 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 % Open project sm_car
 % Move to folder with these files in it
@@ -48,7 +48,7 @@ CDatabase.Camera.Hamba.Top.s.Value = [-1.7 0 4];
 CDatabase.Camera.Hamba.Top.a.Value = [0 90 0];
 sm_car_load_vehicle_data('sm_car','167');
 sm_car_config_maneuver('sm_car','CRG Kyalami');
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 set_param('sm_car','StopTime','9000')
 Maneuver.vGain.Value = 1;  % 1.8
 
