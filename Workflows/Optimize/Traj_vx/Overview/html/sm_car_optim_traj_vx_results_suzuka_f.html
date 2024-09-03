@@ -1,12 +1,17 @@
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-   <!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Using Optimization, Suzuka Circuit (No Elevation Change)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-11-22"><meta name="DC.source" content="sm_car_optim_traj_vx_results_suzuka_f.m"><style type="text/css">
+      -->
+<title>Minimize Lap Time Using Optimization, Suzuka Circuit (No Elevation Change)</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-08-31">
+<meta name="DC.source" content="sm_car_optim_traj_vx_results_suzuka_f.m">
+<style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,38 +72,47 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Suzuka Circuit (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Suzuka Circuit.  This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">Warning: Folder
-"C:\Users\smiller\AppData\Local\Temp\mwslx_sm_car_1861f334_b6a7_467e_a152_b7320296d8d2"
-was being used by block diagram "&lt;a href="matlab:open_system
-('sm_car')"&gt;sm_car&lt;/a&gt;" but it has been deleted. Simulink will recreate the
-folder now, but some changes made since the model was loaded may have been
-lost. Consult the documentation for more information. 
-
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Minimize Lap Time Using Optimization, Suzuka Circuit (No Elevation Change)</h1>
+<!--introduction-->
+<p>This example shows how to minimize lap times using optimization algorithms using the Suzuka Circuit. This optimization assumes no elevation to shorten the optimization process.</p>
+<!--/introduction-->
+<p><h2>Results of Optimization</h2></p>
+<pre class="codeoutput">
 
 Iter     Func-count       f(x)      MeshSize     Method
     0           1        1010.27         4.267      
     1           1        1010.27         1.067     Refine Mesh
     2           2        1010.27        0.2667     Refine Mesh
-    3           4        675.699        0.5333     Successful Poll
+    3           4        675.688        0.5333     Successful Poll
     4           6        417.449         1.067     Successful Poll
     5           8        417.449        0.2667     Refine Mesh
     6          12        389.316        0.5333     Successful Poll
     7          15        350.248         1.067     Successful Poll
     8          16        350.248        0.2667     Refine Mesh
     9          21        350.248       0.06667     Refine Mesh
-   10          27        339.341        0.1333     Successful Poll
-   11          32        339.341       0.03333     Refine Mesh
-   12          38        337.453       0.06667     Successful Poll
-   13          44         337.27        0.1333     Successful Poll
-   14          50         337.27       0.03333     Refine Mesh
+   10          27        339.322        0.1333     Successful Poll
+   11          32        339.322       0.03333     Refine Mesh
+   12          38        337.454       0.06667     Successful Poll
+   13          44        337.297        0.1333     Successful Poll
+   14          50        337.297       0.03333     Refine Mesh
 Warning: Limiting legend entries to 50. Specify a vector of graphics objects to
 display more than 50 entries. 
-   15          56        335.257       0.06667     Successful Poll
-   16          62        335.257       0.01667     Refine Mesh
-   17          68        335.257      0.004167     Refine Mesh
-Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 7475.208
-</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_06.png" alt=""> <p class="footer">Copyright 2020-2022 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+   15          56        335.283       0.06667     Successful Poll
+   16          62        335.283       0.01667     Refine Mesh
+   17          68        335.283      0.004167     Refine Mesh
+patternsearch stopped because the mesh size was less than options.MeshTolerance.
+Elapsed time for optimization = 7127.6837
+</pre>
+<img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_suzuka_f_07.png" alt=""> <p class="footer">Copyright 2020-2024 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Using Optimization, Suzuka Circuit (No Elevation Change)
 % 
@@ -106,7 +120,7 @@ Elapsed time for optimization = 7475.208
 % algorithms using the Suzuka Circuit.  This optimization
 % assumes no elevation to shorten the optimization process.
 % 
-% Copyright 2020-2022 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 %%
 % <html><h2>Results of Optimization</h2></html>
@@ -152,4 +166,6 @@ close(7)
 close all
 %bdclose all
 ##### SOURCE END #####
---></body></html>
+-->
+</body>
+</html>

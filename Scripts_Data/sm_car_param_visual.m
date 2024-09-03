@@ -1,5 +1,5 @@
 function Visual = sm_car_param_visual(car_option)
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Colors
 Visual.clr.blue        = [0.2 0.4 0.6];
@@ -13,6 +13,7 @@ Visual.clr.orange      = [1.0 0.8 0.4];
 Visual.clr.orangedark  = [1.0 0.7 0.0];
 Visual.clr.purple      = [0.6 0.6 1.0];
 Visual.clr.yellowpale  = [0.93 0.93 0.56];
+Visual.clr.graydark    = [0.1 0.1 0.1];
 Visual.clr.gray        = [0.5 0.5 0.5];
 Visual.clr.graylight   = [0.8 0.8 0.8];
 Visual.clr.white       = [1.0 1.0 1.0];
@@ -25,7 +26,6 @@ Visual.Shock.piston.clr     = Visual.clr.gray;
 Visual.Shock.bumpstop.clr   = Visual.clr.yellowpale;
 
 Visual.Rim.clr              = Visual.clr.graylight;
-Visual.Tire.clr             = Visual.clr.gray;
 
 Visual.DiffShaftOut.clr     = Visual.clr.gray;
 Visual.Driveshaft.clr       = Visual.clr.gray;
@@ -79,7 +79,8 @@ if(strcmpi(car_option,'default'))
     Visual.part.opc      = 1;
     Visual.Rim.opc       = 0.5;
     Visual.Tire.opc      = 1;
-    
+    Visual.Tire.clr      = Visual.clr.gray;
+
     % Steering
     Visual.SteeringArm.rad    = 0.02;
     Visual.TrackRod.rad       = 0.02;
@@ -118,7 +119,8 @@ else
     Visual.part.opc      = 1;
     Visual.Rim.opc       = 0.5;
     Visual.Tire.opc      = 1;
-    
+    Visual.Tire.clr      = Visual.clr.graydark;
+
     % Steering
     Visual.SteeringArm.rad    = 0.01;
     Visual.TrackRod.rad       = 0.008;

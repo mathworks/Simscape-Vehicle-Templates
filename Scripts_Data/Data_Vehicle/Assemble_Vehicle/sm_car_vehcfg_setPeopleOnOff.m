@@ -1,7 +1,7 @@
 function Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,people_opt,suspFieldName)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

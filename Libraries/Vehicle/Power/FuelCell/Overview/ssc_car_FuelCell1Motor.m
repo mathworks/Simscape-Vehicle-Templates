@@ -7,7 +7,7 @@
 % vehicle can be tested on custom drive cycles or using the Drive Cycle
 % Source from Powertrain Blockset.
 % 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 
 %% Model
@@ -41,7 +41,7 @@ open_system('ssc_car_FuelCell1Motor/Vehicle/Powertrain/FuelCell1Motor/Fuel Cell/
 % is driven along a standard drive cycle.  Note that the battery is
 % recharged (current changes sign) while the fuel cell is only discharged.
 
-sm_car_load_vehicle_data('none','173');
+sm_car_load_vehicle_data('none','196');
 Driver = DDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;
 Maneuver = MDatabase.DriveCycle.UrbanCycle1;
 Init = IDatabase.DriveCycle_UrbanCycle1.Sedan_Hamba;

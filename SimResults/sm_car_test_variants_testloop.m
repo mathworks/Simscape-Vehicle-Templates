@@ -6,7 +6,7 @@
 %  trailer_set = {'none'};
 %  plotstr = {'sm_car_plot1speed'};
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 % Loop over set of vehicles
 for veh_i = 1:length(veh_set)
@@ -38,7 +38,7 @@ for veh_i = 1:length(veh_set)
                 sm_car_config_maneuver(mdl,manv_set{m_i});
                 
                 % Some maneuvers change vehicle type (CRG)
-                sm_car_config_vehicle(mdl); 
+                sm_car_config_vehicle(mdl,false); 
                 
                 % If necessary, change controller
                 if(~strcmp(control_chg,'none'))

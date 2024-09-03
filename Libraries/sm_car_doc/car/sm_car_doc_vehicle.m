@@ -7,7 +7,7 @@
 % </html>
 %
 % 
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Block
 %
@@ -50,14 +50,6 @@ open_system('sm_car_doc_model_for_images/Car Subsystem');
 % different parts of the model.  The "Class" fields in the data structure
 % are used to select the active variants within the model.
 %
-
-%% Initialization Trigger Dropdown
-%
-% The mask initialization selects the active variants for many levels of
-% the model.  To trigger that code, change the value of Initialization
-% Trigger Dropdown in the Vehicle block from 0 to 1 or from 1 to 0.  The
-% code will set the active variant at every level by triggering the same
-% mechanism at every level with variants in the model.
 
 %%
 bdclose('sm_car_doc_model_for_images')

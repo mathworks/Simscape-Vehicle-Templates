@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2023 The MathWorks, Inc.
+Copyright 2018-2024 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -16,6 +16,9 @@ adjust the libraries so that variant can be selected.
 
 **Please visit the [Simscape Vehicle Templates](https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html) page** for animations and videos that show what you can do with these models.
 
+**See also these slides for more details on how the templates work: [Simscape Vehicle Templates PDF](https://content.mathworks.com/viewer/650bf0f0aedcbc278788fb2d)**
+
+
 ![](Overview/html/sm_car_mechExp_Sedan_PikesPeakUp.png)
 
 [![View Simscape Vehicle Templates on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/79484-simscape-vehicle-templates)
@@ -30,6 +33,32 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v3.0  -- Sept 2024**
+**Starting with version 3.0, Simscape Vehicle Templates are for R2022a and higher**
+1.  Removed mask code and mask parameters to trigger variant changes. Added sm_car_config_variants() to trigger externally as needed.
+2.  Removed mask code to set mask images
+3.  Removed Contact Force Library. Used Spatial Contact Force block instead
+4.  Removed all internal test harnesses
+5.  Using correct @Simulink filter for finding active variants
+6.  Added Formula Student body based on CAD
+7.  Added Formula Student parameter set for standard double-wishbone suspension
+7.  Added example integrating Dynamic Scenario Designer
+8.  Moved all source blocks out of sm_car_lib.slx (only contains links now).
+9.  Maneuver definitions now defined using MATLAB code (was Excel)
+10. Road height can be passed in as an external input for Simscape Multibody tire.
+11. Mechanical connections to passengers pass through vehicle body
+12. Set CV Joints to use "Rotation Sequence" instead of "Quaternion" for internal state. Eliminates need for "Primitive Bushing" in driveline and "Primitive Gimbal" in suspension. Computationally more efficient.
+13. Fixed display battery cooling threshold (0 -> 0.5)
+14. Fixed shutdown script to properly eliminate Custom_lib.slx
+15. Fixed opening and closing of UI to avoid errors when project is closed.
+16. Added Simscape Parts Library directly to project (eliminated reference project).
+17. Fixed hp testrig
+18. Fixed optimization objective function in lap time optimization scripts.
+
+
+---
+**Prior to v3.0, Simscape Vehicle Templates are compatible R2018b - R2024a**
+
 **v2.16 -- April 2024**
 1.  Compatible with MF-Swift v2312
 2.  Adjusted double-lane change to match Unreal scene (R2022b and higher)
@@ -188,7 +217,6 @@ adjust the libraries so that variant can be selected.
 8. Revised full test scripts - more modular, eliminate FastRestart warnings
    (sm_car_test_variants.m, added sm_car_test_variants_testloop.m)
 
-### **Release History**
 **v1.3 -- July 2020**
 
 1. Changed sm_car top level to accommodate overrides from obstacles in scenes

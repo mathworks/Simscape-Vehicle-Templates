@@ -7,7 +7,7 @@
 % 
 % The templates include a vehicle model that you can configure for
 % different powertrain architectures, driveline concepts, and suspension
-% designs. You can also use a MATLAB® app to help you configure the vehicle
+% designs. You can also use a MATLABÂ® app to help you configure the vehicle
 % and the test scenario. A modular library of components gives you a
 % starting point to create custom vehicle models.
 %
@@ -33,20 +33,19 @@
 % <tr>7. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
-% <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_quarter_car.slx')));open_system('sm_car_testrig_quarter_car');">Open Model</a><br>
-% <tr>2.  Half-Car Testrig, Achilles Push Rod: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_pushrodua.slx')));open_system('sm_car_testrig_half_car_test_pushrodua');">Open Model</a><br>
-% <tr>3.  Half-Car Testrig, Achilles Push Rod, No Steering: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_pushrodua_noSteer.slx')));open_system('sm_car_testrig_half_car_test_pushrodua_noSteer');">Open Model</a><br>
-% <tr>4.  Half-Car Testrig, Achilles Double-Wishbone Decoupled: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_dwdecoupled.slx')));open_system('sm_car_testrig_half_car_test_dwdecoupled');">Open Model</a><br>
-% <tr>5.  Half-Car Testrig, Achilles Double-Wishbone Decoupled, No Steering: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_dwdecoupled_nosteer.slx')));open_system('sm_car_testrig_half_car_test_dwdecoupled_nosteer');">Open Model</a><br>
-% <tr>6.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('sm_car_testrig_half_car_test_l5decoupled.slx')));open_system('sm_car_testrig_half_car_test_l5decoupled');">Open Model</a><br>
-% <tr>7.  Steering Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_steering.slx')));open_system('sm_car_testrig_steering');">Open Model</a><br>
-% <tr>8.  Camera Testrig: <a href="matlab:cd(fileparts(which('sm_car_testrig_Camera.slx')));open_system('sm_car_testrig_Camera');">Open Model</a><br>
+% <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a><br>
+% <tr>2.  Half-Car Testrig, Achilles Push Rod: <a href="matlab:cd(fileparts(which('testrig_half_car_pushrodua.slx')));open_system('testrig_half_car_pushrodua');">Open Model</a><br>
+% <tr>3.  Half-Car Testrig, Achilles Push Rod, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_pushrodua_noSteer.slx')));open_system('testrig_half_car_pushrodua_noSteer');">Open Model</a><br>
+% <tr>4.  Half-Car Testrig, Achilles Double-Wishbone Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_dwdecoupled.slx')));open_system('testrig_half_car_dwdecoupled');">Open Model</a><br>
+% <tr>5.  Half-Car Testrig, Achilles Double-Wishbone Decoupled, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_dwdecoupled_nosteer.slx')));open_system('testrig_half_car_dwdecoupled_nosteer');">Open Model</a><br>
+% <tr>6.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_l5decoupled.slx')));open_system('testrig_half_car_l5decoupled');">Open Model</a><br>
+% <tr>7.  Steering Testrig: <a href="matlab:cd(fileparts(which('testrig_Steer_Rack.slx')));open_system('testrig_Steer_Rack');">Open Model</a><br>
+% <tr>8.  Driveline: <a href="matlab:cd(fileparts(which('testrig_Driveline_Axle2.slx')));open_system('testrig_Driveline_Axle2');">Open Model</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
-% <tr>1.  Suspension Motion: <a href="matlab:cd(fileparts(which('sm_car_harness_linkage.slx')));open_system('sm_car_harness_linkage');">Open Model</a>, <a href="matlab:web('sm_car_testrig_quarter_car_testvariants_results.html');">See Toe Camber Curves</a> (<a href="matlab:edit('sm_car_testrig_quarter_car_testvariants_results.m');">code</a>)<br>
-% <tr>2.  Driveline: <a href="matlab:cd(fileparts(which('Driveline_Axle2_Testrig.slx')));open_system('Driveline_Axle2_Testrig');">Open Model</a><br>
-% <tr>3.  Body Sensor: <a href="matlab:cd(fileparts(which('sm_car_harness_sensor_body.slx')));open_system('sm_car_harness_sensor_body');">Open Model</a><br>
-% <tr>4.  Transforms: <a href="matlab:cd(fileparts(which('sm_car_harness_transform_align2pts.slx')));open_system('sm_car_harness_transform_align2pts');">Open Model</a><br>
+% <tr>1.  Camera Testrig: <a href="matlab:cd(fileparts(which('testrig_Camera.slx')));open_system('testrig_Camera');">Open Model</a><br>
+% <tr>2.  Body Sensor: <a href="matlab:cd(fileparts(which('testrig_body_sensor.slx')));open_system('testrig_body_sensor');">Open Model</a><br>
+% <tr>3.  Transforms: <a href="matlab:cd(fileparts(which('testrig_transform_align2pts.slx')));open_system('testrig_transform_align2pts');">Open Model</a><br>
 % <br>
 % <tr><b><u>Vehicle Parameters</u></b> <br>
 % <tr>1.  See Data: <a href="matlab:open('sm_car_library_list_Demo_Script.html');">Vehicle Data and Libraries</a>, <a href="matlab:edit sm_car_gen_init_database;">Init</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Maneuver.xlsx');">Maneuver</a>, <a href="matlab:edit sm_car_gen_driver_database;">Driver</a>, <a href="matlab:sm_car_winopen_file('sm_car_database_Camera.xlsx');">Camera</a> (<a href="matlab:edit sm_car_import_vehicle_data_sheet;">see code</a>)<br> 
@@ -96,11 +95,6 @@
 % <td>Results: <a href="matlab:web('sm_car_testrig_susp_splitla_shockf_hp_results_hptest_none_offsetPos.png');">Positive Offsets</a>, <a href="matlab:web('sm_car_testrig_susp_splitla_shockf_hp_results_hptest_none_offsetNeg.png');">Negative Offsets</a></tr>
 % </table><br>
 % <br>
-% <tr><b><u>Bus Testrigs</u></b><br>
-% <tr>1.  See Code: <a href="matlab:cd(fileparts(which('sm_car_create_bus_defs.m')));edit sm_car_create_bus_defs;">Create Bus Definitions</a>, <a href="matlab:cd(fileparts(which('sm_car_check_bus_defs.m')));edit sm_car_check_bus_defs;">Check Bus Definitions</a><br>
-% <tr>2.  Control Bus: <a href="matlab:cd(fileparts(which('sm_car_testrig_bus_CtrlBus.slx')));sm_car_testrig_bus_CtrlBus;">Open Model</a><br>
-% <tr>3.  Vehicle Bus: <a href="matlab:cd(fileparts(which('sm_car_testrig_bus_VehBus.slx')));sm_car_testrig_bus_VehBus;">Open Model</a><br>
-% <br>
 % <tr><b><u>Documentation</u></b><br>
 % <tr>1.  <a href="matlab:web('sm_car_doc_overview.html');">Simscape Vehicle Templates Documentation</a><br>
 % <br>
@@ -109,5 +103,5 @@
 % </style>
 % </html>
 % 
-% Copyright 2018-2023 The MathWorks(TM), Inc.
+% Copyright 2018-2024 The MathWorks(TM), Inc.
 

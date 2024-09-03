@@ -9,7 +9,7 @@ function out_abs_test = sm_car_test_abs_function(test_vehicle_platform)
 % 4. Start test run from operating point
 %    with open-loop inputs shifted accordingly.
 %
-% Copyright 2019-2022 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 if (strcmpi(test_vehicle_platform,'hamba'))
     % Run test with Hamba
@@ -27,7 +27,7 @@ set_param('sm_car','SimscapeUseOperatingPoints','off')
 sm_car_load_vehicle_data('sm_car',veh_index)
 sm_car_config_maneuver('sm_car','Ice Patch');
 sm_car_config_control_brake('sm_car',0)
-sm_car_config_vehicle('sm_car')
+sm_car_config_vehicle('sm_car',false)
 out = sim('sm_car','StopTime','10.75');
 
 %% Check time before you hit ice patch

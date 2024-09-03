@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_road_two_lane
 
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 scene_data.Name = 'Road_Two_Lane';
 scene_data.Dashes.pitch = 7.5;      % m

@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Minimize Lap Time Using Optimization, Mallory Park (No Elevation Change)</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-11-22"><meta name="DC.source" content="sm_car_optim_traj_vx_results_mallory_park.m"><style type="text/css">
+      --><title>Minimize Lap Time Using Optimization, Mallory Park (No Elevation Change)</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2024-09-02"><meta name="DC.source" content="sm_car_optim_traj_vx_results_mallory_park.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,35 +67,47 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Mallory Park (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Mallory Park Racing Circuit.  This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">
+  </style></head><body><div class="content"><h1>Minimize Lap Time Using Optimization, Mallory Park (No Elevation Change)</h1><!--introduction--><p>This example shows how to minimize lap times using optimization algorithms using the Mallory Park Racing Circuit.  This optimization assumes no elevation to shorten the optimization process.</p><!--/introduction--><p><h2>Results of Optimization</h2></p><pre class="codeoutput">============================================ 
+==                                        == 
+==      Copyright 1996-2013               == 
+==      TNO                               == 
+==      P.O. Box 756                      == 
+==      5700 AT Helmond                   == 
+==      The Netherlands                   == 
+==      www.delft-tyre.nl                 == 
+==                                        == 
+============================================ 
+DELFT-TYRE MF-Tyre/MF-Swift 6.2.0.2                
+============================================
+
 
 Iter     Func-count       f(x)      MeshSize     Method
     0           1        297.767         4.646      
     1           1        297.767         1.162     Refine Mesh
-    2           2         95.273         2.323     Successful Poll
-    3           2         95.273        0.5808     Refine Mesh
-    4           5        88.3225         1.162     Successful Poll
-    5           5        88.3225        0.2904     Refine Mesh
-    6          10        88.3225        0.0726     Refine Mesh
-    7          15         85.093        0.1452     Successful Poll
-    8          20        79.3947        0.2904     Successful Poll
-    9          25        79.3947        0.0726     Refine Mesh
-   10          30        79.3947       0.01815     Refine Mesh
+    2           2        95.2499         2.323     Successful Poll
+    3           2        95.2499        0.5808     Refine Mesh
+    4           5        88.3664         1.162     Successful Poll
+    5           5        88.3664        0.2904     Refine Mesh
+    6          10        88.3664        0.0726     Refine Mesh
+    7          15        85.1353        0.1452     Successful Poll
+    8          20        79.4061        0.2904     Successful Poll
+    9          25        79.4061        0.0726     Refine Mesh
+   10          30        79.4061       0.01815     Refine Mesh
    11          36           78.8        0.0363     Successful Poll
    12          41           78.8      0.009075     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 697.7157
-</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_06.png" alt=""> <p><h2>Results of Optimization with Formula Student Vehicle</h2></p><p>Here is the GGV diagram for the fastest lap with a Formula Student Vehicle. The vehicle aerodynamics enable a larger downforce which permits higher speeds in the corners which is visible in the funnel-shaped surface.</p><p><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_GGV_FSAE.png" alt=""> </p><p class="footer">Copyright 2020-2022 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+Elapsed time for optimization = 1002.5558
+</pre><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_02.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_07.png" alt=""> <p><h2>Results of Optimization with Formula Student Vehicle</h2></p><p>Here is the GGV diagram for the fastest lap with a Formula Student Vehicle. The vehicle aerodynamics enable a larger downforce which permits higher speeds in the corners which is visible in the funnel-shaped surface.</p><p><img vspace="5" hspace="5" src="sm_car_optim_traj_vx_results_mallory_park_GGV_FSAE.png" alt=""> </p><p class="footer">Copyright 2020-2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Minimize Lap Time Using Optimization, Mallory Park (No Elevation Change)
-% 
+%
 % This example shows how to minimize lap times using optimization
 % algorithms using the Mallory Park Racing Circuit.  This optimization
 % assumes no elevation to shorten the optimization process.
-% 
-% Copyright 2020-2022 The MathWorks, Inc.
+%
+% Copyright 2020-2024 The MathWorks, Inc.
 
-%% 
+%%
 % <html><h2>Results of Optimization</h2></html>
 
 Overview_Dir = pwd;
@@ -106,19 +118,17 @@ clear opt_iter
 
 mdl = 'sm_car';
 open_system(mdl);
-set_param(mdl,'FastRestart','off');
-if(verLessThan('matlab','9.11'))
-    sm_car_load_vehicle_data(mdl,'164'); % (Hamba 15DOF, MFeval)
-    load GGV_Hamba_0to40      % GGV_data for sedan
-else
-    sm_car_load_vehicle_data(mdl,'193'); % (Hamba 15DOF, Multibody tire)
-    load GGV_Hamba_0to40      % GGV_data for sedan
+set_param(find_system('sm_car','FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
 
-    % Alternate: FSAE Vehicle
-    %sm_car_load_vehicle_data(mdl,'198'); % (FSAE, Mbody)
-    %load GGV_Achilles_0to40   % GGV_data for FSAE
+sm_car_load_vehicle_data(mdl,'193'); % (Hamba 15DOF, Multibody tire)
+load GGV_Hamba_0to40      % GGV_data for sedan
 
-end
+% Alternate: FSAE Vehicle
+%sm_car_load_vehicle_data(mdl,'198'); % (FSAE, Mbody)
+%load GGV_Achilles_0to40   % GGV_data for FSAE
+
+sm_car_config_variants(mdl);
+set_param(mdl,'FastRestart','on');
 
 Vehicle = sm_car_vehcfg_checkConfig(Vehicle);
 
@@ -133,9 +143,9 @@ close(4)
 close(5)
 close(6)
 close(7)
-%% 
+%%
 % <html><h2>Results of Optimization with Formula Student Vehicle</h2></html>
-% 
+%
 % Here is the GGV diagram for the fastest lap with a Formula Student
 % Vehicle. The vehicle aerodynamics enable a larger downforce which permits
 % higher speeds in the corners which is visible in the funnel-shaped

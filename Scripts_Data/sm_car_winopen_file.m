@@ -1,5 +1,5 @@
 function sm_car_winopen_file(filename)
-% Copyright 2016-2022 The MathWorks, Inc.
+% Copyright 2016-2024 The MathWorks, Inc.
 
 % Opens files using different commands depending on operating system.
 

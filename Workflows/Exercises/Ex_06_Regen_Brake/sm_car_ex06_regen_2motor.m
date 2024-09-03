@@ -10,7 +10,7 @@
 % tests. We plot data from Simscape Logging in the Simulink Data Inspector
 % to explore the simulation results.
 %
-% Copyright 2018-2021 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command
@@ -26,13 +26,9 @@ set_param(mdl,'SimscapeLogToSDI','on')
 % This can be done from the MATLAB UI or the MATLAB Command line.  It
 % involves loading a data structure into the MATLAB workspace that includes
 % the desired vehicle model configuration and parameters
-if verLessThan('matlab', '9.11')
-    sm_car_load_vehicle_data(mdl,'179'); % MFeval tire
-else
-    sm_car_load_vehicle_data(mdl,'197'); % Multibody tire, R21b and higher
-end
+sm_car_load_vehicle_data(mdl,'197'); % Multibody tire, R21b and higher
 sm_car_load_trailer_data('sm_car','None');
-sm_car_config_vehicle('sm_car');
+sm_car_config_vehicle('sm_car',true);
 
 %%
 % The powertrain has been configured to have two electric motors, one for

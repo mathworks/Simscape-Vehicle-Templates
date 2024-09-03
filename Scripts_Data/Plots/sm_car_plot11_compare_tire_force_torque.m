@@ -13,7 +13,7 @@ function sm_car_plot11_compare_tire_force_torque(A_name, logsout_A, B_name, logs
 %    vehTrl      'vehicle' or 'trailer'
 %    varargin    Optional parameter to add a label to figure
 %
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 if(nargin>7)
     label_string = varargin(1);

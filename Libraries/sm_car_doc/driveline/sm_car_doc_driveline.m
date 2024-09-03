@@ -9,7 +9,7 @@
 % This subsystem models the driveline, representing the mechanical
 % connection between the power source and the wheels.
 % 
-% Copyright 2018-2022 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% 
 % 
