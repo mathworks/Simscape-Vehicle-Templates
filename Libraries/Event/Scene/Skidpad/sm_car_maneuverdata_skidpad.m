@@ -34,6 +34,10 @@ for i=1:length(Instance_List)
     mdata.(Instance).xPreview.v.Value      = [0 5 20]; % m
     mdata.(Instance).xPreview.v.Units      = 'm/s'; % m
     mdata.(Instance).xPreview.v.Comments   = ''; % m
+
+    mdata.(Instance).xMax.Value            = 290; % m
+    mdata.(Instance).xMax.Units            = 'm'; % m
+    mdata.(Instance).xMax.Comments         = 'Stop test when vehicle has reached this distance'; % m
 end
 
 % Unique trajectory settings (smaller vehicles)

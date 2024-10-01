@@ -13,6 +13,8 @@ The templates are designed to be extendable. Create your own variant for any por
 of the vehicle model (such as the brakes, suspension, or drivetrain) and you can 
 adjust the libraries so that variant can be selected.
 
+View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/172279-formula-student-vehicle-with-simscape)  
+
 **Please visit the [Simscape Vehicle Templates](https://www.mathworks.com/solutions/physical-modeling/simscape-vehicle-templates.html) page** for animations and videos that show what you can do with these models.
 
 ![](Scripts_Data/Overview/Simscape_Vehicle_Templates_FSAE_animation.png)
@@ -27,6 +29,16 @@ adjust the libraries so that variant can be selected.
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v3.2  -- Oct 2024**  R2022a - R2024b
+1.  Improved trajectory follower with smoother transitions between segments.
+2.  Fixed data types for lap counter. 
+3.  Added method to terminate simulation when vehicle distance along trajectory exceeds threshold. 
+
+**v3.1 -- September 2024** R2022a - R2024a
+1. Added pushrod Suspension
+2. Added Hockenheim Flat maneuver
+3. Added quarter car testrig for double wishbone and pushrod suspension
+
 **v3.0 -- September 2024**
 First release, R2022a - R2024a
 1. Double-Wishbone Suspension, Decoupled Double-Wishbone Suspension
