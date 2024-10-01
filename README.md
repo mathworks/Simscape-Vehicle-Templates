@@ -33,11 +33,26 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v3.2  -- Oct 2024**
+1.  Improved trajectory follower with smoother transitions between segments.
+2.  Fixed data types for lap counter. 
+3.  Added method to terminate simulation when vehicle distance along trajectory exceeds threshold. 
+4.  Changed double lane change and skidpad maneuvers to stop when distance along trajectory exceeds threshold.
+5.  Adjusted initial conditions for Mallory Park, Mallory Park CCW.
+
+**v3.1  -- Sept 2024**
+1.  Set default maneuver to be Hockenheim F
+2.  Quarter car testrigs and half car testrigs no longer reference VDatabase for sharing. 
+3.  Added preset for pushrod 4 motor FSAE. 
+4.  Added quarter car testrigs, pushrod, and hockenheim flat to FSAE.
+
 **v3.0  -- Sept 2024**
 **Starting with version 3.0, Simscape Vehicle Templates are for R2022a and higher**
-1.  Removed mask code and mask parameters to trigger variant changes. Added sm_car_config_variants() to trigger externally as needed.
+1.  Removed mask code and mask parameters to trigger variant changes
+    Added sm_car_config_variants() to trigger externally as needed.
 2.  Removed mask code to set mask images
-3.  Removed Contact Force Library. Used Spatial Contact Force block instead
+3.  Removed Contact Force Library
+    Used Spatial Contact Force block instead
 4.  Removed all internal test harnesses
 5.  Using correct @Simulink filter for finding active variants
 6.  Added Formula Student body based on CAD
@@ -47,7 +62,9 @@ adjust the libraries so that variant can be selected.
 9.  Maneuver definitions now defined using MATLAB code (was Excel)
 10. Road height can be passed in as an external input for Simscape Multibody tire.
 11. Mechanical connections to passengers pass through vehicle body
-12. Set CV Joints to use "Rotation Sequence" instead of "Quaternion" for internal state. Eliminates need for "Primitive Bushing" in driveline and "Primitive Gimbal" in suspension. Computationally more efficient.
+12. Set CV Joints to use "Rotation Sequence" instead of "Quaternion" for internal state
+    Eliminates need for "Primitive Bushing" in driveline and "Primitive Gimbal" in suspension
+    Computationally more efficient.
 13. Fixed display battery cooling threshold (0 -> 0.5)
 14. Fixed shutdown script to properly eliminate Custom_lib.slx
 15. Fixed opening and closing of UI to avoid errors when project is closed.
@@ -56,7 +73,7 @@ adjust the libraries so that variant can be selected.
 18. Fixed optimization objective function in lap time optimization scripts.
 
 
----
+## ## ##
 **Prior to v3.0, Simscape Vehicle Templates are compatible R2018b - R2024a**
 
 **v2.16 -- April 2024**
@@ -217,6 +234,7 @@ adjust the libraries so that variant can be selected.
 8. Revised full test scripts - more modular, eliminate FastRestart warnings
    (sm_car_test_variants.m, added sm_car_test_variants_testloop.m)
 
+### **Release History**
 **v1.3 -- July 2020**
 
 1. Changed sm_car top level to accommodate overrides from obstacles in scenes

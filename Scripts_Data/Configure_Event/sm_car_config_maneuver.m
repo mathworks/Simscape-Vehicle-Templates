@@ -50,6 +50,7 @@ set_param([modelname '/Check'],'start_check_time','5','stop_speed','0.1');
 set_param([modelname '/Check'],'start_check_time_max_speed','20000','max_speed','0.4');
 set_param([modelname '/Check'],'start_check_time_ld','10000','lat_dev_threshold','8');
 set_param([modelname '/Check'],'start_check_time_end_lap','10000');
+set_param([modelname '/Check'],'start_check_time_max_dist','10000','max_dist_threshold','10000');
 set_param(override_h,'popup_override_type','None');
 
 % Assume no wind
@@ -194,7 +195,11 @@ switch maneuver_str
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base',['Driver = DDatabase.Double_Lane_Change.' veh_inst ';']);
         sm_car_config_road(modelname,'Double Lane Change');
-        set_param(modelname,'StopTime','35');
+
+        % Ensure event runs until vehicle crosses finish line
+        set_param(modelname,'StopTime','100');        
+        % Stop maneuver when vehicle is through double lane change cones (xMax)
+        set_param([modelname '/Check'],'start_check_time_max_dist','2','max_dist_threshold','Maneuver.xMax.Value');
 
     % --- Double Lane Change ISO3888
     case 'double lane change iso3888'
@@ -236,7 +241,11 @@ switch maneuver_str
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base',['Driver = DDatabase.Skidpad.' veh_inst ';']);
         sm_car_config_road(modelname,'Skidpad');
-        set_param(modelname,'StopTime','50');
+
+        % Ensure event runs until vehicle crosses finish line
+        set_param(modelname,'StopTime','100');        
+        % Stop maneuver when vehicle crosses finish line (xMax)
+        set_param([modelname '/Check'],'start_check_time_max_dist','2','max_dist_threshold','Maneuver.xMax.Value');
         % For only this maneuver, a window of points should be checked
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
