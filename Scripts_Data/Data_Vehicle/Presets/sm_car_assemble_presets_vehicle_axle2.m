@@ -2017,7 +2017,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Custom Configuration 36: Hamba 15DOF, MFSwift, Electric 4Motor Cooling
 veh_ind = veh_ind+1;
-Vehicle = Vehicle_210;
+Vehicle = Vehicle_210; % 15 DOF MFEval
 vehcfg = Vehicle.config;
 
 % Swap in MF-Swift Tires
@@ -2055,7 +2055,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Custom Configuration 37: Achilles, DoubleWisbone, Electric 4Motor Cooling
 veh_ind = veh_ind+1;
-Vehicle = Vehicle_198;  % 15 DOF MFEval
+Vehicle = Vehicle_198;  
 vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_FSAE_Achilles_f;
@@ -2102,7 +2102,25 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 39: Achilles, DWPushrod, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_198;  
+vehcfg = Vehicle.config;
 
+Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L1_R1_L2_R2_default');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Liquid_Loop1');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D_r1D_4sh_SH');
+Vehicle = sm_car_vehcfg_setBodyGeometry(Vehicle,'CAD_FSAE_Achilles');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'WheelDrivenRack1UJoint_Ch2_Achilles','SuspA1');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'steady','4MotorCool');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Return to main directory
 curr_proj = simulinkproject;
 cd(curr_proj.RootFolder)

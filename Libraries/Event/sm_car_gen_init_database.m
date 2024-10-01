@@ -35,7 +35,7 @@ InitSet.Mallory_Park.Instance     = '';
 InitSet.Mallory_Park.Data         = {...
     'aChassis','rad', 0,  0,       0;
     'vChassis','m/s', 10, 0,       0;
-    'sChassis','m',   0,  0,       0};
+    'sChassis','m',   0.1,  0,       0};
 
 %% Scene Mallory Park, Counter-clockwise Lap, Slow Start
 InitSet.Mallory_Park_CCW.Type = 'Mallory_Park';
@@ -43,7 +43,7 @@ InitSet.Mallory_Park_CCW.Instance     = 'CCW';
 InitSet.Mallory_Park_CCW.Data         = {...
     'aChassis','rad', 0, 0,       3.1416;
     'vChassis','m/s', 1, 0,       0;
-    'sChassis','m',   0, 0,       0};
+    'sChassis','m',   -10, 0,       0};
 
 %% Scene MCity, Standard Lap, Slow Start
 InitSet.MCity.Type      = 'MCity';
