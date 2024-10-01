@@ -19,24 +19,28 @@
 
 %% Events
 %
-% Supported events include *Hockenheim Ring*, *Skidpad* and *Accel/Decel*.
-% Change the event by clicking on the hyperlinks on the top level of the
-% model. Examine the code behind the hyperlinks to see the necessary MATLAB
-% commands to change the maneuver.
+% Supported events include *Accel/Decel*, *Hockenheim (Flat)*, *Hockenheim
+% (Flat)*, and *Skidpad*. Change the event by clicking on the hyperlinks on
+% the top level of the model. Examine the code behind the hyperlinks to see
+% the necessary MATLAB commands to change the maneuver.
 %
 
 %% Suspension Types
 % 
-% Included suspension types are *Double Wishbone* and *Decoupled*.  You can
-% change between them by clicking on the hyperlinks on the top level of the
-% model. *The data in the workspace selects which variants are active based
-% on data within the Vehicle data structure.* 
+% Included suspension types are *Double Wishbone*, *Decoupled*, and
+% *Pushrod*.  You can change between them by clicking on the hyperlinks on
+% the top level of the model. *The data in the workspace selects which
+% variants are active based on data within the Vehicle data structure.*
 %
 % *Note that the hyperlinks execute two commands*, one to load the default
 % vehicle parameters and the other to configure the event.  *After loading
-% the default vehicle parameters, you need to select the event again so
-% that the tire models know which surface they are driving on.*
+% vehicle parameters, you need to select the event again so that the tire
+% models know which surface they are driving on.*
 %
+% You can explore the suspensions with these testrig models
+%
+% * Open model: <matlab:open_system('testrig_quarter_car_doublewishbone'); Quarter car, Double Wishbone>
+% * Open model: <matlab:open_system('testrig_quarter_car_pushrodua'); Quarter car, Pushrod>
 % 
 
 %% Vehicle Parameterization
@@ -45,6 +49,7 @@
 %
 % * *Double Wishbone:* <matlab:edit('Vehicle_data_dwishbone.m') Vehicle_data_dwishbone.m> 
 % * *Decoupled:*  <matlab:edit('Vehicle_data_decoupled.m') Vehicle_data_decoupled.m> 
+% * *Pushrod:*  <matlab:edit('Vehicle_data_dwpushrod.m') Vehicle_data_dwpushrod.m> 
 %
 % Each of these defines a structure "Vehicle" in the MATLAB workspace.  You
 % can modify parameter values in the workspace or in the file.  There are

@@ -20,10 +20,10 @@ assignin('base','Visual',Visual);
 evalin('base','Vehicle_data_dwishbone')
 
 %% Load Initial Vehicle state database
-evalin('base','Init_data_hockenheim')
+evalin('base','Init_data_hockenheim_f')
 
 %% Load Maneuver database
-evalin('base','Maneuver_data_hockenheim')
+evalin('base','Maneuver_data_hockenheim_f')
 
 %% Load Driver database
 sm_car_gen_driver_database;
@@ -74,4 +74,5 @@ if(open_start_content)
 
     %% Open model
     sm_car
+    sm_car_config_maneuver('sm_car','CRG Hockenheim F')
 end
