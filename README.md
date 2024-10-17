@@ -33,6 +33,10 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v3.3  -- Oct 2024**
+1.  Toe and camber calculations suitable for left and right sides.
+2.  Added suspension metrics (bump steer, caster, steering angle inclination, etc.)
+
 **v3.2  -- Oct 2024**
 1.  Improved trajectory follower with smoother transitions between segments.
 2.  Fixed data types for lap counter. 
