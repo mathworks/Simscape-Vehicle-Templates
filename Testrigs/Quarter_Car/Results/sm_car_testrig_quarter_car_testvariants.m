@@ -28,16 +28,19 @@ for veh_i = 1:length(veh_config)
     suffix_str = get_param([bdroot '/Linkage'],'ActiveVariant');
     filenamefignow = [mdl '_' now_string '_' suffix_str '.png'];
     filenamefig    = [mdl '_'                suffix_str '.png'];
+    filenameTbl    = [mdl '_'                suffix_str 'Table.mat'];
     disp_str = suffix_str;
     
     disp(['Run ' num2str(testnum) ' ' disp_str]);
     
-    sim(mdl);
-
-    sm_car_testrig_quarter_car_plot1toecamber
+    %sim(mdl);
+    TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(mdl);
     
     saveas(gcf,filenamefignow);
     saveas(gcf,filenamefig);
+    if(veh_i~=2)
+        save(filenameTbl,"TSuspMetrics")
+    end
 end
 
 Linkage = VDatabase.Linkage.DoubleWishbonePushUA_FSAE_Achilles_f;
@@ -50,19 +53,22 @@ open_system(mdl);
 suffix_str = 'DoubleWishbone_PushUA';
 filenamefignow = [mdl '_' now_string '_' suffix_str '.png'];
 filenamefig    = [mdl '_'                suffix_str '.png'];
+filenameTbl    = [mdl '_'                suffix_str 'Table.mat'];
 disp_str = suffix_str;
    
 disp(['Run ' num2str(testnum+1) ' ' disp_str]);
-sim(mdl);
-sm_car_testrig_quarter_car_plot1toecamber
+%sim(mdl);
+TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(mdl);
 saveas(gcf,filenamefignow);
 saveas(gcf,filenamefig);
+save(filenameTbl,"TSuspMetrics")
 
 mdl = 'testrig_quarter_car_pushrodua_noSteer';
 open_system(mdl);
 suffix_str = 'DoubleWishbone_PushUA_noSteer';
 filenamefignow = [mdl '_' now_string '_' suffix_str '.png'];
 filenamefig    = [mdl '_'                suffix_str '.png'];
+filenameTbl    = [mdl '_'                suffix_str 'Table.mat'];
 disp_str = suffix_str;
 
 Linkage = VDatabase.Linkage.DoubleWishbonePushUAnoSteer_FSAE_Achilles_r;
@@ -71,8 +77,8 @@ InitLinkage = Init.Axle2;
 Visual = sm_car_param_visual('fsae');
 
 disp(['Run ' num2str(testnum+2) ' ' disp_str]);
-sim(mdl);
-sm_car_testrig_quarter_car_plot1toecamber
+%sim(mdl);
+TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(mdl);
 saveas(gcf,filenamefignow);
 saveas(gcf,filenamefig);
 
