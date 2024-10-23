@@ -193,7 +193,7 @@ sm_car_load_trailer_data('sm_car','none');
 manv_set = {'WOT Braking','Low Speed Steer'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184];
+veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184 217];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
@@ -477,7 +477,7 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
-%% Test Set 14 -- DC1 Fuel Cell
+%% Test Set 14 -- DCU Fuel Cell
 manv_set = {'Drive Cycle UrbanCycle1'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};

@@ -35,6 +35,16 @@ pause(1)
 ssc_clean Custom
 cd(fileparts(which('sm_car.slx')))
 
+%% Create custom components for bushing model
+%cd(curr_proj.RootFolder)
+%custom_code = dir('**/getForceAngle.ssc');
+%cd(custom_code.folder)
+%cd('..')
+%bdclose('bushings_lib')
+%pause(1)
+%ssc_clean bushings
+%cd(curr_proj.RootFolder)
+
 %% Reset solver settings - patch from development
 limitDerivativePerturbations([])
 daesscSetMultibody([])
