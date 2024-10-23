@@ -110,6 +110,13 @@ cd(custom_code.folder)
 ssc_build
 cd(fileparts(which('sm_car.slx')))
 
+%% Create custom components for bushing model
+%cd(curr_proj.RootFolder)
+%custom_code = dir('**/getForceAngle.ssc');
+%cd(custom_code.folder)
+%ssc_build
+%cd(curr_proj.RootFolder)
+
 %% Create custom components for fuel cell
 custom_code_fc = dir('**/unidir_dcdc_converter.sscp');
 cd([custom_code_fc.folder '/..'])

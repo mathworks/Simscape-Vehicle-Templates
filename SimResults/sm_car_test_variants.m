@@ -96,12 +96,6 @@ solver_typ = {'variable step'};
 veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 183];
 trailer_set = {'none'};
 
-currRel = matlabRelease;
-useFastRestart = true;
-if(isMATLABReleaseOlderThan('R2023a'))
-    useFastRestart = true;
-end
-
 for veh_i = 1:length(veh_set1)
     for trl_i = 1:length(trailer_set)
         veh_suffix = pad(num2str(veh_set1(veh_i)),3,'left','0');
@@ -115,9 +109,7 @@ for veh_i = 1:length(veh_set1)
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});
             sm_car_config_vehicle(mdl,false); % config_solver can modify Vehicle
-            if(useFastRestart)
-                set_param(mdl,'FastRestart','on')
-            end
+            set_param(mdl,'FastRestart','on')
             
             %  Simulation for 1e-3 to eliminate initialization time'
             temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
@@ -145,12 +137,7 @@ for veh_i = 1:length(veh_set1)
                 
                 out = [];
                 try
-                    if(useFastRestart)
-                        out = sim(mdl);
-                    else
-                        sim(mdl); % No fast restart
-                        out.logsout_sm_car = logsout_sm_car;
-                    end
+                    out = sim(mdl);
                     test_success = 'Pass';
                 catch ME
                     disp(['Error: ' ME.message ', ' ME.identifier]);
@@ -160,7 +147,7 @@ for veh_i = 1:length(veh_set1)
                 
                 if(~isempty(out))
                     % Simulation succeeded
-                    logsout_sm_car = out.logsout_sm_car; % With Fast Restart
+                    logsout_sm_car = out.logsout_sm_car;
                     logsout_VehBus = logsout_sm_car.get('VehBus');
                     logsout_xCar = logsout_VehBus.Values.World.x;
                     logsout_yCar = logsout_VehBus.Values.World.y;
@@ -206,7 +193,7 @@ sm_car_load_trailer_data('sm_car','none');
 manv_set = {'WOT Braking','Low Speed Steer'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184];
+veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184 217];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
@@ -490,7 +477,7 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
-%% Test Set 14 -- DC1 Fuel Cell
+%% Test Set 14 -- DCU Fuel Cell
 manv_set = {'Drive Cycle UrbanCycle1'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};

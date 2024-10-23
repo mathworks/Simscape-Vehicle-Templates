@@ -41,6 +41,8 @@ Visual.Bellcrank.clr        = Visual.clr.green;
 Visual.SteeringArm.clr      = Visual.clr.green;
 Visual.TrackRod.clr         = Visual.clr.purple;
 
+Visual.Bushing.clr          = Visual.clr.gray;
+
 Visual.SteeringRack.clr     = Visual.clr.bluepure;
 Visual.SteeringShafts.clr   = Visual.clr.gray;
 Visual.SteeringPinion.clr   = Visual.clr.gray;
