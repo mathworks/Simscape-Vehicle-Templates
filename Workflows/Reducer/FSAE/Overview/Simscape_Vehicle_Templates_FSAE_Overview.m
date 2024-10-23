@@ -65,6 +65,8 @@
 % <matlab:edit('addfieldVehicleDec.m') decoupled suspension> and
 % <matlab:edit('addfieldVehicleDW.m') double wishbone>.
 %
+% Suspension link inboard connections can be set to <matlab:Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value='Rigid_1Rev';Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value='Rigid_1Rev';Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value='Rigid_1Rev';Vehicle.Chassis.SuspA2.Linkage.Lower_Arm_to_Subframe.class.Value='Rigid_1Rev'; kinematic> 
+% or <matlab:Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value='Bushings';Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value='Bushings';Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value='Bushings';Vehicle.Chassis.SuspA2.Linkage.Lower_Arm_to_Subframe.class.Value='Bushings'; compliant> with bushings.
 
 %% Control Algorithms
 %

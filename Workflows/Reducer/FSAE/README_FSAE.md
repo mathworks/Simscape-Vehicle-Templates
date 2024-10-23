@@ -29,9 +29,9 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
-**v3.3  -- Oct 2024**  R2022a - R2024b
-1.  Toe and camber calculations suitable for left and right sides.
-2.  Added suspension metrics (bump steer, caster, steering angle inclination, etc.)
+**v3.4  -- Oct 2024**  R2022a - R2024b
+1.  Added optional compliance elements to all inboard connections of suspension arms.
+2.  Added bushing testrig to test linear, nonlinear, and nonlinear with hysteresis force laws
 
 **v3.2  -- Oct 2024**  R2022a - R2024b
 1.  Improved trajectory follower with smoother transitions between segments.

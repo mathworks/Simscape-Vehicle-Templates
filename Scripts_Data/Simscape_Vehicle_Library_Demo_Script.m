@@ -41,6 +41,7 @@
 % <tr>6.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_l5decoupled.slx')));open_system('testrig_half_car_l5decoupled');">Open Model</a><br>
 % <tr>7.  Steering Testrig: <a href="matlab:cd(fileparts(which('testrig_Steer_Rack.slx')));open_system('testrig_Steer_Rack');">Open Model</a><br>
 % <tr>8.  Driveline: <a href="matlab:cd(fileparts(which('testrig_Driveline_Axle2.slx')));open_system('testrig_Driveline_Axle2');">Open Model</a><br>
+% <tr>9.  Bushing: <a href="matlab:cd(fileparts(which('sm_bushing_test_radial.slx')));open_system('sm_bushing_test_radial');">Open Model</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Camera Testrig: <a href="matlab:cd(fileparts(which('testrig_Camera.slx')));open_system('testrig_Camera');">Open Model</a><br>
