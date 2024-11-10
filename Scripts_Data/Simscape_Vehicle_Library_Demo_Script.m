@@ -34,8 +34,8 @@
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a><br>
-% <tr>2.  Half-Car Testrig, Achilles Push Rod: <a href="matlab:cd(fileparts(which('testrig_half_car_pushrodua.slx')));open_system('testrig_half_car_pushrodua');">Open Model</a><br>
-% <tr>3.  Half-Car Testrig, Achilles Push Rod, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_pushrodua_noSteer.slx')));open_system('testrig_half_car_pushrodua_noSteer');">Open Model</a><br>
+% <tr>2.  Half-Car Testrig, Achilles Pull Rod: <a href="matlab:cd(fileparts(which('testrig_half_car_pullrod.slx')));open_system('testrig_half_car_pullrod');">Open Model</a><br>
+% <tr>3.  Half-Car Testrig, Achilles Pull Rod, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_pullrod_noSteer.slx')));open_system('testrig_half_car_pullrod_noSteer');">Open Model</a><br>
 % <tr>4.  Half-Car Testrig, Achilles Double-Wishbone Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_dwdecoupled.slx')));open_system('testrig_half_car_dwdecoupled');">Open Model</a><br>
 % <tr>5.  Half-Car Testrig, Achilles Double-Wishbone Decoupled, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_dwdecoupled_nosteer.slx')));open_system('testrig_half_car_dwdecoupled_nosteer');">Open Model</a><br>
 % <tr>6.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_l5decoupled.slx')));open_system('testrig_half_car_l5decoupled');">Open Model</a><br>

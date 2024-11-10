@@ -90,12 +90,12 @@ TSuspMetrics
 % <html>
 % <span style="font-family:Arial">
 % <span style="font-size:10pt">
-% <tr><b><u>Double Wishbone, Pushrod to Upper Arm</u></b><br>
-% <tr>   <img src="testrig_quarter_car_pushrodua_DoubleWishbone_PushUA.png" alt="Double Wishbone, Pushrod to Upper Arm Image"><br>
+% <tr><b><u>Double Wishbone, Pullrod</u></b><br>
+% <tr>   <img src="testrig_quarter_car_pullrod_DoubleWishbone_Pullrod.png" alt="Double Wishbone, Pullrod Image"><br>
 % <br>
-% <tr><b><u>Double Wishbone, Pushrod to Upper Arm, No Steer</u></b><br>
-% <tr>   <img src="testrig_quarter_car_pushrodua_noSteer_DoubleWishbone_PushUA_noSteer.png" alt="Double Wishbone, Pushrod to Upper Arm, No SteerImage"><br>
-% <br>
+% <tr><b><u>Double Wishbone, Pullrod, No Steer</u></b><br>
+% <tr>   <img src="testrig_quarter_car_pullrod_noSteer_DoubleWishbone_Pullrod_noSteer.png" alt="Double Wishbone, Pullrod, No SteerImage"><br>
+% <br>             
 % <br>
 % </style>
 % </style>
