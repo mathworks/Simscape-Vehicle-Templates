@@ -43,14 +43,14 @@ for veh_i = 1:length(veh_config)
     end
 end
 
-Linkage = VDatabase.Linkage.DoubleWishbonePushUA_FSAE_Achilles_f;
+Linkage = VDatabase.Linkage.DoubleWishbonePullrod_FSAE_Achilles_f;
 AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_Achilles_f;
 InitLinkage = Init.Axle1;
 Visual = sm_car_param_visual('fsae');
 
-mdl = 'testrig_quarter_car_pushrodua';
+mdl = 'testrig_quarter_car_pullrod';
 open_system(mdl);
-suffix_str = 'DoubleWishbone_PushUA';
+suffix_str = 'DoubleWishbone_Pullrod';
 filenamefignow = [mdl '_' now_string '_' suffix_str '.png'];
 filenamefig    = [mdl '_'                suffix_str '.png'];
 filenameTbl    = [mdl '_'                suffix_str 'Table.mat'];
@@ -63,15 +63,15 @@ saveas(gcf,filenamefignow);
 saveas(gcf,filenamefig);
 save(filenameTbl,"TSuspMetrics")
 
-mdl = 'testrig_quarter_car_pushrodua_noSteer';
+mdl = 'testrig_quarter_car_pullrod_noSteer';
 open_system(mdl);
-suffix_str = 'DoubleWishbone_PushUA_noSteer';
+suffix_str = 'DoubleWishbone_Pullrod_noSteer';
 filenamefignow = [mdl '_' now_string '_' suffix_str '.png'];
 filenamefig    = [mdl '_'                suffix_str '.png'];
 filenameTbl    = [mdl '_'                suffix_str 'Table.mat'];
 disp_str = suffix_str;
 
-Linkage = VDatabase.Linkage.DoubleWishbonePushUAnoSteer_FSAE_Achilles_r;
+Linkage = VDatabase.Linkage.DoubleWishbonePullrodNoSteer_FSAE_Achilles_r;
 AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_Achilles_r;
 InitLinkage = Init.Axle2;
 Visual = sm_car_param_visual('fsae');

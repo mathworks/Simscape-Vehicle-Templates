@@ -70,16 +70,13 @@ else
 end
 
 %% Load Initial Vehicle state database
-%sm_car_gen_upd_database('Init',1);
 sm_car_gen_init_database;
 
 %% Load Maneuver database
-%sm_car_gen_upd_database('Maneuver',1);
 MDatabase = sm_car_import_maneuver_data;
 assignin('base','MDatabase',MDatabase);
 
 %% Load Driver database
-%sm_car_gen_upd_database('Driver',1);
 sm_car_gen_driver_database;
 
 %% Load Camera Frame Database
