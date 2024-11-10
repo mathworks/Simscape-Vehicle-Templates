@@ -33,6 +33,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v3.5  -- Nov 2024**
+1.  Renamed suspension "PushUA" to "Pullrod".
+
 **v3.4  -- Oct 2024**
 1.  Added optional compliance elements to all inboard connections of suspension arms.
 2.  Added bushing testrig to test linear, nonlinear, and nonlinear with hysteresis force laws

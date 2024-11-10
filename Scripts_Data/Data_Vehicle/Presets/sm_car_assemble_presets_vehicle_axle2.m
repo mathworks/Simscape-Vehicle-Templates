@@ -1517,8 +1517,8 @@ vehcfg_set = {
     'Brakes',       'Axle2_PedalAbstract_DiscDisc_FSAE_Achilles',   '';...
     'Springs',      'Axle2_Independent',                            'AClinA1_AClinA2';...
     'Dampers',      'Axle2_Independent',                            'AClinA1_AClinA2';...
-    'Susp',         'DoubleWishbonePushUA_FSAE_Achilles_f',         'SuspA1';
-    'Susp',         'DoubleWishbonePushUAnoSteer_FSAE_Achilles_r',  'SuspA2';
+    'Susp',         'DoubleWishbonePullrod_FSAE_Achilles_f',         'SuspA1';
+    'Susp',         'DoubleWishbonePullrodNoSteer_FSAE_Achilles_r',  'SuspA2';
     'Steer',        'WheelDrivenRack1UJoint_Achilles',              'SuspA1';...
     'Steer',        'None_default',                                 'SuspA2';...
     'DriverHuman',  'None',                                         'SuspA1';...
@@ -1531,7 +1531,7 @@ vehcfg_set = {
     'Driveline',    'f1Dr1D_SHL',                                   ''};
 
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
-Vehicle.config = 'Achilles_dwpua_MFEval_steady_f1Dr1D';
+Vehicle.config = 'Achilles_dwpull_MFEval_steady_f1Dr1D';
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
@@ -1552,8 +1552,8 @@ vehcfg_set = {
     'Brakes',       'Axle2_PedalAbstract_DiscDisc_FSAE_Achilles',   '';...
     'Springs',      'Axle2_Independent',                            'AClinA1_AClinA2';...
     'Dampers',      'Axle2_Independent',                            'AClinA1_AClinA2';...
-    'Susp',         'DoubleWishbonePushUA_FSAE_Achilles_f',         'SuspA1';
-    'Susp',         'DoubleWishbonePushUAnoSteer_FSAE_Achilles_r',  'SuspA2';
+    'Susp',         'DoubleWishbonePullrod_FSAE_Achilles_f',         'SuspA1';
+    'Susp',         'DoubleWishbonePullrodNoSteer_FSAE_Achilles_r',  'SuspA2';
     'Steer',        'WheelDrivenRack1UJoint_Achilles',              'SuspA1';...
     'Steer',        'None_default',                                 'SuspA2';...
     'DriverHuman',  'None',                                         'SuspA1';...
@@ -1566,7 +1566,7 @@ vehcfg_set = {
     'Driveline',    'f1Dr1D_SHL',                                   ''};
 
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
-Vehicle.config = 'Achilles_dwpua_MFSwift_steady_f1Dr1D';
+Vehicle.config = 'Achilles_dwpull_MFSwift_steady_f1Dr1D';
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
@@ -1926,7 +1926,7 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA1');
 Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA2');
 
 % Assemble configuration description in string
-Vehicle.config = strrep(vehcfg,'_dwpua','_dwdec');
+Vehicle.config = strrep(vehcfg,'_dwpull','_dwdec');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
@@ -2095,7 +2095,7 @@ Vehicle = sm_car_vehcfg_setBodyGeometry(Vehicle,'CAD_FSAE_Achilles');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'WheelDrivenRack1UJoint_Ch2_Achilles','SuspA1');
 
 % Assemble configuration description in string
-vehcfg = strrep(vehcfg,'dwpua','DWishbone');
+vehcfg = strrep(vehcfg,'dwpull','DWishbone');
 Vehicle.config = strrep(vehcfg,'steady','4MotorCool');
 
 % Save under Vehicle_###

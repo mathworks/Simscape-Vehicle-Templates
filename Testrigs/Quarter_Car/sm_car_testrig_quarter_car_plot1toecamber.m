@@ -14,12 +14,16 @@ if ~exist('simlog_sm_car_testrig_quarter_car', 'var')
 end
 
 % Reuse figure if it exists, else create new figure
-if ~exist('h1_sm_car_testrig_quarter_car', 'var') || ...
-        ~isgraphics(h1_sm_car_testrig_quarter_car, 'figure')
-    h1_sm_car_testrig_quarter_car = figure('Name', 'sm_car_testrig_quarter_car');
+fig_handle_name =   'h1_sm_car_testrig_quarter_car';
+
+handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+if(isempty(handle_var))
+    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+elseif ~isgraphics(evalin('base',handle_var{:}))
+    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
 end
-figure(h1_sm_car_testrig_quarter_car)
-clf(h1_sm_car_testrig_quarter_car)
+figure(evalin('base',fig_handle_name))
+clf(evalin('base',fig_handle_name))
 
 temp_colororder = get(gca,'defaultAxesColorOrder');
 
