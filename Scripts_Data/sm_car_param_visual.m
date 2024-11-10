@@ -37,6 +37,7 @@ Visual.UpperArm.clr         = Visual.clr.yellow;
 Visual.LowerArm.clr         = Visual.clr.yellow;
 Visual.Upright.clr          = Visual.clr.green;
 Visual.Pushrod.clr          = Visual.clr.bluelight;
+Visual.Pullrod.clr          = Visual.clr.bluelight;
 Visual.Bellcrank.clr        = Visual.clr.green;
 Visual.SteeringArm.clr      = Visual.clr.green;
 Visual.TrackRod.clr         = Visual.clr.purple;
@@ -96,6 +97,7 @@ if(strcmpi(car_option,'default'))
     Visual.UpperArm.rad       = 0.02;
     Visual.LowerArm.rad       = 0.02;
     Visual.Upright.rad        = 0.02;
+    Visual.Pullrod.rad        = 0.02;
     Visual.Pushrod.rad        = 0.02;
     Visual.Bellcrank.rad      = 0.02;
     
@@ -136,6 +138,7 @@ else
     Visual.LowerArm.rad       = 0.008;
     Visual.Upright.rad        = 0.01;
     Visual.Pushrod.rad        = 0.006;
+    Visual.Pullrod.rad        = 0.006;
     Visual.Bellcrank.rad      = 0.008;
     
     % Driveline

@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Simscape&trade; Vehicle Templates for Formula Student</title>
 <meta name="generator" content="MATLAB 23.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-10-23">
+<meta name="DC.date" content="2024-11-10">
 <meta name="DC.source" content="Simscape_Vehicle_Templates_FSAE_Overview.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -116,7 +116,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <ul>
 <li>Open model: <a href="matlab:open_system('testrig_quarter_car_doublewishbone');">Quarter car, Double Wishbone</a>
 </li>
-<li>Open model: <a href="matlab:open_system('testrig_quarter_car_pushrodua');">Quarter car, Pushrod</a>
+<li>Open model: <a href="matlab:open_system('testrig_quarter_car_pullrod');">Quarter car, Pullrod</a>
 </li>
 </ul>
 </div>
@@ -131,7 +131,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <b>Decoupled:</b> <a href="matlab:edit('Vehicle_data_decoupled.m')">Vehicle_data_decoupled.m</a>
 </li>
 <li>
-<b>Pushrod:</b> <a href="matlab:edit('Vehicle_data_dwpushrod.m')">Vehicle_data_dwpushrod.m</a>
+<b>Pullrod:</b> <a href="matlab:edit('Vehicle_data_dwpullrod.m')">Vehicle_data_dwpullrod.m</a>
 </li>
 </ul>
 </div>
@@ -198,7 +198,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % You can explore the suspensions with these testrig models
 %
 % * Open model: <matlab:open_system('testrig_quarter_car_doublewishbone'); Quarter car, Double Wishbone>
-% * Open model: <matlab:open_system('testrig_quarter_car_pushrodua'); Quarter car, Pushrod>
+% * Open model: <matlab:open_system('testrig_quarter_car_pullrod'); Quarter car, Pullrod>
 % 
 
 %% Vehicle Parameterization
@@ -207,7 +207,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 % * *Double Wishbone:* <matlab:edit('Vehicle_data_dwishbone.m') Vehicle_data_dwishbone.m> 
 % * *Decoupled:*  <matlab:edit('Vehicle_data_decoupled.m') Vehicle_data_decoupled.m> 
-% * *Pushrod:*  <matlab:edit('Vehicle_data_dwpushrod.m') Vehicle_data_dwpushrod.m> 
+% * *Pullrod:*  <matlab:edit('Vehicle_data_dwpullrod.m') Vehicle_data_dwpullrod.m> 
 %
 % Each of these defines a structure "Vehicle" in the MATLAB workspace.  You
 % can modify parameter values in the workspace or in the file.  There are
