@@ -40,7 +40,7 @@
 % You can explore the suspensions with these testrig models
 %
 % * Open model: <matlab:open_system('testrig_quarter_car_doublewishbone'); Quarter car, Double Wishbone>
-% * Open model: <matlab:open_system('testrig_quarter_car_pushrodua'); Quarter car, Pushrod>
+% * Open model: <matlab:open_system('testrig_quarter_car_pullrod'); Quarter car, Pullrod>
 % 
 
 %% Vehicle Parameterization
@@ -49,7 +49,7 @@
 %
 % * *Double Wishbone:* <matlab:edit('Vehicle_data_dwishbone.m') Vehicle_data_dwishbone.m> 
 % * *Decoupled:*  <matlab:edit('Vehicle_data_decoupled.m') Vehicle_data_decoupled.m> 
-% * *Pushrod:*  <matlab:edit('Vehicle_data_dwpushrod.m') Vehicle_data_dwpushrod.m> 
+% * *Pullrod:*  <matlab:edit('Vehicle_data_dwpullrod.m') Vehicle_data_dwpullrod.m> 
 %
 % Each of these defines a structure "Vehicle" in the MATLAB workspace.  You
 % can modify parameter values in the workspace or in the file.  There are
