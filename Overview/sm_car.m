@@ -5,7 +5,7 @@
 % multi-axle and trailers.  It includes a highly configurable vehicle model
 % that is integrated with controllers and other content from other
 % MathWorks products. A modular library of components gives users a great
-% starting point for creating custom vehicle models
+% starting point for creating custom vehicle models.
 %
 % Copyright 2018-2024 The MathWorks, Inc.
 

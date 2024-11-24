@@ -29,6 +29,10 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v3.6  -- Nov 2024**
+1.  Hardpoints in all suspensions can be tuned without recompiling (use Fast Restart).
+2.  Added Suspension Tester App for sweeping and optimizing hardpoint locations.
+
 **v3.5  -- Nov 2024**  R2022a - R2024b
 1.  Renamed suspension "PushUA" to "Pullrod".
 
