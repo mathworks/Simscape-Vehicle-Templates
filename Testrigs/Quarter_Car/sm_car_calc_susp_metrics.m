@@ -27,20 +27,27 @@ indCasterZ0  = intersect(find(simlog_t>=testPhases(2,1)),find(simlog_t<=testPhas
 indCasterZp  = intersect(find(simlog_t>=testPhases(3,1)),find(simlog_t<=testPhases(3,2)));
 indCasterZn  = intersect(find(simlog_t>=testPhases(4,1)),find(simlog_t<=testPhases(4,2)));
 
+% Prepare the data used to find required toe and camber angles
+% Sort measured data by tire height and remove duplicates
+[simlog_pzTireTCsrt, iTCsrt] = unique(simlog_pzTire(indToeCamb),'sorted');
+simlog_toeTC                 = simlog_toe(indToeCamb);
+simlog_toeTCsrt              = simlog_toeTC(iTCsrt);
+simlog_camberTC              = simlog_toe(indToeCamb);
+simlog_camberTCsrt           = simlog_camberTC(iTCsrt);
+
 %% Obtain Toe, Camber: Design position
-IndZ0NoSteer  = find(simlog_pzTire(indToeCamb)==wCtrZ,1);
+%IndZ0NoSteer  = find(simlog_pzTire(indToeCamb)==wCtrZ,1);
+[~,IndZ0NoSteer]  = min(abs(simlog_pzTire(indToeCamb)-wCtrZ));
 toeZ0         = simlog_toe(IndZ0NoSteer);
 camberZ0      = simlog_camber(IndZ0NoSteer);
 
 %% Obtain Toe, Camber: + 1cm
-IndZpNoSteer  = find(simlog_pzTire(indToeCamb)>=wCtrZ+zOffsetBumpTest,1);
-toeZp         = simlog_toe(IndZpNoSteer);
-camberZp      = simlog_camber(IndZpNoSteer);
+toeZp         = interp1(simlog_pzTireTCsrt,simlog_toeTCsrt,   wCtrZ+zOffsetBumpTest);
+camberZp      = interp1(simlog_pzTireTCsrt,simlog_camberTCsrt,wCtrZ+zOffsetBumpTest);
 
 %% Obtain Toe, Camber: - 1cm
-IndZnNoSteer = find(simlog_pzTire(indToeCamb)<=wCtrZ-zOffsetBumpTest,1);
-toeZn        = simlog_toe(IndZnNoSteer);
-camberZn     = simlog_camber(IndZnNoSteer);
+toeZn         = interp1(simlog_pzTireTCsrt,simlog_toeTCsrt,   wCtrZ-zOffsetBumpTest);
+camberZn      = interp1(simlog_pzTireTCsrt,simlog_camberTCsrt,wCtrZ-zOffsetBumpTest);
 
 %% Get index for measurement at specific toe angles: neg, zero, pos, 3*pos
 % Find points with smallest difference to desired toe angle
