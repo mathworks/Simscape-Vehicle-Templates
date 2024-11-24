@@ -42,6 +42,9 @@
 % * Open model: <matlab:open_system('testrig_quarter_car_doublewishbone'); Quarter car, Double Wishbone>
 % * Open model: <matlab:open_system('testrig_quarter_car_pullrod'); Quarter car, Pullrod>
 % 
+% See also the
+% <matlab:cd(fileparts(which('testrig_quarter_car_doublewishbone.slx')));testrig_quarter_car_mlapp_sweep_optim; Suspension Tester App> (<matlab:web('testrig_quarter_car_sweep_optim_test.html'); Workflow>)
+ 
 
 %% Vehicle Parameterization
 %

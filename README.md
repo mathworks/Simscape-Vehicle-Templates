@@ -33,12 +33,17 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v3.6  -- Nov 2024**
+1.  Hardpoints in all suspensions can be tuned without recompiling (use Fast Restart).
+2.  Added Suspension Tester App for sweeping and optimizing hardpoint locations.
+3.  Fixed settings for Interactive Driver (for use with XBox controller)
+
 **v3.5  -- Nov 2024**
 1.  Renamed suspension "PushUA" to "Pullrod".
 
 **v3.4  -- Oct 2024**
 1.  Added optional compliance elements to all inboard connections of suspension arms.
-2.  Added bushing testrig to test linear, nonlinear, and nonlinear with hysteresis force laws
+2.  Added bushing testrig to test linear, nonlinear, and nonlinear with hysteresis force laws.
 
 **v3.3  -- Oct 2024**
 1.  Toe and camber calculations suitable for left and right sides.
