@@ -390,11 +390,11 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot2whlspeed'};
 sm_car_test_variants_testloop
 
-%% Test Set 11b -- CRG Plateau, MF-Swift, Delft
+%% Test Set 11b -- CRG Plateau, MF-Swift
 manv_set = {'CRG Plateau'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [165 171];
+veh_set = [165 170];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot2whlspeed'};
 sm_car_test_variants_testloop

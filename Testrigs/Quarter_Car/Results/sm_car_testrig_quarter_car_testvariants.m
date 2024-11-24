@@ -33,8 +33,8 @@ for veh_i = 1:length(veh_config)
     
     disp(['Run ' num2str(testnum) ' ' disp_str]);
     
-    %sim(mdl);
-    TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(mdl);
+    out=sim(mdl);
+    TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(out,true);
     
     saveas(gcf,filenamefignow);
     saveas(gcf,filenamefig);
@@ -57,8 +57,8 @@ filenameTbl    = [mdl '_'                suffix_str 'Table.mat'];
 disp_str = suffix_str;
    
 disp(['Run ' num2str(testnum+1) ' ' disp_str]);
-%sim(mdl);
-TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(mdl);
+out = sim(mdl);
+TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(out,true);
 saveas(gcf,filenamefignow);
 saveas(gcf,filenamefig);
 save(filenameTbl,"TSuspMetrics")
@@ -77,8 +77,8 @@ InitLinkage = Init.Axle2;
 Visual = sm_car_param_visual('fsae');
 
 disp(['Run ' num2str(testnum+2) ' ' disp_str]);
-%sim(mdl);
-TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(mdl);
+out = sim(mdl);
+TSuspMetrics = sm_car_testrig_quarter_car_plot1toecamber(out,true);
 saveas(gcf,filenamefignow);
 saveas(gcf,filenamefig);
 
