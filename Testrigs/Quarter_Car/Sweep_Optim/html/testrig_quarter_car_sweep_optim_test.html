@@ -1,0 +1,336 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Tuning Suspension Hardpoints to Minimize Bump Steer</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2024-11-23"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Tuning Suspension Hardpoints to Minimize Bump Steer</h1><!--introduction--><p>This example tunes suspension hardpoints to minimize the bump steer in a vehicle suspension. Using MATLAB scripts or an App you can specify the which hardpoints (such as outboard hardpoint on the upper wishbone) and which coordinates (such as along the x, y, or z axis) should be tuned.</p><p>First a sweep is performed to show the design space. If two coordinates are selected for tuning, a 2D plot will be shown, otherwise a table of the tested values and the resulting performance metric.  Next, optimization algorithms are used to find the combination that comes closest to the target value of the selected performance metric.</p><p>The documentation below shows the steps performed on testrig_quarter_car.slx.  They can also be performed on testrig_quarter_car_doublewishbone.slx and testrig_quarter_car_pullrod.slx.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Quarter-Car Testrig Model</a></li><li><a href="#2">Suspension Model</a></li><li><a href="#3">Define Sets of Values for Parameter Sweep</a></li><li><a href="#4">Conduct Parameter Sweep</a></li><li><a href="#5">Display and Plot the Results of Sweep</a></li><li><a href="#6">Optimize Selected Hardpoints to Achieve Target Bump Steer</a></li><li><a href="#7">Workflow Using MATLAB App</a></li></ul></div><h2 id="1">Quarter-Car Testrig Model</h2><p>The model <a href="matlab:open_system('testrig_quarter_car');">testrig_quarter_car</a> can be configured to test several different types of suspensions.  The suspension type is selected based on field Vehicle.Chassis.SuspA1.Linkage.class.Value within a MATLAB data structure. The locations of the hardpoints are defined within that structure.</p><p><a href="matlab:open_system('testrig_quarter_car');">Open Model</a></p><pre class="codeinput">mdl = <span class="string">'testrig_quarter_car'</span>;
+open_system(mdl)
+sm_car_load_vehicle_data(mdl,<span class="string">'064'</span>);
+sm_car_config_variants(mdl);
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_01.png" alt=""> <h2 id="2">Suspension Model</h2><p>This is the structure of the suspension.  The entire suspension is parameterized based on hardpoints.  Those hardpoints are defined based on [x y z] locations relative to a common reference point.  In the default set of data provided, that reference point is on the ground at the point midway between where the left and right tires touch the ground.</p><p><a href="matlab:open_system('testrig_quarter_car');open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');">Open Subsystem</a></p><pre class="codeinput">open_system(<span class="string">'testrig_quarter_car/Linkage/FiveLinkShockFront'</span>,<span class="string">'force'</span>);
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_02.png" alt=""> <h2 id="3">Define Sets of Values for Parameter Sweep</h2><p>The portion of the design space that will be tested is defined by selecting hardpoint coordinates and a set of values for that coordinate. In this example, we vary the z-coordinate for both ends of the track rod in the steering system.  MATLAB will test each combination of values for the two points and plot the result.  Any number of coordinates can be used for the sweep, we limited it to two in the example so that we could plot the results as a surface.</p><pre class="codeinput"><span class="comment">% Settings for first hardpoint coordinate</span>
+adjSet1 = -0.04:0.02:0.04;  <span class="comment">% Relative range in m</span>
+hp_list(1).part  = <span class="string">'TrackRod'</span>;
+hp_list(1).point = <span class="string">'sInboard'</span>;
+hp_list(1).index = 3;
+hp_list(1).valueSet = <span class="keyword">...</span>
+    Vehicle.Chassis.SuspA1.Linkage.(hp_list(1).part). <span class="keyword">...</span>
+    (hp_list(1).point).Value(hp_list(1).index) + adjSet1;
+
+<span class="comment">% Settings for second hardpoint coordinate</span>
+adjSet2 = -0.04:0.04:0.04;  <span class="comment">% Relative range in m</span>
+hp_list(2).part  = <span class="string">'TrackRod'</span>;
+hp_list(2).point = <span class="string">'sOutboard'</span>;
+hp_list(2).index = 3;
+hp_list(2).valueSet = <span class="keyword">...</span>
+    Vehicle.Chassis.SuspA1.Linkage.(hp_list(2).part). <span class="keyword">...</span>
+    (hp_list(2).point).Value(hp_list(2).index) + adjSet2;
+
+<span class="comment">% Performance metric to plot or display</span>
+metricName = <span class="string">'Bump Steer'</span>;
+</pre><h2 id="4">Conduct Parameter Sweep</h2><p>This function will create a simulation input object where each entry has a unique combination of the hardpoint coordinate values specified above. The simulations will be run using the sim() command, and at the end a surface plot shows how the selected performance metric (in this case bump steer) varies with the two coordinate values.</p><p>The toe and camber curves for each test are plotted.</p><pre class="codeinput">[simInput, simOut, TSuspMetricsSet] = <span class="keyword">...</span>
+    testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
+</pre><pre class="codeoutput">[23-Nov-2024 09:20:05] Running simulations...
+[23-Nov-2024 09:20:10] Completed 1 of 15 simulation runs
+[23-Nov-2024 09:20:11] Completed 2 of 15 simulation runs
+[23-Nov-2024 09:20:13] Completed 3 of 15 simulation runs
+[23-Nov-2024 09:20:14] Completed 4 of 15 simulation runs
+[23-Nov-2024 09:20:16] Completed 5 of 15 simulation runs
+[23-Nov-2024 09:20:17] Completed 6 of 15 simulation runs
+[23-Nov-2024 09:20:18] Completed 7 of 15 simulation runs
+[23-Nov-2024 09:20:20] Completed 8 of 15 simulation runs
+[23-Nov-2024 09:20:21] Completed 9 of 15 simulation runs
+[23-Nov-2024 09:20:23] Completed 10 of 15 simulation runs
+[23-Nov-2024 09:20:24] Completed 11 of 15 simulation runs
+[23-Nov-2024 09:20:26] Completed 12 of 15 simulation runs
+[23-Nov-2024 09:20:27] Completed 13 of 15 simulation runs
+[23-Nov-2024 09:20:28] Completed 14 of 15 simulation runs
+[23-Nov-2024 09:20:30] Completed 15 of 15 simulation runs
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2><p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown.</p><pre class="codeinput">disp(<span class="string">'Results of Sweep'</span>);
+TSuspMetricsReq = <span class="keyword">...</span>
+    testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
+</pre><pre class="codeoutput">Results of Sweep
+
+TSuspMetricsReq =
+
+  15&times;4 table
+
+    par_TrackRodIn3    par_TrackRodOut3    Bump_Steer    Bump_SteerUnits
+    _______________    ________________    __________    _______________
+
+          0.2                0.19            13.201          "deg/m"    
+          0.2                0.23            79.925          "deg/m"    
+          0.2                0.27               131          "deg/m"    
+         0.22                0.19           -31.265          "deg/m"    
+         0.22                0.23             42.59          "deg/m"    
+         0.22                0.27            99.117          "deg/m"    
+         0.24                0.19           -77.793          "deg/m"    
+         0.24                0.23             4.066          "deg/m"    
+         0.24                0.27             66.04          "deg/m"    
+         0.26                0.19           -126.74          "deg/m"    
+         0.26                0.23           -36.246          "deg/m"    
+         0.26                0.27             31.96          "deg/m"    
+         0.28                0.19           -177.84          "deg/m"    
+         0.28                0.23           -78.247          "deg/m"    
+         0.28                0.27           -3.5347          "deg/m"    
+
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Bump Steer</h2><p>Now that we have seen the design space, we will use optimization algorithms to identify the coordinates that achieve the desired level of bump steer.  The list of hardpoint coordinates and their ranges are provided to the optimization algorithm.  An objective function computes runs a simulation with those values and computes the performance metric. After the optimizer converges on a value or reaches the limit on the number of iterations permitted, the result is shown and overlaid on the parameter sweep plot.</p><pre class="codeinput">tgtValue    = 2; <span class="comment">% deg/m</span>
+[xFinal,fval,TSuspMetrics] = <span class="keyword">...</span>
+    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue);
+</pre><pre class="codeoutput">Metrics with Initial Set of Parameter Values
+
+TSuspMetricsStart =
+
+  7&times;4 table
+
+        Names        Values      Units             Description         
+    _____________    _______    _______    ____________________________
+
+    "Toe"             3.6259    "deg"      "+Toe In"                   
+    "Camber"         -3.9685    "deg"      "+Top Out"                  
+    "Caster"           15.84    "deg"      "+Top Rear of WC"           
+    "KPI"             2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"       4.066    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"      4.066    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"     28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+
+
+
+Iter     Func-count       f(x)      MeshSize     Method
+    0           1        2.06605          0.02      
+    1           5        2.06605         0.005     Refine Mesh
+    2           9       0.318607          0.01     Successful Poll
+    3          13       0.318607        0.0025     Refine Mesh
+    4          17       0.318607      0.000625     Refine Mesh
+    5          21      0.0878939       0.00125     Successful Poll
+    6          25      0.0878939     0.0003125     Refine Mesh
+    7          29      0.0476553      0.000625     Successful Poll
+    8          33      0.0476553     0.0001562     Refine Mesh
+    9          37      0.0241668     0.0003125     Successful Poll
+   10          41      0.0017773      0.000625     Successful Poll
+   11          45      0.0017773     0.0001562     Refine Mesh
+   12          49      0.0017773     3.906e-05     Refine Mesh
+Optimization terminated: mesh size less than options.MeshTolerance.
+Elapsed time for optimization = 74.4923
+ 
+Metrics with Optimized Set of Parameter Values
+
+TSuspMetricsFinal =
+
+  7&times;4 table
+
+        Names        Values      Units             Description         
+    _____________    _______    _______    ____________________________
+
+    "Toe"             3.5856    "deg"      "+Toe In"                   
+    "Camber"         -4.0106    "deg"      "+Top Out"                  
+    "Caster"           15.84    "deg"      "+Top Rear of WC"           
+    "KPI"             2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"      2.0018    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"     2.0018    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"     28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <h2 id="7">Workflow Using MATLAB App</h2><p>An App lets you select the hardpoint coordinates you wish to sweep or optimize.  You can select the range and increment for a sweep, and you can select the range and target performance metric for an optimization. Once you have configured your sweep or optimization, press the Run button.</p><p>Anything done with the App can also be done using MATLAB functions. As you configure and run the test, commands are echoed to the MATLAB command window so you know which commands will automate those steps.</p><p><img vspace="5" hspace="5" src="Simscape_Suspension_Tester_App.png" alt=""> </p><pre class="codeinput">close <span class="string">all</span>
+</pre><p class="footer">Copyright 2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Tuning Suspension Hardpoints to Minimize Bump Steer
+%
+% This example tunes suspension hardpoints to minimize the bump steer in a
+% vehicle suspension. Using MATLAB scripts or an App you can specify the
+% which hardpoints (such as outboard hardpoint on the upper wishbone) and
+% which coordinates (such as along the x, y, or z axis) should be tuned.
+%
+% First a sweep is performed to show the design space. If two coordinates
+% are selected for tuning, a 2D plot will be shown, otherwise a table of
+% the tested values and the resulting performance metric.  Next,
+% optimization algorithms are used to find the combination that comes
+% closest to the target value of the selected performance metric.
+%
+% The documentation below shows the steps performed on
+% testrig_quarter_car.slx.  They can also be performed on
+% testrig_quarter_car_doublewishbone.slx and
+% testrig_quarter_car_pullrod.slx.
+%
+% Copyright 2024 The MathWorks, Inc.
+
+%% Quarter-Car Testrig Model
+%
+% The model <matlab:open_system('testrig_quarter_car');
+% testrig_quarter_car> can be configured to test several different types of
+% suspensions.  The suspension type is selected based on field
+% Vehicle.Chassis.SuspA1.Linkage.class.Value within a MATLAB data
+% structure. The locations of the hardpoints are defined within that
+% structure.
+%
+% <matlab:open_system('testrig_quarter_car'); Open Model>
+
+mdl = 'testrig_quarter_car';
+open_system(mdl)
+sm_car_load_vehicle_data(mdl,'064');
+sm_car_config_variants(mdl);
+
+%% Suspension Model
+%
+% This is the structure of the suspension.  The entire suspension is
+% parameterized based on hardpoints.  Those hardpoints are defined based on
+% [x y z] locations relative to a common reference point.  In the default
+% set of data provided, that reference point is on the ground at the
+% point midway between where the left and right tires touch the ground.
+%
+% <matlab:open_system('testrig_quarter_car');open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force'); Open Subsystem>
+
+open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');
+
+%% Define Sets of Values for Parameter Sweep
+%
+% The portion of the design space that will be tested is defined by
+% selecting hardpoint coordinates and a set of values for that coordinate.
+% In this example, we vary the z-coordinate for both ends of the track rod
+% in the steering system.  MATLAB will test each combination of values for
+% the two points and plot the result.  Any number of coordinates can be
+% used for the sweep, we limited it to two in the example so that we could
+% plot the results as a surface.
+
+% Settings for first hardpoint coordinate
+adjSet1 = -0.04:0.02:0.04;  % Relative range in m
+hp_list(1).part  = 'TrackRod';
+hp_list(1).point = 'sInboard';
+hp_list(1).index = 3;
+hp_list(1).valueSet = ...
+    Vehicle.Chassis.SuspA1.Linkage.(hp_list(1).part). ...
+    (hp_list(1).point).Value(hp_list(1).index) + adjSet1;
+
+% Settings for second hardpoint coordinate
+adjSet2 = -0.04:0.04:0.04;  % Relative range in m
+hp_list(2).part  = 'TrackRod';
+hp_list(2).point = 'sOutboard';
+hp_list(2).index = 3;
+hp_list(2).valueSet = ...
+    Vehicle.Chassis.SuspA1.Linkage.(hp_list(2).part). ...
+    (hp_list(2).point).Value(hp_list(2).index) + adjSet2;
+
+% Performance metric to plot or display
+metricName = 'Bump Steer';
+
+%% Conduct Parameter Sweep
+%
+% This function will create a simulation input object where each entry has
+% a unique combination of the hardpoint coordinate values specified above.
+% The simulations will be run using the sim() command, and at the end a
+% surface plot shows how the selected performance metric (in this case bump
+% steer) varies with the two coordinate values.
+%
+% The toe and camber curves for each test are plotted.
+
+[simInput, simOut, TSuspMetricsSet] = ...
+    testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
+
+%% Display and Plot the Results of Sweep
+%
+% The parameter values tested and performance metric are shown in a table.
+% For tests with two performance metrics, a surface plot is shown.
+
+disp('Results of Sweep');
+TSuspMetricsReq = ...
+    testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
+
+%% Optimize Selected Hardpoints to Achieve Target Bump Steer
+%
+% Now that we have seen the design space, we will use optimization
+% algorithms to identify the coordinates that achieve the desired level of
+% bump steer.  The list of hardpoint coordinates and their ranges are
+% provided to the optimization algorithm.  An objective function computes
+% runs a simulation with those values and computes the performance metric.
+% After the optimizer converges on a value or reaches the limit on the
+% number of iterations permitted, the result is shown and overlaid on the
+% parameter sweep plot.
+
+tgtValue    = 2; % deg/m
+[xFinal,fval,TSuspMetrics] = ...
+    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue);
+
+%% Workflow Using MATLAB App
+%
+% An App lets you select the hardpoint coordinates you wish to sweep or
+% optimize.  You can select the range and increment for a sweep, and you
+% can select the range and target performance metric for an optimization.
+% Once you have configured your sweep or optimization, press the Run
+% button.
+%
+% Anything done with the App can also be done using MATLAB functions.
+% As you configure and run the test, commands are echoed to the MATLAB
+% command window so you know which commands will automate those steps.
+ 
+%%
+% 
+% <<Simscape_Suspension_Tester_App.png>>
+% 
+
+%%
+close all
+##### SOURCE END #####
+--></body></html>
