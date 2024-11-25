@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Tuning Suspension Hardpoints to Minimize Bump Steer</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-11-22">
+<meta name="DC.date" content="2024-11-25">
 <meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -155,22 +155,22 @@ metricName = <span class="string">'Bump Steer'</span>;
 <pre class="codeinput">[simInput, simOut, TSuspMetricsSet] = <span class="keyword">...</span>
     testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
 </pre>
-<pre class="codeoutput">[22-Nov-2024 21:39:27] Running simulations...
-[22-Nov-2024 21:39:32] Completed 1 of 15 simulation runs
-[22-Nov-2024 21:39:33] Completed 2 of 15 simulation runs
-[22-Nov-2024 21:39:34] Completed 3 of 15 simulation runs
-[22-Nov-2024 21:39:36] Completed 4 of 15 simulation runs
-[22-Nov-2024 21:39:37] Completed 5 of 15 simulation runs
-[22-Nov-2024 21:39:39] Completed 6 of 15 simulation runs
-[22-Nov-2024 21:39:40] Completed 7 of 15 simulation runs
-[22-Nov-2024 21:39:42] Completed 8 of 15 simulation runs
-[22-Nov-2024 21:39:43] Completed 9 of 15 simulation runs
-[22-Nov-2024 21:39:45] Completed 10 of 15 simulation runs
-[22-Nov-2024 21:39:46] Completed 11 of 15 simulation runs
-[22-Nov-2024 21:39:47] Completed 12 of 15 simulation runs
-[22-Nov-2024 21:39:49] Completed 13 of 15 simulation runs
-[22-Nov-2024 21:39:50] Completed 14 of 15 simulation runs
-[22-Nov-2024 21:39:52] Completed 15 of 15 simulation runs
+<pre class="codeoutput">[25-Nov-2024 10:58:03] Running simulations...
+[25-Nov-2024 10:58:09] Completed 1 of 15 simulation runs
+[25-Nov-2024 10:58:11] Completed 2 of 15 simulation runs
+[25-Nov-2024 10:58:12] Completed 3 of 15 simulation runs
+[25-Nov-2024 10:58:14] Completed 4 of 15 simulation runs
+[25-Nov-2024 10:58:16] Completed 5 of 15 simulation runs
+[25-Nov-2024 10:58:17] Completed 6 of 15 simulation runs
+[25-Nov-2024 10:58:18] Completed 7 of 15 simulation runs
+[25-Nov-2024 10:58:20] Completed 8 of 15 simulation runs
+[25-Nov-2024 10:58:22] Completed 9 of 15 simulation runs
+[25-Nov-2024 10:58:23] Completed 10 of 15 simulation runs
+[25-Nov-2024 10:58:24] Completed 11 of 15 simulation runs
+[25-Nov-2024 10:58:25] Completed 12 of 15 simulation runs
+[25-Nov-2024 10:58:27] Completed 13 of 15 simulation runs
+[25-Nov-2024 10:58:28] Completed 14 of 15 simulation runs
+[25-Nov-2024 10:58:30] Completed 15 of 15 simulation runs
 </pre>
 <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2>
 <p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown.</p>
@@ -216,16 +216,16 @@ TSuspMetricsStart =
 
   7&times;4 table
 
-        Names        Values      Units             Description         
-    _____________    _______    _______    ____________________________
+        Names          Values        Units             Description         
+    _____________    ___________    _______    ____________________________
 
-    "Toe"             4.1461    "deg"      "+Toe In"                   
-    "Camber"         -4.4261    "deg"      "+Top Out"                  
-    "Caster"           15.84    "deg"      "+Top Rear of WC"           
-    "KPI"             2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"       4.052    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"      4.052    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"     28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"            -7.5724e-14    "deg"      "+Toe In"                   
+    "Camber"          1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"               15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                 2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"           4.052    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"         -24.31    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"         28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
 
 
 
@@ -244,7 +244,7 @@ Iter     Func-count       f(x)      MeshSize     Method
    11          45     0.00226062     0.0001562     Refine Mesh
    12          49     0.00226062     3.906e-05     Refine Mesh
 patternsearch stopped because the mesh size was less than options.MeshTolerance.
-Elapsed time for optimization = 76.4654
+Elapsed time for optimization = 71.1645
  
 Metrics with Optimized Set of Parameter Values
 
@@ -252,16 +252,16 @@ TSuspMetricsFinal =
 
   7&times;4 table
 
-        Names        Values      Units             Description         
-    _____________    _______    _______    ____________________________
+        Names          Values       Units             Description         
+    _____________    __________    _______    ____________________________
 
-    "Toe"             4.6616    "deg"      "+Toe In"                   
-    "Camber"         0.26273    "deg"      "+Top Out"                  
-    "Caster"           15.84    "deg"      "+Top Rear of WC"           
-    "KPI"             2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"      2.0023    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"     2.0023    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"     28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"            5.5387e-14    "deg"      "+Toe In"                   
+    "Camber"         2.5444e-14    "deg"      "+Top Out"                  
+    "Caster"              15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"         2.0023    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"       -23.693    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"        28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
 
 </pre>
 <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <h2 id="7">Workflow Using MATLAB App</h2>

@@ -33,6 +33,9 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v3.7  -- Nov 2024**
+1.  Minor fixes to suspension metrics, hyperlinks in testrig_quarter_car* models 
+
 **v3.6  -- Nov 2024**
 1.  Hardpoints in all suspensions can be tuned without recompiling (use Fast Restart).
 2.  Added Suspension Tester App for sweeping and optimizing hardpoint locations.

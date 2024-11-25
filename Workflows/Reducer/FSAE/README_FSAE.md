@@ -29,7 +29,10 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
-**v3.6  -- Nov 2024**
+**v3.7  -- Nov 2024**  R2022a - R2024b
+1.  Minor fixes to suspension metrics, hyperlinks in testrig_quarter_car* models 
+
+**v3.6  -- Nov 2024**  R2022a - R2024b
 1.  Hardpoints in all suspensions can be tuned without recompiling (use Fast Restart).
 2.  Added Suspension Tester App for sweeping and optimizing hardpoint locations.
 
