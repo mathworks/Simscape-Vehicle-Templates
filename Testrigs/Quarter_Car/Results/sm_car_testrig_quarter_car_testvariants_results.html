@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Simscape Vehicle Library, Toe Camber Curves</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2024-11-25"><meta name="DC.source" content="sm_car_testrig_quarter_car_testvariants_results.m"><style type="text/css">
+      --><title>Simscape Vehicle Library, Toe Camber Curves</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-02-01"><meta name="DC.source" content="sm_car_testrig_quarter_car_testvariants_results.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -78,18 +78,30 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </p><pre class="codeoutput">
 TSuspMetrics =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values        Units             Description         
-    _____________    ___________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"             1.6097e-14    "deg"      "+Toe In"                   
-    "Camber"         -6.3611e-14    "deg"      "+Top Out"                  
-    "Caster"              15.329    "deg"      "+Top Rear of WC"           
-    "KPI"                 1.4744    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"          4.3308    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"        -24.198    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"         22.156    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                     -1.1477e-14    "deg"      "+Toe In"                   
+    "Camber"                   1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"                       15.329    "deg"      "+Top Rear of WC"           
+    "KPI"                          1.4744    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                    4.328    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                 -24.197    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  22.156    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 96.113    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                 77.891    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"             -3.1537    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               87.212    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"              76.027    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"           0.20335    "mm"       "Up"                        
+    "Wheel Travel Rebound"       -0.13125    "mm"       "Down"                      
+    "Wheel Travel Total"           0.3346    "mm"       "Up+Down"                   
+    "WC Recession Long"            0.0332    "mm/m"     "+Backwards"                
+    "WC Recession Lat"         -0.0043259    "mm/m"     "+In"                       
+    "Spring Ratio"                0.74744    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.74744    "1"        "Damper Disp/WC Disp"       
 
 </pre><p>
 <span style="font-family:Arial">
@@ -105,18 +117,30 @@ TSuspMetrics =
 </p><pre class="codeoutput">
 TSuspMetrics =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values        Units             Description         
-    _____________    ___________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"            -6.0535e-14    "deg"      "+Toe In"                   
-    "Camber"          6.3611e-14    "deg"      "+Top Out"                  
-    "Caster"              14.846    "deg"      "+Top Rear of WC"           
-    "KPI"                 8.0896    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"          4.2607    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"        -24.171    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"         29.571    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                     -3.5503e-14    "deg"      "+Toe In"                   
+    "Camber"                  -1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"                       14.846    "deg"      "+Top Rear of WC"           
+    "KPI"                          8.0896    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                   4.2599    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                 -24.171    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  29.571    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 95.068    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                -1.8399    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"            -0.92595    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               49.634    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"              77.298    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"            0.1971    "mm"       "Up"                        
+    "Wheel Travel Rebound"       -0.13288    "mm"       "Down"                      
+    "Wheel Travel Total"          0.32998    "mm"       "Up+Down"                   
+    "WC Recession Long"          0.035924    "mm/m"     "+Backwards"                
+    "WC Recession Lat"         -0.0044146    "mm/m"     "+In"                       
+    "Spring Ratio"                0.75316    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.75316    "1"        "Damper Disp/WC Disp"       
 
 </pre><p>
 <span style="font-family:Arial">
@@ -129,18 +153,30 @@ TSuspMetrics =
 </p><pre class="codeoutput">
 TSuspMetrics =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values        Units             Description         
-    _____________    ___________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"            -5.9953e-14    "deg"      "+Toe In"                   
-    "Camber"         -7.6333e-14    "deg"      "+Top Out"                  
-    "Caster"              14.846    "deg"      "+Top Rear of WC"           
-    "KPI"                 8.0896    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"          4.1981    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"        -24.141    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"         29.571    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                     -6.4171e-14    "deg"      "+Toe In"                   
+    "Camber"                   4.4528e-14    "deg"      "+Top Out"                  
+    "Caster"                       14.846    "deg"      "+Top Rear of WC"           
+    "KPI"                          8.0896    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                   4.1982    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                 -24.141    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  29.571    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 95.067    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                -1.8894    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"            -0.92724    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               49.584    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"              74.259    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"           0.20568    "mm"       "Up"                        
+    "Wheel Travel Rebound"        -0.1316    "mm"       "Down"                      
+    "Wheel Travel Total"          0.33727    "mm"       "Up+Down"                   
+    "WC Recession Long"          0.035841    "mm/m"     "+Backwards"                
+    "WC Recession Lat"          -0.004231    "mm/m"     "+In"                       
+    "Spring Ratio"                0.74026    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.74026    "1"        "Damper Disp/WC Disp"       
 
 </pre><p>
 <span style="font-family:Arial">
@@ -153,18 +189,30 @@ TSuspMetrics =
 </p><pre class="codeoutput">
 TSuspMetrics =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values        Units             Description         
-    _____________    ___________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"             2.3332e-14    "deg"      "+Toe In"                   
-    "Camber"         -1.2722e-14    "deg"      "+Top Out"                  
-    "Caster"               15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                 2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"          4.0931    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"        -24.329    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"         28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                     -9.4098e-15    "deg"      "+Toe In"                   
+    "Camber"                  -1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"                        15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                          2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                   4.0649    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                 -24.317    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 103.55    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                 11.302    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"             0.80258    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               28.679    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"              68.023    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"           0.19641    "mm"       "Up"                        
+    "Wheel Travel Rebound"        -0.1328    "mm"       "Down"                      
+    "Wheel Travel Total"          0.32921    "mm"       "Up+Down"                   
+    "WC Recession Long"          0.031278    "mm/m"     "+Backwards"                
+    "WC Recession Lat"         -0.0048038    "mm/m"     "+In"                       
+    "Spring Ratio"                0.75431    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.75431    "1"        "Damper Disp/WC Disp"       
 
 </pre><p>
 <span style="font-family:Arial">
@@ -177,18 +225,30 @@ TSuspMetrics =
 </p><pre class="codeoutput">
 TSuspMetrics =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values        Units             Description         
-    _____________    ___________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"            -3.1767e-14    "deg"      "+Toe In"                   
-    "Camber"         -1.5267e-13    "deg"      "+Top Out"                  
-    "Caster"               15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                 2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"           4.064    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"        -24.317    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"         28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                      3.1486e-14    "deg"      "+Toe In"                   
+    "Camber"                  -6.3611e-14    "deg"      "+Top Out"                  
+    "Caster"                        15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                          2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                    4.064    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                 -24.317    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 103.55    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                 11.319    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"             0.80534    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               28.696    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"               69.55    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"           0.19641    "mm"       "Up"                        
+    "Wheel Travel Rebound"        -0.1328    "mm"       "Down"                      
+    "Wheel Travel Total"          0.32921    "mm"       "Up+Down"                   
+    "WC Recession Long"          0.031277    "mm/m"     "+Backwards"                
+    "WC Recession Lat"          -0.004801    "mm/m"     "+In"                       
+    "Spring Ratio"                0.75431    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.75431    "1"        "Damper Disp/WC Disp"       
 
 </pre><p>
 <span style="font-family:Arial">
@@ -201,18 +261,30 @@ TSuspMetrics =
 </p><pre class="codeoutput">
 TSuspMetrics =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values        Units             Description         
-    _____________    ___________    _______    ____________________________
+            Names               Values       Units             Description         
+    ______________________    __________    _______    ____________________________
 
-    "Toe"            -3.1249e-15    "deg"      "+Toe In"                   
-    "Camber"          2.5444e-14    "deg"      "+Top Out"                  
-    "Caster"               15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                 2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"          4.1023    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"        -24.333    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"         28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                      1.746e-15    "deg"      "+Toe In"                   
+    "Camber"                  1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"                       15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                         2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                  4.1153    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                -24.341    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                 28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                103.56    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                11.178    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"            0.81035    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"              28.555    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"             60.874    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"          0.20597    "mm"       "Up"                        
+    "Wheel Travel Rebound"      -0.13124    "mm"       "Down"                      
+    "Wheel Travel Total"         0.33721    "mm"       "Up+Down"                   
+    "WC Recession Long"         0.031335    "mm/m"     "+Backwards"                
+    "WC Recession Lat"        -0.0049522    "mm/m"     "+In"                       
+    "Spring Ratio"               0.74063    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"               0.74063    "1"        "Damper Disp/WC Disp"       
 
 </pre><p>
 <span style="font-family:Arial">

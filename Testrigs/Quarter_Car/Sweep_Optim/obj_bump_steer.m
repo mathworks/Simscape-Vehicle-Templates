@@ -34,7 +34,7 @@ end
 assignin('base','Vehicle',Vehicle)
 
 %% Simulate model
-simOut=sim(mdl);
+simOut=sim(mdl,'StopTime','40.4');
 
 %% Calculate performance metrics, update plot
 [TSuspMetrics, toeCurve, camCurve] = sm_car_testrig_quarter_car_plot1toecamber(simOut,false);

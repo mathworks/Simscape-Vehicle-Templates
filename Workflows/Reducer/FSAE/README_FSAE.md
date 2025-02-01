@@ -29,6 +29,10 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v3.8  -- Feb 2025**
+1.  Added 12 additional KnC metrics to testrig_quarter_car* models 
+2.  Made path-following driver robust when traveling far inside of a sharp corner 
+
 **v3.7  -- Nov 2024**  R2022a - R2024b
 1.  Minor fixes to suspension metrics, hyperlinks in testrig_quarter_car* models 
 
