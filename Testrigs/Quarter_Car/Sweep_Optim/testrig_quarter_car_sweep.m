@@ -40,6 +40,7 @@ for vc_i = 1:numTests
 %        simInput(testNum) = setVariable(simInput(testNum),parAbb,axis_value);
     end
     simInput(testNum) = setVariable(simInput(testNum),'Vehicle',Vehicle);
+    simInput(testNum) = setModelParameter(simInput(testNum),'StopTime','40.4');
     simInput(testNum).UserString = UserString_SimInput(2:end);
 end
 

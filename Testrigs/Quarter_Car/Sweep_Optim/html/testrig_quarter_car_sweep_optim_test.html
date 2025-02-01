@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Tuning Suspension Hardpoints to Minimize Bump Steer</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2024-11-25"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
+      --><title>Tuning Suspension Hardpoints to Minimize Bump Steer</title><meta name="generator" content="MATLAB 9.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-02-01"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -94,22 +94,22 @@ hp_list(2).valueSet = <span class="keyword">...</span>
 metricName = <span class="string">'Bump Steer'</span>;
 </pre><h2 id="4">Conduct Parameter Sweep</h2><p>This function will create a simulation input object where each entry has a unique combination of the hardpoint coordinate values specified above. The simulations will be run using the sim() command, and at the end a surface plot shows how the selected performance metric (in this case bump steer) varies with the two coordinate values.</p><p>The toe and camber curves for each test are plotted.</p><pre class="codeinput">[simInput, simOut, TSuspMetricsSet] = <span class="keyword">...</span>
     testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
-</pre><pre class="codeoutput">[25-Nov-2024 12:21:30] Running simulations...
-[25-Nov-2024 12:21:36] Completed 1 of 15 simulation runs
-[25-Nov-2024 12:21:38] Completed 2 of 15 simulation runs
-[25-Nov-2024 12:21:39] Completed 3 of 15 simulation runs
-[25-Nov-2024 12:21:41] Completed 4 of 15 simulation runs
-[25-Nov-2024 12:21:43] Completed 5 of 15 simulation runs
-[25-Nov-2024 12:21:44] Completed 6 of 15 simulation runs
-[25-Nov-2024 12:21:45] Completed 7 of 15 simulation runs
-[25-Nov-2024 12:21:47] Completed 8 of 15 simulation runs
-[25-Nov-2024 12:21:48] Completed 9 of 15 simulation runs
-[25-Nov-2024 12:21:49] Completed 10 of 15 simulation runs
-[25-Nov-2024 12:21:51] Completed 11 of 15 simulation runs
-[25-Nov-2024 12:21:52] Completed 12 of 15 simulation runs
-[25-Nov-2024 12:21:54] Completed 13 of 15 simulation runs
-[25-Nov-2024 12:21:55] Completed 14 of 15 simulation runs
-[25-Nov-2024 12:21:57] Completed 15 of 15 simulation runs
+</pre><pre class="codeoutput">[01-Feb-2025 14:48:31] Running simulations...
+[01-Feb-2025 14:48:36] Completed 1 of 15 simulation runs
+[01-Feb-2025 14:48:37] Completed 2 of 15 simulation runs
+[01-Feb-2025 14:48:39] Completed 3 of 15 simulation runs
+[01-Feb-2025 14:48:40] Completed 4 of 15 simulation runs
+[01-Feb-2025 14:48:41] Completed 5 of 15 simulation runs
+[01-Feb-2025 14:48:43] Completed 6 of 15 simulation runs
+[01-Feb-2025 14:48:44] Completed 7 of 15 simulation runs
+[01-Feb-2025 14:48:45] Completed 8 of 15 simulation runs
+[01-Feb-2025 14:48:47] Completed 9 of 15 simulation runs
+[01-Feb-2025 14:48:48] Completed 10 of 15 simulation runs
+[01-Feb-2025 14:48:49] Completed 11 of 15 simulation runs
+[01-Feb-2025 14:48:51] Completed 12 of 15 simulation runs
+[01-Feb-2025 14:48:52] Completed 13 of 15 simulation runs
+[01-Feb-2025 14:48:53] Completed 14 of 15 simulation runs
+[01-Feb-2025 14:48:55] Completed 15 of 15 simulation runs
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2><p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown.</p><pre class="codeinput">disp(<span class="string">'Results of Sweep'</span>);
 TSuspMetricsReq = <span class="keyword">...</span>
     testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
@@ -125,18 +125,18 @@ TSuspMetricsReq =
           0.2                0.19            13.201          "deg/m"    
           0.2                0.23            79.925          "deg/m"    
           0.2                0.27               131          "deg/m"    
-         0.22                0.19           -31.265          "deg/m"    
+         0.22                0.19           -31.266          "deg/m"    
          0.22                0.23             42.59          "deg/m"    
          0.22                0.27            99.117          "deg/m"    
          0.24                0.19           -77.793          "deg/m"    
-         0.24                0.23             4.066          "deg/m"    
+         0.24                0.23            4.0649          "deg/m"    
          0.24                0.27             66.04          "deg/m"    
          0.26                0.19           -126.74          "deg/m"    
-         0.26                0.23           -36.246          "deg/m"    
+         0.26                0.23           -36.247          "deg/m"    
          0.26                0.27             31.96          "deg/m"    
-         0.28                0.19           -177.84          "deg/m"    
+         0.28                0.19           -177.92          "deg/m"    
          0.28                0.23           -78.247          "deg/m"    
-         0.28                0.27           -3.5347          "deg/m"    
+         0.28                0.27           -3.5344          "deg/m"    
 
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Bump Steer</h2><p>Now that we have seen the design space, we will use optimization algorithms to identify the coordinates that achieve the desired level of bump steer.  The list of hardpoint coordinates and their ranges are provided to the optimization algorithm.  An objective function computes runs a simulation with those values and computes the performance metric. After the optimizer converges on a value or reaches the limit on the number of iterations permitted, the result is shown and overlaid on the parameter sweep plot.</p><pre class="codeinput">tgtValue    = 2; <span class="comment">% deg/m</span>
 [xFinal,fval,TSuspMetrics] = <span class="keyword">...</span>
@@ -145,54 +145,76 @@ TSuspMetricsReq =
 
 TSuspMetricsStart =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values       Units             Description         
-    _____________    __________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"            3.3147e-14    "deg"      "+Toe In"                   
-    "Camber"         1.2722e-14    "deg"      "+Top Out"                  
-    "Caster"              15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"          4.066    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"       -24.318    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"        28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                     -9.4098e-15    "deg"      "+Toe In"                   
+    "Camber"                  -1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"                        15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                          2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                   4.0649    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                 -24.317    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 103.55    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                 11.302    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"             0.80258    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               28.679    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"              68.023    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"           0.19641    "mm"       "Up"                        
+    "Wheel Travel Rebound"        -0.1328    "mm"       "Down"                      
+    "Wheel Travel Total"          0.32921    "mm"       "Up+Down"                   
+    "WC Recession Long"          0.031278    "mm/m"     "+Backwards"                
+    "WC Recession Lat"         -0.0048038    "mm/m"     "+In"                       
+    "Spring Ratio"                0.75431    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.75431    "1"        "Damper Disp/WC Disp"       
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        2.06605          0.02      
-    1           5        2.06605         0.005     Refine Mesh
-    2           9       0.318607          0.01     Successful Poll
-    3          13       0.318607        0.0025     Refine Mesh
-    4          17       0.318607      0.000625     Refine Mesh
+    0           1        2.06493          0.02      
+    1           5        2.06493         0.005     Refine Mesh
+    2           9       0.334394          0.01     Successful Poll
+    3          13       0.334394        0.0025     Refine Mesh
+    4          17       0.334394      0.000625     Refine Mesh
     5          21      0.0878939       0.00125     Successful Poll
     6          25      0.0878939     0.0003125     Refine Mesh
-    7          29      0.0476553      0.000625     Successful Poll
-    8          33      0.0476553     0.0001562     Refine Mesh
-    9          37      0.0241668     0.0003125     Successful Poll
-   10          41      0.0017773      0.000625     Successful Poll
-   11          45      0.0017773     0.0001562     Refine Mesh
-   12          49      0.0017773     3.906e-05     Refine Mesh
+    7          29      0.0476807      0.000625     Successful Poll
+    8          33      0.0476807     0.0001562     Refine Mesh
+    9          37      0.0309004     0.0003125     Successful Poll
+   10          41      0.0309004     7.812e-05     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 77.562
+Elapsed time for optimization = 58.1815
  
 Metrics with Optimized Set of Parameter Values
 
 TSuspMetricsFinal =
 
-  7&times;4 table
+  19&times;4 table
 
-        Names          Values       Units             Description         
-    _____________    __________    _______    ____________________________
+            Names               Values        Units             Description         
+    ______________________    ___________    _______    ____________________________
 
-    "Toe"            1.0239e-14    "deg"      "+Toe In"                   
-    "Camber"         2.5444e-14    "deg"      "+Top Out"                  
-    "Caster"              15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"         2.0018    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"       -23.693    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"        28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Toe"                      3.1277e-14    "deg"      "+Toe In"                   
+    "Camber"                  -1.2722e-14    "deg"      "+Top Out"                  
+    "Caster"                        15.84    "deg"      "+Top Rear of WC"           
+    "KPI"                          2.7472    "deg"      "+Top Inside Bottom"        
+    "Bump Steer"                   2.0309    "deg/m"    "+/- 10mm, +Toe In"         
+    "Bump Camber"                  -23.73    "deg/m"    "+/- 10mm, +Top Out"        
+    "Bump Caster"                  28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
+    "Caster Trail"                 103.55    "mm"       "+Forward of Contact Patch" 
+    "Scrub Radius"                 11.241    "mm"       "+Inside Wheel Center"      
+    "Hub Long Offset"             0.80599    "mm"       "+Forward of WC"            
+    "Hub Lat Offset"               28.618    "mm"       "+Inside Wheel Center"      
+    "Suspension Rate"              80.211    "N/mm"     "+/-20mm, Wheel Centre"     
+    "Wheel Travel Bump"           0.19668    "mm"       "Up"                        
+    "Wheel Travel Rebound"       -0.13271    "mm"       "Down"                      
+    "Wheel Travel Total"          0.32939    "mm"       "Up+Down"                   
+    "WC Recession Long"          0.029193    "mm/m"     "+Backwards"                
+    "WC Recession Lat"         -0.0046258    "mm/m"     "+In"                       
+    "Spring Ratio"                0.75463    "1"        "Spring Disp/WC Disp"       
+    "Damper Ratio"                0.75463    "1"        "Damper Disp/WC Disp"       
 
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <h2 id="7">Workflow Using MATLAB App</h2><p>An App lets you select the hardpoint coordinates you wish to sweep or optimize.  You can select the range and increment for a sweep, and you can select the range and target performance metric for an optimization. Once you have configured your sweep or optimization, press the Run button.</p><p>Anything done with the App can also be done using MATLAB functions. As you configure and run the test, commands are echoed to the MATLAB command window so you know which commands will automate those steps.</p><p><img vspace="5" hspace="5" src="Simscape_Suspension_Tester_App.png" alt=""> </p><pre class="codeinput">close <span class="string">all</span>
 </pre><p class="footer">Copyright 2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022b</a><br></p></div><!--
