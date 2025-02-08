@@ -501,6 +501,21 @@ switch maneuver_str
         sm_car_config_road(modelname,'CRG Pikes Peak');
         set_param(modelname,'StopTime','1485');
         
+    % --- GS Uneven Road based on CRG
+    case 'gs uneven road'
+        evalin('base',['Init = IDatabase.GS_Uneven_Road.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.GS_Uneven_Road.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.GS_Uneven_Road.'  veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base','sm_car_scene_stl_create(Scene.GS_Uneven_Road);');
+        sm_car_config_road(modelname,'GS Uneven Road');
+
+        % Ensure event runs until vehicle reaches end of bumps
+        set_param(modelname,'StopTime','100');        
+        % Stop maneuver when vehicle is through double lane change cones (xMax)
+        set_param([modelname '/Check'],'start_check_time_max_dist','2','max_dist_threshold','211');
+
+
     % --- 4 Post Testrig
     case 'testrig 4 post'
         evalin('base','Init = IDatabase.Testrig_Post.Default;');

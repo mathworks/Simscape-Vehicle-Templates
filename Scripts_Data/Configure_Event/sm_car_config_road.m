@@ -138,7 +138,6 @@ set_param(mu_scaling_h,'muFL_in','1','muFR_in','1','muRL_in','1','muRR_in','1')
 
 % Specific checks for combinations
 % Non-flat CRG files
-
 if(verLessThan('matlab','9.12'))
     checkNonFlatCRG = sum([contains(tirClass,'MFEval') contains(tirClassTr,'MFEval') contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]);
     messgNonFlatCRG1 = 'Configure model to use Delft Tire or MF-Swift software for this maneuver.';
@@ -148,6 +147,17 @@ else
     messgNonFlatCRG1 = 'Configure model to use Delft Tire, MF-Swift, or Simscape  for this maneuver.';
     messgNonFlatCRG2 = '--> All values for active components should be ''Delft'', ''MFSwift'', or ''Simscape''';
 end
+
+if(verLessThan('matlab','9.14'))
+    checkGridSurface = 1;
+    messgGridSurface1 = 'Grid Surface events cannot be used in this release of MATLAB';
+    messgGridSurface2 = '--> Please select another maneuver.';
+else
+    checkGridSurface = sum([contains(tirClass,'MFEval') contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift')  contains(tirClassTr,'Delft')]);
+    messgGridSurface1 = 'Configure model to use Simscape  for this maneuver.';
+    messgGridSurface2 = '--> All values for active components should be ''Simscape''';
+end
+
 % Switch based on requested road surface
 switch lower(scenename)
     case 'plane grid'
@@ -286,6 +296,18 @@ switch lower(scenename)
 
         % Select CRG file
         roadFile = 'which(''CRG_Pikes_Peak.crg'')';
+
+    case 'gs uneven road'
+        if(checkGridSurface)
+            error_str = sprintf([messgGridSurface1 '\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                messgGridSurface2]);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
+        % Select STL file
+        roadFile = 'GS_Uneven_Road.stl';
 
     case 'crg suzuka'
         if(checkNonFlatCRG)
