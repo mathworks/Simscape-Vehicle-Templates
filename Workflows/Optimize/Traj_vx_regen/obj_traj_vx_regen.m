@@ -113,8 +113,8 @@ function [costfcn, lap_time, max_ld] = check_lap_time(dist_car,track_length,ld,m
 % ld:           Lateral deviation from target path
 
 % Find range of values to check for max
-min_ld_ind = find(dist_car.Time>5);   % Ignore first 5 seconds
-lap_t_ind  = find(dist_car.Data>(max(track_length)-10));
+min_ld_ind = find(dist_car.Time>5.1);   % Ignore first 5 seconds
+lap_t_ind  = find(dist_car.Data>(max(track_length)-10),1);
 if(isempty(lap_t_ind))
     max_ld = max(ld(min_ld_ind:end));
 else

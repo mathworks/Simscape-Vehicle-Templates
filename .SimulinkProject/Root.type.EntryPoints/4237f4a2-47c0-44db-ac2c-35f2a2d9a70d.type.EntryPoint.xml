@@ -1,2 +1,2 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<Info Type="Shutdown" Visible="0" Icon="" File="Scripts_Data/shutdown_sm_car.m" Name="shutdown_sm_car"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<Info File="Scripts_Data/shutdown_sm_car.m" Icon="" Name="shutdown_sm_car" Type="Shutdown" Visible="0"/>

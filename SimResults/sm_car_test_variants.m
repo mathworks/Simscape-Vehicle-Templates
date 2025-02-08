@@ -17,6 +17,7 @@ maneuver_list = {...
     'CRG Pikes Peak Down',    'CPD';
     'CRG Plateau',            'CPL';
     'CRG Rough Road',         'CRR';
+    'GS Uneven Road',         'GSU';
     'Mallory Park Obstacle',  'MPO';
     'Mallory Park',           'MPK';
     'Mallory Park CCW'        'MPC';
@@ -465,6 +466,17 @@ if(~verLessThan('MATLAB','9.12'))
     veh_set = [189];
     trailer_set = {'none'};
     plotstr = {'sm_car_plot5bodymeas'};
+    sm_car_test_variants_testloop
+end
+
+%% Test Set 12g -- GS Uneven Road Mbody
+if(~verLessThan('MATLAB','24.2'))
+    manv_set = {'GS Uneven Road'};
+    stoptime_set = -1*ones(size(manv_set));
+    solver_typ = {'variable step'};
+    veh_set = [189];
+    trailer_set = {'none'};
+    plotstr = {'sm_car_plot1speed'};
     sm_car_test_variants_testloop
 end
 

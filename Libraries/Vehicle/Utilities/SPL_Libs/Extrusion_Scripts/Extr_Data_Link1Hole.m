@@ -16,7 +16,7 @@ function [xy_data] = Extr_Data_Link1Hole(L, W, r, side, varargin)
 %   add 'plot' as the final argument
 %   >> Extr_Data_Link1Hole(10,5,2,'+X','plot')
 
-% Copyright 2013-2022 The MathWorks, Inc.
+% Copyright 2013-2024 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)
