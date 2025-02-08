@@ -181,6 +181,14 @@ InitSet.RDF_Plateau.Data         = {...
     'vChassis','m/s', 1,   0,     0;
     'sChassis','m',   0,   0,     0};
 
+%% Scene GS Uneven Road
+InitSet.GS_Uneven_Road.Type   = 'GS_Uneven_Road';
+InitSet.GS_Uneven_Road.Instance     = '';
+InitSet.GS_Uneven_Road.Data         = {...
+    'aChassis','rad', 0,   0,     -1.65*pi/180;
+    'vChassis','m/s', 1,   0,     0;
+    'sChassis','m',   242.2 -4.85 0.5};
+
 %% Scene Double Lane Change, Slow Start
 InitSet.Double_Lane_Change.Type   = 'Double_Lane_Change';
 InitSet.Double_Lane_Change.Instance     = '';

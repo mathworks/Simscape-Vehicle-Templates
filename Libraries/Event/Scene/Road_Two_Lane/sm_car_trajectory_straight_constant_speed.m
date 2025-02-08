@@ -14,8 +14,10 @@ cd(fileparts(which(mfilename)))
 % Default values if no arguments supplied
 v_lc        = 12;    % Speed during lane change (m/s)
 x_testv     = 50;    % Distance when target speed is reached (m)
+
 % Parameters for trajectory
 maneuver_lateral_offset    = -3.35; % m
+gate0       = 0;     % Start 
 
 if(nargin>=1)
     v_lc = varargin{1};
@@ -26,13 +28,15 @@ end
 if(nargin>=3)
     maneuver_lateral_offset = varargin{3};
 end
+if(nargin>=4)
+    gate0 = varargin{4};
+end
 
 % Longitudinal gate locations (m)
-gate0       = 0;     % Start 
-gate7       = 290;   % End
+gate7       = gate0+290;   % End
 
 % Assemble waypoints
-x_waypoints =  [gate0 x_testv gate7];
+x_waypoints =  [gate0 gate0+x_testv gate7];
 y_waypoints =  [0 0 0]+maneuver_lateral_offset;
 vx_waypoints = [1 v_lc v_lc];
 
@@ -108,6 +112,10 @@ y.Value = y_new;
 y.Units = 'm';
 y.Comments = '';
 
+z.Value = y_new*0;
+z.Units = 'm';
+z.Comments = '';
+
 xTrajectory.Value = xTrajectory_new;
 xTrajectory.Units = 'm';
 xTrajectory.Comments = 'Distance traveled';
@@ -125,5 +133,5 @@ spdstr = num2str(round(v_lc));
 dststr = num2str(round(x_testv));
 
 filename = ['Straight_Constant_Speed_trajectory_' spdstr '_' dststr];
-save(filename,'x','y','vx','aYaw','xTrajectory'); 
+save(filename,'x','y','z','vx','aYaw','xTrajectory'); 
 
