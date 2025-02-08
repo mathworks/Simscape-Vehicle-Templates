@@ -28,10 +28,10 @@ logsout_pFR = logsout_VehBus.Values.Brakes.pBrakeR1;
 logsout_pRL = logsout_VehBus.Values.Brakes.pBrakeL2;
 logsout_pRR = logsout_VehBus.Values.Brakes.pBrakeR2;
 
-simlog_wsFL = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA1.Linkage.Linkage_L.DoubleWishbone.Upright.Revolute_Bearing.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
-simlog_wsFR = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA1.Linkage.Linkage_R.DoubleWishbone.Upright.Revolute_Bearing.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
-simlog_wsRL = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA2.Linkage.Linkage_L.DoubleWishboneA.Upright.Revolute_Bearing.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
-simlog_wsRR = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA2.Linkage.Linkage_R.DoubleWishboneA.Upright.Revolute_Bearing.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
+simlog_wsFL = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA1.Linkage.Linkage_L.DoubleWishbone.Upright.Revolute.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
+simlog_wsFR = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA1.Linkage.Linkage_R.DoubleWishbone.Upright.Revolute.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
+simlog_wsRL = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA2.Linkage.Linkage_L.DoubleWishboneA.Upright.Revolute.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
+simlog_wsRR = simlog_sm_car.Vehicle.Vehicle.Chassis.SuspA2.Linkage.Linkage_R.DoubleWishboneA.Upright.Revolute.Revolute.Rz.w.series.values('rad/s')*Vehicle.Chassis.TireA1.tire_radius.Value/3.6;
 
 % Plot results
 simlog_handles(1) = subplot(2, 1, 1);

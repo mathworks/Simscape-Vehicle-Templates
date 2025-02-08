@@ -29,7 +29,13 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
-**v3.8  -- Feb 2025**
+**v3.9  -- Feb 2025**  R2022a - R2024b
+(Not all changes to Simscape Vehicle Templates affect this repository)
+1.  Added event GS Uneven Road to show Grid Surface to Magic Formula Tire (R2024b and higher).
+2.  Added example to go from CRG to STL to grid surface data.
+3.  Updated Longitudinal Driver model.
+
+**v3.8  -- Feb 2025**  R2022a - R2024b
 1.  Added 12 additional KnC metrics to testrig_quarter_car* models 
 2.  Made path-following driver robust when traveling far inside of a sharp corner 
 
