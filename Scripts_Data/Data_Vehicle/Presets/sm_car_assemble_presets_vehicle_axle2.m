@@ -2171,15 +2171,15 @@ Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L1_R1_L2_R2_default');
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'SplitLowerArmShockFront_Sedan_Hamba_f','SuspA1');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA', 'Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAF','BushingUJ_Sef_S2LAF_LAF');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAR','BushingUJ_Sef_S2LAF_LAR');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA', 'BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAF','BushLink_AxRad_Sef_S2LAF_LAF');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAR','BushLink_AxRad_Sef_S2LAF_LAR');
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'FiveLinkShockRear_Sedan_Hamba_r','SuspA2');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UAF','BushingUJ_Ser_5LS2R_UAF');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LAF','BushingUJ_Ser_5LS2R_LAF');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UAR','BushingUJ_Ser_5LS2R_UAR');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LAR','BushingUJ_Ser_5LS2R_LAR');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UAF','BushLink_AxRad_Ser_5LS2R_UAF');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LAF','BushLink_AxRad_Ser_5LS2R_LAF');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UAR','BushLink_AxRad_Ser_5LS2R_UAR');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LAR','BushLink_AxRad_Ser_5LS2R_LAR');
 
 Vehicle.Chassis.SuspA1.Linkage.LowerArmF_to_Subframe.RadialSpring.Law.Value = 'Maxwell_SLS';
 Vehicle.Chassis.SuspA1.Linkage.UpperArmF_to_Subframe.RadialSpring.Law.Value = 'Table';
@@ -2194,6 +2194,209 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 88: HambaLG, MacPherson
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_216;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.MacPherson_Sedan_HambaLG_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_HambaLG_mc_f;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_HambaLG_Mac_Linear_A1;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.Sedan_HambaLG_Mac_Linear_A1;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'dwb_','MacPh_');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 86: HambaLG, S2LAF ARB to Upper Arm, Rigid
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_216;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.SplitLowerArmShockFrontAU_Sedan_HambaLG_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_HambaLG_f;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'dwb_','dwbAU_');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 87: HambaLG, S2LAF ARB to Upper Arm, Bushings
+veh_ind = veh_ind+1;
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe = VDatabase.Subframe_Conn.BushArm_Ax3_SedanLG_UA;
+Vehicle.Chassis.SuspA1.Linkage.LowerArmR_to_Subframe = VDatabase.Subframe_Conn.BushLink_Ax3_SLGf_S2LAF_LAR;
+Vehicle.Chassis.SuspA1.Linkage.LowerArmF_to_Subframe = VDatabase.Subframe_Conn.BushLink_Ax3_SLGf_S2LAF_LAF;
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','ARB','BushARB_Ax3_SedanLGAU_f');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'steady','bushings');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 85: Achilles Pushrod, MFeval, Ideal 2 motor
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_183;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
+Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A2;
+
+Vehicle.config = strrep(vehcfg,'dwpull','dwpush');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 85: Achilles Pushrod, MFSwift, Ideal 2 motor
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_184;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
+Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A2;
+
+Vehicle.config = strrep(vehcfg,'dwpull','dwpush');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 85: Achilles Pushrod, MFbody, Ideal 2 motor
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_198;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
+Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A2;
+
+Vehicle.config = strrep(vehcfg,'dwpull','dwpush');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 85: Achilles Pushrod, MFMBody, Electric 4Motor Cooling
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_215;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
+Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A2;
+
+Vehicle.config = strrep(vehcfg,'dwpull','dwpush');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 89: Sedan Hamba MFeval Twist Beam
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_139;
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.TwistBeam_Sedan_Hamba_r;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_TwistBeam_Linear_A2;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_Hamba_TwistBeam_A2;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(Vehicle.config,'dwb','TwistBeam');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 89: Sedan Hamba, Swift, Twist Beam
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_140;
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.TwistBeam_Sedan_Hamba_r;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_TwistBeam_Linear_A2;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_Hamba_TwistBeam_A2;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFEval','MFSwift');
+Vehicle.config = strrep(Vehicle.config,'dwb','TwistBeam');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 89: Sedan Hamba MFMbody Twist Beam
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_139;
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.TwistBeam_Sedan_Hamba_r;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_TwistBeam_Linear_A2;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_Hamba_TwistBeam_A2;
+
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_213_40R21','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFEval','MFMbody');
+Vehicle.config = strrep(Vehicle.config,'dwb','TwistBeam');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Return to main directory
 curr_proj = simulinkproject;

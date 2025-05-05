@@ -8,6 +8,7 @@ veh_body =  veh_config_set{1};
 veh_body = strrep(veh_body,'HambaLG','Hamba');
 veh_body = strrep(veh_body,'Makhulu3Axle','Makhulu');
 veh_body = strrep(veh_body,'Amandla3Axle','Amandla');
+veh_body = strrep(veh_body,'Rhuqa3Axle','Amandla');
 
 
 camera_str = ['Camera = CDatabase.Camera.' strrep(veh_body,'HambaLG','Hamba') ';'];

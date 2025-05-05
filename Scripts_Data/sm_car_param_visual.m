@@ -9,6 +9,7 @@ Visual.clr.black       = [0.0 0.0 0.0];
 Visual.clr.yellow      = [1.0 1.0 0.0];
 Visual.clr.green       = [0.2 1.0 0.0];
 Visual.clr.red         = [1.0 0.0 0.2];
+Visual.clr.reddark     = [0.6 0.0 0.2];
 Visual.clr.orange      = [1.0 0.8 0.4];
 Visual.clr.orangedark  = [1.0 0.7 0.0];
 Visual.clr.purple      = [0.6 0.6 1.0];
@@ -24,6 +25,14 @@ Visual.hp.clr = Visual.clr.red;
 Visual.Shock.cyl.clr        = Visual.clr.blue;
 Visual.Shock.piston.clr     = Visual.clr.gray;
 Visual.Shock.bumpstop.clr   = Visual.clr.yellowpale;
+
+Visual.Spring.cap.clr       = Visual.clr.gray;
+Visual.Spring.cyl.clr       = Visual.clr.reddark;
+Visual.Spring.coil.clr      = Visual.clr.reddark;
+
+Visual.Spring.cyl.opc       = 0.3;
+Visual.Spring.coil.opc      = 1;
+
 
 Visual.Rim.clr              = Visual.clr.graylight;
 
@@ -73,6 +82,9 @@ if(strcmpi(car_option,'default'))
     Visual.Shock.bumpstop.len= 0.01;
     Visual.Shock.cyl.rad     = 0.03;
     
+    Visual.Spring.cap.len     = 0.005;
+
+
     %Visual.body.hp = [0 0 0.4225-0.1]; % Not needed?
     Visual.body.opc             = 0.3;
     

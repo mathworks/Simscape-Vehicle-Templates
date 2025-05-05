@@ -161,15 +161,15 @@ open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liqu
 
 bdclose('sm_car')
 load_system('sm_car')
-load Vehicle_191.mat
-Vehicle = Vehicle_191;
+load Vehicle_189.mat
+Vehicle = Vehicle_189;
 sm_car_config_vehicle('sm_car',true)
 
 warning('off','Solver61:CoeffChecks:Eyk')
 warning('off','Solver61:Limits:Exceeded')
 warning('off','Solver61:CoeffChecks:Et')
 
-%% Full Throttle, Braking, MFEval Tires
+%% Full Throttle, Braking
 % 
 sm_car_config_maneuver('sm_car','WOT Braking');
 
@@ -177,7 +177,7 @@ sim('sm_car')
 sm_car_plot1speed;
 sm_car_plot2whlspeed
 
-%% Front Steering, Sequence Steer, Step Torque, MFEval Tires
+%% Front Steering, Steering Sequence
 % 
 sm_car_config_maneuver('sm_car','Low Speed Steer');
 
@@ -186,7 +186,7 @@ sm_car_plot1speed;
 sm_car_plot2whlspeed
 
 
-%% Double-Lane Change, MFEval Tires
+%% Double-Lane Change
 %
 
 sm_car_config_maneuver('sm_car','Double Lane Change');

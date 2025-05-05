@@ -25,8 +25,10 @@ fieldlist = fieldnames(Maneuver);
 
 hasTrajectory = find(strcmp(fieldlist,'Trajectory'), 1);
 hasDriveCycle = find(strcmp(fieldlist,'DriveCycle'), 1);
+hasPostL1     = find(strcmp(fieldlist,'PostL1'), 1);
+hasAccel      = find(strcmp(fieldlist,'Accel'), 1);
 
-if(~isempty(hasTrajectory))
+if(~isempty(hasTrajectory) && isempty(hasAccel))
 	% Plot Maneuver with Trajectory
     plot(Maneuver.Trajectory.x.Value,Maneuver.Trajectory.y.Value,'-o')
     axis equal
@@ -99,6 +101,40 @@ elseif(~isempty(hasDriveCycle))
     text(0.05,0.9,label_str,...
         'Units','Normalized','Color',[1 1 1]*0.5);
 
+elseif(~isempty(hasPostL1))
+	% Plot Maneuver with Four-Post Commands (KnC)
+    ah(1) = subplot(311);
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.z.Value,'-o','DisplayName','L1');
+    hold on
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.z.Value,'-o','DisplayName','R1');
+    plot(Maneuver.PostL2.t.Value,Maneuver.PostL2.z.Value,'--o','DisplayName','L2');
+    plot(Maneuver.PostR2.t.Value,Maneuver.PostR2.z.Value,'--o','DisplayName','R2');
+    ylabel('Height (m)');
+    title('Testrig Post Height');
+    legend('Location','East')
+
+    ah(2) = subplot(312);
+    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-o');
+    ylabel('Angle (deg)')
+    title('Steering Wheel Angle');
+    label_str = sprintf('Maneuver: %s\nData: %s',...
+        strrep(Maneuver.Type,'_',' '),...
+        strrep(Maneuver.Instance,'_',' '));
+    text(0.05,0.2,label_str,...
+        'Units','Normalized','Color',[1 1 1]*0.5);
+    ah(1) = subplot(313);
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.tz.Value,'-o','DisplayName','L1, tz');
+    hold on
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.tz.Value,'-o','DisplayName','R1, tz');
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fy.Value,'--x','DisplayName','L1, fy');
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fy.Value,'-.x','DisplayName','R1, fy');
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fx.Value,'--s','DisplayName','L1, fx');
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fx.Value,'-.s','DisplayName','R1, fx');
+    ylabel('N*m OR N');
+    title('Aligning Torque / Patch Forces');
+    xlabel('Time (s)');
+    linkaxes(ah, 'x')
+    legend('Location','West')
 else
 	% Plot Maneuver with Open-Loop Driver Commands
     ah(1) = subplot(311);

@@ -34,10 +34,10 @@ end
 assignin('base','Vehicle',Vehicle)
 
 %% Simulate model
-simOut=sim(mdl,'StopTime','40.4');
+simOut=sim(mdl);
 
 %% Calculate performance metrics, update plot
-[TSuspMetrics, toeCurve, camCurve] = sm_car_testrig_quarter_car_plot1toecamber(simOut,false);
+[TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut.logsout_sm_car_testrig_quarter_car,false,true,false);
 
 % Extract desired performance metric
 metric_i = find(strcmp(TSuspMetrics.Names,metricName));

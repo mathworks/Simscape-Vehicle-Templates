@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Full Vehicle with Multibody Suspension</title>
 <meta name="generator" content="MATLAB 23.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-09-02">
+<meta name="DC.date" content="2025-04-19">
 <meta name="DC.source" content="sm_car.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -78,7 +78,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <div class="content">
 <h1>Full Vehicle with Multibody Suspension</h1>
 <!--introduction-->
-<p>This example uses the Simscape Vehicle Templates to model and simulate vehicles using Simscape products. This includes one-axle, two-axle, multi-axle and trailers. It includes a highly configurable vehicle model that is integrated with controllers and other content from other MathWorks products. A modular library of components gives users a great starting point for creating custom vehicle models</p>
+<p>This example uses the Simscape Vehicle Templates to model and simulate vehicles using Simscape products. This includes one-axle, two-axle, multi-axle and trailers. It includes a highly configurable vehicle model that is integrated with controllers and other content from other MathWorks products. A modular library of components gives users a great starting point for creating custom vehicle models.</p>
 <!--/introduction-->
 <h2>Contents</h2>
 <div>
@@ -141,13 +141,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="#20">Simulation Results from Simscape Logging</a>
 </li>
 <li>
-<a href="#22">Full Throttle, Braking, MFEval Tires</a>
+<a href="#22">Full Throttle, Braking</a>
 </li>
 <li>
-<a href="#23">Front Steering, Sequence Steer, Step Torque, MFEval Tires</a>
+<a href="#23">Front Steering, Steering Sequence</a>
 </li>
 <li>
-<a href="#24">Double-Lane Change, MFEval Tires</a>
+<a href="#24">Double-Lane Change</a>
 </li>
 </ul>
 </div>
@@ -232,9 +232,9 @@ Solver:CoeffChecks:Et -- OFF
 Solver:CoeffChecks:Exa -- OFF
 Disabling trailer by default.
 </pre>
-<h2 id="22">Full Throttle, Braking, MFEval Tires</h2>
-<img vspace="5" hspace="5" src="sm_car_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_20.png" alt=""> <h2 id="23">Front Steering, Sequence Steer, Step Torque, MFEval Tires</h2>
-<img vspace="5" hspace="5" src="sm_car_21.png" alt=""> <img vspace="5" hspace="5" src="sm_car_22.png" alt=""> <h2 id="24">Double-Lane Change, MFEval Tires</h2>
+<h2 id="22">Full Throttle, Braking</h2>
+<img vspace="5" hspace="5" src="sm_car_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_20.png" alt=""> <h2 id="23">Front Steering, Steering Sequence</h2>
+<img vspace="5" hspace="5" src="sm_car_21.png" alt=""> <img vspace="5" hspace="5" src="sm_car_22.png" alt=""> <h2 id="24">Double-Lane Change</h2>
 <img vspace="5" hspace="5" src="sm_car_23.png" alt=""> <img vspace="5" hspace="5" src="sm_car_24.png" alt=""> <img vspace="5" hspace="5" src="sm_car_25.png" alt=""> <img vspace="5" hspace="5" src="sm_car_26.png" alt=""> <p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023b</a>
 <br>
@@ -249,7 +249,7 @@ Disabling trailer by default.
 % multi-axle and trailers.  It includes a highly configurable vehicle model
 % that is integrated with controllers and other content from other
 % MathWorks products. A modular library of components gives users a great
-% starting point for creating custom vehicle models
+% starting point for creating custom vehicle models.
 %
 % Copyright 2018-2024 The MathWorks, Inc.
 
@@ -405,15 +405,15 @@ open_system('sm_car/Vehicle/Vehicle/Powertrain/Power/Electric A1 A2/Thermal/Liqu
 
 bdclose('sm_car')
 load_system('sm_car')
-load Vehicle_191.mat
-Vehicle = Vehicle_191;
+load Vehicle_189.mat
+Vehicle = Vehicle_189;
 sm_car_config_vehicle('sm_car',true)
 
 warning('off','Solver61:CoeffChecks:Eyk')
 warning('off','Solver61:Limits:Exceeded')
 warning('off','Solver61:CoeffChecks:Et')
 
-%% Full Throttle, Braking, MFEval Tires
+%% Full Throttle, Braking
 % 
 sm_car_config_maneuver('sm_car','WOT Braking');
 
@@ -421,7 +421,7 @@ sim('sm_car')
 sm_car_plot1speed;
 sm_car_plot2whlspeed
 
-%% Front Steering, Sequence Steer, Step Torque, MFEval Tires
+%% Front Steering, Steering Sequence
 % 
 sm_car_config_maneuver('sm_car','Low Speed Steer');
 
@@ -430,7 +430,7 @@ sm_car_plot1speed;
 sm_car_plot2whlspeed
 
 
-%% Double-Lane Change, MFEval Tires
+%% Double-Lane Change
 %
 
 sm_car_config_maneuver('sm_car','Double Lane Change');

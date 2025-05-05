@@ -144,6 +144,33 @@ drv.drvCycle.Filter.Measured.Value  = 125.6637;      % Hz
 Driver.(veh_name) = drv;
 clear drv
 
+%% Default Driver - Truck Rhuqa
+veh_name = 'Truck_Rhuqa';
+drv.Lateral.NForward.Value  = 1;          % (no units) 
+drv.Lateral.NReverse.Value  = 2.5;        % (no units)
+drv.Lateral.xWheelbase.Value      = 6.482;      % m
+drv.Lateral.aMaxSteer.Value       = 55;         % deg
+drv.Lateral.fSteerCutoff.Value    = 314.159265; % rad/s
+
+drv.Long.mVehicle.Value           = 2550;       % kg
+drv.Long.FTractive.Value          = 17297;      % N
+drv.Long.tDriver.Value            = 0.1;        % s
+drv.Long.xPreview.Value           = 20;         % s
+drv.Long.NDragRoll.Value          = 200;        % N       
+drv.Long.NDragRollDriveline.Value = 2.5;        % N/(m/s)
+drv.Long.NDragAero.Value          = 0;          % N/(m^2/s^2)
+drv.Long.gGravity.Value           = 9.80665;       % m/s^2
+drv.Long.fAccelCutoff.Value       = 31.4159265; % 1/s
+drv.Long.fBrakeCutoff.Value       = 31.4159265; % 1/s
+
+drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
+drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
+drv.drvCycle.Filter.Reference.Value = 10.0;       % Hz
+drv.drvCycle.Filter.Measured.Value  = 125.6637;      % Hz
+
+Driver.(veh_name) = drv;
+clear drv
+
 %% List of Closed-Loop Maneuvers
 % Maneuvers with longitudinal and lateral driver
 cl_manv_longLat = {...
@@ -160,7 +187,11 @@ cl_manv_longLat = {...
     'Mallory_Park';
     'Constant_Radius_CL';
     'Skidpad';
-    'Straight_Constant_Speed'};
+    'Straight_Constant_Speed';
+    'Fishhook';
+    'Sine_With_Dwell';
+    'Ramp_Steer';
+    'Slalom'};
 
 % Maneuvers with longitudinal driver only
 cl_manv_longOnly = {...

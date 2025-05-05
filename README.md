@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2024 The MathWorks, Inc.
+Copyright 2018-2025 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -33,6 +33,26 @@ adjust the libraries so that variant can be selected.
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
  
 ### **Release History**
+**v4.0  -- May 2025**
+1.  Kinematics and Compliance test added to quarter, half, and full car models
+... Includes roll, steering, lateral compliance, longitudinal compliance tests
+2.  47 metrics reported from KnC tests
+3.  Suspension linkage with pushrod added (steer, no steer)
+4.  Suspension linkage split lower arm, shock to front, ARB to upright added
+5.  Suspension linkage MacPherson added
+6.  Suspension twist beam added
+7.  Fishhook event added
+8.  Ramp Steer event added
+9.  Sine with Dwell event added
+10. Slalom event added
+11. Bushing force law added (3-axis translation independent)
+12. Optional bushing connections added to anti-roll bar
+13. Alignment of wishbone joints handled within variant subsystems
+14. Shock spring preload can be specified by deformation or force (new parameter fPreload).
+15. Adjustments to trailer disturbance, straightline maneuvers.
+16. Added european-style 3-axle truck (Truck Rhuqa).
+17. Updated geometry and images for Hamba and Makhulu vehicles.
+
 **v3.9  -- Feb 2025**
 1.  Added event GS Uneven Road to show Grid Surface to Magic Formula Tire (R2024b and higher)
 2.  Added example to go from CRG to STL to grid surface data.
