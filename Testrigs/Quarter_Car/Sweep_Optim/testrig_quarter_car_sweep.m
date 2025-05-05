@@ -1,8 +1,10 @@
-function [simInput, simOut, TSuspMetricsSet] = testrig_quarter_car_sweep(mdl,Vehicle,hp_list)
+function [simInput, simOut, TSuspMetricsSet] = testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver)
 
 % Ensure model is open
 open_system(mdl)
 sm_car_config_variants(mdl);
+
+stopTimeBzn = Maneuver.tRange.Bumpzn(2);
 
 %% Assemble combination of tests
 numVals  = zeros(1,length(hp_list));
@@ -40,7 +42,7 @@ for vc_i = 1:numTests
 %        simInput(testNum) = setVariable(simInput(testNum),parAbb,axis_value);
     end
     simInput(testNum) = setVariable(simInput(testNum),'Vehicle',Vehicle);
-    simInput(testNum) = setModelParameter(simInput(testNum),'StopTime','40.4');
+    simInput(testNum) = setModelParameter(simInput(testNum),'StopTime',num2str(stopTimeBzn));
     simInput(testNum).UserString = UserString_SimInput(2:end);
 end
 
@@ -65,10 +67,13 @@ clf(evalin('base',fig_handle_name))
 for r_i = 1:numTests
     
     % Get toe, camber curves
-    [TSuspMetrics, toeCurve, camCurve] = sm_car_testrig_quarter_car_plot1toecamber(simOut(r_i),false);
+    [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut(r_i).logsout_sm_car_testrig_quarter_car,false,true,false);
 
     for f_i = 1:size(TSuspMetrics,1)
         fName = strrep(TSuspMetrics.Names(f_i),' ', '_');
+        fName = strrep(fName,'(', '_');
+        fName = strrep(fName,')', '');
+        fName = strrep(fName,'/', '_');
         fNameUnits = [char(fName) 'Units'];
         TSuspMetricsSet(r_i).(fName) = TSuspMetrics.Values(f_i);
         TSuspMetricsSet(r_i).(fNameUnits) = TSuspMetrics.Units(f_i);

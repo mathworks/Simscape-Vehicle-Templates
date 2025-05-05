@@ -119,14 +119,14 @@ tirecontact_opt = 'smooth';
 %tireClasses = {tirClassF tirClassR tirClassFTr};
 
 % Do not permit trailer on 4 post testrig
-if(strcmpi(scenename,'testrig 4 post') && ~strcmpi(trailer_type,'none'))
+if((strcmpi(scenename,'testrig 4 post') || strcmpi(scenename,'knc'))&& ~strcmpi(trailer_type,'none'))
     error_str = sprintf('%s',...
         'Disable the trailer when running on 4 post testrig');
     errordlg(error_str,'No Trailer on Testrig')
 end
 
 % Ensure proper tire model used on testrig
-if((~strcmpi(scenename,'testrig 4 post')) && sum(contains(tirClass,'Testrig')))
+if((~strcmpi(scenename,'testrig 4 post') && ~strcmpi(scenename,'knc')) && sum(contains(tirClass,'Testrig')))
     error_str = sprintf(['Configure tire model to use anything other than ''Testrig_Post'' which only has vertical stiffness.\n' ...
         tire_diag_str_fmt '\n'...
         '--> Values should not include ''Testrig_Post''']);
@@ -434,7 +434,7 @@ switch lower(scenename)
                 set_param(scene_config_h,'SceneDesc','Virtual Mcity');
             end
         end
-    case 'testrig 4 post'
+    case {'testrig 4 post', 'knc'}
         % Set tire model
         % -- Extract size from Instance
         % -- Get comparable field from VDatabase
@@ -448,16 +448,32 @@ switch lower(scenename)
             if(~strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
                 Vehicle.Chassis.(tireField) = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireBody = tirBody{axle_i};
+                if(strcmpi(scenename,'knc'))
+                    % Set WheelPostConnection value so that tire compliance 
+                    % is not modeled on post
+                    Vehicle.Chassis.(tireField).WheelPostConnection.class.Value = 'Rigid';
+                end
             else
                 Vehicle.Chassis.(tireField).TireInner = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireOuter = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireInner.TireBody = tirBody_Inn{axle_i};
                 Vehicle.Chassis.(tireField).TireOuter.TireBody = tirBody_Out{axle_i};
+                if(strcmpi(scenename,'knc'))
+                    % Set stiffness value so that tire compliance 
+                    % is not modeled on post
+                    Vehicle.Chassis.(tireField).TireInner.K.Value = 0;
+                    Vehicle.Chassis.(tireField).TireOuter.K.Value = 0;
+                end
             end
         end
 
 end
-set_param([modelname '/World'],'popup_scene',scenename);
+
+if(strcmpi(scenename,'KnC'))
+    set_param([modelname '/World'],'popup_scene','Testrig 4 Post');
+else
+    set_param([modelname '/World'],'popup_scene',scenename);
+end
 
 % Set road file for all tires
 % Vehicle

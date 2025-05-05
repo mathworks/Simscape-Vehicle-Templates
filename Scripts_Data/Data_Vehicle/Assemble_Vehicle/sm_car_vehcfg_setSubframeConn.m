@@ -33,6 +33,7 @@ switch arm_opt
     case 'LAF', conn_name = 'LowerArmF_to_Subframe';
     case 'UAR', conn_name = 'UpperArmR_to_Subframe';
     case 'LAR', conn_name = 'LowerArmR_to_Subframe';
+    case 'ARB', conn_name = 'SubframeConnection';
     otherwise, error(['Arm option ' arm_opt ' unknown']);
 end
 
@@ -41,15 +42,26 @@ end
 if(isfield(VDatabase.Subframe_Conn,connFieldName))    
     % If requested connection parameter set exists
     if(isfield(Vehicle.Chassis,axle_name))
-    	% If (vehicle has requested axle name)
-        if(isfield(Vehicle.Chassis.(axle_name),'Linkage'))
-        	% If (vehicle has suspension with linkage)
+        if(~strcmp(arm_opt,'ARB'))
+            % If (vehicle has requested axle name)
+            if(isfield(Vehicle.Chassis.(axle_name),'Linkage'))
+            	% If (vehicle has suspension with linkage)
                 Vehicle.Chassis.(axle_name).Linkage.(conn_name) = ...
                     VDatabase.Subframe_Conn.(connFieldName);
-
+            else
+                warning(['Vehicle does not have Linkage field in ' axle_name]);
+            end
         else
-            warning(['Vehicle does not have Linkage field in ' axle_name]);
+            % If (vehicle has requested axle name)
+            if(isfield(Vehicle.Chassis.(axle_name),'AntiRollBar'))
+            	% If (vehicle has suspension with linkage)
+                Vehicle.Chassis.(axle_name).AntiRollBar.(conn_name) = ...
+                    VDatabase.Subframe_Conn.(connFieldName);
+            else
+                warning(['Vehicle does not have AntiRollBar field in ' axle_name]);
+            end
         end
+
     else
         warning(['Vehicle does not have axle field ' axle_name ' within Chassis']);
     end
