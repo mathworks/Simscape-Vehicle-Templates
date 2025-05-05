@@ -3,7 +3,7 @@ function maneuver_data = sm_car_maneuverdata_ice_patch
 maneuver_type = 'Ice_Patch';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
@@ -46,5 +46,9 @@ mdata.Bus_Makhulu.Accel.rPedal.Value   = [0.00	0.00	0.25	0.25	0.00	0.00];
 mdata.Truck_Amandla.Brake.t.Value        = [0.00	12.00	12.20	190.00	191.00	200.00]; 
 mdata.Truck_Amandla.Steer.t.Value        = [0.00	11.00	11.40	100.00	150.00	200.00]; 
 mdata.Truck_Amandla.Accel.rPedal.Value   = [0.00	0.00	0.25	0.25	0.00	0.00]; 
+
+mdata.Truck_Rhuqa.Brake.t.Value        = [0.00	12.00	12.20	190.00	191.00	200.00]; 
+mdata.Truck_Rhuqa.Steer.t.Value        = [0.00	11.00	11.40	100.00	150.00	200.00]; 
+mdata.Truck_Rhuqa.Accel.rPedal.Value   = [0.00	0.00	0.25	0.25	0.00	0.00]; 
 
 maneuver_data.(maneuver_type) = mdata;

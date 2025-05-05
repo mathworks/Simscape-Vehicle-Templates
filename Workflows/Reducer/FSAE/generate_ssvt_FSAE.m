@@ -2,6 +2,9 @@
 cd(fileparts(which(mfilename)))
 addpath(pwd)
 repFilesPath = pwd;
+
+% List of files to be replaced within final repository.
+% Same file exists without "_FSAE" on the end.
 repFilesList = {...
     'startup_sm_car_FSAE.m',...
     'README_FSAE.md',...
@@ -16,17 +19,21 @@ repFilesList = {...
     'sm_car_vehicle_axle2_default_FSAE.png',...
     'sm_car_vehicle_axle2_default_none_FSAE.png'};
 
+% Name of model with annotation to be added to sm_car
 annotationMdl = 'annotation_sm_car';
 
+% Files with commands to replicate required fields within Vehicle structure
 addFieldsList = {'addfieldVehicleDec.m','addfieldVehicleDW.m'};
 
-%% Open and configure model
+%% Ensure intermediate models from previous conversions are closed
+
+% Names of intermediate models
 mdl_0 = 'sm_car';
 mdl_1 = 'sm_car_TEST';
 mdl_2 = 'sm_car_TEST_noLinks';
 mdl_3 = 'sm_car_REDUCED';
 
-%% Ensure any models from last export are closed
+% Ensure any models from last export are closed
 bdclose(mdl_1)
 bdclose(mdl_2)
 bdclose(mdl_3)
@@ -36,7 +43,10 @@ curr_proj = simulinkproject;
 ssvt_rootfolder = curr_proj.RootFolder;
 cd(ssvt_rootfolder);
 
-%% Get file and folder names
+%% Prepare startup scripts for new project
+% The full database of vehicles and maneuvers is not needed from the
+% Simscape Vehicle Templates.  This section extracts key parameter sets to
+% scripts that are run as needed in formula student version.
 mfevalDetails = dir('**\*+mfeval');
 mfeval_dir = [strrep(mfevalDetails.folder,ssvt_rootfolder,'') filesep];
 
@@ -51,10 +61,10 @@ matlab.io.saveVariablesToScript('Init_data_wot_braking.m','Init');
 
 % Save Decoupled vehicle to script
 sm_car_load_vehicle_data('none','214');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','Bushing_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','Bushing_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
@@ -70,11 +80,28 @@ matlab.io.saveVariablesToScript('Maneuver_data_skidpad.m','Maneuver')
 matlab.io.saveVariablesToScript('Init_data_skidpad.m','Init')
 
 % Save Pushrod vehicle to script
+sm_car_load_vehicle_data(mdl_0,'224');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
+Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
+Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
+Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
+Vehicle.Chassis.SuspA2.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
+
+sm_car_config_maneuver('sm_car','CRG Hockenheim');
+sm_car_config_vehicle('sm_car',true);
+Vehicle.config = 'Achilles_DWPushrod';
+Vehicle = rmfieldVehicleDW(Vehicle);
+matlab.io.saveVariablesToScript('Vehicle_data_dwpushrod.m','Vehicle')
+
+% Save Pullrod vehicle to script
 sm_car_load_vehicle_data(mdl_0,'215');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','Bushing_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','Bushing_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
@@ -92,10 +119,10 @@ matlab.io.saveVariablesToScript('Init_data_hockenheim.m','Init')
 
 % Save Double Wishbone vehicle to script
 sm_car_load_vehicle_data(mdl_0,'213');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','Bushing_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','Bushing_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','Bushing_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
@@ -116,20 +143,27 @@ matlab.io.saveVariablesToScript('Init_data_hockenheim_f.m','Init')
 % Add call to function to copy hardpoints within Vehicle data structure
 append_line_to_script('Vehicle_data_decoupled.m','% Set derived files from within Vehicle data structure')
 append_line_to_script('Vehicle_data_dwpullrod.m','% Set derived files from within Vehicle data structure')
+append_line_to_script('Vehicle_data_dwpushrod.m','% Set derived files from within Vehicle data structure')
 append_line_to_script('Vehicle_data_dwishbone.m','% Set derived files from within Vehicle data structure')
 append_line_to_script('Vehicle_data_decoupled.m','Vehicle = addfieldVehicleDec(Vehicle);')
 append_line_to_script('Vehicle_data_dwpullrod.m','Vehicle = addfieldVehicleDW(Vehicle);')
+append_line_to_script('Vehicle_data_dwpushrod.m','Vehicle = addfieldVehicleDW(Vehicle);')
 append_line_to_script('Vehicle_data_dwishbone.m','Vehicle = addfieldVehicleDW(Vehicle);')
 
 % Save under new name
 save_system(mdl_0,mdl_1)
 
 %% Find links to break
+% To simplify the model, library links will be broken in the upper levels.
+% Systems that repeat (linkages, tires, etc.) and utility blocks (rigid
+% transform between to x-y-z points in space) will not have their links
+% broken.
 fh = Simulink.FindOptions('FollowLinks',true,'LookUnderMasks','all');
 bl = Simulink.findBlocks(mdl_1,'LinkStatus','resolved',fh);
 blist = getfullname(bl);
 [blist_sort, sort_i] = sort(blist);
 
+% Subsystem layers in this list will not have their links broken.
 % Levels to leave alone
 doNotTouchList = {...
     [mdl_1 '/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Linkage L'],...
@@ -187,11 +221,13 @@ end
 save_system(mdl_1,mdl_2)
 
 %% Find variant subsystems with inactive variants we wish to remove
+% For many layers where libray links are broken, inactive variants can be
+% removed.  Inactive variants relevant for formula student version will be
+% kept.
 fh_vs = Simulink.FindOptions('FollowLinks',false,'LookUnderMasks','all');
 bl_vs = Simulink.findBlocks(mdl_2,'Variant','on','LinkStatus','none',fh);
 blist_vs = getfullname(bl_vs);
 [blist_vs_sort, sort_i_vs] = sort(blist_vs);
-
 
 % Inactive variants to save list
 doNotTouchList_INACTV = {
@@ -272,7 +308,7 @@ postLoadFcn_str = sprintf('%s\n%s\n%s\n%s\n%s',...
 
 set_param(mdl_2,'PreLoadFcn',preLoadFcn_str,'PostLoadFcn',postLoadFcn_str);
 
-% fix annotation
+% Remove existing annotation, add updated one
 hAnnOld=find_system(mdl_2,'FindAll','On','Type','annotation');
 for i=1:length(hAnnOld)
     if(~contains(get_param(hAnnOld(i),'Text'),'Multibody Suspension'))
@@ -331,6 +367,9 @@ set_param([mdl_2 '/Visualization'],'unreal_onoff','Off');
 save_system(mdl_2,mdl_3)
 
 %% Find list of files model needs
+% Using the dependency analyzer, find all files that the main model needs.
+% This will be a subset of the Simscape Vehicle Templates as many inactive
+% variants have been removed.
 
 % New folder location
 Link = ['C:\SSVT_FSAE\SSVT_FSAE_' datestr(now,'yymmdd_HHMM')];
@@ -342,11 +381,16 @@ SSVTRootFolder   = char(matlab.project.currentProject().RootFolder);
 % Get list of required files
 requiredFilesSLX_full = dependencies.fileDependencyAnalysis(mdl_3);
 
-%%
+%% Trim items from the list of required files 
+% The dependency checker will capture items not relevant to the Formula
+% Student Version.  We will eliminate further items from the list.
+
+% Do not copy files in these folders
 doNotCopyList_SLX = {...
     '\Libraries\Event\Scene\',...
     '\Libraries\Vehicle\Tire\Delft\',...
     '\Libraries\Vehicle\Tire\MFEval\',...
+    '\Libraries\Vehicle\Tire\CAD\',...
     '\Libraries\Vehicle\Tire\CFL\',...
     '\Libraries\Vehicle\Tire\MFSwift\',...
     '\Libraries\Vehicle\Tire\Testrig_4Post\',...
@@ -389,13 +433,22 @@ for dns_i = 1:length(doNotCopyList_SLX)
 end
 requiredFilesSLX = requiredFilesSLX_full(slx_inds);
 
-%%
+%% Find items required by startup_sm_car
+% The dependency analysis to this point has only captured what the reduced
+% sm_car.slx model needs.  We need to check for code used to set up the
+% workspace.
 requiredFilesStr = dependencies.fileDependencyAnalysis('startup_sm_car.m');
 requiredFilesStr_m_inds = endsWith(requiredFilesStr,'.m');
 requiredFilesStr_m_full = requiredFilesStr(requiredFilesStr_m_inds);
 
-%%
+%% Reduce the list of code
+% The startup script includes items not relevant for the Formula Student
+% Version.  These include code used to set up the hundreds of presets in
+% the Simscape Vehicle Templates.  We exclude those items from the list
+%
+
 % Exclude List: MATLAB Code
+% -To exclude all code in a folder, include folder name end with backshlash
 doNotCopyList_Str_m = {...
     '\Libraries\Event\Tools\CRG_Tools\',...
     '\Libraries\Event\Tools\OpenCRG_v1p1p2\',...
@@ -421,7 +474,9 @@ for dnm_i = 1:length(doNotCopyList_Str_m)
 end
 requiredFilesStr_m = requiredFilesStr_m_full(strm_inds);
 
-%%
+%% Add items to copy list
+% The dependency checks will miss other items, such as the models and code
+% needed for the quarter car testrigs. Add those items to the copy list.
 ensureCopyList = {...
     'Libraries\Event\Scene\CRG_Hockenheim\',...
     'Libraries\Event\Scene\Track_Mallory_Park_Obstacle\',...
@@ -429,6 +484,7 @@ ensureCopyList = {...
     'Libraries\Images\',...
     'Testrigs\Quarter_Car\Sweep_Optim\',...
     'Testrigs\Quarter_Car\Tools\',...
+    'Testrigs\Utilities\',...
     'sm_car_define_camera_achilles.m',...
     'fsae190_50R10.tir',...
     'sm_car_controlparam_default.m',...
@@ -446,6 +502,7 @@ ensureCopyList = {...
     'Vehicle_data_dwishbone.m',...
     'Vehicle_data_decoupled.m',...
     'Vehicle_data_dwpullrod.m',...
+    'Vehicle_data_dwpushrod.m',...
     'startup_sm_car.m',...
     'sm_car_define_camera.m',...
     'pdaesscSetMultibody.p',...
@@ -456,8 +513,11 @@ ensureCopyList = {...
     'sm_car_plot5bodymeas.m',...
     'sm_car_plot7power.m',...
     'sm_car_plot10_tire_force_torque.m',...
-    'sm_car_testrig_quarter_car_plot1toecamber.m',...
-    'sm_car_calc_susp_metrics.m',...
+    'sm_car_knc_plot1toecamber.m',...
+    'sm_car_knc_calc_susp_metrics.m',...
+    'sm_car_get_vehicle_params.m',...
+    'sm_car_get_tire_params.m',...
+    'sm_car_maneuverdata_knc.m',...
     'README.md',...
     'SECURITY.md',...
     'LICENSE.md',...
@@ -470,6 +530,8 @@ ensureCopyList = {...
     'Damper_Linear.slx',...
     'AntiRollBar_Droplink_Rod.slx',...
     'AntiRollBar_Droplink.slx',...
+    'sm_car_testrig_utilities_lib.slx',...
+    'Surface_Profile_Axle2_KnC.slx'
     };
 
 %excludeList = {
@@ -495,6 +557,8 @@ end
 
 requiredFiles_Lists = unique(vertcat(requiredFilesStr_m,requiredFilesSLX,encFileList));
 
+%% Additional steps for list of required files
+
 % Eliminate files not within project
 fileInds = find(contains(requiredFiles_Lists,SSVTRootFolder));
 requiredFiles = requiredFiles_Lists(fileInds);
@@ -511,6 +575,7 @@ folderLinksRelative = unique(cellfun(@(x,y) x(1:y), fileLinksRelative,backslashF
 % Point links to new location where all files will be saved
 folderLinksAbsolute = cellfun(@(x,y) [x y] ,repmat({Link},numel(folderLinksRelative),1),folderLinksRelative,'UniformOutput',false);
 
+%% Create folders and new project
 % Create folders
 cellfun(@(x) mkdir(x), folderLinksAbsolute);
 
@@ -551,6 +616,9 @@ movefile('Vehicle_data_decoupled.m',vehDataMove)
 addFile(curr_proj,vehDataMove);
 vehDataMove = ['.' filesep 'Scripts_Data' filesep 'Data_Vehicle' filesep 'Vehicle_data_dwpullrod.m'];
 movefile('Vehicle_data_dwpullrod.m',vehDataMove)
+addFile(curr_proj,vehDataMove);
+vehDataMove = ['.' filesep 'Scripts_Data' filesep 'Data_Vehicle' filesep 'Vehicle_data_dwpushrod.m'];
+movefile('Vehicle_data_dwpushrod.m',vehDataMove)
 addFile(curr_proj,vehDataMove);
 
 initDataMove = ['.' filesep 'Libraries' filesep 'Event' filesep 'Init_data_hockenheim.m'];
@@ -636,6 +704,11 @@ if(~isempty(custLibName))
 end
 
 %% Delete links to files we did not include
+% Variant subsystems in libraries were not altered to this point. We need
+% to remove variants we did not copy to the new project.  Open the library
+% and delete all broken links, as those point to content we chose not to
+% include in the Formula Student Version.
+
 % Linkage Systems
 load_system('Linkage_Systems')
 set_param(bdroot,'Lock','off')
@@ -741,39 +814,21 @@ end
 save_system(mdlBody)
 bdclose(mdlBody)
 
+%% Adjust model PostLoadFcn
+% Some models need adjustments to the PostLoadFcn. These are mainly to make
+% sure they load the Vehicle data using the script and not by loading a
+% .mat file as is done in Simscape Vehicle Templates.
+
 mdlTestrig = 'testrig_quarter_car_pullrod';
 load_system(mdlTestrig)
-set_param(mdlTestrig,'PostLoadFcn','Vehicle_data_dwpullrod')
+set_param(mdlTestrig,'PostLoadFcn','Vehicle_data_dwpullrod;Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200);')
 save_system(mdlTestrig)
 bdclose(mdlTestrig)
 
 mdlTestrig = 'testrig_quarter_car_doublewishbone';
 load_system(mdlTestrig)
-set_param(mdlTestrig,'PostLoadFcn','Vehicle_data_dwishbone')
+set_param(mdlTestrig,'PostLoadFcn','Vehicle_data_dwishbone;Maneuver = sm_car_maneuverdata_knc(0.17,-0.21,0.01,1.3,0.1,500,1200,1200);')
 save_system(mdlTestrig)
 bdclose(mdlTestrig)
 
-
-%load_system('sm_car_lib')
-%set_param('sm_car_lib','Lock','off')
-%set_param('sm_car_lib/Environment','Commented','on')
-%save_system('sm_car_lib')
-%close_system('sm_car_lib')
-
-
 startup_sm_car
-
-
-
-%% Remaining steps
-
-% 1. Eliminate Power\FuelCell, DOF15, LiveAxle
-% 2. Rename main file sm_car.slx
-% 3. add, fix startup
-% 4. Add project root to path
-% 5. Add MFEval_4p0 to path
-% 6. fix model properties
-% 7. fix hyperlinks
-% 8. Remove links to libraries that were not copied
-%    suspension, tire, scene, ...
-% 9. Modifications to config maneuver to avoid trailer which has been removed

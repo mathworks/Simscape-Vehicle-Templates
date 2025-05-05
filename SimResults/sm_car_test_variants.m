@@ -29,6 +29,10 @@ maneuver_list = {...
     'WOT Braking',            'WOT';
     'Low Speed Steer',        'LSS';
     'Turn',                   'TUR';
+    'Fishhook',               'FSH';
+    'Ramp Steer',             'RST';
+    'Sine With Dwell',        'SWD';
+    'Slalom',                 'SLA';
     'Trailer Disturbance',    'TRD';
     'Testrig 4 Post'          'PST';
     'Skidpad',                'SKD';
@@ -94,7 +98,7 @@ control_chg = 'none';
 manv_set = {'WOT Braking','Low Speed Steer'};
 solver_typ = {'variable step'};
 %veh_set1 = [0:1:15 16:16:112 113:1:127 128:1:147 161 163];
-veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 183];
+veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 215 218 219 220 223 227];
 trailer_set = {'none'};
 
 for veh_i = 1:length(veh_set1)
@@ -260,8 +264,8 @@ sm_car_test_variants_testloop
 manv_set = {'Trailer Disturbance'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [139];
-trailer_set = {'01','05'};
+veh_set = [189];
+trailer_set = {'01','09'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
@@ -285,6 +289,16 @@ end
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
+
+%% Test Set 9a -- Fishhook and more
+manv_set = {'Fishhook','Sine With Dwell','Ramp Steer','Slalom'};
+stoptime_set = -1*ones(size(manv_set));
+solver_typ = {'variable step'};
+veh_set = [189 218];
+trailer_set = {'none'};
+plotstr = {'sm_car_plot1speed'};
+sm_car_test_variants_testloop
+
 
 %% Test Set 10 -- ABS Test
 % TEST SETUP IS UNIQUE
@@ -579,14 +593,24 @@ if(~verLessThan('MATLAB','9.11'))
     sm_car_test_variants_testloop
 end
 
-%% Test Set 20 -- 3 Axle Truck Amandla MFeval
+%% Test Set 20 -- 3 Axle Truck Amandla MBody
 manv_set = {'Double Lane Change'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = {'Axle3_012'};
-trailer_set = {'Axle2_002', 'Axle2_004', 'Axle2_006', 'Axle2_008'};
+veh_set = {'Axle3_019'};
+trailer_set = {'Axle2_023', 'Axle2_024', 'Axle2_025', 'Axle2_026'};
 plotstr = {'sm_car_plot3maneuver(Maneuver,logsout_sm_car)'};
 sm_car_test_variants_testloop
+
+%% Test Set 21 -- 3 Axle Truck Rhuqa trailer Mbody
+manv_set = {'WOT Braking'};
+stoptime_set = -1*ones(size(manv_set));
+solver_typ = {'variable step'};
+veh_set = {'Axle3_023'};
+trailer_set = {'Axle2_033'};
+plotstr = {'sm_car_plot1speed'};
+sm_car_test_variants_testloop
+
 
 %% Process results
 res_out_titles = {'Run' 'Preset' 'Body' 'SuspF' 'Tire' 'TirDyn' 'Drv' 'Trail' 'Mane' 'Solv' '# Steps' 'Time' 'xFinal' 'yFinal' 'Figure'  'Pass'};
