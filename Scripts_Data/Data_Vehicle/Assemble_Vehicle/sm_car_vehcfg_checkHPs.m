@@ -105,6 +105,32 @@ if(~isempty(susp_field_inds))
                         disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
                     end
                 end
+
+            elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'TwistBeam'))
+                hp_check_sum.(csSuName).Sh2Da_Top = norm(Vehicle.Chassis.(suspName).TwistBeam.Damper.sTop.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTop.Value);
+                hp_check_sum.(csSuName).Sh2Da_Bot = norm(Vehicle.Chassis.(suspName).TwistBeam.Damper.sBottom.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottom.Value);
+                hp_check_sum.(csSuName).Sh2Sp_Top = norm(Vehicle.Chassis.(suspName).TwistBeam.Spring.sTop.Value    - Vehicle.Chassis.Spring.(csAxName).sTop.Value);
+                hp_check_sum.(csSuName).Sh2Sp_Bot = norm(Vehicle.Chassis.(suspName).TwistBeam.Spring.sBottom.Value - Vehicle.Chassis.Spring.(csAxName).sBottom.Value);
+                hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).TwistBeam.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
+                hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).TwistBeam.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
+                
+                if(showres)
+                    % Match HPs, Shock and Damper
+                    disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
+                    disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
+                    
+                    disp([csSuName ', Shock and Spring Top: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Top)]);
+                    disp([csSuName ', Shock and Spring Bot: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Bot)]);
+                    
+                    % Match Endstop Limits, Shock and Damper
+                    disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
+                    disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
+                    
+                    % Match Steering - track rod and rack
+                    if(isfield(hp_check_sum.(csSuName),'Tr2Ra_InO'))
+                        disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
+                    end
+                end
                 
             % For Decoupled suspension class
             elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'Decoupled'))

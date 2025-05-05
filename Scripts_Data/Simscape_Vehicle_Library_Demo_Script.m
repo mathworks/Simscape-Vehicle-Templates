@@ -33,16 +33,15 @@
 % <tr>7. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
-% <tr> 1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a><br>
-% <tr> 2.  Suspension Tester App: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));testrig_quarter_car_mlapp_sweep_optim;">Open Suspension Tester App</a>, <a href="matlab:web('testrig_quarter_car_sweep_optim_test.html');"> Workflow</a><br>
-% <tr> 3.  Half-Car Testrig, Achilles Pull Rod: <a href="matlab:cd(fileparts(which('testrig_half_car_pullrod.slx')));open_system('testrig_half_car_pullrod');">Open Model</a><br>
-% <tr> 4.  Half-Car Testrig, Achilles Pull Rod, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_pullrod_noSteer.slx')));open_system('testrig_half_car_pullrod_noSteer');">Open Model</a><br>
-% <tr> 5.  Half-Car Testrig, Achilles Double-Wishbone Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_dwdecoupled.slx')));open_system('testrig_half_car_dwdecoupled');">Open Model</a><br>
-% <tr> 6.  Half-Car Testrig, Achilles Double-Wishbone Decoupled, No Steering: <a href="matlab:cd(fileparts(which('testrig_half_car_dwdecoupled_nosteer.slx')));open_system('testrig_half_car_dwdecoupled_nosteer');">Open Model</a><br>
-% <tr> 7.  Half-Car Testrig, Achilles Five Link Decoupled: <a href="matlab:cd(fileparts(which('testrig_half_car_l5decoupled.slx')));open_system('testrig_half_car_l5decoupled');">Open Model</a><br>
-% <tr> 8.  Steering Testrig: <a href="matlab:cd(fileparts(which('testrig_Steer_Rack.slx')));open_system('testrig_Steer_Rack');">Open Model</a><br>
-% <tr> 9.  Driveline: <a href="matlab:cd(fileparts(which('testrig_Driveline_Axle2.slx')));open_system('testrig_Driveline_Axle2');">Open Model</a><br>
-% <tr>10.  Bushing: <a href="matlab:cd(fileparts(which('sm_bushing_test_radial.slx')));open_system('sm_bushing_test_radial');">Open Model</a><br>
+% <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_results.html');"> Documentation</a><br>
+% <tr>2.  Suspension Tester App: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));testrig_quarter_car_mlapp_sweep_optim;">Open Suspension Tester App</a>, <a href="matlab:web('testrig_quarter_car_sweep_optim_test.html');"> Workflow</a><br>
+% <tr>3.  Pullrod Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car_pullrod.slx')));open_system('testrig_quarter_car_pullrod');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_pullrod_results.html');"> Documentation</a><br>
+% <tr>4.  Double Wishbone Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car_doublewishbone.slx')));open_system('testrig_quarter_car_doublewishbone');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_doublewishbone_results.html');"> Documentation</a><br>
+% <tr>5.  Half-Car Testrig, Linkage Suspensions: <a href="matlab:cd(fileparts(which('testrig_susp_linkage.slx')));open_system('testrig_susp_linkage');">Open Model</a>, <a href="matlab:web('testrig_susp_linkage_results.html');"> Documentation</a><br>
+% <tr>6.  Half-Car Testrig, Decoupled Suspensions: <a href="matlab:cd(fileparts(which('testrig_susp_linkage_decoupled.slx')));open_system('testrig_susp_linkage_decoupled');">Open Model</a>, <a href="matlab:web('testrig_susp_linkage_decoupled_results.html');"> Documentation</a><br>
+% <tr>7.  Steering Testrig: <a href="matlab:cd(fileparts(which('testrig_Steer_Rack.slx')));open_system('testrig_Steer_Rack');">Open Model</a><br>
+% <tr>8.  Driveline: <a href="matlab:cd(fileparts(which('testrig_Driveline_Axle2.slx')));open_system('testrig_Driveline_Axle2');">Open Model</a><br>
+% <tr>9.  Bushing: <a href="matlab:cd(fileparts(which('sm_bushing_test_radial.slx')));open_system('sm_bushing_test_radial');">Open Model</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Camera Testrig: <a href="matlab:cd(fileparts(which('testrig_Camera.slx')));open_system('testrig_Camera');">Open Model</a><br>

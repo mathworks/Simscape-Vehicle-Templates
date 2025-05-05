@@ -30,8 +30,9 @@ end
 fieldlist = fieldnames(Maneuver);
 hasTrajectory = find(strcmp(fieldlist,'Trajectory'), 1);
 hasDriveCycle = find(strcmp(fieldlist,'DriveCycle'), 1);
+hasAccel      = find(strcmp(fieldlist,'Accel'), 1);
 
-if(~isempty(hasTrajectory))
+if(~isempty(hasTrajectory) && isempty(hasAccel))
     
     Scene = evalin('base','Scene');
     hasTrack = true;
@@ -221,6 +222,41 @@ elseif(~isempty(hasDriveCycle))
 
 elseif(contains(lower(Init_type),'testrig_post'))
     sm_car_plot5bodymeas
+
+elseif(~isempty(hasTrajectory) && ~isempty(hasAccel))
+    logsout_VehBus = logsout_sm_car.get('VehBus');
+    logsout_xCar = logsout_VehBus.Values.World.x;
+    logsout_yCar = logsout_VehBus.Values.World.y;
+    
+    logsout_vx   = logsout_VehBus.Values.Chassis.Body.CG.vx;
+    
+    logsout_DrvBus = logsout_sm_car.get('DrvBus');
+    logsout_dist   = logsout_DrvBus.Values.Reference.dist;
+    logsout_ref_vx   = logsout_DrvBus.Values.Reference.vTarget;
+    logsout_aSteerWheel = logsout_DrvBus.Values.aSteerWheel*180/pi;
+
+    ah(1) = subplot(211);
+    plot(logsout_vx.Time,logsout_vx.Data,'LineWidth',1);
+    title('Speed vs. Time');
+    ylabel('Speed (m/s)');
+
+    label_str = sprintf('Maneuver: %s\nData: %s',...
+        strrep(Maneuver.Type,'_',' '),...
+        strrep(Maneuver.Instance,'_',' '));
+    text(0.5,0.2,label_str,...
+        'Units','Normalized','Color',[1 1 1]*0.5);
+
+    ah(2) = subplot(212);
+    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-o','LineWidth',2);
+    hold on
+    plot(logsout_aSteerWheel.Time,logsout_aSteerWheel.Data,'--x','LineWidth',1);
+    hold off
+    ylabel('Angle (deg)')
+    title('Steering Wheel Angle');
+    xlabel('Time (s)');
+    legend({'Reference','Measured'},'Location','NorthWest');
+
+    linkaxes(ah, 'x')
 else
     % Plot Maneuver with Open-Loop Driver Commands
     % Extract simulation results

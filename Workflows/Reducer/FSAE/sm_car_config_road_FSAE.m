@@ -119,14 +119,14 @@ tirecontact_opt = 'smooth';
 %tireClasses = {tirClassF tirClassR tirClassFTr};
 
 % Do not permit trailer on 4 post testrig
-if(strcmpi(scenename,'testrig 4 post') && ~strcmpi(trailer_type,'none'))
+if((strcmpi(scenename,'testrig 4 post') || strcmpi(scenename,'knc'))&& ~strcmpi(trailer_type,'none'))
     error_str = sprintf('%s',...
         'Disable the trailer when running on 4 post testrig');
     errordlg(error_str,'No Trailer on Testrig')
 end
 
 % Ensure proper tire model used on testrig
-if((~strcmpi(scenename,'testrig 4 post')) && sum(contains(tirClass,'Testrig')))
+if((~strcmpi(scenename,'testrig 4 post') && ~strcmpi(scenename,'knc')) && sum(contains(tirClass,'Testrig')))
     error_str = sprintf(['Configure tire model to use anything other than ''Testrig_Post'' which only has vertical stiffness.\n' ...
         tire_diag_str_fmt '\n'...
         '--> Values should not include ''Testrig_Post''']);
@@ -148,6 +148,17 @@ else
     messgNonFlatCRG1 = 'Configure model to use Delft Tire, MF-Swift, or Simscape  for this maneuver.';
     messgNonFlatCRG2 = '--> All values for active components should be ''Delft'', ''MFSwift'', or ''Simscape''';
 end
+
+if(verLessThan('matlab','9.14'))
+    checkGridSurface = 1;
+    messgGridSurface1 = 'Grid Surface events cannot be used in this release of MATLAB';
+    messgGridSurface2 = '--> Please select another maneuver.';
+else
+    checkGridSurface = sum([contains(tirClass,'MFEval') contains(tirClass,'MFSwift') contains(tirClassTr,'MFSwift')  contains(tirClassTr,'Delft')]);
+    messgGridSurface1 = 'Configure model to use Simscape  for this maneuver.';
+    messgGridSurface2 = '--> All values for active components should be ''Simscape''';
+end
+
 % Switch based on requested road surface
 switch lower(scenename)
     case 'plane grid'
@@ -287,6 +298,18 @@ switch lower(scenename)
         % Select CRG file
         roadFile = 'which(''CRG_Pikes_Peak.crg'')';
 
+    case 'gs uneven road'
+        if(checkGridSurface)
+            error_str = sprintf([messgGridSurface1 '\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                messgGridSurface2]);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
+        % Select STL file
+        roadFile = 'GS_Uneven_Road.stl';
+
     case 'crg suzuka'
         if(checkNonFlatCRG)
             error_str = sprintf([messgNonFlatCRG1 '\n' ...
@@ -412,7 +435,7 @@ switch lower(scenename)
                 set_param(scene_config_h,'SceneDesc','Virtual Mcity');
             end
         end
-    case 'testrig 4 post'
+    case {'testrig 4 post', 'knc'}
         % Set tire model
         % -- Extract size from Instance
         % -- Get comparable field from VDatabase
@@ -426,16 +449,32 @@ switch lower(scenename)
             if(~strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
                 Vehicle.Chassis.(tireField) = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireBody = tirBody{axle_i};
+                if(strcmpi(scenename,'knc'))
+                    % Set stiffness value so that tire compliance 
+                    % is not modeled on post
+                    Vehicle.Chassis.(tireField).K.Value = 0;
+                end
             else
                 Vehicle.Chassis.(tireField).TireInner = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireOuter = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireInner.TireBody = tirBody_Inn{axle_i};
                 Vehicle.Chassis.(tireField).TireOuter.TireBody = tirBody_Out{axle_i};
+                if(strcmpi(scenename,'knc'))
+                    % Set stiffness value so that tire compliance 
+                    % is not modeled on post
+                    Vehicle.Chassis.(tireField).TireInner.K.Value = 0;
+                    Vehicle.Chassis.(tireField).TireOuter.K.Value = 0;
+                end
             end
         end
 
 end
-set_param([modelname '/World'],'popup_scene',scenename);
+
+if(strcmpi(scenename,'KnC'))
+    set_param([modelname '/World'],'popup_scene','Testrig 4 Post');
+else
+    set_param([modelname '/World'],'popup_scene',scenename);
+end
 
 % Set road file for all tires
 % Vehicle

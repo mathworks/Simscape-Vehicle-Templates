@@ -59,8 +59,10 @@ sm_car_config_wind(modelname,0,0)
 % Assume constant gravity
 set_param([modelname '/World'],'popup_gravity','Constant');
 
-% Assume no constrants on vehicle
+% Assume no constraints on vehicle
 set_param([modelname '/Vehicle/Vehicle Constraint'],'LabelModeActiveChoice','NoConstraint');
+set_param([modelname '/Vehicle/Vehicle'],'popup_BodyToWorld','Free');
+set_param([modelname '/Vehicle/Vehicle'],'popup_wheel_spin','Free');
 
 
 % Assume all points on trajectory will be checked

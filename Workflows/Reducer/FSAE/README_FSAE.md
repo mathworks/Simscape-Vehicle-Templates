@@ -29,6 +29,16 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.0  -- May 2025**
+(Not all changes to Simscape Vehicle Templates affect this repository)
+1.  Kinematics and Compliance test added to quarter, half, and full car models
+... Includes roll, steering, lateral compliance, longitudinal compliance tests
+2.  47 metrics reported from KnC tests
+3.  Suspension linkage with pushrod added (steer, no steer)
+4. Optional bushing connections added to anti-roll bar
+5. Alignment of wishbone joints handled within variant subsystems
+6. Shock spring preload can be specified by deformation or force (new parameter fPreload)
+
 **v3.9  -- Feb 2025**  R2022a - R2024b
 (Not all changes to Simscape Vehicle Templates affect this repository)
 1.  Added event GS Uneven Road to show Grid Surface to Magic Formula Tire (R2024b and higher).
