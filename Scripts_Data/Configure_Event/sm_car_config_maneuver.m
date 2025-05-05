@@ -20,6 +20,7 @@ switch veh_body
     case 'hamba',        veh_inst = 'Sedan_Hamba';   init_inst = 'Sedan_Hamba';
     case 'hambalg',      veh_inst = 'Sedan_HambaLG'; init_inst = 'Sedan_HambaLG';
     case 'amandla3axle', veh_inst = 'Truck_Amandla'; init_inst = 'Truck_Amandla';
+    case 'rhuqa3axle',   veh_inst = 'Truck_Rhuqa';   init_inst = 'Truck_Rhuqa';
     case 'makhulu',      veh_inst = 'Bus_Makhulu';   init_inst = 'Bus_Makhulu';
     case 'makhulu3axle', veh_inst = 'Bus_Makhulu';   init_inst = 'Bus_Makhulu_Axle3';
     case 'achilles',     veh_inst = 'FSAE_Achilles'; init_inst = 'FSAE_Achilles';
@@ -59,12 +60,16 @@ sm_car_config_wind(modelname,0,0)
 % Assume constant gravity
 set_param([modelname '/World'],'popup_gravity','Constant');
 
-% Assume no constrants on vehicle
+% Assume no constraints on vehicle
 set_param([modelname '/Vehicle/Vehicle Constraint'],'LabelModeActiveChoice','NoConstraint');
-
+set_param([modelname '/Vehicle/Vehicle'],'popup_BodyToWorld','Free');
+set_param([modelname '/Vehicle/Vehicle'],'popup_wheel_spin','Free');
 
 % Assume all points on trajectory will be checked
 set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','No');
+
+% Assume no overrides on maneuver
+set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','None');
 
 % Add case for new events here
 % Set initial vehicle state and configure inputs
@@ -211,6 +216,17 @@ switch maneuver_str
         sm_car_config_road(modelname,'Double Lane Change ISO3888');
         set_param(modelname,'StopTime','35');
 
+    % --- Slalom
+    case 'slalom'
+        evalin('base',['Init = IDatabase.Slalom.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Slalom.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Slalom.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Slalom.' veh_inst ';']);
+        sm_car_config_road(modelname,'Slalom');
+        evalin('base',['Scene.Slalom.Cones.Placement = Maneuver.Cones;'])
+        set_param(modelname,'StopTime','25');
+
     % --- Drive Cycle FTP75
     case 'drive cycle ftp75'
         evalin('base',['Init = IDatabase.DriveCycle_FTP75.' init_inst ';']);
@@ -263,6 +279,48 @@ switch maneuver_str
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
 
+    % --- Fishhook
+    case 'fishhook'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Fishhook.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Fishhook.' veh_inst ';']);
+        stopTime = evalin('base','num2str(Maneuver.Steer.t.Value(end));');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime',stopTime);
+        % For only this maneuver, driver commands will be overridden once
+        % the second part of the maneuver starts
+        set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
+        
+    % --- Sine with Dwell
+    case 'sine with dwell'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Sine_With_Dwell.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Sine_With_Dwell.' veh_inst ';']);
+        stopTime = evalin('base','num2str(Maneuver.Steer.t.Value(end));');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime',stopTime);
+        % For only this maneuver, driver commands will be overridden once
+        % the second part of the maneuver starts
+        set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
+ 
+    % --- Ramp Steer
+    case 'ramp steer'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Ramp_Steer.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Ramp_Steer.' veh_inst ';']);
+        stopTime = evalin('base','num2str(Maneuver.Steer.t.Value(end));');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime',stopTime);
+        % For only this maneuver, driver commands will be overridden once
+        % the second part of the maneuver starts
+        set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
+        
     % --- Straightline at constant speed
     case 'straight constant speed'
         evalin('base',['Init = IDatabase.Double_Lane_Change.' init_inst ';']);
@@ -519,13 +577,26 @@ switch maneuver_str
     % --- 4 Post Testrig
     case 'testrig 4 post'
         evalin('base','Init = IDatabase.Testrig_Post.Default;');
-        evalin('base',['Init_Trailer = IDatabase.Testrig_Post.Default;']);
+        evalin('base','Init_Trailer = IDatabase.Testrig_Post.Default;');
         evalin('base','Maneuver = MDatabase.None.Default;');
         set_param(drive_h,'popup_driver_type','Open Loop');
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Testrig 4 Post');
         set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Test_Cycle_1');
         set_param([modelname '/Check'],'start_check_time','100');
+
+    % --- Kinematics and Compliance Test (KnC)
+    case 'knc'
+        evalin('base','Init = IDatabase.Testrig_Post.Default;');
+        evalin('base','Init_Trailer = IDatabase.Testrig_Post.Default;');
+        evalin('base',['Maneuver = MDatabase.KnC.'  veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        set_param(modelname,'StopTime','192');
+        sm_car_config_road(modelname,'KnC');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','KnC');
+        set_param([modelname '/Check'],'start_check_time','200');
+        set_param([modelname '/Vehicle/Vehicle'],'popup_BodyToWorld','Rigid');
+        set_param([modelname '/Vehicle/Vehicle'],'popup_wheel_spin','Lock');
         
 end
 

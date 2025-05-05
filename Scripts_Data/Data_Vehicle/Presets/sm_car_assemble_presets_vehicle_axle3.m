@@ -566,3 +566,34 @@ veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')];
 eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Truck Rhuqa 3Axle 15DOF MFMbody 6x2 
+load_veh = [vehNamePref '010'];
+eval(['Vehicle = ' load_veh ';'])
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setBody(Vehicle,'Truck_Rhuqa_3Axle');
+Vehicle = sm_car_vehcfg_setBodyGeometry(Vehicle,'CAD_Truck_Rhuqa');
+Vehicle = sm_car_vehcfg_setPassenger(Vehicle,'None');
+
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_CAD_214_10R39','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_214_10R39','TireA2');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_2x_CAD_214_10R39','TireA3');
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Truck_Rhuqa_A1','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Truck_Rhuqa_A2','SuspA2');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Truck_Rhuqa_A3','SuspA3');
+
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Rhuqa_A1','SuspA1');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Truck_Rhuqa','SuspA1');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFSwift','MFMbody');
+Vehicle.config = strrep(vehcfg,'Amandla','Rhuqa');
+
+% Save under Vehicle_###
+veh_3Axle_ind = veh_3Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(veh_3Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);

@@ -1,4 +1,4 @@
-function [xFinal,fval,TSuspMetricsFinal] = testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue)
+function [xFinal,fval,TSuspMetricsFinal] = testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver)
 %testrig_quarter_car_optim  Example to tune suspension hardpoints to minimize target metric
 %   This function permits the user to tune any number of hardpoint
 %   coordinates to achieve a target performance metric. Before the model
@@ -24,11 +24,14 @@ function [xFinal,fval,TSuspMetricsFinal] = testrig_quarter_car_optim(mdl,Vehicle
 
 %% Obtain and display default level of target metric (such as "bump steer")
 open_system(mdl)
+stopTimeBzn = Maneuver.tRange.Bumpzn(2);
+tempStopTime = get_param(mdl,'stopTime');
+set_param(mdl,'StopTime',num2str(stopTimeBzn))
 set_param(mdl,'FastRestart','on')
 out = sim(mdl);
 
 disp('Metrics with Initial Set of Parameter Values')
-TSuspMetricsStart = sm_car_testrig_quarter_car_plot1toecamber(out,true)
+TSuspMetricsStart = sm_car_knc_plot1toecamber(out.logsout_sm_car_testrig_quarter_car,true,true,false)
 
 % Hold plot during optimization
 fig_h = gcf;
@@ -86,8 +89,9 @@ out = sim(mdl);
 
 disp(' ');
 disp('Metrics with Optimized Set of Parameter Values')
-[TSuspMetricsFinal, ~, ~] = sm_car_testrig_quarter_car_plot1toecamber(out,false)
+[TSuspMetricsFinal, ~, ~] = sm_car_knc_plot1toecamber(out.logsout_sm_car_testrig_quarter_car,false,true,false)
 set_param(mdl,'FastRestart','off')
+set_param(mdl,'StopTime',tempStopTime)
 
 metric_i  = find(strcmp(TSuspMetricsFinal.Names,metricName));
 metricVal = TSuspMetricsFinal.Values(metric_i);

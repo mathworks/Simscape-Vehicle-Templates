@@ -3,7 +3,7 @@ function maneuver_data = sm_car_maneuverdata_turn
 maneuver_type = 'Turn';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
@@ -45,6 +45,13 @@ mdata.Truck_Amandla.Brake.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00];
 mdata.Truck_Amandla.Steer.t.Value      = [0.00	25.00	25.20	180.00	181.00	200.00]; 
 mdata.Truck_Amandla.Accel.t.Value      = [0.00	1.00	1.10	20.00	20.10	200.00];
 mdata.Truck_Amandla.Accel.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00];
+
+mdata.Truck_Rhuqa.Brake.t.Value      = [0.00	31.00	31.20	190.00	191.00	200.00]; 
+mdata.Truck_Rhuqa.Brake.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00]; 
+mdata.Truck_Rhuqa.Steer.t.Value      = [0.00	25.00	25.20	180.00	181.00	200.00]; 
+mdata.Truck_Rhuqa.Accel.t.Value      = [0.00	1.00	1.10	20.00	20.10	200.00];
+mdata.Truck_Rhuqa.Accel.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00];
+
 
 
 maneuver_data.(maneuver_type) = mdata;

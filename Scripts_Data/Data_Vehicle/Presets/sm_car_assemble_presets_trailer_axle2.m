@@ -810,3 +810,29 @@ eval([veh_var_name ' = Trailer;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Trailer.config]);
 
+%% Kumanzi_10m 15DOF NoLoad MFMbody
+load_veh = [vehNamePref '001'];
+eval(['Trailer = ' load_veh ';'])
+vehcfg = Trailer.config;
+
+Trailer = sm_car_vehcfg_setSusp(Trailer,'Simple15DOF_Trailer_Kumanzi_10m_A1','SuspA1');
+Trailer = sm_car_vehcfg_setSusp(Trailer,'Simple15DOF_Trailer_Kumanzi_10m_A2','SuspA2');
+
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_214_10R39','TireA1');
+Trailer = sm_car_vehcfg_setTire(Trailer,'MFMbody_2x_CAD_214_10R39','TireA2');
+
+Trailer = sm_car_vehcfg_setBody(Trailer,'Trailer_Kumanzi_10m');
+Trailer = sm_car_vehcfg_setBodyGeometry(Trailer,'CAD_Trailer_Kumanzi_10m');
+Trailer = sm_car_vehcfg_setPassenger(Trailer,'None');
+Trailer = sm_car_vehcfg_setBodyLoad(Trailer,'None');
+
+% Assemble configuration description in string
+Trailer.config = strrep(vehcfg,'MFSwift','MFMbody');
+Trailer.config = strrep(vehcfg,'Kumanzi','Kumanzi_10m');
+
+% Save under Vehicle_###
+trl_2Axle_ind = trl_2Axle_ind+1;
+veh_var_name = [vehNamePref pad(num2str(trl_2Axle_ind),3,'left','0')]; 
+eval([veh_var_name ' = Trailer;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Trailer.config]);

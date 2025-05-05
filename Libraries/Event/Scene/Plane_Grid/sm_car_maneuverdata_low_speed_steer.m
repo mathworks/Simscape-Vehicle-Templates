@@ -3,7 +3,7 @@ function maneuver_data = sm_car_maneuverdata_low_speed_steer
 maneuver_type = 'Low_Speed_Steer';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
@@ -40,5 +40,6 @@ end
 mdata.Sedan_HambaLG.Brake.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00]; 
 mdata.Bus_Makhulu.Brake.rPedal.Value   = [0.00	0.00	1.00	1.00	0.00	0.00]; 
 mdata.Truck_Amandla.Brake.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00]; 
+mdata.Truck_Rhuqa.Brake.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00]; 
 
 maneuver_data.(maneuver_type) = mdata;

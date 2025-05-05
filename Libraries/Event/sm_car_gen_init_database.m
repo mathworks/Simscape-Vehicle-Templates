@@ -16,10 +16,18 @@ vehicle_data = {...
     'Bus_Makhulu',       2       0.4640              0;
     'Bus_Makhulu_Axle3', 3       0.4640              0;
     'Truck_Amandla',     3       0.6731              0;
+    'Truck_Rhuqa',       3       0.5275              0;
     'Trailer_Kumanzi',   2       0.6731              0;
     'Trailer_Thwala',    1       0.2660              0;
     'Trailer_Elula',     1       0.3500              0
     };
+
+% Adjustments due to Unreal scene change in R2022b
+if(verLessThan('matlab','9.13'))
+    roadCtrOffset     = -1.2;  % m
+else
+    roadCtrOffset     = -1.2-2.5;  % m
+end
 
 %% Scene Flat Surface, Slow Start
 InitSet.Flat.Type      = 'Flat';
@@ -212,6 +220,15 @@ InitSet.Double_Lane_Change_ISO3888.Data         = {...
     'aChassis','rad', 0,   0,     0;
     'vChassis','m/s', 2.5, 0,     0;
     'sChassis','m',   5,  -3.35,  0};
+
+%% Scene Slalom, Slow Start
+InitSet.Slalom.Type   = 'Slalom';
+InitSet.Slalom.Instance     = '';
+InitSet.Slalom.Data         = {...
+    'aChassis','rad', 0,   0,     0;
+    'vChassis','m/s', 2.5, 0,     0;
+    'sChassis','m',   5,   0,  0};
+
 
 %% Scene Skidpad, Slow Start
 InitSet.Skidpad.Type   = 'Skidpad';
