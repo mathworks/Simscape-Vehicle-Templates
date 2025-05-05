@@ -3,7 +3,7 @@ function maneuver_data = sm_car_maneuverdata_straight_constant_speed_12_50
 maneuver_type = 'Straight_Constant_Speed_12_50';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
@@ -47,6 +47,15 @@ mdata.FSAE_Achilles.xPreview.x.Value    = [2.5 3 10]; % m
 for i = 1:length(fieldnames(mdata))
     Instance = Instance_List{i};
     mdata.(Instance).Trajectory = load(mdata.(Instance).Trajectory_LoadFile.Value);
+
+    % Adjustments due to Unreal scene change in R2022b
+    if(verLessThan('matlab','9.13'))
+        maneuver_lateral_offset    = 0; % m
+    else
+        maneuver_lateral_offset    = 0-2.5; % m
+    end
+    mdata.(Instance).Trajectory.y.Value = mdata.(Instance).Trajectory.y.Value-maneuver_lateral_offset;
 end
+
 
 maneuver_data.(maneuver_type) = mdata;

@@ -77,6 +77,9 @@ hp_list(2).valueSet = ...
 % Performance metric to plot or display
 metricName = 'Bump Steer';
 
+% Set up Maneuver
+Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
+
 %% Conduct Parameter Sweep
 %
 % This function will create a simulation input object where each entry has
@@ -88,7 +91,7 @@ metricName = 'Bump Steer';
 % The toe and camber curves for each test are plotted.
 
 [simInput, simOut, TSuspMetricsSet] = ...
-    testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
+    testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver);
 
 %% Display and Plot the Results of Sweep
 %
@@ -112,7 +115,7 @@ TSuspMetricsReq = ...
 
 tgtValue    = 2; % deg/m
 [xFinal,fval,TSuspMetrics] = ...
-    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue);
+    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver);
 
 %% Workflow Using MATLAB App
 %

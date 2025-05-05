@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Tuning Suspension Hardpoints to Minimize Bump Steer</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-02-01"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
+      --><title>Tuning Suspension Hardpoints to Minimize Bump Steer</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-04-20"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -92,24 +92,27 @@ hp_list(2).valueSet = <span class="keyword">...</span>
 
 <span class="comment">% Performance metric to plot or display</span>
 metricName = <span class="string">'Bump Steer'</span>;
+
+<span class="comment">% Set up Maneuver</span>
+Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
 </pre><h2 id="4">Conduct Parameter Sweep</h2><p>This function will create a simulation input object where each entry has a unique combination of the hardpoint coordinate values specified above. The simulations will be run using the sim() command, and at the end a surface plot shows how the selected performance metric (in this case bump steer) varies with the two coordinate values.</p><p>The toe and camber curves for each test are plotted.</p><pre class="codeinput">[simInput, simOut, TSuspMetricsSet] = <span class="keyword">...</span>
-    testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
-</pre><pre class="codeoutput">[01-Feb-2025 13:08:49] Running simulations...
-[01-Feb-2025 13:08:54] Completed 1 of 15 simulation runs
-[01-Feb-2025 13:08:55] Completed 2 of 15 simulation runs
-[01-Feb-2025 13:08:57] Completed 3 of 15 simulation runs
-[01-Feb-2025 13:08:58] Completed 4 of 15 simulation runs
-[01-Feb-2025 13:09:00] Completed 5 of 15 simulation runs
-[01-Feb-2025 13:09:01] Completed 6 of 15 simulation runs
-[01-Feb-2025 13:09:02] Completed 7 of 15 simulation runs
-[01-Feb-2025 13:09:04] Completed 8 of 15 simulation runs
-[01-Feb-2025 13:09:05] Completed 9 of 15 simulation runs
-[01-Feb-2025 13:09:07] Completed 10 of 15 simulation runs
-[01-Feb-2025 13:09:08] Completed 11 of 15 simulation runs
-[01-Feb-2025 13:09:09] Completed 12 of 15 simulation runs
-[01-Feb-2025 13:09:11] Completed 13 of 15 simulation runs
-[01-Feb-2025 13:09:12] Completed 14 of 15 simulation runs
-[01-Feb-2025 13:09:13] Completed 15 of 15 simulation runs
+    testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver);
+</pre><pre class="codeoutput">[20-Apr-2025 23:13:16] Running simulations...
+[20-Apr-2025 23:13:23] Completed 1 of 15 simulation runs
+[20-Apr-2025 23:13:25] Completed 2 of 15 simulation runs
+[20-Apr-2025 23:13:27] Completed 3 of 15 simulation runs
+[20-Apr-2025 23:13:29] Completed 4 of 15 simulation runs
+[20-Apr-2025 23:13:32] Completed 5 of 15 simulation runs
+[20-Apr-2025 23:13:34] Completed 6 of 15 simulation runs
+[20-Apr-2025 23:13:36] Completed 7 of 15 simulation runs
+[20-Apr-2025 23:13:38] Completed 8 of 15 simulation runs
+[20-Apr-2025 23:13:40] Completed 9 of 15 simulation runs
+[20-Apr-2025 23:13:42] Completed 10 of 15 simulation runs
+[20-Apr-2025 23:13:44] Completed 11 of 15 simulation runs
+[20-Apr-2025 23:13:46] Completed 12 of 15 simulation runs
+[20-Apr-2025 23:13:48] Completed 13 of 15 simulation runs
+[20-Apr-2025 23:13:50] Completed 14 of 15 simulation runs
+[20-Apr-2025 23:13:52] Completed 15 of 15 simulation runs
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2><p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown.</p><pre class="codeinput">disp(<span class="string">'Results of Sweep'</span>);
 TSuspMetricsReq = <span class="keyword">...</span>
     testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
@@ -122,99 +125,155 @@ TSuspMetricsReq =
     par_TrackRodIn3    par_TrackRodOut3    Bump_Steer    Bump_SteerUnits
     _______________    ________________    __________    _______________
 
-          0.2                0.19            13.201          "deg/m"    
-          0.2                0.23            79.925          "deg/m"    
+          0.2                0.19            13.212          "deg/m"    
+          0.2                0.23            79.878          "deg/m"    
           0.2                0.27               131          "deg/m"    
-         0.22                0.19           -31.266          "deg/m"    
-         0.22                0.23             42.59          "deg/m"    
-         0.22                0.27            99.117          "deg/m"    
-         0.24                0.19           -77.793          "deg/m"    
-         0.24                0.23            4.0649          "deg/m"    
-         0.24                0.27             66.04          "deg/m"    
-         0.26                0.19           -126.74          "deg/m"    
-         0.26                0.23           -36.247          "deg/m"    
-         0.26                0.27             31.96          "deg/m"    
-         0.28                0.19           -177.92          "deg/m"    
-         0.28                0.23           -78.247          "deg/m"    
-         0.28                0.27           -3.5344          "deg/m"    
+         0.22                0.19           -31.277          "deg/m"    
+         0.22                0.23            42.708          "deg/m"    
+         0.22                0.27            99.124          "deg/m"    
+         0.24                0.19           -77.864          "deg/m"    
+         0.24                0.23            4.0298          "deg/m"    
+         0.24                0.27            66.122          "deg/m"    
+         0.26                0.19           -126.71          "deg/m"    
+         0.26                0.23           -36.245          "deg/m"    
+         0.26                0.27            31.928          "deg/m"    
+         0.28                0.19              -178          "deg/m"    
+         0.28                0.23           -78.227          "deg/m"    
+         0.28                0.27           -3.5259          "deg/m"    
 
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Bump Steer</h2><p>Now that we have seen the design space, we will use optimization algorithms to identify the coordinates that achieve the desired level of bump steer.  The list of hardpoint coordinates and their ranges are provided to the optimization algorithm.  An objective function computes runs a simulation with those values and computes the performance metric. After the optimizer converges on a value or reaches the limit on the number of iterations permitted, the result is shown and overlaid on the parameter sweep plot.</p><pre class="codeinput">tgtValue    = 2; <span class="comment">% deg/m</span>
 [xFinal,fval,TSuspMetrics] = <span class="keyword">...</span>
-    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue);
+    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver);
 </pre><pre class="codeoutput">Metrics with Initial Set of Parameter Values
 
 TSuspMetricsStart =
 
-  19&times;4 table
+  47&times;4 table
 
-            Names               Values        Units             Description         
-    ______________________    ___________    _______    ____________________________
+                    Names                      Values         Units                    Description              
+    _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                     -9.4098e-15    "deg"      "+Toe In"                   
-    "Camber"                  -1.2722e-14    "deg"      "+Top Out"                  
-    "Caster"                        15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                          2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"                   4.0649    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"                 -24.317    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"                  28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
-    "Caster Trail"                 103.55    "mm"       "+Forward of Contact Patch" 
-    "Scrub Radius"                 11.302    "mm"       "+Inside Wheel Center"      
-    "Hub Long Offset"             0.80258    "mm"       "+Forward of WC"            
-    "Hub Lat Offset"               28.679    "mm"       "+Inside Wheel Center"      
-    "Suspension Rate"              68.023    "N/mm"     "+/-20mm, Wheel Centre"     
-    "Wheel Travel Bump"           0.19641    "mm"       "Up"                        
-    "Wheel Travel Rebound"        -0.1328    "mm"       "Down"                      
-    "Wheel Travel Total"          0.32921    "mm"       "Up+Down"                   
-    "WC Recession Long"          0.031278    "mm/m"     "+Backwards"                
-    "WC Recession Lat"         -0.0048038    "mm/m"     "+In"                       
-    "Spring Ratio"                0.75431    "1"        "Spring Disp/WC Disp"       
-    "Damper Ratio"                0.75431    "1"        "Damper Disp/WC Disp"       
+    "Toe"                                    -3.1254e-15    "deg"        "+Toe In"                              
+    "Camber"                                  2.5444e-14    "deg"        "+Top Out"                             
+    "Caster"                                       15.84    "deg"        "+Top Rear of WC"                      
+    "KPI"                                         2.7474    "deg"        "+Top Inside Bottom"                   
+    "Camber Change per Toe Change"              -0.28371    "deg/deg"    "+/-1 deg"                             
+    "Bump Steer"                                  4.0298    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -24.296    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                                 27.421    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                                103.53    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                                11.382    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            0.78231    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                               28.76    "mm"         "+Inside Wheel Center"                 
+    "Suspension Rate"                             80.301    "N/mm"       "+/-20mm, Wheel Center"                
+    "Ride Rate"                                   63.637    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Frequency"                             0.31595    "Hz"         "Uses Ride Rate"                       
+    "Wheel Travel Bump"                              NaN    "mm"         "Up"                                   
+    "Wheel Travel Rebound"                           NaN    "mm"         "Down"                                 
+    "Wheel Travel Total"                             NaN    "mm"         "Up+Down"                              
+    "WC Recession Long"                         0.031239    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        -0.0046894    "mm/m"       "+In"                                  
+    "Spring Ratio"                               0.75431    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                               0.75431    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                     NaN    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                    NaN    "deg"        "+/-2deg Roll, +Top Out"               
+    "Roll Stiffness"                                 NaN    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
+    "Roll Stiffness Total"                           NaN    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
+    "Max Rack Travel"                             73.042    "mm"         "Rack Travel at Max Steer"             
+    "Steering Ratio"                              1.9318    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
+    "Max Toe Out"                                -44.246    "deg"        "+Toe In"                              
+    "Max Toe In"                                  38.619    "deg"        "+Toe In"                              
+    "Ackermann at 20 deg Inner"                      NaN    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at Max Inner"                         NaN    "%"          "0% if parallel, 100% if ideal"        
+    "TCD Kerb to Kerb"                                 0    "m"          "To Outer Front Wheel"                 
+    "Max Rack Force"                                   0    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                          NaN    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                         NaN    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                             NaN    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                            NaN    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                          NaN    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                         NaN    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"             NaN    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"            NaN    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"               NaN    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"              NaN    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"                  NaN    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"                 NaN    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                             NaN    "mm/kN"      "0:-1kN"                               
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        2.06493          0.02      
-    1           5        2.06493         0.005     Refine Mesh
-    2           9       0.334394          0.01     Successful Poll
-    3          13       0.334394        0.0025     Refine Mesh
-    4          17       0.334394      0.000625     Refine Mesh
-    5          21      0.0878939       0.00125     Successful Poll
-    6          25      0.0878939     0.0003125     Refine Mesh
-    7          29      0.0476807      0.000625     Successful Poll
-    8          33      0.0476807     0.0001562     Refine Mesh
-    9          37      0.0309004     0.0003125     Successful Poll
-   10          41      0.0309004     7.812e-05     Refine Mesh
+    0           1        2.02982          0.02      
+    1           5        2.02982         0.005     Refine Mesh
+    2           9       0.185653          0.01     Successful Poll
+    3          13       0.185653        0.0025     Refine Mesh
+    4          17       0.185653      0.000625     Refine Mesh
+    5          21      0.0899466       0.00125     Successful Poll
+    6          25      0.0899466     0.0003125     Refine Mesh
+    7          29      0.0473279      0.000625     Successful Poll
+    8          33      0.0473279     0.0001562     Refine Mesh
+    9          37      0.0228099     0.0003125     Successful Poll
+   10          41      0.0228099     7.812e-05     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 75.0495
+Elapsed time for optimization = 87.3041
  
 Metrics with Optimized Set of Parameter Values
 
 TSuspMetricsFinal =
 
-  19&times;4 table
+  47&times;4 table
 
-            Names               Values        Units             Description         
-    ______________________    ___________    _______    ____________________________
+                    Names                      Values        Units                    Description              
+    _____________________________________    __________    _________    _______________________________________
 
-    "Toe"                      3.1277e-14    "deg"      "+Toe In"                   
-    "Camber"                  -1.2722e-14    "deg"      "+Top Out"                  
-    "Caster"                        15.84    "deg"      "+Top Rear of WC"           
-    "KPI"                          2.7472    "deg"      "+Top Inside Bottom"        
-    "Bump Steer"                   2.0309    "deg/m"    "+/- 10mm, +Toe In"         
-    "Bump Camber"                  -23.73    "deg/m"    "+/- 10mm, +Top Out"        
-    "Bump Caster"                  28.373    "deg/m"    "+/- 10mm, +Caster Decrease"
-    "Caster Trail"                 103.55    "mm"       "+Forward of Contact Patch" 
-    "Scrub Radius"                 11.241    "mm"       "+Inside Wheel Center"      
-    "Hub Long Offset"             0.80599    "mm"       "+Forward of WC"            
-    "Hub Lat Offset"               28.618    "mm"       "+Inside Wheel Center"      
-    "Suspension Rate"              80.211    "N/mm"     "+/-20mm, Wheel Centre"     
-    "Wheel Travel Bump"           0.19668    "mm"       "Up"                        
-    "Wheel Travel Rebound"       -0.13271    "mm"       "Down"                      
-    "Wheel Travel Total"          0.32939    "mm"       "Up+Down"                   
-    "WC Recession Long"          0.029193    "mm/m"     "+Backwards"                
-    "WC Recession Lat"         -0.0046258    "mm/m"     "+In"                       
-    "Spring Ratio"                0.75463    "1"        "Spring Disp/WC Disp"       
-    "Damper Ratio"                0.75463    "1"        "Damper Disp/WC Disp"       
+    "Toe"                                    -2.411e-14    "deg"        "+Toe In"                              
+    "Camber"                                 2.5444e-14    "deg"        "+Top Out"                             
+    "Caster"                                      15.84    "deg"        "+Top Rear of WC"                      
+    "KPI"                                        2.7474    "deg"        "+Top Inside Bottom"                   
+    "Camber Change per Toe Change"             -0.28371    "deg/deg"    "+/-1 deg"                             
+    "Bump Steer"                                 2.0228    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                               -23.727    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                                 27.42    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                               103.53    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                               11.373    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                           0.78494    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                             28.752    "mm"         "+Inside Wheel Center"                 
+    "Suspension Rate"                            80.382    "N/mm"       "+/-20mm, Wheel Center"                
+    "Ride Rate"                                  63.688    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Frequency"                            0.31607    "Hz"         "Uses Ride Rate"                       
+    "Wheel Travel Bump"                             NaN    "mm"         "Up"                                   
+    "Wheel Travel Rebound"                          NaN    "mm"         "Down"                                 
+    "Wheel Travel Total"                            NaN    "mm"         "Up+Down"                              
+    "WC Recession Long"                        0.029185    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                       -0.0046238    "mm/m"       "+In"                                  
+    "Spring Ratio"                              0.75463    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                              0.75463    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                    NaN    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                   NaN    "deg"        "+/-2deg Roll, +Top Out"               
+    "Roll Stiffness"                                NaN    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
+    "Roll Stiffness Total"                          NaN    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
+    "Max Rack Travel"                            73.042    "mm"         "Rack Travel at Max Steer"             
+    "Steering Ratio"                              1.923    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
+    "Max Toe Out"                               -44.495    "deg"        "+Toe In"                              
+    "Max Toe In"                                 38.823    "deg"        "+Toe In"                              
+    "Ackermann at 20 deg Inner"                     NaN    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at Max Inner"                        NaN    "%"          "0% if parallel, 100% if ideal"        
+    "TCD Kerb to Kerb"                                0    "m"          "To Outer Front Wheel"                 
+    "Max Rack Force"                                  0    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                         NaN    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                        NaN    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                            NaN    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                           NaN    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                         NaN    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                        NaN    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"            NaN    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"           NaN    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"              NaN    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"             NaN    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"                 NaN    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"                NaN    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                            NaN    "mm/kN"      "0:-1kN"                               
 
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <h2 id="7">Workflow Using MATLAB App</h2><p>An App lets you select the hardpoint coordinates you wish to sweep or optimize.  You can select the range and increment for a sweep, and you can select the range and target performance metric for an optimization. Once you have configured your sweep or optimization, press the Run button.</p><p>Anything done with the App can also be done using MATLAB functions. As you configure and run the test, commands are echoed to the MATLAB command window so you know which commands will automate those steps.</p><p><img vspace="5" hspace="5" src="Simscape_Suspension_Tester_App.png" alt=""> </p><pre class="codeinput">close <span class="string">all</span>
 </pre><p class="footer">Copyright 2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
@@ -298,6 +357,9 @@ hp_list(2).valueSet = ...
 % Performance metric to plot or display
 metricName = 'Bump Steer';
 
+% Set up Maneuver
+Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
+
 %% Conduct Parameter Sweep
 %
 % This function will create a simulation input object where each entry has
@@ -309,7 +371,7 @@ metricName = 'Bump Steer';
 % The toe and camber curves for each test are plotted.
 
 [simInput, simOut, TSuspMetricsSet] = ...
-    testrig_quarter_car_sweep(mdl,Vehicle,hp_list);
+    testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver);
 
 %% Display and Plot the Results of Sweep
 %
@@ -333,7 +395,7 @@ TSuspMetricsReq = ...
 
 tgtValue    = 2; % deg/m
 [xFinal,fval,TSuspMetrics] = ...
-    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue);
+    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver);
 
 %% Workflow Using MATLAB App
 %

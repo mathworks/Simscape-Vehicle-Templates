@@ -3,7 +3,7 @@ function maneuver_data = sm_car_maneuverdata_wot_braking
 maneuver_type = 'WOT_Braking';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
@@ -46,5 +46,7 @@ mdata.Bus_Makhulu.Accel.rPedal.Value = [0.00	0.00	0.75	0.75	0.00	0.00];
 mdata.Truck_Amandla.Brake.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00]; 
 mdata.Truck_Amandla.Accel.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00]; 
 
+mdata.Truck_Rhuqa.Brake.rPedal.Value = [0.00	0.00	0.30	0.30	0.00	0.00]; 
+mdata.Truck_Rhuqa.Accel.rPedal.Value = [0.00	0.00	0.50	0.50	0.00	0.00]; 
 
 maneuver_data.(maneuver_type) = mdata;

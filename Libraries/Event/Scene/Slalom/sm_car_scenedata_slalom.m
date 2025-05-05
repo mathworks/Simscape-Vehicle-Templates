@@ -1,0 +1,50 @@
+function scene_data = sm_car_scenedata_slalom
+%% Floor and Grid parameters
+% Copyright 2018-2024 The MathWorks, Inc.
+
+scene_data.Name = 'Slalom';
+scene_data.Dashes.pitch = 7.5;      % m
+scene_data.Dashes.num = 58;         % m
+scene_data.Dashes.l = 3;            % m
+scene_data.Dashes.w = 0.15;         % m
+scene_data.Dashes.h = 0.01;         % m
+scene_data.Dashes.base_h = 0.025;   % m
+scene_data.Dashes.clr = [1 1 1];    % [R G B]
+scene_data.Dashes.opc = 1;          % (0-1)
+
+% Road length matches dash length
+scene_data.Road.l = scene_data.Dashes.pitch*scene_data.Dashes.num; % m
+scene_data.Road.w = 8;              % m
+scene_data.Road.h = 0.1;            % m
+scene_data.Road.clr = [1 1 1]*0.5;  % [R G B]
+scene_data.Road.opc = 1;            % (0-1)
+scene_data.Road.x     = 218.4;      % m
+
+scene_data.Road.y     = 0;          % m
+scene_data.Road.z     = 0;          % m
+scene_data.Road.roll  = 0*pi/180;   % rad
+scene_data.Road.pitch = 0*pi/180;   % rad
+scene_data.Road.yaw   = 0*pi/180;   % rad
+
+% Unique format - appears in Scene and Maneuver
+% As maneuver is adjusted, fields in Scene overwritten from Maneuver
+scene_data.Cones.Placement.xLatOffset.Value = 0; % m
+scene_data.Cones.Placement.xCone1.Value     = 70;  % m
+scene_data.Cones.Placement.xSpacing.Value   = 18;  % m
+scene_data.Cones.Placement.nCones.Value     = 5; % m
+
+scene_data.Cones.height              = 0.6;  % m
+scene_data.Cones.base_thickness      = 0.04; % m
+scene_data.Cones.base_width          = 0.35;  % m
+scene_data.Cones.bottom_diameter     = 0.24; % m
+scene_data.Cones.top_diameter        = 0.06; % m
+scene_data.Cones.strip_height        = 0.3;  % m
+scene_data.Cones.clr                 = [248 78 25]/255;  % [RGB]
+scene_data.Cones.strip_clr           = [0.75 0.75 0.75]; % [RGB]
+
+
+
+
+
+
+

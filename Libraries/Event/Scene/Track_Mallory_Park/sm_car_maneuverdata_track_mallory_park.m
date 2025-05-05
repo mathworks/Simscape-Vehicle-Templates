@@ -3,8 +3,8 @@ function maneuver_data = sm_car_maneuverdata_track_mallory_park
 maneuver_type = 'Mallory_Park';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','FSAE_Achilles',...
-    'CCW_Sedan_Hamba','CCW_Sedan_HambaLG','CCW_Bus_Makhulu','CCW_Truck_Amandla','CCW_FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles',...
+    'CCW_Sedan_Hamba','CCW_Sedan_HambaLG','CCW_Bus_Makhulu','CCW_Truck_Amandla','CCW_Truck_Rhuqa','CCW_FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
@@ -40,6 +40,7 @@ end
 % Unique trajectory settings (larger vehicles)
 mdata.Bus_Makhulu.Trajectory_LoadFile.Value      = 'Mallory_Park_Makhulu_trajectory_default.mat';
 mdata.Truck_Amandla.Trajectory_LoadFile.Value    = 'Mallory_Park_Amandla_trajectory_default.mat';
+mdata.Truck_Rhuqa.Trajectory_LoadFile.Value    = 'Mallory_Park_Amandla_trajectory_default.mat';
 
 % Unique trajectory settings (counterclockwise)
 mdata.CCW_Sedan_Hamba.Trajectory_LoadFile.Value   = 'Mallory_Park_trajectory_CCW.mat';
@@ -47,6 +48,7 @@ mdata.CCW_Sedan_HambaLG.Trajectory_LoadFile.Value = 'Mallory_Park_trajectory_CCW
 mdata.CCW_FSAE_Achilles.Trajectory_LoadFile.Value = 'Mallory_Park_trajectory_CCW.mat';
 mdata.CCW_Bus_Makhulu.Trajectory_LoadFile.Value   = 'Mallory_Park_Makhulu_trajectory_CCW.mat';
 mdata.CCW_Truck_Amandla.Trajectory_LoadFile.Value = 'Mallory_Park_Makhulu_trajectory_CCW.mat';
+mdata.CCW_Truck_Rhuqa.Trajectory_LoadFile.Value = 'Mallory_Park_Makhulu_trajectory_CCW.mat';
 
 % Fill in trajectory data
 for i = 1:length(fieldnames(mdata))
