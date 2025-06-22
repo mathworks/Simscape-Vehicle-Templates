@@ -13,7 +13,7 @@ else
 end
 
 %% Load visualization and other parameters in workspace
-Visual = sm_car_param_visual('default');
+Visual = sm_car_param_visual('default',false);
 assignin('base','Visual',Visual);
 
 %% Create .mat files with Vehicle structure presets
@@ -23,7 +23,14 @@ evalin('base','Vehicle_data_dwishbone')
 evalin('base','Init_data_hockenheim_f')
 
 %% Load Maneuver database
+MDataList = dir('**/Maneuver_data*.m');
+for j= 1:length(MDataList)
+    eval(MDataList(j).name(1:end-2))
+    MDatabase.(Maneuver.Type).Sedan_Hamba = Maneuver;
+end
+assignin('base','MDatabase',MDatabase)
 evalin('base','Maneuver_data_hockenheim_f')
+    
 
 %% Load Driver database
 sm_car_gen_driver_database;

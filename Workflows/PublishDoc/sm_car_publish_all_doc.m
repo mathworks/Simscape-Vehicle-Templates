@@ -20,15 +20,27 @@ publish('testrig_quarter_car_doublewishbone_results.m','showCode',false)
 cd(fileparts(which('sm_car.slx')))
 cd(['Testrigs'  filesep 'Half_Car'])
 
-publish('testrig_susp_linkage_results.m','showCode',false)
-publish('testrig_susp_linkage_decoupled_results.m','showCode',false)
+publish('testrig_susp_knc_results.m','showCode',false)
 
-%% Publish Optimization doc
+%% Publish Quarter Car Optimization Doc
+bdclose('testrig_quarter_car')
+close all
+cd(fileparts(which('testrig_quarter_car_sweep_optim_test.m')))
 publish('testrig_quarter_car_sweep_optim_test.m')
+
+%% Publish Full Vehicle Optimization Doc
+bdclose('sm_car')
+close all
+cd(fileparts(which('sm_car_sweep_optim_test.m')))
+publish('sm_car_sweep_optim_test.m')
 
 %% Republish Main Script
 cd(fileparts(which('Simscape_Vehicle_Library_Demo_Script.m')))
 sscRepublishDemoScript('Simscape_Vehicle_Library_Demo_Script.m')
+
+%% Republish Plotter Doc
+cd(fileparts(which('sm_car_plot3d_overview.m')))
+publish('sm_car_plot3d_overview.m')
 
 %% Republish Exercises
 cd(fileparts(which('Simscape_Vehicle_Templates_Exercises_test_all.m')))

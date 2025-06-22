@@ -50,7 +50,7 @@ if(existSTL == 0)
 
                 % Resample the set of provided points to be a grid defined
                 % by an x-vector, y-vector, and z matrix of heights.
-                gsd = sm_car_points_to_gridsurface([xg_vec,yg_vec,zg_vec],size(xg,1),size(xg,2),'plot');
+                gsd = sm_car_points_to_gridsurface([xg_vec,yg_vec,zg_vec],size(xg,1),size(xg,2),'noplot');
 
                 % Save data to a file for reuse
                 save(gsd_mat_file,'gsd');

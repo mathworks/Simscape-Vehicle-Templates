@@ -73,7 +73,9 @@ for i=1:length(Instance_List)
     mdata.(Instance).Type                  = maneuver_type;
     mdata.(Instance).Instance              = Instance;
 
-    mdata.(Instance).TStart.Value = tStart(i);
+    mdata.(Instance).TStart.aSteer.Value = tStart(i);
+    mdata.(Instance).TStart.rAccel.Value = tStart(i);
+    mdata.(Instance).TStart.rBrake.Value = tStart(i);
 
     strSeq = [...
         0            0;
@@ -134,7 +136,10 @@ for i=1:length(Instance_List)
     mdata.(Instance).xPreview.v.Value      = [0 5 20]; % m
     mdata.(Instance).xPreview.v.Units      = 'm/s'; % m
     mdata.(Instance).xPreview.v.Comments   = ''; % m
-    
+
+    mdata.(Instance).nPreviewPoints.Value      = 5; % m
+    mdata.(Instance).nPreviewPoints.Units      = ''; % m
+    mdata.(Instance).nPreviewPoints.Comments   = 'For Pure Pursuit Driver'; % m    
 end
 
 if(nargin==0)
