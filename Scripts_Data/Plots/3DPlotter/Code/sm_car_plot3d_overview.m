@@ -79,12 +79,12 @@ figure(5);cla;axCurr = gca;sm_car_plot3d_create('simRes_SKP_Sedan.mat','Sedan','
 % positioned and oriented.  With this information, you can look into adding
 % your own visual elements.
 
-load('vehVisFSAE.mat')
+load('VehVisDataFSAE.mat')
 sm_car_plot3d_plot_patches(vehiclePatchData)
 
 %%
 
-load('vehVisSedan.mat')
+load('VehVisDataSedan.mat')
 sm_car_plot3d_plot_patches(vehiclePatchData)
 
 %% Simulation Results Data
