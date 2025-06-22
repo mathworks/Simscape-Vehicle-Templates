@@ -105,7 +105,10 @@ for i=1:length(Instance_List)
     mdata.(Instance).xPreview.v.Value      = [0 1 3]; % m
     mdata.(Instance).xPreview.v.Units      = 'm/s'; % m
     mdata.(Instance).xPreview.v.Comments   = ''; % m
-    
+
+    mdata.(Instance).nPreviewPoints.Value      = 5; % m
+    mdata.(Instance).nPreviewPoints.Units      = ''; % m
+    mdata.(Instance).nPreviewPoints.Comments   = 'For Pure Pursuit Driver'; % m    
 end
 
 if(nargin==0)

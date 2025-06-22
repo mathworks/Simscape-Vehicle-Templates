@@ -1,6 +1,12 @@
-function Visual = sm_car_param_visual(car_option)
+function Visual = sm_car_param_visual(car_option,varargin)
 % Copyright 2018-2024 The MathWorks, Inc.
 
+updateOnly = true;
+if(nargin==2)
+    updateOnly = varargin{1};
+end
+
+if(~updateOnly)
 %% Colors
 Visual.clr.blue        = [0.2 0.4 0.6];
 Visual.clr.bluepure    = [0.2 0.4 0.6];
@@ -72,6 +78,10 @@ Visual.PaceCar.emblem.data = xy_data_membrane_data.xy_data_membrane;
 Visual.PaceCar.emblem.opc  = 1;
 Visual.PaceCar.body.opc    = 0.1;
 
+else
+    Visual = evalin('base','Visual');
+end
+
 %% Part Dimensions
 if(strcmpi(car_option,'default'))
     
@@ -94,7 +104,7 @@ if(strcmpi(car_option,'default'))
     Visual.part.opc      = 1;
     Visual.Rim.opc       = 0.5;
     Visual.Tire.opc      = 1;
-    Visual.Tire.clr      = Visual.clr.gray;
+    Visual.Tire.clr      = [0.2 0.2 0.2];
 
     % Steering
     Visual.SteeringArm.rad    = 0.02;

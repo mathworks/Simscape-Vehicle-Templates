@@ -1,4 +1,4 @@
-%% Tuning Suspension Hardpoints to Minimize Bump Steer
+%% Tuning Suspension Hardpoints to Meet Target Performance Metrics
 %
 % This example tunes suspension hardpoints to minimize the bump steer in a
 % vehicle suspension. Using MATLAB scripts or an App you can specify the
@@ -56,29 +56,24 @@ open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');
 % used for the sweep, we limited it to two in the example so that we could
 % plot the results as a surface.
 
-% Settings for first hardpoint coordinate
-adjSet1 = -0.04:0.02:0.04;  % Relative range in m
-hp_list(1).part  = 'TrackRod';
-hp_list(1).point = 'sInboard';
-hp_list(1).index = 3;
-hp_list(1).valueSet = ...
-    Vehicle.Chassis.SuspA1.Linkage.(hp_list(1).part). ...
-    (hp_list(1).point).Value(hp_list(1).index) + adjSet1;
+% Settings parameters to be swept
+% path2Val is complete path to variable and index in parentheses
+par_list = [];
+par_list(1).path2Val = 'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sInboard.Value(3)';
+par_list(1).relRange = -0.04:0.02:0.04;  % Relative range in m
 
-% Settings for second hardpoint coordinate
-adjSet2 = -0.04:0.04:0.04;  % Relative range in m
-hp_list(2).part  = 'TrackRod';
-hp_list(2).point = 'sOutboard';
-hp_list(2).index = 3;
-hp_list(2).valueSet = ...
-    Vehicle.Chassis.SuspA1.Linkage.(hp_list(2).part). ...
-    (hp_list(2).point).Value(hp_list(2).index) + adjSet2;
+par_list(2).path2Val = 'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sOutboard.Value(3)';
+par_list(2).relRange = -0.04:0.04:0.04;  % Relative range in m
 
-% Performance metric to plot or display
-metricName = 'Bump Steer';
+% Structure par_list must contain valueSet with values for parameter
+% initVal is required for two-parameter surface plot only
+for par_i = 1:length(par_list)
+    par_list(par_i).initVal  = eval(par_list(par_i).path2Val);
+    par_list(par_i).valueSet = par_list(par_i).initVal + par_list(par_i).relRange;
+end
 
 % Set up Maneuver
-Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
+Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200,1200,1200,-0.3);
 
 %% Conduct Parameter Sweep
 %
@@ -91,31 +86,101 @@ Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
 % The toe and camber curves for each test are plotted.
 
 [simInput, simOut, TSuspMetricsSet] = ...
-    testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver);
+    testrig_quarter_car_sweep_run(mdl,Vehicle,par_list,Maneuver);
 
 %% Display and Plot the Results of Sweep
 %
 % The parameter values tested and performance metric are shown in a table.
-% For tests with two performance metrics, a surface plot is shown.
+% For tests with two performance metrics, two surface plots are shown.
+% Each surface plot shows how a performance metric varies as the parameter
+% values are modified.
 
 disp('Results of Sweep');
-TSuspMetricsReq = ...
-    testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
+figure;
+ax_bs = gca;
+[TSuspMetricsReqBStr] = ...
+    sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,'Bump Steer',ax_bs);
 
-%% Optimize Selected Hardpoints to Achieve Target Bump Steer
+if(~isempty(ax_bs))
+    [vHP1, vHP2] = meshgrid(par_list(1).valueSet,par_list(2).valueSet);
+    param1 = par_list(1).initVal;
+    param2 = par_list(2).initVal;
+
+    qBstr = interp2(vHP1,vHP2,...
+        reshape(TSuspMetricsReqBStr.("Bump_Steer"),...
+        [length(par_list(2).valueSet) length(par_list(1).valueSet)]),...
+        param1,param2);
+
+    hold on
+    plot3(ax_bs,param1,param2,qBstr,'kd','MarkerFaceColor','k','MarkerSize',8,...
+        'DisplayName','Initial Design');
+    hold off
+    legend('Location','Best')
+end
+
+figure;
+ax_bc = gca;
+[TSuspMetricsReqBCam] = ...
+    sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,'Bump Camber',ax_bc);
+
+if(~isempty(ax_bc))
+    qCstr = interp2(vHP1,vHP2,...
+        reshape(TSuspMetricsReqBCam.("Bump_Camber"),...
+        [length(par_list(2).valueSet) length(par_list(1).valueSet)]),...
+        param1,param2);
+
+    hold on
+    plot3(ax_bc,param1,param2,qCstr,'kd','MarkerFaceColor','k','MarkerSize',8,...
+        'DisplayName','Initial Design');
+    hold off
+    legend('Location','Best')
+end
+
+
+%% Optimize Selected Hardpoints to Achieve Target Performance Metrics
 %
 % Now that we have seen the design space, we will use optimization
 % algorithms to identify the coordinates that achieve the desired level of
-% bump steer.  The list of hardpoint coordinates and their ranges are
-% provided to the optimization algorithm.  An objective function computes
-% runs a simulation with those values and computes the performance metric.
-% After the optimizer converges on a value or reaches the limit on the
-% number of iterations permitted, the result is shown and overlaid on the
-% parameter sweep plot.
+% bump steer and bump camber.  The list of hardpoint coordinates and their
+% ranges are provided to the optimization algorithm.  An objective function
+% runs a simulation with those values and computes the performance metrics.
+% After the optimizer converges on values or reaches the limit on the
+% number of iterations permitted, the results are shown and overlaid on the
+% parameter sweep plots.
+%
+% In this optimization test, target values for bump steer and bump camber
+% are supplied.  Note that these values are selected mainly to see if the
+% optimizer can find values for the parameters to be tuned, not because
+% they are good values for bump steer and bump camber.
 
-tgtValue    = 2; % deg/m
+metricName    = {'Bump Steer','Bump Camber'};
+tgtValue      = [-36; -13];
+metricWeights = [0.5 0.5];
+
 [xFinal,fval,TSuspMetrics] = ...
-    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver);
+    testrig_quarter_car_optim_run(mdl,Vehicle,par_list,metricName,tgtValue,metricWeights,Maneuver);
+
+%%
+% The plots below show add the performance metrics from the new design.
+% Values for the hardpoint locations were found that result in performance
+% metric values quite close to the target values.
+
+bs_i = find(strcmp(TSuspMetrics.Names,metricName{1}));
+if(~isempty(ax_bs))
+    hold(ax_bs,'on')
+    plot3(ax_bs,xFinal(1),xFinal(2),TSuspMetrics.Values(bs_i),...
+        'bs','MarkerFaceColor','b','MarkerSize',8);
+    hold(ax_bs,'off')
+end
+
+bc_i = find(strcmp(TSuspMetrics.Names,metricName{2}));
+
+if(~isempty(ax_bc))
+    hold(ax_bc,'on')
+    plot3(ax_bc,xFinal(1),xFinal(2),TSuspMetrics.Values(bc_i),...
+        'bs','MarkerFaceColor','b','MarkerSize',8);
+    hold(ax_bc,'off')
+end
 
 %% Workflow Using MATLAB App
 %
@@ -135,4 +200,4 @@ tgtValue    = 2; % deg/m
 % 
 
 %%
-close all
+%close all
