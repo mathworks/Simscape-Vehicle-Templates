@@ -29,6 +29,22 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.1  -- June 2025**
+(Not all changes to Simscape Vehicle Templates affect this repository)
+1.  Adjusted parameterized sedan profile to extend above driver, steering wheel.
+2.  Added bushings with axial and torsional stiffness
+3.  Added additional tests to KnC (force offset from contact patch, force at wheel center)
+4.  Added visual elements for forces and torques in KnC test
+5.  Function for visuals can update dimensions only (custom colors, opacities not overwritten)
+6.  Added simple UI for plotting results (2D)
+7.  Added simple UI for plotting and animating results in 3D
+8.  Optimization script can handle multiple performance metrics
+9.  Sweep and optimization examples can handle any parameter, any axle
+10. Lateral drivers are customizeable (Stanley and Pure Pursuit)
+11. Enhanced maneuver and driver so that vehicle can drive events in reverse. 
+12. Stop criteria uses lap counter to detect end of lap
+13. Independently override commands for steering wheel, accelerator pedal, and brake pedal.
+
 **v4.0  -- May 2025**
 (Not all changes to Simscape Vehicle Templates affect this repository)
 1.  Kinematics and Compliance test added to quarter, half, and full car models

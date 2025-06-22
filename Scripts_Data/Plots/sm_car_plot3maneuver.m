@@ -39,11 +39,15 @@ if(~isempty(hasTrajectory) && isempty(hasAccel))
     if(startsWith(lower(Maneuver.Type),'crg_'))
         ctrline = Scene.(Maneuver.Type).Geometry.centerline.xyz(:,1:2);
         w = Scene.(Maneuver.Type).Geometry.w;
-    elseif(isfield(Scene.(Maneuver.Type),'Track'))
+    elseif(isfield(Scene,Maneuver.Type))
+    if(isfield(Scene.(Maneuver.Type),'Track'))
         ctrline = Scene.(Maneuver.Type).Track.ctrline;
         w = Scene.(Maneuver.Type).Track.w;
     else
     hasTrack = false;
+    end
+    else
+        hasTrack = false;
     end
     if(hasTrack)
     [xy_data] = sm_car_road_track_extrusion(ctrline,w);
