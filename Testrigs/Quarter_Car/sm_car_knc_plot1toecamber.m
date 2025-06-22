@@ -39,7 +39,11 @@ simlog_fLat          = squeeze(logsout_RdBus.Values.L1.fcp.fy.Data);
 simlog_fLong         = squeeze(logsout_RdBus.Values.L1.fcp.fx.Data);
 simlog_yCPtch        = squeeze(logsout_VehBus.Values.Chassis.WhlL1.Testrig.py.Data);
 
-if(isfield(logsout_VehBus.Values.Chassis.SuspA1.LinkageL,'Shock'))
+if(isfield(logsout_VehBus.Values.Chassis.SuspA1,'SpringL')) % For Twist Beam
+    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.SpringL.x.Data);
+elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'ShockL'))  % For Live Axle
+    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.ShockL.x.Data);
+elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1.LinkageL,'Shock')) % For Linkage
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.LinkageL.Shock.x.Data);
 else
     % For decoupled suspension
@@ -60,7 +64,12 @@ if(calcMetrics)
     timeTestPhases = simlog_testPhases;
     Vehicle = evalin('base','Vehicle');
     [veh_track,veh_wheelbase, veh_mass] = sm_car_get_vehicle_params(Vehicle);
-    tireK = sm_car_get_tire_params(Vehicle);
+    if(isfield(Vehicle.Chassis.Body.BodyGeometry,'sWall2Wall'))
+        veh_sW2W = Vehicle.Chassis.Body.BodyGeometry.sWall2Wall.Value;
+    else
+        veh_sW2W = [0 veh_track/2 0];
+    end
+    [tireK, tireW] = sm_car_get_tire_params(Vehicle);
     simlog_zWChp = Vehicle.Chassis.SuspA1.Linkage.Upright.sWheelCentre.Value(3);
     % Get indices of simulation results for vertical test phase
     indToeCamb = intersect(find(simlog_t>=Maneuver.tRange.Jounce(1)),find(simlog_t<=Maneuver.tRange.Rebound(2)));
@@ -109,7 +118,9 @@ if(calcMetrics)
         veh_track,...
         veh_wheelbase,...
         veh_mass,...
-        tireK,...
+        veh_sW2W,...
+        tireK(1),...
+        tireW(1),...
         debugPlots);
 else
     TSuspMetrics = [];

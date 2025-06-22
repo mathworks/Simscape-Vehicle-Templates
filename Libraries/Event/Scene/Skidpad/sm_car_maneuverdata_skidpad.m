@@ -38,6 +38,10 @@ for i=1:length(Instance_List)
     mdata.(Instance).xMax.Value            = 290; % m
     mdata.(Instance).xMax.Units            = 'm'; % m
     mdata.(Instance).xMax.Comments         = 'Stop test when vehicle has reached this distance'; % m
+
+    mdata.(Instance).nPreviewPoints.Value      = 5; % m
+    mdata.(Instance).nPreviewPoints.Units      = ''; % m
+    mdata.(Instance).nPreviewPoints.Comments   = 'For Pure Pursuit Driver'; % m    
 end
 
 % Unique trajectory settings (smaller vehicles)

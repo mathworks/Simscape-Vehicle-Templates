@@ -38,8 +38,8 @@ wrad_dl = whl_rad - whl_rad_nominal;
 wbase_dl = whl_base - whl_base_nominal;
 
 xy_grill = [0.7095 -0.2129];
-xy_ell_hood = Extr_Data_Ellipse(1.2949,0.3548,180,360-45,1).*[-1 -1]+[-0.5854 0.2129+wrad_dl];
-xy_ell_roof = Extr_Data_Ellipse(0.8514*1.05+wbase_dl/2,0.2483+wbase_dl/2*0.2483/0.8514,180+10,360-20,1).*[-1 -1]+[-2.1641-wbase_dl/2 0.7805+wrad_dl];
+xy_ell_hood = Extr_Data_Ellipse(1.2949*0.8,0.3548,180,360-45,1).*[-1 -1]+[-0.5854+0.259 0.2129+wrad_dl+0.1];
+xy_ell_roof = Extr_Data_Ellipse(0.8514*1.05+wbase_dl/2,0.2483+wbase_dl/2*0.2483/0.8514,180+10,360-20,1).*[-1 -1]+[-2.1641-wbase_dl/2 min(0.7805+wrad_dl+0.3,0.9)];
 xy_trunk = [...
     -3.5477    0.7024;...
     -4.0798    0.6670]+[-wbase_dl wrad_dl];

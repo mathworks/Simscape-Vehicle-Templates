@@ -20,28 +20,30 @@
 % <br>
 % <tr><b><u>Workflow Examples</u></b><br>
 % <tr>1. <a href="matlab:web('Simscape_Vehicle_Templates_Exercises.html')">Vehicle Simulation Exercises</a><br>
-% <tr>2. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
-% <tr>3. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
+% <tr>2. Minimize Roll Angle in Double-Lane Change: <a href="matlab:web('sm_car_sweep_optim_test.html')">Overview</a>, <a href="matlab:edit('sm_car_sweep_optim_test.m');">Edit Code</a><br>
+% <tr>3. Lap Time Optimization: <a href="matlab:web('sm_car_optim_traj_vx_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_results_mallory_park.m');">Edit Code</a><br>
+% <tr>4. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testing Examples</u></b><br>
 % <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_batt2mot_regen1.png');">Results</a><br>
 % <tr>2. Torque Vectoring: <a href="matlab:sm_car_test_torque_vectoring">Run</a>, <a href="matlab:edit('sm_car_test_torque_vectoring.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_torque_vectoring.png');">Results</a><br>
 % <tr>3. Four-Wheel Steering: <a href="matlab:sm_car_test_four_wheel_steering">Run</a>, <a href="matlab:edit('sm_car_test_four_wheel_steering.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_four_wheel_steering.png');">Results</a><br>
 % <tr>4. Anti-Lock Brakes: <a href="matlab:sm_car_test_abs">Run</a>, <a href="matlab:edit('sm_car_test_abs.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_abs.png');">Results</a><br>
-% <tr>5. Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
-% <tr>6. Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
-% <tr>7. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
+% <tr>5. Parking Maneuver: <a href="matlab:sm_car_test_parking">Run</a>, <a href="matlab:edit('sm_car_test_parking.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_parking.png');">Results</a><br>
+% <tr>6. Driving in Reverse: <a href="matlab:sm_car_test_dlc_reverse">Run</a>, <a href="matlab:edit('sm_car_test_dlc_reverse.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_dlc_reverse.png');">Results</a><br>
+% <tr>7. Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
+% <tr>8. Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
+% <tr>9. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_results.html');"> Documentation</a><br>
 % <tr>2.  Suspension Tester App: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));testrig_quarter_car_mlapp_sweep_optim;">Open Suspension Tester App</a>, <a href="matlab:web('testrig_quarter_car_sweep_optim_test.html');"> Workflow</a><br>
 % <tr>3.  Pullrod Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car_pullrod.slx')));open_system('testrig_quarter_car_pullrod');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_pullrod_results.html');"> Documentation</a><br>
 % <tr>4.  Double Wishbone Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car_doublewishbone.slx')));open_system('testrig_quarter_car_doublewishbone');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_doublewishbone_results.html');"> Documentation</a><br>
-% <tr>5.  Half-Car Testrig, Linkage Suspensions: <a href="matlab:cd(fileparts(which('testrig_susp_linkage.slx')));open_system('testrig_susp_linkage');">Open Model</a>, <a href="matlab:web('testrig_susp_linkage_results.html');"> Documentation</a><br>
-% <tr>6.  Half-Car Testrig, Decoupled Suspensions: <a href="matlab:cd(fileparts(which('testrig_susp_linkage_decoupled.slx')));open_system('testrig_susp_linkage_decoupled');">Open Model</a>, <a href="matlab:web('testrig_susp_linkage_decoupled_results.html');"> Documentation</a><br>
-% <tr>7.  Steering Testrig: <a href="matlab:cd(fileparts(which('testrig_Steer_Rack.slx')));open_system('testrig_Steer_Rack');">Open Model</a><br>
-% <tr>8.  Driveline: <a href="matlab:cd(fileparts(which('testrig_Driveline_Axle2.slx')));open_system('testrig_Driveline_Axle2');">Open Model</a><br>
-% <tr>9.  Bushing: <a href="matlab:cd(fileparts(which('sm_bushing_test_radial.slx')));open_system('sm_bushing_test_radial');">Open Model</a><br>
+% <tr>5.  Half-Car Testrig, Kinematics and Compliance: <a href="matlab:cd(fileparts(which('testrig_susp_knc.slx')));open_system('testrig_susp_knc');">Open Model</a>, <a href="matlab:web('testrig_susp_knc_results.html');"> Documentation</a><br>
+% <tr>6.  Steering Testrig: <a href="matlab:cd(fileparts(which('testrig_Steer_Rack.slx')));open_system('testrig_Steer_Rack');">Open Model</a><br>
+% <tr>7.  Driveline: <a href="matlab:cd(fileparts(which('testrig_Driveline_Axle2.slx')));open_system('testrig_Driveline_Axle2');">Open Model</a><br>
+% <tr>8.  Bushing: <a href="matlab:cd(fileparts(which('sm_bushing_test_radial.slx')));open_system('sm_bushing_test_radial');">Open Model</a><br>
 % <br>
 % <tr><b><u>Component Test Harnesses</u></b><br>
 % <tr>1.  Camera Testrig: <a href="matlab:cd(fileparts(which('testrig_Camera.slx')));open_system('testrig_Camera');">Open Model</a><br>

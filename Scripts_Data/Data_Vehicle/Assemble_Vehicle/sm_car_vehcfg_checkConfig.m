@@ -19,7 +19,7 @@ Vehicle = Vehicle_in;
 %  Copy to fields within TireXX
 
 % Get tire radius
-[tireRadii, tireFields]  = sm_car_vehcfg_getTireRadius(Vehicle);
+[tireRadii, tireFields]  = sm_car_get_TireRadius(Vehicle);
 
 % Get fieldnames for axle hardpoints
 bodyFields    = fieldnames(Vehicle_in.Chassis.Body);
@@ -56,6 +56,12 @@ for axle_i = 1:length(tireRadii)
         elseif(isfield(Vehicle_in.Chassis.(suspField),'Simple'))
             Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).Simple.sWheelCentre;
             Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from Simple.sWheelCentre for Testrig_4Post';
+        elseif(isfield(Vehicle_in.Chassis.(suspField),'LiveAxle'))
+            Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).LiveAxle.sWheelCentre;
+            Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from LiveAxle.sWheelCentre for Testrig_4Post';
+        elseif(isfield(Vehicle_in.Chassis.(suspField),'TwistBeam'))
+            Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).TwistBeam.TrailingArm.sWheelCentre;
+            Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from TrailingArm.sWheelCentre for Testrig_4Post';
         end
         
     elseif(strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))

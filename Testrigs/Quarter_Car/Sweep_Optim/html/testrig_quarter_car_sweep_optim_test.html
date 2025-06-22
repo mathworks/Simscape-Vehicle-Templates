@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Tuning Suspension Hardpoints to Minimize Bump Steer</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-04-20"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
+      --><title>Tuning Suspension Hardpoints to Meet Target Performance Metrics</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-05-29"><meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -67,218 +67,165 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Tuning Suspension Hardpoints to Minimize Bump Steer</h1><!--introduction--><p>This example tunes suspension hardpoints to minimize the bump steer in a vehicle suspension. Using MATLAB scripts or an App you can specify the which hardpoints (such as outboard hardpoint on the upper wishbone) and which coordinates (such as along the x, y, or z axis) should be tuned.</p><p>First a sweep is performed to show the design space. If two coordinates are selected for tuning, a 2D plot will be shown, otherwise a table of the tested values and the resulting performance metric.  Next, optimization algorithms are used to find the combination that comes closest to the target value of the selected performance metric.</p><p>The documentation below shows the steps performed on testrig_quarter_car.slx.  They can also be performed on testrig_quarter_car_doublewishbone.slx and testrig_quarter_car_pullrod.slx.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Quarter-Car Testrig Model</a></li><li><a href="#2">Suspension Model</a></li><li><a href="#3">Define Sets of Values for Parameter Sweep</a></li><li><a href="#4">Conduct Parameter Sweep</a></li><li><a href="#5">Display and Plot the Results of Sweep</a></li><li><a href="#6">Optimize Selected Hardpoints to Achieve Target Bump Steer</a></li><li><a href="#7">Workflow Using MATLAB App</a></li></ul></div><h2 id="1">Quarter-Car Testrig Model</h2><p>The model <a href="matlab:open_system('testrig_quarter_car');">testrig_quarter_car</a> can be configured to test several different types of suspensions.  The suspension type is selected based on field Vehicle.Chassis.SuspA1.Linkage.class.Value within a MATLAB data structure. The locations of the hardpoints are defined within that structure.</p><p><a href="matlab:open_system('testrig_quarter_car');">Open Model</a></p><pre class="codeinput">mdl = <span class="string">'testrig_quarter_car'</span>;
+  </style></head><body><div class="content"><h1>Tuning Suspension Hardpoints to Meet Target Performance Metrics</h1><!--introduction--><p>This example tunes suspension hardpoints to minimize the bump steer in a vehicle suspension. Using MATLAB scripts or an App you can specify the which hardpoints (such as outboard hardpoint on the upper wishbone) and which coordinates (such as along the x, y, or z axis) should be tuned.</p><p>First a sweep is performed to show the design space. If two coordinates are selected for tuning, a 2D plot will be shown, otherwise a table of the tested values and the resulting performance metric.  Next, optimization algorithms are used to find the combination that comes closest to the target value of the selected performance metric.</p><p>The documentation below shows the steps performed on testrig_quarter_car.slx.  They can also be performed on testrig_quarter_car_doublewishbone.slx and testrig_quarter_car_pullrod.slx.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Quarter-Car Testrig Model</a></li><li><a href="#2">Suspension Model</a></li><li><a href="#3">Define Sets of Values for Parameter Sweep</a></li><li><a href="#4">Conduct Parameter Sweep</a></li><li><a href="#5">Display and Plot the Results of Sweep</a></li><li><a href="#6">Optimize Selected Hardpoints to Achieve Target Performance Metrics</a></li><li><a href="#8">Workflow Using MATLAB App</a></li></ul></div><h2 id="1">Quarter-Car Testrig Model</h2><p>The model <a href="matlab:open_system('testrig_quarter_car');">testrig_quarter_car</a> can be configured to test several different types of suspensions.  The suspension type is selected based on field Vehicle.Chassis.SuspA1.Linkage.class.Value within a MATLAB data structure. The locations of the hardpoints are defined within that structure.</p><p><a href="matlab:open_system('testrig_quarter_car');">Open Model</a></p><pre class="codeinput">mdl = <span class="string">'testrig_quarter_car'</span>;
 open_system(mdl)
 sm_car_load_vehicle_data(mdl,<span class="string">'064'</span>);
 sm_car_config_variants(mdl);
 </pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_01.png" alt=""> <h2 id="2">Suspension Model</h2><p>This is the structure of the suspension.  The entire suspension is parameterized based on hardpoints.  Those hardpoints are defined based on [x y z] locations relative to a common reference point.  In the default set of data provided, that reference point is on the ground at the point midway between where the left and right tires touch the ground.</p><p><a href="matlab:open_system('testrig_quarter_car');open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');">Open Subsystem</a></p><pre class="codeinput">open_system(<span class="string">'testrig_quarter_car/Linkage/FiveLinkShockFront'</span>,<span class="string">'force'</span>);
-</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_02.png" alt=""> <h2 id="3">Define Sets of Values for Parameter Sweep</h2><p>The portion of the design space that will be tested is defined by selecting hardpoint coordinates and a set of values for that coordinate. In this example, we vary the z-coordinate for both ends of the track rod in the steering system.  MATLAB will test each combination of values for the two points and plot the result.  Any number of coordinates can be used for the sweep, we limited it to two in the example so that we could plot the results as a surface.</p><pre class="codeinput"><span class="comment">% Settings for first hardpoint coordinate</span>
-adjSet1 = -0.04:0.02:0.04;  <span class="comment">% Relative range in m</span>
-hp_list(1).part  = <span class="string">'TrackRod'</span>;
-hp_list(1).point = <span class="string">'sInboard'</span>;
-hp_list(1).index = 3;
-hp_list(1).valueSet = <span class="keyword">...</span>
-    Vehicle.Chassis.SuspA1.Linkage.(hp_list(1).part). <span class="keyword">...</span>
-    (hp_list(1).point).Value(hp_list(1).index) + adjSet1;
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_02.png" alt=""> <h2 id="3">Define Sets of Values for Parameter Sweep</h2><p>The portion of the design space that will be tested is defined by selecting hardpoint coordinates and a set of values for that coordinate. In this example, we vary the z-coordinate for both ends of the track rod in the steering system.  MATLAB will test each combination of values for the two points and plot the result.  Any number of coordinates can be used for the sweep, we limited it to two in the example so that we could plot the results as a surface.</p><pre class="codeinput"><span class="comment">% Settings parameters to be swept</span>
+<span class="comment">% path2Val is complete path to variable and index in parentheses</span>
+par_list = [];
+par_list(1).path2Val = <span class="string">'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sInboard.Value(3)'</span>;
+par_list(1).relRange = -0.04:0.02:0.04;  <span class="comment">% Relative range in m</span>
 
-<span class="comment">% Settings for second hardpoint coordinate</span>
-adjSet2 = -0.04:0.04:0.04;  <span class="comment">% Relative range in m</span>
-hp_list(2).part  = <span class="string">'TrackRod'</span>;
-hp_list(2).point = <span class="string">'sOutboard'</span>;
-hp_list(2).index = 3;
-hp_list(2).valueSet = <span class="keyword">...</span>
-    Vehicle.Chassis.SuspA1.Linkage.(hp_list(2).part). <span class="keyword">...</span>
-    (hp_list(2).point).Value(hp_list(2).index) + adjSet2;
+par_list(2).path2Val = <span class="string">'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sOutboard.Value(3)'</span>;
+par_list(2).relRange = -0.04:0.04:0.04;  <span class="comment">% Relative range in m</span>
 
-<span class="comment">% Performance metric to plot or display</span>
-metricName = <span class="string">'Bump Steer'</span>;
+<span class="comment">% Structure par_list must contain valueSet with values for parameter</span>
+<span class="comment">% initVal is required for two-parameter surface plot only</span>
+<span class="keyword">for</span> par_i = 1:length(par_list)
+    par_list(par_i).initVal  = eval(par_list(par_i).path2Val);
+    par_list(par_i).valueSet = par_list(par_i).initVal + par_list(par_i).relRange;
+<span class="keyword">end</span>
 
 <span class="comment">% Set up Maneuver</span>
-Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
+Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200,1200,1200,-0.3);
 </pre><h2 id="4">Conduct Parameter Sweep</h2><p>This function will create a simulation input object where each entry has a unique combination of the hardpoint coordinate values specified above. The simulations will be run using the sim() command, and at the end a surface plot shows how the selected performance metric (in this case bump steer) varies with the two coordinate values.</p><p>The toe and camber curves for each test are plotted.</p><pre class="codeinput">[simInput, simOut, TSuspMetricsSet] = <span class="keyword">...</span>
-    testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver);
-</pre><pre class="codeoutput">[20-Apr-2025 23:47:38] Running simulations...
-[20-Apr-2025 23:47:46] Completed 1 of 15 simulation runs
-[20-Apr-2025 23:47:48] Completed 2 of 15 simulation runs
-[20-Apr-2025 23:47:51] Completed 3 of 15 simulation runs
-[20-Apr-2025 23:47:53] Completed 4 of 15 simulation runs
-[20-Apr-2025 23:47:55] Completed 5 of 15 simulation runs
-[20-Apr-2025 23:47:57] Completed 6 of 15 simulation runs
-[20-Apr-2025 23:47:59] Completed 7 of 15 simulation runs
-[20-Apr-2025 23:48:01] Completed 8 of 15 simulation runs
-[20-Apr-2025 23:48:03] Completed 9 of 15 simulation runs
-[20-Apr-2025 23:48:05] Completed 10 of 15 simulation runs
-[20-Apr-2025 23:48:08] Completed 11 of 15 simulation runs
-[20-Apr-2025 23:48:10] Completed 12 of 15 simulation runs
-[20-Apr-2025 23:48:12] Completed 13 of 15 simulation runs
-[20-Apr-2025 23:48:14] Completed 14 of 15 simulation runs
-[20-Apr-2025 23:48:16] Completed 15 of 15 simulation runs
-</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2><p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown.</p><pre class="codeinput">disp(<span class="string">'Results of Sweep'</span>);
-TSuspMetricsReq = <span class="keyword">...</span>
-    testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
+    testrig_quarter_car_sweep_run(mdl,Vehicle,par_list,Maneuver);
+</pre><pre class="codeoutput">[29-May-2025 11:32:22] Running simulations...
+[29-May-2025 11:32:30] Completed 1 of 15 simulation runs
+[29-May-2025 11:32:32] Completed 2 of 15 simulation runs
+[29-May-2025 11:32:35] Completed 3 of 15 simulation runs
+[29-May-2025 11:32:37] Completed 4 of 15 simulation runs
+[29-May-2025 11:32:39] Completed 5 of 15 simulation runs
+[29-May-2025 11:32:41] Completed 6 of 15 simulation runs
+[29-May-2025 11:32:44] Completed 7 of 15 simulation runs
+[29-May-2025 11:32:46] Completed 8 of 15 simulation runs
+[29-May-2025 11:32:49] Completed 9 of 15 simulation runs
+[29-May-2025 11:32:51] Completed 10 of 15 simulation runs
+[29-May-2025 11:32:53] Completed 11 of 15 simulation runs
+[29-May-2025 11:32:56] Completed 12 of 15 simulation runs
+[29-May-2025 11:32:58] Completed 13 of 15 simulation runs
+[29-May-2025 11:33:00] Completed 14 of 15 simulation runs
+[29-May-2025 11:33:03] Completed 15 of 15 simulation runs
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2><p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, two surface plots are shown. Each surface plot shows how a performance metric varies as the parameter values are modified.</p><pre class="codeinput">disp(<span class="string">'Results of Sweep'</span>);
+figure;
+ax_bs = gca;
+[TSuspMetricsReqBStr] = <span class="keyword">...</span>
+    sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,<span class="string">'Bump Steer'</span>,ax_bs);
+
+<span class="keyword">if</span>(~isempty(ax_bs))
+    [vHP1, vHP2] = meshgrid(par_list(1).valueSet,par_list(2).valueSet);
+    param1 = par_list(1).initVal;
+    param2 = par_list(2).initVal;
+
+    qBstr = interp2(vHP1,vHP2,<span class="keyword">...</span>
+        reshape(TSuspMetricsReqBStr.(<span class="string">"Bump_Steer"</span>),<span class="keyword">...</span>
+        [length(par_list(2).valueSet) length(par_list(1).valueSet)]),<span class="keyword">...</span>
+        param1,param2);
+
+    hold <span class="string">on</span>
+    plot3(ax_bs,param1,param2,qBstr,<span class="string">'kd'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerSize'</span>,8,<span class="keyword">...</span>
+        <span class="string">'DisplayName'</span>,<span class="string">'Initial Design'</span>);
+    hold <span class="string">off</span>
+    legend(<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+<span class="keyword">end</span>
+
+figure;
+ax_bc = gca;
+[TSuspMetricsReqBCam] = <span class="keyword">...</span>
+    sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,<span class="string">'Bump Camber'</span>,ax_bc);
+
+<span class="keyword">if</span>(~isempty(ax_bc))
+    qCstr = interp2(vHP1,vHP2,<span class="keyword">...</span>
+        reshape(TSuspMetricsReqBCam.(<span class="string">"Bump_Camber"</span>),<span class="keyword">...</span>
+        [length(par_list(2).valueSet) length(par_list(1).valueSet)]),<span class="keyword">...</span>
+        param1,param2);
+
+    hold <span class="string">on</span>
+    plot3(ax_bc,param1,param2,qCstr,<span class="string">'kd'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerSize'</span>,8,<span class="keyword">...</span>
+        <span class="string">'DisplayName'</span>,<span class="string">'Initial Design'</span>);
+    hold <span class="string">off</span>
+    legend(<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+<span class="keyword">end</span>
 </pre><pre class="codeoutput">Results of Sweep
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_05.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_06.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Performance Metrics</h2><p>Now that we have seen the design space, we will use optimization algorithms to identify the coordinates that achieve the desired level of bump steer and bump camber.  The list of hardpoint coordinates and their ranges are provided to the optimization algorithm.  An objective function runs a simulation with those values and computes the performance metrics. After the optimizer converges on values or reaches the limit on the number of iterations permitted, the results are shown and overlaid on the parameter sweep plots.</p><p>In this optimization test, target values for bump steer and bump camber are supplied.  Note that these values are selected mainly to see if the optimizer can find values for the parameters to be tuned, not because they are good values for bump steer and bump camber.</p><pre class="codeinput">metricName    = {<span class="string">'Bump Steer'</span>,<span class="string">'Bump Camber'</span>};
+tgtValue      = [-36; -13];
+metricWeights = [0.5 0.5];
 
-TSuspMetricsReq =
-
-  15&times;4 table
-
-    par_TrackRodIn3    par_TrackRodOut3    Bump_Steer    Bump_SteerUnits
-    _______________    ________________    __________    _______________
-
-          0.2                0.19            13.212          "deg/m"    
-          0.2                0.23            79.878          "deg/m"    
-          0.2                0.27               131          "deg/m"    
-         0.22                0.19           -31.277          "deg/m"    
-         0.22                0.23            42.708          "deg/m"    
-         0.22                0.27            99.124          "deg/m"    
-         0.24                0.19           -77.864          "deg/m"    
-         0.24                0.23            4.0298          "deg/m"    
-         0.24                0.27            66.122          "deg/m"    
-         0.26                0.19           -126.71          "deg/m"    
-         0.26                0.23           -36.245          "deg/m"    
-         0.26                0.27            31.928          "deg/m"    
-         0.28                0.19              -178          "deg/m"    
-         0.28                0.23           -78.227          "deg/m"    
-         0.28                0.27           -3.5259          "deg/m"    
-
-</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Bump Steer</h2><p>Now that we have seen the design space, we will use optimization algorithms to identify the coordinates that achieve the desired level of bump steer.  The list of hardpoint coordinates and their ranges are provided to the optimization algorithm.  An objective function computes runs a simulation with those values and computes the performance metric. After the optimizer converges on a value or reaches the limit on the number of iterations permitted, the result is shown and overlaid on the parameter sweep plot.</p><pre class="codeinput">tgtValue    = 2; <span class="comment">% deg/m</span>
 [xFinal,fval,TSuspMetrics] = <span class="keyword">...</span>
-    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver);
+    testrig_quarter_car_optim_run(mdl,Vehicle,par_list,metricName,tgtValue,metricWeights,Maneuver);
 </pre><pre class="codeoutput">Metrics with Initial Set of Parameter Values
 
-TSuspMetricsStart =
+ans =
 
-  47&times;4 table
+  2&times;4 table
 
-                    Names                      Values         Units                    Description              
-    _____________________________________    ___________    _________    _______________________________________
+        Names        Values      Units         Description     
+    _____________    _______    _______    ____________________
 
-    "Toe"                                    -3.1254e-15    "deg"        "+Toe In"                              
-    "Camber"                                  2.5444e-14    "deg"        "+Top Out"                             
-    "Caster"                                       15.84    "deg"        "+Top Rear of WC"                      
-    "KPI"                                         2.7474    "deg"        "+Top Inside Bottom"                   
-    "Camber Change per Toe Change"              -0.28371    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  4.0298    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -24.296    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 27.421    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                                103.53    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                11.382    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            0.78231    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                               28.76    "mm"         "+Inside Wheel Center"                 
-    "Suspension Rate"                             80.301    "N/mm"       "+/-20mm, Wheel Center"                
-    "Ride Rate"                                   63.637    "N/mm"       "+/-20mm, Contact Patch"               
-    "Ride Frequency"                             0.31595    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                              NaN    "mm"         "Up"                                   
-    "Wheel Travel Rebound"                           NaN    "mm"         "Down"                                 
-    "Wheel Travel Total"                             NaN    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.031239    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                        -0.0046894    "mm/m"       "+In"                                  
-    "Spring Ratio"                               0.75431    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                               0.75431    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                     NaN    "deg"        "+/-2deg Roll, +Toe In"                
-    "Roll Camber"                                    NaN    "deg"        "+/-2deg Roll, +Top Out"               
-    "Roll Stiffness"                                 NaN    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
-    "Roll Stiffness Total"                           NaN    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
-    "Max Rack Travel"                             73.042    "mm"         "Rack Travel at Max Steer"             
-    "Steering Ratio"                              1.9318    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
-    "Max Toe Out"                                -44.246    "deg"        "+Toe In"                              
-    "Max Toe In"                                  38.619    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                      NaN    "%"          "0% if parallel, 100% if ideal"        
-    "Ackermann at Max Inner"                         NaN    "%"          "0% if parallel, 100% if ideal"        
-    "TCD Kerb to Kerb"                                 0    "m"          "To Outer Front Wheel"                 
-    "Max Rack Force"                                   0    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                          NaN    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                         NaN    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                             NaN    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                            NaN    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                          NaN    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                         NaN    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"             NaN    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"            NaN    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"               NaN    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"              NaN    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"                  NaN    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"                 NaN    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                             NaN    "mm/kN"      "0:-1kN"                               
+    "Bump Steer"      4.0299    "deg/m"    "+/- 10mm, +Toe In" 
+    "Bump Camber"    -24.296    "deg/m"    "+/- 10mm, +Top Out"
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        2.02982          0.02      
-    1           5        2.02982         0.005     Refine Mesh
-    2           9       0.185653          0.01     Successful Poll
-    3          13       0.185653        0.0025     Refine Mesh
-    4          17       0.185653      0.000625     Refine Mesh
-    5          21      0.0899466       0.00125     Successful Poll
-    6          25      0.0899466     0.0003125     Refine Mesh
-    7          29      0.0473279      0.000625     Successful Poll
-    8          33      0.0473279     0.0001562     Refine Mesh
-    9          37      0.0228099     0.0003125     Successful Poll
-   10          41      0.0228099     7.812e-05     Refine Mesh
+    0           1        25.6629          0.04      
+    1           5        12.8713          0.08     Successful Poll
+    2           9        12.6879          0.16     Successful Poll
+    3          11        12.6879          0.04     Refine Mesh
+    4          15       0.552283          0.08     Successful Poll
+    5          19       0.552283          0.02     Refine Mesh
+    6          23       0.552283         0.005     Refine Mesh
+    7          27       0.552283       0.00125     Refine Mesh
+    8          31         0.1328        0.0025     Successful Poll
+    9          35         0.1328      0.000625     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 88.9901
+Elapsed time for optimization = 84.8848
  
 Metrics with Optimized Set of Parameter Values
 
-TSuspMetricsFinal =
+TSuspMetricsSummary =
 
-  47&times;4 table
+  2&times;6 table
 
-                    Names                      Values        Units                    Description              
-    _____________________________________    __________    _________    _______________________________________
+        Names        StartValue    FinalValues    tgtValue     Units         Description     
+    _____________    __________    ___________    ________    _______    ____________________
 
-    "Toe"                                    -2.411e-14    "deg"        "+Toe In"                              
-    "Camber"                                 2.5444e-14    "deg"        "+Top Out"                             
-    "Caster"                                      15.84    "deg"        "+Top Rear of WC"                      
-    "KPI"                                        2.7474    "deg"        "+Top Inside Bottom"                   
-    "Camber Change per Toe Change"             -0.28371    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                 2.0228    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                               -23.727    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 27.42    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                               103.53    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                               11.373    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                           0.78494    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                             28.752    "mm"         "+Inside Wheel Center"                 
-    "Suspension Rate"                            80.382    "N/mm"       "+/-20mm, Wheel Center"                
-    "Ride Rate"                                  63.688    "N/mm"       "+/-20mm, Contact Patch"               
-    "Ride Frequency"                            0.31607    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                             NaN    "mm"         "Up"                                   
-    "Wheel Travel Rebound"                          NaN    "mm"         "Down"                                 
-    "Wheel Travel Total"                            NaN    "mm"         "Up+Down"                              
-    "WC Recession Long"                        0.029185    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                       -0.0046238    "mm/m"       "+In"                                  
-    "Spring Ratio"                              0.75463    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                              0.75463    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                    NaN    "deg"        "+/-2deg Roll, +Toe In"                
-    "Roll Camber"                                   NaN    "deg"        "+/-2deg Roll, +Top Out"               
-    "Roll Stiffness"                                NaN    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
-    "Roll Stiffness Total"                          NaN    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
-    "Max Rack Travel"                            73.042    "mm"         "Rack Travel at Max Steer"             
-    "Steering Ratio"                              1.923    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
-    "Max Toe Out"                               -44.495    "deg"        "+Toe In"                              
-    "Max Toe In"                                 38.823    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                     NaN    "%"          "0% if parallel, 100% if ideal"        
-    "Ackermann at Max Inner"                        NaN    "%"          "0% if parallel, 100% if ideal"        
-    "TCD Kerb to Kerb"                                0    "m"          "To Outer Front Wheel"                 
-    "Max Rack Force"                                  0    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                         NaN    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                        NaN    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                            NaN    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                           NaN    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                         NaN    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                        NaN    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"            NaN    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"           NaN    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"              NaN    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"             NaN    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"                 NaN    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"                NaN    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                            NaN    "mm/kN"      "0:-1kN"                               
+    "Bump Steer"       4.0299        -35.751        -36       "deg/m"    "+/- 10mm, +Toe In" 
+    "Bump Camber"     -24.296        -13.017        -13       "deg/m"    "+/- 10mm, +Top Out"
 
-</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <h2 id="7">Workflow Using MATLAB App</h2><p>An App lets you select the hardpoint coordinates you wish to sweep or optimize.  You can select the range and increment for a sweep, and you can select the range and target performance metric for an optimization. Once you have configured your sweep or optimization, press the Run button.</p><p>Anything done with the App can also be done using MATLAB functions. As you configure and run the test, commands are echoed to the MATLAB command window so you know which commands will automate those steps.</p><p><img vspace="5" hspace="5" src="Simscape_Suspension_Tester_App.png" alt=""> </p><pre class="codeinput">close <span class="string">all</span>
+
+paramSummary =
+
+  2&times;2 table
+
+    Initial     Final 
+    _______    _______
+
+     0.24      0.25031
+     0.23         0.22
+
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <p>The plots below show add the performance metrics from the new design. Values for the hardpoint locations were found that result in performance metric values quite close to the target values.</p><pre class="codeinput">bs_i = find(strcmp(TSuspMetrics.Names,metricName{1}));
+<span class="keyword">if</span>(~isempty(ax_bs))
+    hold(ax_bs,<span class="string">'on'</span>)
+    plot3(ax_bs,xFinal(1),xFinal(2),TSuspMetrics.Values(bs_i),<span class="keyword">...</span>
+        <span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'MarkerSize'</span>,8);
+    hold(ax_bs,<span class="string">'off'</span>)
+<span class="keyword">end</span>
+
+bc_i = find(strcmp(TSuspMetrics.Names,metricName{2}));
+
+<span class="keyword">if</span>(~isempty(ax_bc))
+    hold(ax_bc,<span class="string">'on'</span>)
+    plot3(ax_bc,xFinal(1),xFinal(2),TSuspMetrics.Values(bc_i),<span class="keyword">...</span>
+        <span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'MarkerSize'</span>,8);
+    hold(ax_bc,<span class="string">'off'</span>)
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_09.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_10.png" alt=""> <h2 id="8">Workflow Using MATLAB App</h2><p>An App lets you select the hardpoint coordinates you wish to sweep or optimize.  You can select the range and increment for a sweep, and you can select the range and target performance metric for an optimization. Once you have configured your sweep or optimization, press the Run button.</p><p>Anything done with the App can also be done using MATLAB functions. As you configure and run the test, commands are echoed to the MATLAB command window so you know which commands will automate those steps.</p><p><img vspace="5" hspace="5" src="Simscape_Suspension_Tester_App.png" alt=""> </p><pre class="codeinput"><span class="comment">%close all</span>
 </pre><p class="footer">Copyright 2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
-%% Tuning Suspension Hardpoints to Minimize Bump Steer
+%% Tuning Suspension Hardpoints to Meet Target Performance Metrics
 %
 % This example tunes suspension hardpoints to minimize the bump steer in a
 % vehicle suspension. Using MATLAB scripts or an App you can specify the
@@ -336,29 +283,24 @@ open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');
 % used for the sweep, we limited it to two in the example so that we could
 % plot the results as a surface.
 
-% Settings for first hardpoint coordinate
-adjSet1 = -0.04:0.02:0.04;  % Relative range in m
-hp_list(1).part  = 'TrackRod';
-hp_list(1).point = 'sInboard';
-hp_list(1).index = 3;
-hp_list(1).valueSet = ...
-    Vehicle.Chassis.SuspA1.Linkage.(hp_list(1).part). ...
-    (hp_list(1).point).Value(hp_list(1).index) + adjSet1;
+% Settings parameters to be swept
+% path2Val is complete path to variable and index in parentheses
+par_list = [];
+par_list(1).path2Val = 'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sInboard.Value(3)';
+par_list(1).relRange = -0.04:0.02:0.04;  % Relative range in m
 
-% Settings for second hardpoint coordinate
-adjSet2 = -0.04:0.04:0.04;  % Relative range in m
-hp_list(2).part  = 'TrackRod';
-hp_list(2).point = 'sOutboard';
-hp_list(2).index = 3;
-hp_list(2).valueSet = ...
-    Vehicle.Chassis.SuspA1.Linkage.(hp_list(2).part). ...
-    (hp_list(2).point).Value(hp_list(2).index) + adjSet2;
+par_list(2).path2Val = 'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sOutboard.Value(3)';
+par_list(2).relRange = -0.04:0.04:0.04;  % Relative range in m
 
-% Performance metric to plot or display
-metricName = 'Bump Steer';
+% Structure par_list must contain valueSet with values for parameter
+% initVal is required for two-parameter surface plot only
+for par_i = 1:length(par_list)
+    par_list(par_i).initVal  = eval(par_list(par_i).path2Val);
+    par_list(par_i).valueSet = par_list(par_i).initVal + par_list(par_i).relRange;
+end
 
 % Set up Maneuver
-Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
+Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200,1200,1200,-0.3);
 
 %% Conduct Parameter Sweep
 %
@@ -371,31 +313,101 @@ Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200);
 % The toe and camber curves for each test are plotted.
 
 [simInput, simOut, TSuspMetricsSet] = ...
-    testrig_quarter_car_sweep(mdl,Vehicle,hp_list,Maneuver);
+    testrig_quarter_car_sweep_run(mdl,Vehicle,par_list,Maneuver);
 
 %% Display and Plot the Results of Sweep
 %
 % The parameter values tested and performance metric are shown in a table.
-% For tests with two performance metrics, a surface plot is shown.
+% For tests with two performance metrics, two surface plots are shown.
+% Each surface plot shows how a performance metric varies as the parameter
+% values are modified.
 
 disp('Results of Sweep');
-TSuspMetricsReq = ...
-    testrig_quarter_car_sweep_plot(hp_list,TSuspMetricsSet,metricName)
+figure;
+ax_bs = gca;
+[TSuspMetricsReqBStr] = ...
+    sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,'Bump Steer',ax_bs);
 
-%% Optimize Selected Hardpoints to Achieve Target Bump Steer
+if(~isempty(ax_bs))
+    [vHP1, vHP2] = meshgrid(par_list(1).valueSet,par_list(2).valueSet);
+    param1 = par_list(1).initVal;
+    param2 = par_list(2).initVal;
+
+    qBstr = interp2(vHP1,vHP2,...
+        reshape(TSuspMetricsReqBStr.("Bump_Steer"),...
+        [length(par_list(2).valueSet) length(par_list(1).valueSet)]),...
+        param1,param2);
+
+    hold on
+    plot3(ax_bs,param1,param2,qBstr,'kd','MarkerFaceColor','k','MarkerSize',8,...
+        'DisplayName','Initial Design');
+    hold off
+    legend('Location','Best')
+end
+
+figure;
+ax_bc = gca;
+[TSuspMetricsReqBCam] = ...
+    sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,'Bump Camber',ax_bc);
+
+if(~isempty(ax_bc))
+    qCstr = interp2(vHP1,vHP2,...
+        reshape(TSuspMetricsReqBCam.("Bump_Camber"),...
+        [length(par_list(2).valueSet) length(par_list(1).valueSet)]),...
+        param1,param2);
+
+    hold on
+    plot3(ax_bc,param1,param2,qCstr,'kd','MarkerFaceColor','k','MarkerSize',8,...
+        'DisplayName','Initial Design');
+    hold off
+    legend('Location','Best')
+end
+
+
+%% Optimize Selected Hardpoints to Achieve Target Performance Metrics
 %
 % Now that we have seen the design space, we will use optimization
 % algorithms to identify the coordinates that achieve the desired level of
-% bump steer.  The list of hardpoint coordinates and their ranges are
-% provided to the optimization algorithm.  An objective function computes
-% runs a simulation with those values and computes the performance metric.
-% After the optimizer converges on a value or reaches the limit on the
-% number of iterations permitted, the result is shown and overlaid on the
-% parameter sweep plot.
+% bump steer and bump camber.  The list of hardpoint coordinates and their
+% ranges are provided to the optimization algorithm.  An objective function
+% runs a simulation with those values and computes the performance metrics.
+% After the optimizer converges on values or reaches the limit on the
+% number of iterations permitted, the results are shown and overlaid on the
+% parameter sweep plots.
+%
+% In this optimization test, target values for bump steer and bump camber
+% are supplied.  Note that these values are selected mainly to see if the
+% optimizer can find values for the parameters to be tuned, not because
+% they are good values for bump steer and bump camber.
 
-tgtValue    = 2; % deg/m
+metricName    = {'Bump Steer','Bump Camber'};
+tgtValue      = [-36; -13];
+metricWeights = [0.5 0.5];
+
 [xFinal,fval,TSuspMetrics] = ...
-    testrig_quarter_car_optim(mdl,Vehicle,hp_list,metricName,tgtValue,Maneuver);
+    testrig_quarter_car_optim_run(mdl,Vehicle,par_list,metricName,tgtValue,metricWeights,Maneuver);
+
+%%
+% The plots below show add the performance metrics from the new design.
+% Values for the hardpoint locations were found that result in performance
+% metric values quite close to the target values.
+
+bs_i = find(strcmp(TSuspMetrics.Names,metricName{1}));
+if(~isempty(ax_bs))
+    hold(ax_bs,'on')
+    plot3(ax_bs,xFinal(1),xFinal(2),TSuspMetrics.Values(bs_i),...
+        'bs','MarkerFaceColor','b','MarkerSize',8);
+    hold(ax_bs,'off')
+end
+
+bc_i = find(strcmp(TSuspMetrics.Names,metricName{2}));
+
+if(~isempty(ax_bc))
+    hold(ax_bc,'on')
+    plot3(ax_bc,xFinal(1),xFinal(2),TSuspMetrics.Values(bc_i),...
+        'bs','MarkerFaceColor','b','MarkerSize',8);
+    hold(ax_bc,'off')
+end
 
 %% Workflow Using MATLAB App
 %
@@ -415,6 +427,6 @@ tgtValue    = 2; % deg/m
 % 
 
 %%
-close all
+%close all
 ##### SOURCE END #####
 --></body></html>

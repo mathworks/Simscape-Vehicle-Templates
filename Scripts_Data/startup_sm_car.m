@@ -25,7 +25,7 @@ end
 assignin('base','MFSwifttbx_folders',MFSwifttbx_folders);
 
 %% Load visualization and other parameters in workspace
-Visual = sm_car_param_visual('default');
+Visual = sm_car_param_visual('default',false);
 assignin('base','Visual',Visual);
 
 %% Load/Create VDatabase
