@@ -29,6 +29,9 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.2  -- June 2025**
+1. Fixed capitalization in file names VehVisDataFSAE.mat, VehVisDataSedan.mat
+
 **v4.1  -- June 2025**
 (Not all changes to Simscape Vehicle Templates affect this repository)
 1.  Adjusted parameterized sedan profile to extend above driver, steering wheel.
