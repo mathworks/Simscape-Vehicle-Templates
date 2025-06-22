@@ -103,18 +103,18 @@ elseif(~isempty(hasDriveCycle))
 
 elseif(~isempty(hasPostL1))
 	% Plot Maneuver with Four-Post Commands (KnC)
-    ah(1) = subplot(311);
-    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.z.Value,'-o','DisplayName','L1');
+    ah(1) = subplot(211);
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.z.Value,'-','LineWidth',2,'DisplayName','L1');
     hold on
-    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.z.Value,'-o','DisplayName','R1');
-    plot(Maneuver.PostL2.t.Value,Maneuver.PostL2.z.Value,'--o','DisplayName','L2');
-    plot(Maneuver.PostR2.t.Value,Maneuver.PostR2.z.Value,'--o','DisplayName','R2');
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.z.Value,'-','LineWidth',2,'DisplayName','R1');
+    plot(Maneuver.PostL2.t.Value,Maneuver.PostL2.z.Value,'--','LineWidth',2,'DisplayName','L2');
+    plot(Maneuver.PostR2.t.Value,Maneuver.PostR2.z.Value,'--','LineWidth',2,'DisplayName','R2');
     ylabel('Height (m)');
     title('Testrig Post Height');
     legend('Location','East')
 
-    ah(2) = subplot(312);
-    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-o');
+    ah(2) = subplot(212);
+    plot(Maneuver.Steer.t.Value,Maneuver.Steer.aWheel.Value*180/pi,'-','LineWidth',2);
     ylabel('Angle (deg)')
     title('Steering Wheel Angle');
     label_str = sprintf('Maneuver: %s\nData: %s',...
@@ -122,19 +122,51 @@ elseif(~isempty(hasPostL1))
         strrep(Maneuver.Instance,'_',' '));
     text(0.05,0.2,label_str,...
         'Units','Normalized','Color',[1 1 1]*0.5);
-    ah(1) = subplot(313);
-    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.tz.Value,'-o','DisplayName','L1, tz');
-    hold on
-    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.tz.Value,'-o','DisplayName','R1, tz');
-    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fy.Value,'--x','DisplayName','L1, fy');
-    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fy.Value,'-.x','DisplayName','R1, fy');
-    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fx.Value,'--s','DisplayName','L1, fx');
-    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fx.Value,'-.s','DisplayName','R1, fx');
-    ylabel('N*m OR N');
-    title('Aligning Torque / Patch Forces');
-    xlabel('Time (s)');
     linkaxes(ah, 'x')
+    set(gca,'XLim',[0 max(Maneuver.Steer.t.Value)])
+
+    fig_handle_name = 'h2_sm_car_maneuver';
+    
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+
+    ahf(1)=subplot(3,1,1);
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.tz.Value,'-','LineWidth',2,'DisplayName','L1, tz');
+    hold on
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.tz.Value,'--','LineWidth',2,'DisplayName','R1, tz');
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fy.Value,'-','LineWidth',2,'DisplayName','L1, fy');
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fy.Value,'--','LineWidth',2,'DisplayName','R1, fy');
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fx.Value,'-k','LineWidth',2,'DisplayName','L1, fx');
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fx.Value,'--','LineWidth',2,'DisplayName','R1, fx');
+    title('Patch Aligning Torque, Forces')
+    ylabel('N*m OR N');
     legend('Location','West')
+    ahf(2)=subplot(3,1,2);
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fcoy.Value,'-','LineWidth',2,'DisplayName','L1, fy,cp offset');
+    hold on
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fcoy.Value,'--','LineWidth',2,'DisplayName','R1, fy,cp offset');
+    hold off
+    title('Patch Offset, Forces')
+    legend('Location','West')
+    ylabel('N');
+    ahf(3)=subplot(3,1,3);
+    plot(Maneuver.PostL1.t.Value,Maneuver.PostL1.fwcx.Value,'-','LineWidth',2,'DisplayName','L1, fx,wctr');
+    hold on
+    plot(Maneuver.PostR1.t.Value,Maneuver.PostR1.fwcx.Value,'--','LineWidth',2,'DisplayName','R1, fx,wctr');
+    hold off
+    ylabel('N');
+    title('Wheel Center Forces');
+    xlabel('Time (s)');
+    linkaxes(ahf, 'x')
+    set(gca,'XLim',[0 max(Maneuver.Steer.t.Value)])
+    legend('Location','West')
+    
 else
 	% Plot Maneuver with Open-Loop Driver Commands
     ah(1) = subplot(311);

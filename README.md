@@ -31,8 +31,28 @@ adjust the libraries so that variant can be selected.
 2. Explore the vehicle types and maneuvers from the UI 
 
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
- 
+
+
 ### **Release History**
+**v4.1  -- June 2025**
+1.  Added bushings with axial and torsional stiffness
+2.  Added bushings to MacPherson and Twist Arm suspensions
+3.  Added additional tests to KnC (force offset from contact patch, force at wheel center)
+4.  Added visual elements for forces and torques in KnC test
+5.  KnC test on full vehicle supports Twist Arm and Live Axle suspensions (testrig_susp_knc.slx)
+6.  Adjusted parameterized sedan profile to extend above driver, steering wheel
+7.  Function for visuals can update dimensions only (custom colors, opacities not overwritten)
+8.  Added simple UI for plotting results (2D)
+9.  Added simple UI for plotting and animating results in 3D.
+10. Optimization script can handle multiple performance metrics
+11. Sweep and optimization examples can handle any parameter, any axle
+12. Added optimization example (tune hardpoints to minimize roll angle in double lane change)
+13. Lateral drivers are customizeable (Stanley and Pure Pursuit)
+14. Enhanced maneuver and driver so that vehicle can drive events in reverse. 
+15. Stop criteria uses lap counter to detect end of lap
+16. Independently override commands for steering wheel, accelerator pedal, and brake pedal.
+17. Added tests for parking maneuver, reverse driving double lane change maneuver
+
 **v4.0  -- May 2025**
 1.  Kinematics and Compliance test added to quarter, half, and full car models
 ... Includes roll, steering, lateral compliance, longitudinal compliance tests

@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Vehicle Simulation Results Plotter</title>
+<meta name="generator" content="MATLAB 24.2">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2025-05-28">
+<meta name="DC.source" content="sm_car_plot3d_overview.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Vehicle Simulation Results Plotter</h1>
+<!--introduction-->
+<p>The Vehicle Simulation Results Plotter helps you visualize results from simulations in a 3D plot with visual elements that provide context for the numerical results. The results plotter is accessible via a MATLAB App or from the MATLAB Command Line. It can be used to provide static plots or animations of portions of simulation results.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Vehicle Simulation Results Plotter App</a>
+</li>
+<li>
+<a href="#2">Command Line Usage</a>
+</li>
+<li>
+<a href="#3">Visual Elements: Vehicle, Wheel</a>
+</li>
+<li>
+<a href="#5">Simulation Results Data</a>
+</li>
+<li>
+<a href="#6">Road Data</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Vehicle Simulation Results Plotter App</h2>
+<p>
+<img vspace="5" hspace="5" src="Vehicle_Results_3D_Plotter_App_Overview.png" alt=""> </p>
+<p>The <a href="matlab:run('sm_car_plot3d_app.mlapp');">Vehicle Simulation Results Plotter App</a> lets you plot simulation results from full vehicle simulations. The options on the right side configure which visual elements should be included in the plot.</p>
+<div>
+<ul>
+<li>
+<b>Results to Plot, Workspace</b>: Simulation results will be extracted from the variable specified in the field below. Selecting this option enables the "Save" button, which you can use to save the current results to a file for later replay.</li>
+<li>
+<b>Results to Plot, File</b>: Simulation results will be extracted from the variable specified in the field below. Selecting this option enables the "Select" button where you can select a file with simulation results.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Scene</b>: Select the scene for the plot (road surface). If "from workspace/file" is selected, the scene will be derived from variables in the workspace or the .mat file. Otherwise, the selected scene will be used.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Body</b>: Select the vehicle chassis to show in the results plot.</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Plot Elements, Vehicle Body</b>: Add vehicle body to plot</li>
+<li>
+<b>Plot Elements, Tire Forces</b>: Add arrows for tire vertical, longitudinal, and lateral forces to plot</li>
+<li>
+<b>Plot Elements, Patch</b>: Mark path using "shadow" of chassis</li>
+<li>
+<b>Plot Elements, 3D View</b>: Show results in 3D plot</li>
+<li>
+<b>Plot Elements, View Width</b>: Length of scene along x and y axes in figure window</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Time, Start</b>: Start time for results to display</li>
+<li>
+<b>Time, Stop</b>: Stop time for results to display. If higher than start, results will be animated.</li>
+<li>
+<b>Time, Interpolate Results</b>: If checked, results will be interpolated by "Step Size". This is useful for animations. If not checked, only logged simulation results will be shown.</li>
+<li>
+<b>Time, % of Event</b>: Position of slider selects time instant for the plot</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Show Results</b>: Plot or animate results during the time frame between start and stop time</li>
+</ul>
+</div>
+<div>
+<ul>
+<li>
+<b>Save GIF</b>: Open a new figure window, animate the results between start and stop time and save to a .gif file. You are asked for a file name and location to save the file.</li>
+</ul>
+</div>
+<h2 id="2">Command Line Usage</h2>
+<p>Plots can be created within the app or in a separate figure window. As you use the App, commands are echoed to the command window that will produce the same plot or animation in a separate figure window. Simply copy/paste the displayed command to produce a plot. You can look at the code to understand what the input arguments are for <a href="matlab:edit('sm_car_plot3d_create.m');">sm_car_plot3d_create.m</a>
+</p>
+<p>
+<img vspace="5" hspace="5" src="Vehicle_Results_3D_Plotter_App_Command_Line.png" alt=""> </p>
+<pre class="codeinput">figure(5);cla;axCurr = gca;sm_car_plot3d_create(<span class="string">'simRes_SKP_Sedan.mat'</span>,<span class="string">'Sedan'</span>,<span class="string">'(from workspace/file)'</span>,16,1,1,1,1,0.1,5,6, axCurr,0);
+</pre>
+<img vspace="5" hspace="5" src="sm_car_plot3d_overview_01.png" alt=""> <h2 id="3">Visual Elements: Vehicle, Wheel</h2>
+<p>The code used to create the plot expects a specific data structure containing the colors, opacities, vertices, and faces to represent the vehicle body and wheels. See <a href="matlab:edit('sm_car_plot3d_plot_patches.m');">sm_car_plot3d_plot_patches.m</a> for more details on the data structure. You can use that function to plot the provided vehicle and wheel data to see how it positioned and oriented. With this information, you can look into adding your own visual elements.</p>
+<pre class="codeinput">load(<span class="string">'vehVisFSAE.mat'</span>)
+sm_car_plot3d_plot_patches(vehiclePatchData)
+</pre>
+<img vspace="5" hspace="5" src="sm_car_plot3d_overview_02.png" alt=""> <pre class="codeinput">load(<span class="string">'vehVisSedan.mat'</span>)
+sm_car_plot3d_plot_patches(vehiclePatchData)
+</pre>
+<img vspace="5" hspace="5" src="sm_car_plot3d_overview_03.png" alt=""> <h2 id="5">Simulation Results Data</h2>
+<p>The Vehicle Simulation Results Plotter can be used to visualize data from any vehicle simulation as long as it provides the correct data in the correct format. Code has been provided to extract the necessary data from the simulation results of the Simscape Vehicle Templates. By examining the code we have provided, you can extract data from other simulations and visualize them using this code.</p>
+<div>
+<ul>
+<li>Extract data from simulation results: <a href="matlab:edit('sm_car_plot3d_get_data.m');">sm_car_plot3d_get_data.m</a>
+</li>
+<li>Save data for plot to .mat file: <a href="matlab:edit('sm_car_plot3d_save_data.m');">sm_car_plot3d_save_data.m</a>
+</li>
+</ul>
+</div>
+<h2 id="6">Road Data</h2>
+<p>The visual element for the road can be specified in several ways. The easiest method is to simply specify the centerline and the width. The centerline is a nx3 matrix for x-y-z coordinates, the width is simply a scalar value for the road. Additional options are available, please look at <a href="matlab:edit('sm_car_plot3d_plot_road.m');">sm_car_plot3d_plot_road.m</a> for more options.</p>
+<pre class="codeinput">figure(10);fig_h = gca;sm_car_plot3d_plot_road(Scene.CRG_Hockenheim.Geometry.centerline.xyz, Scene.CRG_Hockenheim.Geometry.w,fig_h);
+</pre>
+<img vspace="5" hspace="5" src="sm_car_plot3d_overview_04.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
+</pre>
+<p class="footer">Copyright 2025 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Vehicle Simulation Results Plotter
+%
+% The Vehicle Simulation Results Plotter helps you visualize results from
+% simulations in a 3D plot with visual elements that provide context for
+% the numerical results.  The results plotter is accessible via a MATLAB
+% App or from the MATLAB Command Line.  It can be used to provide static
+% plots or animations of portions of simulation results.
+%
+% Copyright 2025 The MathWorks, Inc.
+
+%% Vehicle Simulation Results Plotter App
+%
+% <<Vehicle_Results_3D_Plotter_App_Overview.png>>
+%
+% The <matlab:run('sm_car_plot3d_app.mlapp');
+% Vehicle Simulation Results Plotter App> lets you plot simulation results
+% from full vehicle simulations. The options on the right side configure
+% which visual elements should be included in the plot. 
+%
+% * *Results to Plot, Workspace*: Simulation results will be extracted from
+% the variable specified in the field below. Selecting this option enables
+% the "Save" button, which you can use to save the current results to a
+% file for later replay.
+% * *Results to Plot, File*: Simulation results will be extracted from
+% the variable specified in the field below. Selecting this option enables
+% the "Select" button where you can select a file with simulation results.
+%
+% * *Scene*: Select the scene for the plot (road surface). If "from
+% workspace/file" is selected, the scene will be derived from variables in
+% the workspace or the .mat file.  Otherwise, the selected scene will be
+% used.
+%
+% * *Body*: Select the vehicle chassis to show in the results plot.
+%
+% * *Plot Elements, Vehicle Body*: Add vehicle body to plot
+% * *Plot Elements, Tire Forces*: Add arrows for tire vertical, longitudinal,
+% and lateral forces to plot
+% * *Plot Elements, Patch*: Mark path using "shadow" of chassis
+% * *Plot Elements, 3D View*: Show results in 3D plot
+% * *Plot Elements, View Width*: Length of scene along x and y axes in
+% figure window
+%
+% * *Time, Start*: Start time for results to display
+% * *Time, Stop*: Stop time for results to display.  If higher than start,
+% results will be animated.
+% * *Time, Interpolate Results*: If checked, results will be interpolated
+% by "Step Size". This is useful for animations.  If not checked, only
+% logged simulation results will be shown.
+% * *Time, % of Event*: Position of slider selects time instant for the
+% plot
+%
+% * *Show Results*: Plot or animate results during the time frame between
+% start and stop time
+%
+% * *Save GIF*: Open a new figure window, animate the results between start
+% and stop time and save to a .gif file. You are asked for a file name and
+% location to save the file.
+
+%% Command Line Usage
+%
+% Plots can be created within the app or in a separate figure window.  As
+% you use the App, commands are echoed to the command window that will
+% produce the same plot or animation in a separate figure window.  Simply
+% copy/paste the displayed command to produce a plot.  You can look at the
+% code to understand what the input arguments are for <matlab:edit('sm_car_plot3d_create.m'); sm_car_plot3d_create.m>
+%
+% <<Vehicle_Results_3D_Plotter_App_Command_Line.png>>
+
+figure(5);cla;axCurr = gca;sm_car_plot3d_create('simRes_SKP_Sedan.mat','Sedan','(from workspace/file)',16,1,1,1,1,0.1,5,6, axCurr,0);
+
+%% Visual Elements: Vehicle, Wheel
+%
+% The code used to create the plot expects a specific data structure
+% containing the colors, opacities, vertices, and faces to represent the
+% vehicle body and wheels. See
+% <matlab:edit('sm_car_plot3d_plot_patches.m');
+% sm_car_plot3d_plot_patches.m> for more details on the data structure.
+% You can use that function to plot the provided vehicle and wheel data to see how it
+% positioned and oriented.  With this information, you can look into adding
+% your own visual elements.
+
+load('vehVisFSAE.mat')
+sm_car_plot3d_plot_patches(vehiclePatchData)
+
+%%
+
+load('vehVisSedan.mat')
+sm_car_plot3d_plot_patches(vehiclePatchData)
+
+%% Simulation Results Data
+%
+% The Vehicle Simulation Results Plotter can be used to visualize data from
+% any vehicle simulation as long as it provides the correct data in the
+% correct format. Code has been provided to extract the necessary data from
+% the simulation results of the Simscape Vehicle Templates.  By examining
+% the code we have provided, you can extract data from other simulations
+% and visualize them using this code.
+%
+% * Extract data from simulation results: <matlab:edit('sm_car_plot3d_get_data.m'); sm_car_plot3d_get_data.m>
+% * Save data for plot to .mat file: <matlab:edit('sm_car_plot3d_save_data.m'); sm_car_plot3d_save_data.m>
+%
+
+%% Road Data
+%
+% The visual element for the road can be specified in several ways.  The
+% easiest method is to simply specify the centerline and the width.  The
+% centerline is a nx3 matrix for x-y-z coordinates, the width is simply a
+% scalar value for the road.  Additional options are available, please look
+% at <matlab:edit('sm_car_plot3d_plot_road.m'); sm_car_plot3d_plot_road.m>
+% for more options.
+
+figure(10);fig_h = gca;sm_car_plot3d_plot_road(Scene.CRG_Hockenheim.Geometry.centerline.xyz, Scene.CRG_Hockenheim.Geometry.w,fig_h);
+
+%%
+close all
+##### SOURCE END #####
+-->
+</body>
+</html>

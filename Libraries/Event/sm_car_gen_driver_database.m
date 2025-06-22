@@ -11,11 +11,18 @@ disp(['Generating DDatabase from ' mfilename]);
 
 %% Default Driver - Sedan Hamba
 veh_name = 'Sedan_Hamba';
-drv.Lateral.NForward.Value          = 1;          % (no units) 
-drv.Lateral.NReverse.Value          = 2.5;        % (no units)
-drv.Lateral.xWheelbase.Value        = 2.824;      % m
-drv.Lateral.aMaxSteer.Value         = 80;         % deg
-drv.Lateral.fSteerCutoff.Value      = 314.159265; % rad/s
+drv.Lateral.xWheelbase.Value          = 2.824;      % m
+drv.Lateral.aMaxSteer.Value           = 80;         % deg
+drv.Lateral.fSteerCutoff.Value        = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value            = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value            = 2.5*0.1;    % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;        % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;      % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 20;       % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.5;      % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
 
 drv.Long.mVehicle.Value             = 1500;       % kg
 drv.Long.FTractive.Value            = 17297;      % N
@@ -38,11 +45,19 @@ clear drv
 
 %% Default Driver - FSAE Achilles
 veh_name = 'FSAE_Achilles';
-drv.Lateral.NForward.Value          = 1;          % (no units) 
-drv.Lateral.NReverse.Value          = 2.5;        % (no units)
 drv.Lateral.xWheelbase.Value        = 1.53;      % m
 drv.Lateral.aMaxSteer.Value         = 80;         % deg
 drv.Lateral.fSteerCutoff.Value      = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value          = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value          = 2.5*0.1;        % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;          % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;        % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 20;         % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.2;        % (no units)
+drv.Lateral.Pursuit.nPreviewPoints.Value    = 5;        % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
 
 drv.Long.mVehicle.Value             = 200;       % kg
 drv.Long.FTractive.Value            = 17297;      % N
@@ -65,11 +80,19 @@ clear drv
 
 %% Default Driver - Sedan HambaLG
 veh_name = 'Sedan_HambaLG';
-drv.Lateral.NForward.Value  = 1;          % (no units) 
-drv.Lateral.NReverse.Value  = 2.5;        % (no units)
 drv.Lateral.xWheelbase.Value      = 3.57;      % m
 drv.Lateral.aMaxSteer.Value       = 80;         % deg
 drv.Lateral.fSteerCutoff.Value    = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value  = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value  = 2.5*0.1;        % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;          % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;        % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 50;         % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.2;        % (no units)
+drv.Lateral.Pursuit.nPreviewPoints.Value    = 5;        % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
 
 drv.Long.mVehicle.Value           = 2550;       % kg
 drv.Long.FTractive.Value          = 17297;      % N
@@ -92,11 +115,19 @@ clear drv
 
 %% Default Driver - Bus Makhulu, Bus Makhulu 3 Axle
 veh_name = 'Bus_Makhulu';
-drv.Lateral.NForward.Value          = 1;          % (no units) 
-drv.Lateral.NReverse.Value          = 2.5;        % (no units)
 drv.Lateral.xWheelbase.Value        = 6.7816;     % m
 drv.Lateral.aMaxSteer.Value         = 55;         % deg
 drv.Lateral.fSteerCutoff.Value      = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value          = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value          = 2.5*0.1;        % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;          % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;        % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 50;         % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.2;        % (no units)
+drv.Lateral.Pursuit.nPreviewPoints.Value    = 5;        % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
 
 drv.Long.mVehicle.Value             = 2550;       % kg
 drv.Long.FTractive.Value            = 17297;      % N
@@ -119,11 +150,19 @@ clear drv
 
 %% Default Driver - Truck Amandla
 veh_name = 'Truck_Amandla';
-drv.Lateral.NForward.Value  = 1;          % (no units) 
-drv.Lateral.NReverse.Value  = 2.5;        % (no units)
 drv.Lateral.xWheelbase.Value      = 6.482;      % m
 drv.Lateral.aMaxSteer.Value       = 55;         % deg
 drv.Lateral.fSteerCutoff.Value    = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value  = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value  = 2.5*0.1;        % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;          % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;        % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 50;         % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.2;        % (no units)
+drv.Lateral.Pursuit.nPreviewPoints.Value    = 5;        % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
 
 drv.Long.mVehicle.Value           = 2550;       % kg
 drv.Long.FTractive.Value          = 17297;      % N
@@ -146,11 +185,19 @@ clear drv
 
 %% Default Driver - Truck Rhuqa
 veh_name = 'Truck_Rhuqa';
-drv.Lateral.NForward.Value  = 1;          % (no units) 
-drv.Lateral.NReverse.Value  = 2.5;        % (no units)
 drv.Lateral.xWheelbase.Value      = 6.482;      % m
 drv.Lateral.aMaxSteer.Value       = 55;         % deg
 drv.Lateral.fSteerCutoff.Value    = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value  = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value  = 2.5*0.1;        % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;          % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;        % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 50;         % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.2;        % (no units)
+drv.Lateral.Pursuit.nPreviewPoints.Value    = 5;        % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
 
 drv.Long.mVehicle.Value           = 2550;       % kg
 drv.Long.FTractive.Value          = 17297;      % N
@@ -231,10 +278,12 @@ for Mi = 1:num_M
         end
 
         % Add Specific Units and Comments
-        Driver.(VehName).Lateral.xWheelbase.Units    = 'm';
-        Driver.(VehName).Lateral.xWheelbase.Comments = 'Vehicle.Chassis.Body.sAxle1.Value - Vehicle.Chassis.Body.sAxle(rear).Value';
-        Driver.(VehName).Lateral.aMaxSteer.Units     = 'deg';
-        Driver.(VehName).Lateral.fSteerCutoff.Units  = 'rad/s';
+        Driver.(VehName).Lateral.xWheelbase.Units      = 'm';
+        Driver.(VehName).Lateral.xWheelbase.Comments   = 'Vehicle.Chassis.Body.sAxle1.Value - Vehicle.Chassis.Body.sAxle(rear).Value';
+        Driver.(VehName).Lateral.aMaxSteer.Units       = 'deg';
+        Driver.(VehName).Lateral.fSteerCutoff.Units    = 'rad/s';
+        Driver.(VehName).Lateral.Pursuit.xLookaheadMin.Units = 'm';        % m
+        Driver.(VehName).Lateral.Pursuit.xLookaheadMax.Units = 'm';         % m
 
         Driver.(VehName).Long.mVehicle.Units         = 'kg';
         Driver.(VehName).Long.mVehicle.Comments      = 'Vehicle.Chassis.Body.m.Value';

@@ -81,7 +81,7 @@ sm_car_load_trailer_data('sm_car','none');
 % Disable warnings that come from Delft-Tyre
 warning('off','Simulink:blocks:AssumingDefaultSimStateForSFcn');
 warning('off','Simulink:blocks:AssumingDefaultSimStateForL2MSFcn');
-warning('off','physmod:common:gl:sli:rtp:InvalidNonValueReferenceMask');       
+warning('off','physmod:common:gl:sli:rtp:InvalidNonValueReferenceMask');
 
 testnum = 0;
 clear sm_car_res
@@ -97,93 +97,106 @@ control_chg = 'none';
 %% Test Set 1 - Main tests in Fast Restart, no MF-Swift
 manv_set = {'WOT Braking','Low Speed Steer'};
 solver_typ = {'variable step'};
+
+% PARTIAL TEST
 %veh_set1 = [0:1:15 16:16:112 113:1:127 128:1:147 161 163];
+%veh_set1 = [0:1:7];
+
+% FULL TEST
 veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 215 218 219 220 223 227];
+
 trailer_set = {'none'};
+driver_set  = {'Stanley'};
 
 for veh_i = 1:length(veh_set1)
     for trl_i = 1:length(trailer_set)
         veh_suffix = pad(num2str(veh_set1(veh_i)),3,'left','0');
 
         % Load data without triggering variant selection
-        sm_car_load_vehicle_data('none',veh_suffix); 
+        sm_car_load_vehicle_data('none',veh_suffix);
         sm_car_load_trailer_data('none',trailer_set{trl_i});
         %sm_car_config_vehicle(mdl,false);
-        
+
         % Loop over all solver types to be tested
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});
             sm_car_config_vehicle(mdl,false); % config_solver can modify Vehicle
             set_param(mdl,'FastRestart','on')
-            
+
             %  Simulation for 1e-3 to eliminate initialization time'
             temp_init_run = sim(mdl,'StopTime','1e-3'); % Eliminate init time
-            
+
             %  Loop over set of maneuvers
             for m_i = 1:length(manv_set)
-                testnum = testnum+1;
-                
                 sm_car_config_maneuver(mdl,manv_set{m_i});
-                sm_car_res(testnum).Mane = manv_set{m_i};
-                
-                % Assemble suffix for results image
-                trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
-                Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
-                suffix_str  = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_' get_param(bdroot,'Solver')];
-                test_suffix = pad(num2str(testnum),3,'left','0');
-                filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
-                disp_str = suffix_str;
-                
-                disp(['Run ' num2str(testnum) ' ' disp_str '****']);
-                
-                % Save portion of test configuration to results variable
-                sm_car_res(testnum).Cars = Vehicle.config;
-                sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
-                
-                out = [];
-                try
-                    out = sim(mdl);
-                    test_success = 'Pass';
-                catch ME
-                    disp(['Error: ' ME.message ', ' ME.identifier]);
-                    Elapsed_Sim_Time = toc;
-                    test_success = 'Fail';
+                for d_i = 1:length(driver_set)
+                    testnum = testnum+1;
+                    if(isfield(Driver.Lateral,'class'))
+                        Driver.Lateral.class.Value = driver_set{d_i};
+                    end
+
+                    % Assemble suffix for results image
+                    trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
+                    Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
+                    driver_suffix   = driver_set{1}(1:2);
+                    suffix_str  = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_Dr' driver_suffix '_' get_param(bdroot,'Solver')];
+                    test_suffix = pad(num2str(testnum),3,'left','0');
+                    filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
+                    disp_str = suffix_str;
+
+                    disp(['Run ' num2str(testnum) ' ' disp_str '****']);
+
+                    % Save portion of test configuration to results variable
+                    sm_car_res(testnum).Mane = manv_set{m_i};
+                    sm_car_res(testnum).Driv = driver_set{d_i};
+                    sm_car_res(testnum).Cars = Vehicle.config;
+                    sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
+
+                    out = [];
+                    try
+                        out = sim(mdl);
+                        test_success = 'Pass';
+                    catch ME
+                        disp(['Error: ' ME.message ', ' ME.identifier]);
+                        Elapsed_Sim_Time = toc;
+                        test_success = 'Fail';
+                    end
+
+                    if(~isempty(out))
+                        % Simulation succeeded
+                        logsout_sm_car = out.logsout_sm_car;
+                        logsout_VehBus = logsout_sm_car.get('VehBus');
+                        logsout_xCar = logsout_VehBus.Values.World.x;
+                        logsout_yCar = logsout_VehBus.Values.World.y;
+                        px0 = logsout_xCar.Data(1);
+                        py0 = logsout_yCar.Data(1);
+                        nStp = length(logsout_xCar.Time);
+                        xFin = logsout_xCar.Data(end)-px0;
+                        yFin = logsout_yCar.Data(end)-py0;
+
+                        sm_car_plot1speed
+
+                        saveas(gcf,['.\' results_foldername '\' filenamefig]);
+
+                        figname = filenamefig;
+
+                    else
+                        % Simulation failed
+                        nStp = -1;
+                        xFin = 0;
+                        yFin = 0;
+                        figname = 'failed';
+                    end
+
+                    sm_car_res(testnum).Elap = Elapsed_Sim_Time;
+                    sm_car_res(testnum).nStp = nStp;
+                    sm_car_res(testnum).xFin = xFin;
+                    sm_car_res(testnum).yFin = yFin;
+                    sm_car_res(testnum).figname = figname;
+                    sm_car_res(testnum).result = test_success;
+                    sm_car_res(testnum).preset = veh_suffix;
+                    sm_car_res(testnum).trailer_type = sm_car_vehcfg_getTrailerType('sm_car');
                 end
-                
-                if(~isempty(out))
-                    % Simulation succeeded
-                    logsout_sm_car = out.logsout_sm_car;
-                    logsout_VehBus = logsout_sm_car.get('VehBus');
-                    logsout_xCar = logsout_VehBus.Values.World.x;
-                    logsout_yCar = logsout_VehBus.Values.World.y;
-                    px0 = logsout_xCar.Data(1);
-                    py0 = logsout_yCar.Data(1);
-                    nStp = length(logsout_xCar.Time);
-                    xFin = logsout_xCar.Data(end)-px0;
-                    yFin = logsout_yCar.Data(end)-py0;
-                    
-                    sm_car_plot1speed
-                    
-                    saveas(gcf,['.\' results_foldername '\' filenamefig]);
-                    
-                    figname = filenamefig;
-                    
-                else
-                    % Simulation failed
-                    nStp = -1;
-                    xFin = 0;
-                    yFin = 0;
-                    figname = 'failed';
-                end
-                
-                sm_car_res(testnum).Elap = Elapsed_Sim_Time;
-                sm_car_res(testnum).nStp = nStp;
-                sm_car_res(testnum).xFin = xFin;
-                sm_car_res(testnum).yFin = yFin;
-                sm_car_res(testnum).figname = figname;
-                sm_car_res(testnum).result = test_success;
-                sm_car_res(testnum).preset = veh_suffix;
-                sm_car_res(testnum).trailer_type = sm_car_vehcfg_getTrailerType('sm_car');
             end
             set_param(mdl,'FastRestart','off') % Change test config
         end
@@ -196,15 +209,19 @@ sm_car_load_trailer_data('sm_car','none');
 
 %% Test Set 1a - Main tests NO Fast Restart
 manv_set = {'WOT Braking','Low Speed Steer'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184 217];
+%veh_set = [8:1:15 120:1:127 140 142 145 146 146 161 163 184 217];
+veh_set = [8 13 120 126 127 145 184 217];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
+
 %% Test Set 2: Short Maneuvers
 manv_set = {'Double Lane Change','Ice Patch'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [12 142 145 184 204];
@@ -214,6 +231,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 3 -- Long Maneuvers
 manv_set = {'Mallory Park','Mallory Park CCW'};
+driver_set  = {'Stanley','Pure_Pursuit'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [12 142 116 143 166 169 184];
@@ -226,6 +244,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 4 -- Steering
 manv_set = {'Low Speed Steer'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [151:155];
@@ -235,6 +254,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 5 -- Fixed Step Simple Suspension
 manv_set = {'WOT Braking','Low Speed Steer','Turn'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'fixed step'};
 veh_set = [4 116 124 141 145];
@@ -247,6 +267,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 6 -- Trailers
 manv_set = {'Double Lane Change'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 002 145];
@@ -262,6 +283,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 7 -- Trailer Disturbance
 manv_set = {'Trailer Disturbance'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [189];
@@ -271,6 +293,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 8 -- Testrig
 manv_set = {'Testrig 4 Post'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [149];
@@ -280,6 +303,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 9 -- Skidpad
 manv_set = {'Skidpad', 'Constant Radius Closed-Loop'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 184];
@@ -292,6 +316,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 9a -- Fishhook and more
 manv_set = {'Fishhook','Sine With Dwell','Ramp Steer','Slalom'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [189 218];
@@ -302,7 +327,13 @@ sm_car_test_variants_testloop
 
 %% Test Set 10 -- ABS Test
 % TEST SETUP IS UNIQUE
-manv_set = {'Ice Patch'};
+manv_set = {'Ice Patch'};            % Save portion of test configuration to results variable
+            sm_car_res(testnum).Mane = manv_set{m_i};
+            sm_car_res(testnum).Driv = driver_set{d_i};
+            sm_car_res(testnum).Cars = Vehicle.config;
+            sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
+
+driver_set  = {'Stanley'};
 solver_typ = {'variable step'};
 
 veh_set9 = {'hamba' 'hambalg'};
@@ -313,74 +344,87 @@ for veh_i = 1:length(veh_set9)
     for m_i = 1:length(manv_set)
         for slv_i = 1:length(solver_typ)
             sm_car_config_solver(mdl,solver_typ{slv_i});
-            testnum = testnum+1;
-            veh_suffix = pad(num2str(veh_suffix_set(veh_i)),3,'left','0');
-            
-            sm_car_res(testnum).Mane = manv_set{m_i};
-            sm_car_load_vehicle_data('sm_car',veh_suffix); % Configure vehicle, then maneuver
-            sm_car_config_maneuver(mdl,manv_set{m_i});
-            
-            % Assemble suffix for results image
-            trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
-            Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
-            suffix_str = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_' get_param(bdroot,'Solver')];
-            test_suffix     = pad(num2str(testnum),3,'left','0');
-            filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
-            disp_str = suffix_str;
-            
-            % disp(' ')
-            disp(['Run ' num2str(testnum) ' ' disp_str '****']);
-            
-            out = [];
-            try
-                out = sm_car_test_abs_function(veh_set9{veh_i});
-                test_success = 'Pass';
-            catch
-                Elapsed_Sim_Time = toc;
-                test_success = 'Fail';
+            for d_i = 1:length(driver_set)
+
+                testnum = testnum+1;
+                if(isfield(Driver,'Lateral'))
+                    if(isfield(Driver.Lateral,'class'))
+                        Driver.Lateral.class.Value = driver_set{d_i};
+                    end
+                end
+
+                veh_suffix = pad(num2str(veh_suffix_set(veh_i)),3,'left','0');
+
+
+                sm_car_load_vehicle_data('sm_car',veh_suffix); % Configure vehicle, then maneuver
+                sm_car_config_maneuver(mdl,manv_set{m_i});
+
+                % Assemble suffix for results image
+                trailer_type = sm_car_vehcfg_getTrailerType(bdroot);
+                Maneuver_suffix = char(maneuver_list(strcmp(maneuver_list(:,1),manv_set{m_i}),2));
+                driver_suffix   = driver_set{1}(1:2);
+                suffix_str = ['Ca' veh_suffix 'Tr' trailer_type(1) '_Ma' Maneuver_suffix '_Dr' driver_suffix '_' get_param(bdroot,'Solver')];
+                test_suffix     = pad(num2str(testnum),3,'left','0');
+                filenamefig = [mdl '_' now_string '_' test_suffix '_' suffix_str '.png'];
+                disp_str = suffix_str;
+
+                % disp(' ')
+                disp(['Run ' num2str(testnum) ' ' disp_str '****']);
+
+                % Save portion of test configuration to results variable
+                sm_car_res(testnum).Mane = manv_set{m_i};
+                sm_car_res(testnum).Driv = driver_set{d_i};
+                sm_car_res(testnum).Cars = Vehicle.config;
+                sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
+
+                out = [];
+                try
+                    out = sm_car_test_abs_function(veh_set9{veh_i});
+                    test_success = 'Pass';
+                catch
+                    Elapsed_Sim_Time = toc;
+                    test_success = 'Fail';
+                end
+
+                %set_param(mdl,'FastRestart','off') % Change test config
+
+
+                if(~isempty(out))
+                    % Simulation succeeded
+                    logsout_sm_car = out.logsout_sm_car;
+                    logsout_VehBus = logsout_sm_car.get('VehBus');
+                    logsout_xCar = logsout_VehBus.Values.World.x;
+                    logsout_yCar = logsout_VehBus.Values.World.y;
+                    px0 = logsout_xCar.Data(1);
+                    py0 = logsout_yCar.Data(1);
+                    nStp = length(logsout_xCar.Time);
+                    xFin = logsout_xCar.Data(end)-px0;
+                    yFin = logsout_yCar.Data(end)-py0;
+
+                    sm_car_plot2whlspeed
+                    %subplot(2,2,3);
+
+                    saveas(gcf,['.\' results_foldername '\' filenamefig]);
+
+                    figname = filenamefig;
+
+                else
+                    % Simulation failed
+                    nStp = -1;
+                    xFin = 0;
+                    yFin = 0;
+                    figname = 'failed';
+                end
+
+                sm_car_res(testnum).Elap = Elapsed_Sim_Time;
+                sm_car_res(testnum).nStp = nStp;
+                sm_car_res(testnum).xFin = xFin;
+                sm_car_res(testnum).yFin = yFin;
+                sm_car_res(testnum).figname = figname;
+                sm_car_res(testnum).result = test_success;
+                sm_car_res(testnum).preset = veh_suffix;
+                sm_car_res(testnum).trailer_type = sm_car_vehcfg_getTrailerType('sm_car');
             end
-            
-            %set_param(mdl,'FastRestart','off') % Change test config
-            
-            % Save portion of test configuration to results variable
-            sm_car_res(testnum).Cars = Vehicle.config;
-            sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
-            
-            if(~isempty(out))
-                % Simulation succeeded
-                logsout_sm_car = out.logsout_sm_car;
-                logsout_VehBus = logsout_sm_car.get('VehBus');
-                logsout_xCar = logsout_VehBus.Values.World.x;
-                logsout_yCar = logsout_VehBus.Values.World.y;
-                px0 = logsout_xCar.Data(1);
-                py0 = logsout_yCar.Data(1);
-                nStp = length(logsout_xCar.Time);
-                xFin = logsout_xCar.Data(end)-px0;
-                yFin = logsout_yCar.Data(end)-py0;
-                
-                sm_car_plot2whlspeed
-                %subplot(2,2,3);
-                
-                saveas(gcf,['.\' results_foldername '\' filenamefig]);
-                
-                figname = filenamefig;
-                
-            else
-                % Simulation failed
-                nStp = -1;
-                xFin = 0;
-                yFin = 0;
-                figname = 'failed';
-            end
-            
-            sm_car_res(testnum).Elap = Elapsed_Sim_Time;
-            sm_car_res(testnum).nStp = nStp;
-            sm_car_res(testnum).xFin = xFin;
-            sm_car_res(testnum).yFin = yFin;
-            sm_car_res(testnum).figname = figname;
-            sm_car_res(testnum).result = test_success;
-            sm_car_res(testnum).preset = veh_suffix;
-            sm_car_res(testnum).trailer_type = sm_car_vehcfg_getTrailerType('sm_car');
         end
     end
 end
@@ -389,6 +433,7 @@ sm_car_load_trailer_data('sm_car','none');
 
 %% Test Set 11 -- RDF Plateau, Delft Tyre only
 manv_set = {'RDF Plateau'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [171 172];
@@ -398,6 +443,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 11a -- Plateau Z Only, MFeval, MF-Swift, Delft
 manv_set = {'Plateau Z Only'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 165 171];
@@ -416,6 +462,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 12 -- RDF Rough Road, Delft Tyre only
 manv_set = {'RDF Rough Road'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [171 172];
@@ -425,6 +472,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 12a -- Rough Road Z Only, MFeval tires only
 manv_set = {'Rough Road Z Only'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [139 165 171];
@@ -444,6 +492,7 @@ sm_car_test_variants_testloop
 %% Test Set 12c -- CRG Tests Mbody (FLAT)
 if(~verLessThan('MATLAB','9.11'))
     manv_set = {'CRG Mallory Park F', 'Mallory Park Obstacle', 'MCity','CRG Kyalami F','CRG Nurburgring N F','CRG Suzuka F'};
+    driver_set  = {'Stanley'};
     stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = [202];
@@ -455,6 +504,7 @@ end
 %% Test Set 12d -- CRG Tests Mbody
 if(~verLessThan('MATLAB','9.12'))
     manv_set = {'CRG Mallory Park', 'CRG Kyalami','CRG Plateau'};
+    driver_set  = {'Stanley'};
     stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = [202];
@@ -465,6 +515,7 @@ end
 
 %% Test Set 12e -- CRG Rough Road MF-Swift
 manv_set = {'CRG Rough Road'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [140];
@@ -475,6 +526,7 @@ sm_car_test_variants_testloop
 %% Test Set 12f -- CRG Rough Road Mbody
 if(~verLessThan('MATLAB','9.12'))
     manv_set = {'CRG Rough Road'};
+    driver_set  = {'Stanley'};
     stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = [189];
@@ -486,6 +538,7 @@ end
 %% Test Set 12g -- GS Uneven Road Mbody
 if(~verLessThan('MATLAB','24.2'))
     manv_set = {'GS Uneven Road'};
+    driver_set  = {'Stanley'};
     stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = [189];
@@ -496,6 +549,7 @@ end
 
 %% Test Set 13 -- Drive Cycle FTP75
 manv_set = {'Drive Cycle FTP75' 'Drive Cycle UrbanCycle1'};
+driver_set  = {'Stanley'};
 stoptime_set = [30 -1];
 solver_typ = {'variable step'};
 veh_set = [173 165];
@@ -505,6 +559,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 14 -- DCU Fuel Cell
 manv_set = {'Drive Cycle UrbanCycle1'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [196];
@@ -512,8 +567,9 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot2whlspeed'};
 sm_car_test_variants_testloop
 
-%% Test Set 15 -- Battery 2 Motor Regen 
+%% Test Set 15 -- Battery 2 Motor Regen
 manv_set = {'WOT Braking'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [179 180];
@@ -526,8 +582,9 @@ control_chg = 'Battery 2 Motor';  % Change controller within testloop, after con
 sm_car_test_variants_testloop
 control_chg = 'none';             % Reset control_chg for remaining maneuvers
 
-%% Test Set 16 -- Torque Vectoring 
+%% Test Set 16 -- Torque Vectoring
 manv_set = {'Turn'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [182];
@@ -542,6 +599,7 @@ control_chg = 'none';                   % Reset control_chg for remaining maneuv
 
 %% Test Set 17 -- Four Wheel Steer
 manv_set = {'Turn'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = [185 188];
@@ -563,6 +621,7 @@ sm_car_config_maneuver(mdl,'WOT Braking');
 sm_car_load_trailer_data(mdl,'none');
 
 manv_set = {'WOT Braking'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_000', 'Axle3_008', 'Axle3_003'};
@@ -575,6 +634,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 19 -- 3 Axle Truck Amandla trailer MFSwift
 manv_set = {'WOT Braking'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_010'};
@@ -585,6 +645,7 @@ sm_car_test_variants_testloop
 %% Test Set 19 -- 3 Axle Truck Amandla trailer Mbody
 if(~verLessThan('MATLAB','9.11'))
     manv_set = {'WOT Braking'};
+    driver_set  = {'Stanley'};
     stoptime_set = -1*ones(size(manv_set));
     solver_typ = {'variable step'};
     veh_set = {'Axle3_019'};
@@ -595,6 +656,7 @@ end
 
 %% Test Set 20 -- 3 Axle Truck Amandla MBody
 manv_set = {'Double Lane Change'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_019'};
@@ -604,6 +666,7 @@ sm_car_test_variants_testloop
 
 %% Test Set 21 -- 3 Axle Truck Rhuqa trailer Mbody
 manv_set = {'WOT Braking'};
+driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
 veh_set = {'Axle3_023'};
@@ -611,9 +674,8 @@ trailer_set = {'Axle2_033'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
-
 %% Process results
-res_out_titles = {'Run' 'Preset' 'Body' 'SuspF' 'Tire' 'TirDyn' 'Drv' 'Trail' 'Mane' 'Solv' '# Steps' 'Time' 'xFinal' 'yFinal' 'Figure'  'Pass'};
+res_out_titles = {'Run' 'Preset' 'Body' 'SuspF' 'Tire' 'TirDyn' 'Drv' 'Trail' 'Mane' 'Drv' 'Solv' '# Steps' 'Time' 'xFinal' 'yFinal' 'Figure'  'Pass'};
 
 clear res_out
 for testnum=1:length(sm_car_res)
@@ -627,7 +689,7 @@ for testnum=1:length(sm_car_res)
     else
         fig_hyperlink =  ['=HYPERLINK(".\' results_foldername '\'  sm_car_res(testnum).figname '";"figure")'];
     end
-    res_out(testnum,1:16) = {...
+    res_out(testnum,1:17) = {...
         num2str(testnum), ...
         sm_car_res(testnum).preset, ...
         car_config_set{1}, ...
@@ -637,6 +699,7 @@ for testnum=1:length(sm_car_res)
         car_config_set{5}, ...
         sm_car_res(testnum).trailer_type, ...
         sm_car_res(testnum).Mane, ...
+        sm_car_res(testnum).Driv, ...
         sm_car_res(testnum).Solv, ...
         sm_car_res(testnum).nStp, ...
         sm_car_res(testnum).Elap, ...
@@ -654,11 +717,11 @@ computername = getenv('COMPUTERNAME');
 filename = which('sm_car_results.xlsx');
 xlswrite(filename,res_out_titles,sheetname,'A1');
 xlswrite(filename,res_out,sheetname,'A2');
-xlswrite(filename,{['''' datestr(now)]},sheetname,'R1');
-xlswrite(filename,{['''' computername]},sheetname,'R2');
-xlswrite(filename,{['''' version]},sheetname,'R3');
-xlswrite(filename,{['''' 'MF-Swift Version: ' sm_car_check_mfswiftversion]},sheetname,'R4');
-xlswrite(filename,answer,sheetname,'R5');
+xlswrite(filename,{['''' datestr(now)]},sheetname,'S1');
+xlswrite(filename,{['''' computername]},sheetname,'S2');
+xlswrite(filename,{['''' version]},sheetname,'S3');
+xlswrite(filename,{['''' 'MF-Swift Version: ' sm_car_check_mfswiftversion]},sheetname,'S4');
+xlswrite(filename,answer,sheetname,'S5');
 
 delvars = who('-regexp','Vehicle_\d\d\d');
 clear(delvars{:},'delvars');
