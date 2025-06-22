@@ -62,7 +62,6 @@ results_vx_4ws_on = logsout_VehBus.Values.Chassis.Body.CG.vx.Data;
 figure(99)
 subplot(221)
 plot(Maneuver.Steer.t.Value, Maneuver.Steer.aWheel.Value,'k','LineWidth', 1);
-legend('Location','Best');
 grid on
 title('Steering Wheel Angle')
 ylabel('Angle (rad)')

@@ -2201,6 +2201,8 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.MacPherson_Sedan_HambaLG_f;
 Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_HambaLG_mc_f;
+Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection = VDatabase.Subframe_Conn.BushARB_Ax3_SedanLG_mac_f; 
+Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_HambaLG_Mac_Linear_A1;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.Sedan_HambaLG_Mac_Linear_A1;
 

@@ -29,7 +29,7 @@ sm_car_plot_maneuver(Maneuver);
 
 sm_car_load_vehicle_data('sm_car','198')
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
-Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200);
+Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_quarter_car_pullrod');
 TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);

@@ -35,7 +35,7 @@ logsout_py0 = logsout_yCar.Data(1);
 
 
 % Find wheels
-[tire_radius, tireFields] = sm_car_vehcfg_getTireRadius(Vehicle);
+[tire_radius, tireFields] = sm_car_get_TireRadius(Vehicle);
 
 chassis_log_fieldnames = fieldnames(logsout_VehBus.Values.Chassis);
 whl_inds = find(startsWith(chassis_log_fieldnames,'Whl'));
