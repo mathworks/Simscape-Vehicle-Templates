@@ -27,14 +27,14 @@ function sm_car_plot3d_create(logsout,vehType,sceneNameInput,boxWidth,plot3DView
 
 %% Vehicle visualization
 % -- Defaults for car visualization
-load('VehVisSedan.mat');  % Load 3D-Vehicle Data
+load('VehVisDataSedan.mat');  % Load 3D-Vehicle Data
 wheelRadius = vehiclePatchData.Wheel.radius;   % in m
 
 switch vehType
     case 'Sedan'
         % Default
     case 'FSAE'
-        load('VehVisFSAE.mat');  % Load 3D-Vehicle Data
+        load('VehVisDataFSAE.mat');  % Load 3D-Vehicle Data
         wheelRadius = vehiclePatchData.Wheel.radius;
     case 'None'
         plotVehicle = false;

@@ -34,6 +34,9 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.2  -- June 2025**
+1. Fixed capitalization in file names VehVisDataFSAE.mat, VehVisDataSedan.mat
+
 **v4.1  -- June 2025**
 1.  Added bushings with axial and torsional stiffness
 2.  Added bushings to MacPherson and Twist Arm suspensions
