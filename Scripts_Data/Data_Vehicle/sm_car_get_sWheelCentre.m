@@ -24,6 +24,8 @@ if(~isempty(susp_field_inds))
             sWctr(sus_i,:) = Vehicle.Chassis.(suspName).LiveAxle.sWheelCentre.Value;
         elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'TwistBeam'))
             sWctr(sus_i,:) = Vehicle.Chassis.(suspName).TwistBeam.TrailingArm.sWheelCentre.Value;
+        elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA2PR'))
+            sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA2PR.Upright.sWheelCentre.Value;
         end
     end
 end

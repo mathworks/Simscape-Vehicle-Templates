@@ -33,19 +33,19 @@ maneuver_type = 'Slalom';
 % Input Params
 if(nargin == 0)
     % Generate test sequences for all vehicle classes in Simscape Vehicle Templates
-    Instance_List = {...
-        'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
+Instance_List = {...
+    'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
-    tgtSpd    =  [40   40  40  40  40  40];  % km/h
-    tgtTime   =  [8     8   8   8   8   8];  % sec
-    tgtDist   =  [NaN NaN NaN NaN NaN NaN];  % sec
-    xSlalom   =  [10   10  10  10  10  10];  % m
-    latOffset =  [0     0   0   0   0   0];  % deg/s
-    numCones  =  [1     1   1   1   1   1]*8;  % integer
-    xCones    =  [1     1   1   1   1   1]*18;  % m
-    yPathMx   =  [2     2   2   2   2   2];  % m
-    qInit     =  [1     1   1   1   1   1];  % 1 left, -1 right
-    curveType =  {'sine' 'sine' 'sine' 'sine' 'sine' 'sine'};
+    tgtSpd    =  [40   40  40  40  40  40  40];    % km/h
+    tgtTime   =  [8     8   8   8   8   8   8];    % sec
+    tgtDist   =  [NaN NaN NaN NaN NaN NaN NaN];    % sec
+    xSlalom   =  [10   10  10  10  10  10  10];    % m
+    latOffset =  [0     0   0   0   0   0   0];    % deg/s
+    numCones  =  [1     1   1   1   1   1   1]*8;  % integer
+    xCones    =  [1     1   1   1   1   1   1]*18; % m
+    yPathMx   =  [2     2   2   2   2   2   2];    % m
+    qInit     =  [1     1   1   1   1   1   1];    % 1 left, -1 right
+    curveType =  {'sine' 'sine' 'sine' 'sine' 'sine' 'sine' 'sine'};
     showPlot   = false;
 else
     % Generate custom test sequences

@@ -3,8 +3,8 @@ function maneuver_data = sm_car_maneuverdata_crg_pikes_peak
 maneuver_type = 'CRG_Pikes_Peak';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles',...
-    'Down_Sedan_Hamba','Down_Sedan_HambaLG','Down_Bus_Makhulu','Down_Truck_Amandla','Down_Truck_Amandla','Down_FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles',...
+    'Down_Sedan_Hamba','Down_Sedan_HambaLG','Down_SUV_Landy','Down_Bus_Makhulu','Down_Truck_Amandla','Down_Truck_Amandla','Down_Truck_Rhuqa','Down_FSAE_Achilles'};
 
 % Assign same values as defaults for all maneuvers
 for i=1:length(Instance_List)
