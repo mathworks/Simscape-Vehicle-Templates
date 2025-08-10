@@ -68,6 +68,12 @@ if(~MFSwifttbxOnPath)
             library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2306'];
         elseif(mfswift_ver==2312)
             library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2312'];
+        elseif(mfswift_ver==2406)
+            library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2406'];
+        elseif(mfswift_ver==2412)
+            library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2412'];
+        elseif(mfswift_ver==2506)
+            library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2506'];
         end
         addpath(library_path);
         % Add opencrg tools to path
@@ -96,6 +102,12 @@ else
         library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2306'];
     elseif(mfswift_ver==2312)
         library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2312'];
+    elseif(mfswift_ver==2406)
+        library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2406'];
+    elseif(mfswift_ver==2412)
+        library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2412'];
+    elseif(mfswift_ver==2506)
+        library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2506'];
     end
     if(isempty(library_path))
         warning('off','backtrace')

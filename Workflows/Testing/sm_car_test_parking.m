@@ -98,6 +98,9 @@ fRackPark  = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'fRack');
 % Load constant speed maneuver (closed-loop control)
 sm_car_config_maneuver('sm_car','Straight Constant Speed');
 set_param([bdroot '/Check'],'start_check_time','1000');
+Driver.Long.Kp.Value = 0.6250/2;
+Driver.Long.Ki.Value = 0.0098;
+
 
 % Limit speed to 7 km/hr
 Maneuver.Trajectory.vx.Value = min(Maneuver.Trajectory.vx.Value,2);
@@ -118,16 +121,16 @@ Init.Axle2.nWheel.Value       = Init.Axle2.nWheel.Value.*[0 0 1];
 set_param('sm_car/Driver/Closed Loop/Driver Override','popup_driver_override','Override');
 
 Maneuver.TStart.aSteer.Value = 0;     % Use open-loop commands for steering
-Maneuver.TStart.rAccel.Value = 1000;  % Use closed-loop commands for accel
+Maneuver.TStart.rAccel.Value = 0;     % Use closed-loop commands for accel
 Maneuver.TStart.rBrake.Value = 1000;  % Use closed-loop commands for brake
 
 % Steering command
-Maneuver.Steer.t.Value      = [0 4 6 10 12 200];
-Maneuver.Steer.aWheel.Value = [0 0 1 -1  0   0]*0.4363;
+Maneuver.Steer.t.Value      = [0 1 3 7 8.7 10 200];
+Maneuver.Steer.aWheel.Value = [0 0 1 1 -1  0   0]*0.6;
 
 % Accel and brake commands - need to be defined, but are not used
 Maneuver.Accel.t.Value      = [0 4 6 10 12 200];
-Maneuver.Accel.rPedal.Value = [1 1 1  1  1   1]*0;
+Maneuver.Accel.rPedal.Value = [0 0 1  1  1   1]*0.1;
 Maneuver.Brake.t.Value      = [0 4 6 10 12 200];
 Maneuver.Brake.rPedal.Value = [1 1 1  1  1   1]*0;
 
@@ -145,6 +148,8 @@ title('Parking Maneuver, Forwards')
 ahv(2) = subplot(212);
 sm_car_sim_res_plot('time','fRack',ahv(2));
 fRackFwd = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'fRack');
+
+linkaxes(ahv,'x')
 
 %% Compare results
 figure(99)

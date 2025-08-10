@@ -2400,6 +2400,99 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 90: SUV Landy, 15DOF, MFMBody
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_002;
+VDatabase = evalin('base','VDatabase');
+Vehicle.Chassis.Body = VDatabase.Body.SUV_Landy;
+Vehicle.Chassis.Body.BodyGeometry = VDatabase.BodyGeometry.CAD_SUV_Landy;
+Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
+Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.SUV_Landy_1011;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Landy_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'SUV_Landy','SuspA1');
+
+Vehicle.Chassis.TireA1 = VDatabase.Tire.MFMbody_235_80R17;
+Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_235_80R17;
+Vehicle.Chassis.TireA2 = VDatabase.Tire.MFMbody_235_80R17;
+Vehicle.Chassis.TireA2.TireBody = VDatabase.TireBody.CAD_235_80R17;
+
+Vehicle.Powertrain.Driveline.DifferentialA1 = VDatabase.Differential.Gear1DShafts3D_Sedan_Hamba_f;
+Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
+Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
+
+Vehicle.Brakes = VDatabase.Brakes.Axle2_PedalAbstract_DiscDisc_Sedan_Hamba;
+
+% Assemble configuration description in string
+Vehicle.config = 'Landy_15DOF_MFMbody_steady_fCVpCVr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 91: 15DOF, Swift
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_002;
+VDatabase = evalin('base','VDatabase');
+Vehicle.Chassis.Body = VDatabase.Body.SUV_Landy;
+Vehicle.Chassis.Body.BodyGeometry = VDatabase.BodyGeometry.CAD_SUV_Landy;
+Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
+Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.SUV_Landy_1011;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Landy_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'SUV_Landy','SuspA1');
+
+Vehicle.Chassis.TireA1 = VDatabase.Tire.MFSwift_235_80R17;
+Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_235_80R17;
+Vehicle.Chassis.TireA2 = VDatabase.Tire.MFSwift_235_80R17;
+Vehicle.Chassis.TireA2.TireBody = VDatabase.TireBody.CAD_235_80R17;
+
+Vehicle.Powertrain.Driveline.DifferentialA1 = VDatabase.Differential.Gear1DShafts3D_Sedan_Hamba_f;
+Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
+Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
+
+Vehicle.Brakes = VDatabase.Brakes.Axle2_PedalAbstract_DiscDisc_Sedan_Hamba;
+
+% Assemble configuration description in string
+Vehicle.config = 'Landy_15DOF_MFSwift_steady_fCVpCVr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 92: Rigid Axle, 2 Trailing Arm, Panhard Rod, MFMBody
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_228;
+Vehicle.Chassis.SuspA1 = VDatabase.Susp.AxleTA2PR_SUV_Landy_f;
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossWheelDriven_SUV_Landy_f','SuspA1');
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_Linear_A1;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_Linear_A1;
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.AxleTA3_SUV_Landy_r;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_Linear_A1;
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossActuator_SUV_Landy_r','SuspA2');
+
+% Assemble configuration description in string
+Vehicle.config = 'Landy_Ax2APanTrail_MFMBody_steady_fCVpCVr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
+
 %% Return to main directory
 curr_proj = simulinkproject;
 cd(curr_proj.RootFolder)

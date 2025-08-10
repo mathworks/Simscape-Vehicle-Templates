@@ -3,7 +3,7 @@ function maneuver_data = sm_car_maneuverdata_double_lane_change
 maneuver_type = 'Double_Lane_Change';
 
 Instance_List = {...
-    'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
+    'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
 % Create trajectory - changes in R2022b
 sm_car_trajectory_double_lane_change(false)

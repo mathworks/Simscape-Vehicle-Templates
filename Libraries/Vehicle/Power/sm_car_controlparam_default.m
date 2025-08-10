@@ -15,7 +15,8 @@ str_gain_vec       = interp1(veh_spd_kmh_pts,str_gain_pts,veh_spd_kmh_interp,'pc
 
 control_param.Steer.Gain.vVehicle.Value = veh_spd_kmh_interp;
 control_param.Steer.Gain.vVehicle.Units = 'km/h';
-control_param.Steer.Gain.n.Value = str_gain_vec;
+control_param.Steer.Gain.n.Value        = str_gain_vec;
+control_param.Steer.Gain.nRearAct.Value    = 0;  % Disabled
 control_param.Steer.fActuatorCutoff.Value = 50;
 control_param.Steer.fActuatorCutoff.Units = 'Hz';
 control_param.Steer.Limits.aUpper.Value   = 10*(pi/180);
