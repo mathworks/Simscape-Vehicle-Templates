@@ -19,6 +19,7 @@ veh_body =  lower(veh_config_set{1});
 switch veh_body
     case 'hamba',        veh_inst = 'Sedan_Hamba';   init_inst = 'Sedan_Hamba';
     case 'hambalg',      veh_inst = 'Sedan_HambaLG'; init_inst = 'Sedan_HambaLG';
+    case 'landy',        veh_inst = 'SUV_Landy';     init_inst = 'SUV_Landy';
     case 'amandla3axle', veh_inst = 'Truck_Amandla'; init_inst = 'Truck_Amandla';
     case 'rhuqa3axle',   veh_inst = 'Truck_Rhuqa';   init_inst = 'Truck_Rhuqa';
     case 'makhulu',      veh_inst = 'Bus_Makhulu';   init_inst = 'Bus_Makhulu';

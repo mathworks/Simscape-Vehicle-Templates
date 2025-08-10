@@ -29,6 +29,12 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.3  -- August 2025**
+(Not all changes to Simscape Vehicle Templates affect this repository)
+1. Enabled bushings to be tuned in Fast Restart
+2. Longitudinal drivers are customizeable, accounts for road friction and drag.
+3. Vehicle initial speed set to maneuver trajectory speed for events with speed trajectory.
+
 **v4.2  -- June 2025**
 1. Fixed capitalization in file names VehVisDataFSAE.mat, VehVisDataSedan.mat
 

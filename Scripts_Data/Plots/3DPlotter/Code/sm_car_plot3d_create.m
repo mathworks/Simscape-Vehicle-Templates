@@ -36,6 +36,9 @@ switch vehType
     case 'FSAE'
         load('VehVisDataFSAE.mat');  % Load 3D-Vehicle Data
         wheelRadius = vehiclePatchData.Wheel.radius;
+    case 'SUV Landy'
+        load('VehVisDataSUVLandy.mat');  % Load 3D-Vehicle Data
+        wheelRadius = vehiclePatchData.Wheel.radius;
     case 'None'
         plotVehicle = false;
     otherwise
