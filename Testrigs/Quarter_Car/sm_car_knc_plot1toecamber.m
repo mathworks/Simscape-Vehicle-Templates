@@ -43,6 +43,8 @@ if(isfield(logsout_VehBus.Values.Chassis.SuspA1,'SpringL')) % For Twist Beam
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.SpringL.x.Data);
 elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'ShockL'))  % For Live Axle
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.ShockL.x.Data);
+elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'Linkage'))  % For AxleTA2PR
+    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Linkage.ShockL.x.Data);
 elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1.LinkageL,'Shock')) % For Linkage
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.LinkageL.Shock.x.Data);
 else
@@ -70,7 +72,8 @@ if(calcMetrics)
         veh_sW2W = [0 veh_track/2 0];
     end
     [tireK, tireW] = sm_car_get_tire_params(Vehicle);
-    simlog_zWChp = Vehicle.Chassis.SuspA1.Linkage.Upright.sWheelCentre.Value(3);
+    wctrs = sm_car_get_sWheelCentre(Vehicle);
+    simlog_zWChp = wctrs(1,end);
     % Get indices of simulation results for vertical test phase
     indToeCamb = intersect(find(simlog_t>=Maneuver.tRange.Jounce(1)),find(simlog_t<=Maneuver.tRange.Rebound(2)));
 else

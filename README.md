@@ -34,6 +34,20 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.3  -- August 2025**
+1.  Added solid axle, 2 trailing arm, Panhard rod, steerable suspension.
+2.  Added solid axle, 2 trailing arm, A-arm, steerable suspension.
+3.  Added external bumpstop element, used in solid axle suspensions.
+4.  Added drag link steering with Pitman arm, cross-steering model.
+5.  Added drag link steering with actuator, cross-steering model.
+6.  Added independent gain for rear steering (nRearAct).
+7.  Added bearing to Twist Beam suspension.
+8.  Added vehicle SUV Landy to Body and 3D plotter.
+9.  Enabled bushings to be tuned in Fast Restart
+10. Longitudinal drivers are customizeable, accounts for road friction and drag.
+11. Vehicle initial speed set to maneuver trajectory speed for events with speed trajectory.
+12. Compatible with MF-Swift v2406, v2412, v2506
+
 **v4.2  -- June 2025**
 1. Fixed capitalization in file names VehVisDataFSAE.mat, VehVisDataSedan.mat
 
