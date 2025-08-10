@@ -4,14 +4,16 @@ function sm_car_gen_init_database
 %
 % Copyright 2019-2024 The MathWorks, Inc.
 
-%% Vehicle-level data
-%   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
-
 disp(['Generating IDatabase from ' mfilename]);
+MDatabase = evalin('base','MDatabase');
 
+%% Vehicle-level data
+
+%   Vehicle Name         #Axles  Wheel Radius (m)    Init Z-Offset (m)
 vehicle_data = {...
     'Sedan_Hamba',       2       0.35                0.025;
     'Sedan_HambaLG',     2       0.4225              0.06;
+    'SUV_Landy',         2       0.403               0;
     'FSAE_Achilles',     2       0.23323             0;
     'Bus_Makhulu',       2       0.4640              0;
     'Bus_Makhulu_Axle3', 3       0.4640              0;
@@ -50,7 +52,7 @@ InitSet.Mallory_Park_CCW.Type = 'Mallory_Park';
 InitSet.Mallory_Park_CCW.Instance     = 'CCW';
 InitSet.Mallory_Park_CCW.Data         = {...
     'aChassis','rad', 0, 0,       3.1416;
-    'vChassis','m/s', 1, 0,       0;
+    'vChassis','m/s', 10, 0,       0;
     'sChassis','m',   -10, 0,       0};
 
 %% Scene MCity, Standard Lap, Slow Start
@@ -75,15 +77,15 @@ InitSet.CRG_Hockenheim_F.Instance     = '';
 InitSet.CRG_Hockenheim_F.Data         = {...
     'aChassis','rad', 0,    0,      0;
     'vChassis','m/s', 10,   0,      0;
-    'sChassis','m',   6,    0,      0.17};    % INCORRECT
+    'sChassis','m',   6,    0,      0};    
 
 %% Scene CRG Kyalami, Standard Lap, Slow Start
 InitSet.CRG_Kyalami.Type   = 'CRG_Kyalami';
 InitSet.CRG_Kyalami.Instance     = '';
 InitSet.CRG_Kyalami.Data         = {...
-    'aChassis','rad', 0,  -0.025,  0;
+    'aChassis','rad', 0,  -0.01,  0;
     'vChassis','m/s', 10,   0,      0;
-    'sChassis','m',   6,   0,      0.17};
+    'sChassis','m',   6,   0,      0.06};
 
 %% Scene CRG Kyalami No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Kyalami_F.Type   = 'CRG_Kyalami_F';
@@ -91,7 +93,7 @@ InitSet.CRG_Kyalami_F.Instance     = '';
 InitSet.CRG_Kyalami_F.Data         = {...
     'aChassis','rad', 0,    0,      0;
     'vChassis','m/s', 10,   0,      0;
-    'sChassis','m',   6,    0,      0.17};    % INCORRECT
+    'sChassis','m',   6,    0,      0};    
 
 %% Scene CRG Mallory Park, Standard Lap, Slow Start
 InitSet.CRG_Mallory_Park.Type   = 'CRG_Mallory_Park';
@@ -99,7 +101,7 @@ InitSet.CRG_Mallory_Park.Instance     = '';
 InitSet.CRG_Mallory_Park.Data         = {...
     'aChassis','rad', 0,   0.0368,  0;
     'vChassis','m/s', 10,   0,       0;
-    'sChassis','m',   6,   0,      -0.18};
+    'sChassis','m',   6,   0,      -0.20};
 
 %% Scene CRG Mallory Park No Elevation, Standard Lap, Slow Start
 InitSet.CRG_Mallory_Park_F.Type   = 'CRG_Mallory_Park_F';
@@ -315,6 +317,7 @@ for Mi = 1:num_M
         else
             aChassis.Comments = 'Roll-Pitch-Yaw';
         end
+
         vChassis.Units  = InitSet.(Mnames{Mi}).Data{2,2};
         vChassis.Value  = [InitSet.(Mnames{Mi}).Data{2,3:5}];
         if(contains(VNames{Vi},'Trailer') && ~strcmp(Type_Instance,'Default'))
@@ -322,6 +325,31 @@ for Mi = 1:num_M
         else
             vChassis.Comments = '';
         end
+
+        % For maneuvers with a trajectory, set initial speed of vehicle to
+        % be initial speed of trajectory.  This avoids need for traction
+        % controller at start of laps/maneuvers.
+
+        % Handle exceptions - maneuvers and init with different structure
+        MManvName      = ManvName;      
+        MType_Instance = Type_Instance; 
+        if(strcmp(ManvName,'CRG_Pikes_Peak_Down'))
+            MManvName = 'CRG_Pikes_Peak';
+            MType_Instance = ['Down_' MType_Instance];
+        end
+
+        if(isfield(MDatabase,MManvName))
+            TypeInst = MType_Instance;
+            if(contains(MType_Instance,'Bus_Makhulu_Axle3'))
+                TypeInst = strrep(MType_Instance,'_Axle3','');
+            end
+            if(~contains(VNames{Vi},'Trailer'))
+                if(isfield(MDatabase.(MManvName).(TypeInst),'Trajectory'))
+                    vChassis.Value(1) = MDatabase.(MManvName).(TypeInst).Trajectory.vx.Value(1);
+                end
+            end
+        end        
+
         sChassis.Units  = InitSet.(Mnames{Mi}).Data{3,2};
         sChassis.Value  = [InitSet.(Mnames{Mi}).Data{3,3:5}];
         sChassis.Value(3) = sChassis.Value(3) + vehicle_data{Vi,4};

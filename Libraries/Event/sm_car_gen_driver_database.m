@@ -34,6 +34,55 @@ drv.Long.NDragAero.Value            = 0;          % N/(m^2/s^2)
 drv.Long.gGravity.Value             = 9.80665;       % m/s^2
 drv.Long.fAccelCutoff.Value         = 31.4159265; % 1/s
 drv.Long.fBrakeCutoff.Value         = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.0391;     % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
+
+
+drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
+drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
+drv.drvCycle.Filter.Reference.Value = 10.0;       % Hz
+drv.drvCycle.Filter.Measured.Value  = 125.6637;      % Hz
+
+Driver.(veh_name) = drv;
+clear drv
+
+%% Default Driver - SUV Landy
+veh_name = 'SUV_Landy';
+drv.Lateral.xWheelbase.Value          = 2.8;      % m
+drv.Lateral.aMaxSteer.Value           = 80;         % deg
+drv.Lateral.fSteerCutoff.Value        = 314.159265; % rad/s
+
+drv.Lateral.Stanley.NForward.Value            = 1;          % (no units) 
+drv.Lateral.Stanley.NReverse.Value            = 2.5*0.1;    % (no units)
+
+drv.Lateral.Pursuit.kLookahead.Value        = 3;        % (no units)
+drv.Lateral.Pursuit.xLookaheadMin.Value     = 0.5;      % m
+drv.Lateral.Pursuit.xLookaheadMax.Value     = 20;       % m
+drv.Lateral.Pursuit.nWeightHeadingErr.Value = 0.5;      % (no units)
+drv.Lateral.class.Value               = 'Stanley';  % Lat Driver Type               
+
+drv.Long.mVehicle.Value             = 1500;       % kg
+drv.Long.FTractive.Value            = 17297;      % N
+drv.Long.tDriver.Value              = 0.1;        % s
+drv.Long.xPreview.Value             = 20;         % s
+drv.Long.NDragRoll.Value            = 200;        % N       
+drv.Long.NDragRollDriveline.Value   = 2.5;        % N/(m/s)
+drv.Long.NDragAero.Value            = 0;          % N/(m^2/s^2)
+drv.Long.gGravity.Value             = 9.80665;       % m/s^2
+drv.Long.fAccelCutoff.Value         = 31.4159265; % 1/s
+drv.Long.fBrakeCutoff.Value         = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.0391;     % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
 
 drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
 drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
@@ -69,6 +118,13 @@ drv.Long.NDragAero.Value            = 0;          % N/(m^2/s^2)
 drv.Long.gGravity.Value             = 9.80665;       % m/s^2
 drv.Long.fAccelCutoff.Value         = 31.4159265; % 1/s
 drv.Long.fBrakeCutoff.Value         = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.0391;     % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
 
 drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
 drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
@@ -104,6 +160,13 @@ drv.Long.NDragAero.Value          = 0;          % N/(m^2/s^2)
 drv.Long.gGravity.Value           = 9.80665;       % m/s^2
 drv.Long.fAccelCutoff.Value       = 31.4159265; % 1/s
 drv.Long.fBrakeCutoff.Value       = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.0391;     % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
 
 drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
 drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
@@ -139,6 +202,13 @@ drv.Long.NDragAero.Value            = 0;          % N/(m^2/s^2)
 drv.Long.gGravity.Value             = 9.80665;       % m/s^2
 drv.Long.fAccelCutoff.Value         = 31.4159265; % 1/s
 drv.Long.fBrakeCutoff.Value         = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.0391;     % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
 
 drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
 drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
@@ -174,6 +244,13 @@ drv.Long.NDragAero.Value          = 0;          % N/(m^2/s^2)
 drv.Long.gGravity.Value           = 9.80665;       % m/s^2
 drv.Long.fAccelCutoff.Value       = 31.4159265; % 1/s
 drv.Long.fBrakeCutoff.Value       = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.01953;    % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
 
 drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
 drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
@@ -209,6 +286,13 @@ drv.Long.NDragAero.Value          = 0;          % N/(m^2/s^2)
 drv.Long.gGravity.Value           = 9.80665;       % m/s^2
 drv.Long.fAccelCutoff.Value       = 31.4159265; % 1/s
 drv.Long.fBrakeCutoff.Value       = 31.4159265; % 1/s
+drv.Long.FFLookahead.Value          = 0.5;        % s
+drv.Long.NRollingResistance.Value   = 0.01;       % (1)
+drv.Long.NRoadFriction.Value        = 0.9;        % (1)
+drv.Long.Kp.Value                   = 0.3125;     % (1)
+drv.Long.Ki.Value                   = 0.01953;   % (1)
+drv.Long.gMaxAccel.Value            = 5;          % m/s^2
+drv.Long.gMaxDecel.Value            = -10;        % m/s^2
 
 drv.drvCycle.Long.Ki.Value          = 0;          % 1/s
 drv.drvCycle.Long.Kp.Value          = 1;          % 1/s
@@ -296,6 +380,13 @@ for Mi = 1:num_M
         Driver.(VehName).Long.gGravity.Units         = 'm/s^2';
         Driver.(VehName).Long.fAccelCutoff.Units     = '1/s';
         Driver.(VehName).Long.fBrakeCutoff.Units     = '1/s';
+        Driver.(VehName).Long.FFLookahead.Units        = 's';
+        Driver.(VehName).Long.NRollingResistance.Units = '1';
+        Driver.(VehName).Long.NRoadFriction.Units      = '1';
+        Driver.(VehName).Long.Kp.Units                 = '1';
+        Driver.(VehName).Long.Ki.Units                 = '1';
+        Driver.(VehName).Long.gMaxAccel.Units          = 'm/s^2';
+        Driver.(VehName).Long.gMaxDecel.Units          = 'm/s^2';
 
         % Add to DDatabase
         DDatabase.(ManvName).(VehName).Long     = Driver.(VehName).Long;

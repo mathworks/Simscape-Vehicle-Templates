@@ -69,12 +69,12 @@ else
     assignin('base','Trailer',Trailer_07);
 end
 
-%% Load Initial Vehicle state database
-sm_car_gen_init_database;
-
 %% Load Maneuver database
 MDatabase = sm_car_import_maneuver_data;
 assignin('base','MDatabase',MDatabase);
+
+%% Load Initial Vehicle state database
+sm_car_gen_init_database;
 
 %% Load Driver database
 sm_car_gen_driver_database;
