@@ -32,16 +32,16 @@ maneuver_type = 'Ramp_Steer';
 % Input Params
 if(nargin == 0)
     % Generate test sequences for all vehicle classes in Simscape Vehicle Templates
-    Instance_List = {...
-        'Sedan_Hamba','Sedan_HambaLG','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
+Instance_List = {...
+    'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
-    tgtSpd   =  [50   50  50  50  50  50];  % km/h
-    tgtTime  =  [8     8   8   8   8   8];  % sec
-    tgtDist  =  [NaN NaN NaN NaN NaN NaN];  % sec
-    qStr     =  [25   25  25  25  25  25];  % deg
-    tStr     =  [0.1 0.1 0.1 0.1 0.1 0.1];  % sec
-    tStart   =  [10   10  10  10  10  10];  % sec
-    tOff     =  [3     3   3   3   3   3];  % sec
+    tgtSpd   =  [50   50  50  50  50  50  50];  % km/h
+    tgtTime  =  [8     8   8   8   8   8   8];  % sec
+    tgtDist  =  [NaN NaN NaN NaN NaN NaN NaN];  % sec
+    qStr     =  [25   25  25  25  25  25  25];  % deg
+    tStr     =  [0.1 0.1 0.1 0.1 0.1 0.1 0.1];  % sec
+    tStart   =  [10   10  10  10  10  10  10];  % sec
+    tOff     =  [3     3   3   3   3   3   3];  % sec
 
 else
     % Generate custom test sequences

@@ -31,6 +31,7 @@ Visual.hp.clr = Visual.clr.red;
 Visual.Shock.cyl.clr        = Visual.clr.blue;
 Visual.Shock.piston.clr     = Visual.clr.gray;
 Visual.Shock.bumpstop.clr   = Visual.clr.yellowpale;
+Visual.Shock.bumpstop.ptRad = 5e-3;
 
 Visual.Spring.cap.clr       = Visual.clr.gray;
 Visual.Spring.cyl.clr       = Visual.clr.reddark;
@@ -39,6 +40,7 @@ Visual.Spring.coil.clr      = Visual.clr.reddark;
 Visual.Spring.cyl.opc       = 0.3;
 Visual.Spring.coil.opc      = 1;
 
+Visual.Bumpstop.clr         = Visual.clr.yellowpale;
 
 Visual.Rim.clr              = Visual.clr.graylight;
 
@@ -63,6 +65,9 @@ Visual.SteeringRack.clr     = Visual.clr.bluepure;
 Visual.SteeringShafts.clr   = Visual.clr.gray;
 Visual.SteeringPinion.clr   = Visual.clr.gray;
 Visual.SteeringWheel.clr    = Visual.clr.gray;
+
+Visual.Actuator.clr         = Visual.clr.gray;
+
 
 Visual.TireContactPlane.clr = Visual.clr.gray;
 Visual.TireContactPlane.opc = 0.25;

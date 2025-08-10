@@ -306,7 +306,7 @@ manv_set = {'Skidpad', 'Constant Radius Closed-Loop'};
 driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [139 184];
+veh_set = [139 184 228 230];
 if(~verLessThan('MATLAB','9.11'))
     veh_set = [veh_set 198]; % Add Mbody tests
 end
@@ -328,11 +328,6 @@ sm_car_test_variants_testloop
 %% Test Set 10 -- ABS Test
 % TEST SETUP IS UNIQUE
 manv_set = {'Ice Patch'};            % Save portion of test configuration to results variable
-            sm_car_res(testnum).Mane = manv_set{m_i};
-            sm_car_res(testnum).Driv = driver_set{d_i};
-            sm_car_res(testnum).Cars = Vehicle.config;
-            sm_car_res(testnum).Solv = get_param(bdroot,'Solver');
-
 driver_set  = {'Stanley'};
 solver_typ = {'variable step'};
 

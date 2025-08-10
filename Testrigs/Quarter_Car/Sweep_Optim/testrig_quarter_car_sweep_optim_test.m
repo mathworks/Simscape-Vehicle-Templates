@@ -96,12 +96,19 @@ Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200,1200,1200
 % values are modified.
 
 disp('Results of Sweep');
-figure;
-ax_bs = gca;
+% Only create a surface plot if two parameter values are swept
+ax_bs = [];
+if(length(par_list)==2)
+    figure;
+    ax_bs = gca;
+end
+
+% Extract metrics
 [TSuspMetricsReqBStr] = ...
     sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,'Bump Steer',ax_bs);
 
-if(~isempty(ax_bs))
+% Only add initial point to plot if two parameter values are swept
+if(length(par_list)==2)
     [vHP1, vHP2] = meshgrid(par_list(1).valueSet,par_list(2).valueSet);
     param1 = par_list(1).initVal;
     param2 = par_list(2).initVal;
@@ -118,11 +125,18 @@ if(~isempty(ax_bs))
     legend('Location','Best')
 end
 
-figure;
-ax_bc = gca;
+% Only create a surface plot if two parameter values are swept
+ax_bc = [];
+if(length(par_list)==2)
+    figure;
+    ax_bc = gca;
+end
+
+% Extract metrics
 [TSuspMetricsReqBCam] = ...
     sm_car_sweep_table_plot_metrics(par_list,TSuspMetricsSet,'Bump Camber',ax_bc);
 
+% Only create a surface plot if two parameter values are swept
 if(~isempty(ax_bc))
     qCstr = interp2(vHP1,vHP2,...
         reshape(TSuspMetricsReqBCam.("Bump_Camber"),...
