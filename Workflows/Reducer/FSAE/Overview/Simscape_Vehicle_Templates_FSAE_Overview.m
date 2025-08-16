@@ -1,10 +1,10 @@
-%% Simscape(TM) Vehicle Templates for Formula Student
+%% Simscape Vehicle Templates for Formula Student
 %
 % <<Simscape_Vehicle_Templates_FSAE_model.png>>
 %
 % <matlab:open_system('sm_car'); Open model sm_car>
 %
-% Simscape(TM) Vehicle Templates are designed to help engineers model and
+% Simscape Vehicle Templates are designed to help engineers model and
 % simulate vehicles using Simscape products.  This specialized subset of
 % the templates includes targeted examples to help Formula Student teams
 % get started. The templates include a fully parameterized vehicle model
@@ -69,7 +69,7 @@
 % <matlab:edit('addfieldVehicleDW.m') double wishbone>.
 %
 % Suspension link inboard connections can be set to <matlab:Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value='Rigid_1Rev';Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value='Rigid_1Rev';Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value='Rigid_1Rev';Vehicle.Chassis.SuspA2.Linkage.Lower_Arm_to_Subframe.class.Value='Rigid_1Rev'; kinematic> 
-% or <matlab:Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value='Bushings';Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value='Bushings';Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value='Bushings';Vehicle.Chassis.SuspA2.Linkage.Lower_Arm_to_Subframe.class.Value='Bushings'; compliant> with bushings.
+% or <matlab:Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value='Bushing_AxRad';Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value='Bushing_AxRad';Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value='Bushing_AxRad';Vehicle.Chassis.SuspA2.Linkage.Lower_Arm_to_Subframe.class.Value='Bushing_AxRad'; compliant> with bushings.
 
 %% Control Algorithms
 %

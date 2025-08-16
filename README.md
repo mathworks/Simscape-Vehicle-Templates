@@ -34,6 +34,10 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.4  -- August 2025**
+1. Moved functions for kinematics and compliance calculations
+2. Added hyperlinks to quarter car testrigs for full set of KnC calculations
+
 **v4.3  -- August 2025**
 1.  Added solid axle, 2 trailing arm, Panhard rod, steerable suspension.
 2.  Added solid axle, 2 trailing arm, A-arm, steerable suspension.

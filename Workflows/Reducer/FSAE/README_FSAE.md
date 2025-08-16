@@ -29,6 +29,11 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.4  -- August 2025**
+(Not all changes to Simscape Vehicle Templates affect this repository)
+1. Added functions for kinematics and compliance calculations
+2. Added hyperlinks to quarter car testrigs for full set of KnC calculations
+
 **v4.3  -- August 2025**
 (Not all changes to Simscape Vehicle Templates affect this repository)
 1. Enabled bushings to be tuned in Fast Restart
