@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Tuning Suspension Hardpoints to Meet Target Performance Metrics</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-06-25">
+<meta name="DC.date" content="2025-08-12">
 <meta name="DC.source" content="testrig_quarter_car_sweep_optim_test.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -153,22 +153,22 @@ Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200,1200,1200
 <pre class="codeinput">[simInput, simOut, TSuspMetricsSet] = <span class="keyword">...</span>
     testrig_quarter_car_sweep_run(mdl,Vehicle,par_list,Maneuver);
 </pre>
-<pre class="codeoutput">[25-Jun-2025 18:11:32] Running simulations...
-[25-Jun-2025 18:11:43] Completed 1 of 15 simulation runs
-[25-Jun-2025 18:11:46] Completed 2 of 15 simulation runs
-[25-Jun-2025 18:11:49] Completed 3 of 15 simulation runs
-[25-Jun-2025 18:11:51] Completed 4 of 15 simulation runs
-[25-Jun-2025 18:11:54] Completed 5 of 15 simulation runs
-[25-Jun-2025 18:11:57] Completed 6 of 15 simulation runs
-[25-Jun-2025 18:12:00] Completed 7 of 15 simulation runs
-[25-Jun-2025 18:12:03] Completed 8 of 15 simulation runs
-[25-Jun-2025 18:12:06] Completed 9 of 15 simulation runs
-[25-Jun-2025 18:12:09] Completed 10 of 15 simulation runs
-[25-Jun-2025 18:12:12] Completed 11 of 15 simulation runs
-[25-Jun-2025 18:12:15] Completed 12 of 15 simulation runs
-[25-Jun-2025 18:12:19] Completed 13 of 15 simulation runs
-[25-Jun-2025 18:12:24] Completed 14 of 15 simulation runs
-[25-Jun-2025 18:12:29] Completed 15 of 15 simulation runs
+<pre class="codeoutput">[12-Aug-2025 23:12:01] Running simulations...
+[12-Aug-2025 23:12:12] Completed 1 of 15 simulation runs
+[12-Aug-2025 23:12:15] Completed 2 of 15 simulation runs
+[12-Aug-2025 23:12:17] Completed 3 of 15 simulation runs
+[12-Aug-2025 23:12:20] Completed 4 of 15 simulation runs
+[12-Aug-2025 23:12:22] Completed 5 of 15 simulation runs
+[12-Aug-2025 23:12:25] Completed 6 of 15 simulation runs
+[12-Aug-2025 23:12:28] Completed 7 of 15 simulation runs
+[12-Aug-2025 23:12:31] Completed 8 of 15 simulation runs
+[12-Aug-2025 23:12:34] Completed 9 of 15 simulation runs
+[12-Aug-2025 23:12:36] Completed 10 of 15 simulation runs
+[12-Aug-2025 23:12:39] Completed 11 of 15 simulation runs
+[12-Aug-2025 23:12:42] Completed 12 of 15 simulation runs
+[12-Aug-2025 23:12:44] Completed 13 of 15 simulation runs
+[12-Aug-2025 23:12:47] Completed 14 of 15 simulation runs
+[12-Aug-2025 23:12:50] Completed 15 of 15 simulation runs
 </pre>
 <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot the Results of Sweep</h2>
 <p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, two surface plots are shown. Each surface plot shows how a performance metric varies as the parameter values are modified.</p>
@@ -248,24 +248,24 @@ ans =
         Names        Values      Units         Description     
     _____________    _______    _______    ____________________
 
-    "Bump Steer"      4.0275    "deg/m"    "+/- 10mm, +Toe In" 
+    "Bump Steer"      4.0282    "deg/m"    "+/- 10mm, +Toe In" 
     "Bump Camber"    -24.295    "deg/m"    "+/- 10mm, +Top Out"
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        25.6612          0.04      
-    1           5        12.8722          0.08     Successful Poll
-    2           9        12.6881          0.16     Successful Poll
-    3          11        12.6881          0.04     Refine Mesh
-    4          15       0.551972          0.08     Successful Poll
-    5          19       0.551972          0.02     Refine Mesh
-    6          23       0.551972         0.005     Refine Mesh
-    7          27       0.551972       0.00125     Refine Mesh
-    8          31       0.132811        0.0025     Successful Poll
-    9          35       0.132811      0.000625     Refine Mesh
+    0           1        25.6617          0.04      
+    1           5        12.8727          0.08     Successful Poll
+    2           9        12.6871          0.16     Successful Poll
+    3          11        12.6871          0.04     Refine Mesh
+    4          15       0.552055          0.08     Successful Poll
+    5          19       0.552055          0.02     Refine Mesh
+    6          23       0.552055         0.005     Refine Mesh
+    7          27       0.552055       0.00125     Refine Mesh
+    8          31       0.132833        0.0025     Successful Poll
+    9          35       0.132833      0.000625     Refine Mesh
 patternsearch stopped because the mesh size was less than options.MeshTolerance.
-Elapsed time for optimization = 153.2527
+Elapsed time for optimization = 95.8254
  
 Metrics with Optimized Set of Parameter Values
 
@@ -276,7 +276,7 @@ TSuspMetricsSummary =
         Names        StartValue    FinalValues    tgtValue     Units         Description     
     _____________    __________    ___________    ________    _______    ____________________
 
-    "Bump Steer"       4.0275        -35.751        -36       "deg/m"    "+/- 10mm, +Toe In" 
+    "Bump Steer"       4.0282        -35.751        -36       "deg/m"    "+/- 10mm, +Toe In" 
     "Bump Camber"     -24.295        -13.017        -13       "deg/m"    "+/- 10mm, +Top Out"
 
 
@@ -291,12 +291,12 @@ paramSummary =
      0.23         0.22
 
 </pre>
-<img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <p>The plots below show add the performance metrics from the new design. Values for the hardpoint locations were found that result in performance metric values quite close to the target values.</p>
+<img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_07.png" alt=""> <p>The plots below show add the performance metrics from the new design. Values for the hardpoint locations were found that result in performance metric values quite close to the target values.</p>
 <pre class="codeinput">bs_i = find(strcmp(TSuspMetrics.Names,metricName{1}));
 <span class="keyword">if</span>(~isempty(ax_bs))
     hold(ax_bs,<span class="string">'on'</span>)
     plot3(ax_bs,xFinal(1),xFinal(2),TSuspMetrics.Values(bs_i),<span class="keyword">...</span>
-        <span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'MarkerSize'</span>,8);
+        <span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'MarkerSize'</span>,8,<span class="string">'DisplayName'</span>,<span class="string">'Tuned'</span>);
     hold(ax_bs,<span class="string">'off'</span>)
 <span class="keyword">end</span>
 
@@ -305,11 +305,11 @@ bc_i = find(strcmp(TSuspMetrics.Names,metricName{2}));
 <span class="keyword">if</span>(~isempty(ax_bc))
     hold(ax_bc,<span class="string">'on'</span>)
     plot3(ax_bc,xFinal(1),xFinal(2),TSuspMetrics.Values(bc_i),<span class="keyword">...</span>
-        <span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'MarkerSize'</span>,8);
+        <span class="string">'bs'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'b'</span>,<span class="string">'MarkerSize'</span>,8,<span class="string">'DisplayName'</span>,<span class="string">'Tuned'</span>);
     hold(ax_bc,<span class="string">'off'</span>)
 <span class="keyword">end</span>
 </pre>
-<img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_09.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_10.png" alt=""> <h2 id="8">Workflow Using MATLAB App</h2>
+<img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_08.png" alt=""> <img vspace="5" hspace="5" src="testrig_quarter_car_sweep_optim_test_09.png" alt=""> <h2 id="8">Workflow Using MATLAB App</h2>
 <p>An App lets you select the hardpoint coordinates you wish to sweep or optimize. You can select the range and increment for a sweep, and you can select the range and target performance metric for an optimization. Once you have configured your sweep or optimization, press the Run button.</p>
 <p>Anything done with the App can also be done using MATLAB functions. As you configure and run the test, commands are echoed to the MATLAB command window so you know which commands will automate those steps.</p>
 <p>
@@ -509,7 +509,7 @@ bs_i = find(strcmp(TSuspMetrics.Names,metricName{1}));
 if(~isempty(ax_bs))
     hold(ax_bs,'on')
     plot3(ax_bs,xFinal(1),xFinal(2),TSuspMetrics.Values(bs_i),...
-        'bs','MarkerFaceColor','b','MarkerSize',8);
+        'bs','MarkerFaceColor','b','MarkerSize',8,'DisplayName','Tuned');
     hold(ax_bs,'off')
 end
 
@@ -518,7 +518,7 @@ bc_i = find(strcmp(TSuspMetrics.Names,metricName{2}));
 if(~isempty(ax_bc))
     hold(ax_bc,'on')
     plot3(ax_bc,xFinal(1),xFinal(2),TSuspMetrics.Values(bc_i),...
-        'bs','MarkerFaceColor','b','MarkerSize',8);
+        'bs','MarkerFaceColor','b','MarkerSize',8,'DisplayName','Tuned');
     hold(ax_bc,'off')
 end
 
