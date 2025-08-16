@@ -12,26 +12,24 @@
 % closest to the target value of the selected performance metric.
 %
 % The documentation below shows the steps performed on
-% testrig_quarter_car.slx.  They can also be performed on
-% testrig_quarter_car_doublewishbone.slx and
-% testrig_quarter_car_pullrod.slx.
+% testrig_quarter_car_doublewishbone.slx.  They can also be performed on
+% testrig_quarter_car_doublewishbone_pullrod.slx.
 %
 % Copyright 2024 The MathWorks, Inc.
 
 %% Quarter-Car Testrig Model
 %
-% The model <matlab:open_system('testrig_quarter_car');
-% testrig_quarter_car> can be configured to test several different types of
+% The model <matlab:open_system('testrig_quarter_car_doublewishbone');
+% testrig_quarter_car_doublewishbone> can be configured to test several different types of
 % suspensions.  The suspension type is selected based on field
 % Vehicle.Chassis.SuspA1.Linkage.class.Value within a MATLAB data
 % structure. The locations of the hardpoints are defined within that
 % structure.
 %
-% <matlab:open_system('testrig_quarter_car'); Open Model>
+% <matlab:open_system('testrig_quarter_car_doublewishbone'); Open Model>
 
-mdl = 'testrig_quarter_car';
+mdl = 'testrig_quarter_car_doublewishbone';
 open_system(mdl)
-sm_car_load_vehicle_data(mdl,'064');
 sm_car_config_variants(mdl);
 
 %% Suspension Model
@@ -42,9 +40,9 @@ sm_car_config_variants(mdl);
 % set of data provided, that reference point is on the ground at the
 % point midway between where the left and right tires touch the ground.
 %
-% <matlab:open_system('testrig_quarter_car');open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force'); Open Subsystem>
+% <matlab:open_system('testrig_quarter_car_doublewishbone');open_system('testrig_quarter_car_doublewishbone/DoubleWishbone','force'); Open Subsystem>
 
-open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');
+open_system('testrig_quarter_car_doublewishbone/DoubleWishbone','force');
 
 %% Define Sets of Values for Parameter Sweep
 %
@@ -60,10 +58,10 @@ open_system('testrig_quarter_car/Linkage/FiveLinkShockFront','force');
 % path2Val is complete path to variable and index in parentheses
 par_list = [];
 par_list(1).path2Val = 'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sInboard.Value(3)';
-par_list(1).relRange = -0.04:0.02:0.04;  % Relative range in m
+par_list(1).relRange = -0.03:0.015:0.03;  % Relative range in m
 
 par_list(2).path2Val = 'Vehicle.Chassis.SuspA1.Linkage.TrackRod.sOutboard.Value(3)';
-par_list(2).relRange = -0.04:0.04:0.04;  % Relative range in m
+par_list(2).relRange = -0.03:0.03:0.03;  % Relative range in m
 
 % Structure par_list must contain valueSet with values for parameter
 % initVal is required for two-parameter surface plot only
@@ -73,7 +71,7 @@ for par_i = 1:length(par_list)
 end
 
 % Set up Maneuver
-Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.3,0.1,500,1200,1200,1200,1200,-0.3);
+Maneuver = sm_car_maneuverdata_knc(0.17,-0.21,0.01,1.3,0.1,500,1200,1200,1200,1200,-0.3);
 
 %% Conduct Parameter Sweep
 %
@@ -168,7 +166,7 @@ end
 % they are good values for bump steer and bump camber.
 
 metricName    = {'Bump Steer','Bump Camber'};
-tgtValue      = [-36; -13];
+tgtValue      = [50; -57];
 metricWeights = [0.5 0.5];
 
 [xFinal,fval,TSuspMetrics] = ...
