@@ -29,6 +29,11 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.5  -- September 2025**
+1. Anti-roll bar droplink rod to lower rear arm added to many vehicle presets (previously constrained by planar joint)
+2. Many suspension parts centralized to libraries (Linkage_Arms.slx, Linkage_Uprights.slx, Susp_Components.slx)
+3. Added variable damper option, with damping coefficient set by input signal
+
 **v4.4  -- August 2025**
 (Not all changes to Simscape Vehicle Templates affect this repository)
 1. Added functions for kinematics and compliance calculations

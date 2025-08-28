@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Simscape Vehicle Library, KnC Tests, Double Wishbone Car Testrig</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-05-11">
+<meta name="DC.date" content="2025-08-25">
 <meta name="DC.source" content="testrig_quarter_car_doublewishbone_results.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -104,13 +104,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <img vspace="5" hspace="5" src="testrig_quarter_car_doublewishbone_results_04.png" alt=""> <pre class="codeoutput">
 TSuspMetrics =
 
-  47&times;4 table
+  48&times;4 table
 
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                     -1.167e-13    "deg"        "+Toe In"                              
-    "Camber"                                  8.2694e-14    "deg"        "+Top Out"                             
+    "Toe"                                     3.0544e-15    "deg"        "+Toe In"                              
+    "Camber"                                  4.4528e-14    "deg"        "+Top Out"                             
     "Caster"                                       7.644    "deg"        "+Top Rear of WC"                      
     "KPI"                                          5.162    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"               -0.1342    "deg/deg"    "+/-1 deg"                             
@@ -131,10 +131,10 @@ TSuspMetrics =
     "WC Recession Lat"                          -0.16006    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.15893    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.15893    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                0.062389    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Steer"                                0.062388    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -2.2642    "deg"        "+/-2deg Roll, +Top Out"               
-    "Roll Stiffness"                             -9.8476    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
-    "Roll Stiffness Total"                       -9.8497    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
+    "Roll Stiffness"                             -18.237    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
+    "Roll Stiffness Total"                       -18.244    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
     "Max Rack Travel"                              17.75    "mm"         "Rack Travel at Max Steer"             
     "Steering Ratio"                              3.4844    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
     "Max Toe Out"                                -22.442    "deg"        "+Toe In"                              
@@ -142,20 +142,21 @@ TSuspMetrics =
     "Ackermann at 20 deg Inner"                      NaN    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                         NaN    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                                 0    "m"          "To Outer Front Wheel"                 
+    "TCD Wall to Wall"                                 0    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                              10.426    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                    7.147e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                  8.3478e-14    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      5.7957e-14    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                      6.774e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -4.7708e-14    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -4.7708e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Align Torque (In)"                  -1.9137e-13    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  1.3784e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -1.1715e-14    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     2.6776e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                  -1.5903e-14    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                 -2.6505e-14    "deg/kN"     "Out Phase"                            
     "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
     "Lat Compliance CP/Lat Force (In)"       -1.8504e-13    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"      -1.8504e-13    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"            3.058e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -2.6802e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                        1.33e-16    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (Out)"      -9.2519e-14    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"          -5.0149e-14    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"         -3.0797e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      8.2215e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br>
