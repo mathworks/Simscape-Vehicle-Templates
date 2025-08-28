@@ -35,6 +35,7 @@ Visual.Shock.bumpstop.ptRad = 5e-3;
 
 Visual.Spring.cap.clr       = Visual.clr.gray;
 Visual.Spring.cyl.clr       = Visual.clr.reddark;
+Visual.Spring.cyl.rad       = 0.05;
 Visual.Spring.coil.clr      = Visual.clr.reddark;
 
 Visual.Spring.cyl.opc       = 0.3;

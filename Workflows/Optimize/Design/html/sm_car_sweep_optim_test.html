@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Tuning Suspension Hardpoints to Meet Vehicle Performance Metrics</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-05-29"><meta name="DC.source" content="sm_car_sweep_optim_test.m"><style type="text/css">
+      --><title>Tuning Suspension Hardpoints to Meet Vehicle Performance Metrics</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-08-26"><meta name="DC.source" content="sm_car_sweep_optim_test.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -90,22 +90,22 @@ sm_car_config_maneuver(<span class="string">'sm_car'</span>,<span class="string"
 sim(mdl)
 </pre><h2 id="4">Conduct Parameter Sweep</h2><p>This function will create a simulation input object where each entry has a unique combination of the hardpoint coordinate values specified above. The simulations will be run using the sim() command, and at the end a surface plot shows how the selected performance metric (in this case maximum roll angle) varies with the two coordinate values.</p><p>The roll angle versus time is plotted for each test.</p><pre class="codeinput">[simInput, simOut] = sm_car_sweep_run(mdl,Vehicle,par_list);
 CarMetricsSet = sm_car_sweep_plot_runs(simInput,simOut,<span class="string">'aRoll'</span>);
-</pre><pre class="codeoutput">[29-May-2025 11:36:51] Running simulations...
-[29-May-2025 11:37:15] Completed 1 of 15 simulation runs
-[29-May-2025 11:37:26] Completed 2 of 15 simulation runs
-[29-May-2025 11:37:37] Completed 3 of 15 simulation runs
-[29-May-2025 11:37:46] Completed 4 of 15 simulation runs
-[29-May-2025 11:37:56] Completed 5 of 15 simulation runs
-[29-May-2025 11:38:06] Completed 6 of 15 simulation runs
-[29-May-2025 11:38:17] Completed 7 of 15 simulation runs
-[29-May-2025 11:38:27] Completed 8 of 15 simulation runs
-[29-May-2025 11:38:37] Completed 9 of 15 simulation runs
-[29-May-2025 11:38:47] Completed 10 of 15 simulation runs
-[29-May-2025 11:38:56] Completed 11 of 15 simulation runs
-[29-May-2025 11:39:06] Completed 12 of 15 simulation runs
-[29-May-2025 11:39:16] Completed 13 of 15 simulation runs
-[29-May-2025 11:39:26] Completed 14 of 15 simulation runs
-[29-May-2025 11:39:37] Completed 15 of 15 simulation runs
+</pre><pre class="codeoutput">[26-Aug-2025 23:40:29] Running simulations...
+[26-Aug-2025 23:40:53] Completed 1 of 15 simulation runs
+[26-Aug-2025 23:41:03] Completed 2 of 15 simulation runs
+[26-Aug-2025 23:41:15] Completed 3 of 15 simulation runs
+[26-Aug-2025 23:41:24] Completed 4 of 15 simulation runs
+[26-Aug-2025 23:41:34] Completed 5 of 15 simulation runs
+[26-Aug-2025 23:41:44] Completed 6 of 15 simulation runs
+[26-Aug-2025 23:41:55] Completed 7 of 15 simulation runs
+[26-Aug-2025 23:42:05] Completed 8 of 15 simulation runs
+[26-Aug-2025 23:42:15] Completed 9 of 15 simulation runs
+[26-Aug-2025 23:42:25] Completed 10 of 15 simulation runs
+[26-Aug-2025 23:42:34] Completed 11 of 15 simulation runs
+[26-Aug-2025 23:42:44] Completed 12 of 15 simulation runs
+[26-Aug-2025 23:42:56] Completed 13 of 15 simulation runs
+[26-Aug-2025 23:43:05] Completed 14 of 15 simulation runs
+[26-Aug-2025 23:43:15] Completed 15 of 15 simulation runs
 </pre><img vspace="5" hspace="5" src="sm_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot Performance Metrics Obtained from Sweep</h2><p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown. The surface plot shows how the performance metric varies as the parameter values are modified.</p><pre class="codeinput">disp(<span class="string">'Results of Sweep'</span>);
 [SweepTableMxRoll,ax_Ro] = sm_car_sweep_table_plot_metrics(par_list,CarMetricsSet,<span class="string">'Max Roll Angle'</span>);
 displayWholeObj(SweepTableMxRoll)
@@ -138,21 +138,21 @@ SweepTableMxRoll =
     par_A1TrackRodIn3    par_A1TrackRodOut3    Max_Roll_Angle    Max_Roll_AngleUnits
     _________________    __________________    ______________    ___________________
 
-           0.2                  0.19               1.5531               "deg"       
-           0.2                  0.23               1.3068               "deg"       
-           0.2                  0.27                1.105               "deg"       
-          0.22                  0.19                1.699               "deg"       
-          0.22                  0.23                 1.43               "deg"       
-          0.22                  0.27               1.2161               "deg"       
-          0.24                  0.19               1.8442               "deg"       
-          0.24                  0.23               1.5577               "deg"       
-          0.24                  0.27               1.3275               "deg"       
-          0.26                  0.19               1.9798               "deg"       
-          0.26                  0.23               1.6877               "deg"       
-          0.26                  0.27               1.4409               "deg"       
-          0.28                  0.19               2.0953               "deg"       
-          0.28                  0.23               1.8188               "deg"       
-          0.28                  0.27               1.5572               "deg"       
+           0.2                  0.19                1.194               "deg"       
+           0.2                  0.23              0.95957               "deg"       
+           0.2                  0.27              0.76393               "deg"       
+          0.22                  0.19               1.3092               "deg"       
+          0.22                  0.23               1.0699               "deg"       
+          0.22                  0.27              0.86703               "deg"       
+          0.24                  0.19                1.416               "deg"       
+          0.24                  0.23               1.1759               "deg"       
+          0.24                  0.27              0.96815               "deg"       
+          0.26                  0.19                1.513               "deg"       
+          0.26                  0.23               1.2782               "deg"       
+          0.26                  0.27               1.0658               "deg"       
+          0.28                  0.19               1.5949               "deg"       
+          0.28                  0.23               1.3752               "deg"       
+          0.28                  0.27               1.1604               "deg"       
 
 </pre><img vspace="5" hspace="5" src="sm_car_sweep_optim_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Performance Metrics</h2><p>Now that we have seen the design space, we will use optimization algorithms to identify the coordinates to minimize roll angle.  The list of hardpoint coordinates and their ranges are provided to the optimization algorithm.  An objective function runs a simulation with those values and computes the performance metrics. After the optimizer converges on values or reaches the limit on the number of iterations permitted, the results are shown and overlaid on the parameter sweep plots.</p><p>In this optimization test, the target value for maximum roll angle is supplied.</p><pre class="codeinput">metricName    = {<span class="string">'Max Roll Angle'</span>};
 tgtValue      = [0];  <span class="comment">% Set to zero, try to minimize</span>
@@ -169,26 +169,29 @@ ans =
          Names          Values    Units       Description   
     ________________    ______    _____    _________________
 
-    "Max Roll Angle"    1.5577    "deg"    "Body Roll Angle"
+    "Max Roll Angle"    1.1759    "deg"    "Body Roll Angle"
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        1.55769          0.04      
-    1           5        1.49337          0.08     Successful Poll
-    2           9        1.36823          0.16     Successful Poll
-    3          12        1.16034          0.32     Successful Poll
-    4          12        1.16034          0.08     Refine Mesh
-    5          12        1.16034          0.02     Refine Mesh
-    6          13        1.16034         0.005     Refine Mesh
-    7          15        1.13241          0.01     Successful Poll
-    8          16        1.13241        0.0025     Refine Mesh
-    9          18        1.11862         0.005     Successful Poll
-   10          19        1.11862       0.00125     Refine Mesh
-   11          21        1.11166        0.0025     Successful Poll
-   12          22        1.11166      0.000625     Refine Mesh
+    0           1         1.1759          0.04      
+    1           5         1.1207          0.08     Successful Poll
+    2           9        1.01594          0.16     Successful Poll
+    3          11        1.01594          0.04     Refine Mesh
+    4          15       0.961862          0.08     Successful Poll
+    5          18         0.8622          0.16     Successful Poll
+    6          20         0.8622          0.04     Refine Mesh
+    7          24       0.809125          0.08     Successful Poll
+    8          25       0.809125          0.02     Refine Mesh
+    9          27       0.809125         0.005     Refine Mesh
+   10          30        0.78618          0.01     Successful Poll
+   11          32        0.78618        0.0025     Refine Mesh
+   12          35       0.774871         0.005     Successful Poll
+   13          37       0.774871       0.00125     Refine Mesh
+   14          40       0.769377        0.0025     Successful Poll
+   15          42       0.769377      0.000625     Refine Mesh
 Optimization terminated: mesh size less than options.MeshTolerance.
-Elapsed time for optimization = 217.8023
+Elapsed time for optimization = 416.2365
  
 Metrics with Optimized Set of Parameter Values
 
@@ -199,7 +202,7 @@ CarMetricsSummary =
          Names          StartValue    FinalValues    tgtValue    Units       Description   
     ________________    __________    ___________    ________    _____    _________________
 
-    "Max Roll Angle"      1.5577        1.1117          0        "deg"    "Body Roll Angle"
+    "Max Roll Angle"      1.1759        0.76938         0        "deg"    "Body Roll Angle"
 
 
 paramSummary =
@@ -209,8 +212,8 @@ paramSummary =
     Initial     Final 
     _______    _______
 
-     0.24      0.20125
-     0.23         0.27
+     0.24          0.2
+     0.23      0.26875
 
 </pre><img vspace="5" hspace="5" src="sm_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_07.png" alt=""> <p>The plots below show add the performance metrics from the new design. Values for the hardpoint locations were found that minimize the roll angle during the double-lane change.</p><pre class="codeinput">bs_i = find(strcmp(CarMetrics.Names,metricName{1}));
 
