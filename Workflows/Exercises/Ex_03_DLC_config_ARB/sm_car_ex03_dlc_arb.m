@@ -26,7 +26,7 @@ open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force');
 
 %%
 % See implementation of anti-roll bar
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Anti Roll Bar/Droplink','force');
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Anti Roll Bar/Droplink Rod','force');
 
 %% Step 3: Select Event
 % This can be done from the MATLAB app or the MATLAB Command line. It
@@ -83,8 +83,8 @@ sm_car_ex03_dlc_arb_plot2
 % vehicle by changing fields in Vehicle that indicate if the anti-roll bar
 % is present or not.
 
-Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'Droplink_Sedan_Hamba_f','SuspA1');
-Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'Droplink_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_LA_f','SuspA1');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_LA_r','SuspA2');
 
 %% Step 11: Trigger model update to match Vehicle data structure 
 % Changes to the Vehicle data structure need to be applied to the model.
