@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Configure Vehicle for Double Lane Change</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-04-19"><meta name="DC.source" content="sm_car_ex03_dlc_arb.m"><style type="text/css">
+      --><title>Configure Vehicle for Double Lane Change</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2025-08-26"><meta name="DC.source" content="sm_car_ex03_dlc_arb.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,7 +71,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 open_system(mdl)
 </pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_01.png" alt=""> <h2 id="2">Step 2: Configure Model</h2><p>This can be done from the MATLAB app or the MATLAB Command line.  It involves loading a data structure into the MATLAB workspace that includes the desired vehicle model configuration and parameters</p><pre class="codeinput">sm_car_load_vehicle_data(mdl,<span class="string">'189'</span>); <span class="comment">% Multibody tire, R21b and higher</span>
 </pre><p>Note presence of anti-roll bar in model</p><pre class="codeinput">open_system(<span class="string">'sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage'</span>,<span class="string">'force'</span>);
-</pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_02.png" alt=""> <p>See implementation of anti-roll bar</p><pre class="codeinput">open_system(<span class="string">'sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Anti Roll Bar/Droplink'</span>,<span class="string">'force'</span>);
+</pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_02.png" alt=""> <p>See implementation of anti-roll bar</p><pre class="codeinput">open_system(<span class="string">'sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Anti Roll Bar/Droplink Rod'</span>,<span class="string">'force'</span>);
 </pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_03.png" alt=""> <h2 id="5">Step 3: Select Event</h2><p>This can be done from the MATLAB app or the MATLAB Command line. It configures the driver model for open/closed loop maneuvers and loads the necessary parameters into the MATLAB workspace.</p><p>The plot shows the actions the driver will take during this maneuver. You can produce this plot from the MATLAB app or the MATLAB Command line.</p><pre class="codeinput">sm_car_config_maneuver(<span class="string">'sm_car'</span>,<span class="string">'Double Lane Change'</span>);
 sm_car_plot_maneuver(Maneuver)
 </pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_05.png" alt=""> <h2 id="6">Step 4: Run simulation with anti-roll bar active</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
@@ -82,8 +82,8 @@ Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'None'</span
 </pre><p>Note that anti-roll bar has been removed</p><pre class="codeinput">open_system(<span class="string">'sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage'</span>,<span class="string">'force'</span>);
 </pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_07.png" alt=""> <h2 id="11">Step 8: Run simulation with no anti-roll bar</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
 </pre><h2 id="12">Step 9: Add simulation results to the Simulink Data Inspector</h2><p>Use the Simulink Data Inspector to plot the following quantities from the both runs.</p><pre class="codeinput">sm_car_ex03_dlc_arb_plot2
-</pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_08.png" alt=""> <h2 id="13">Step 10: Add anti-roll bar to front and rear in Vehicle data structure</h2><p>This adjustment to the Vehicle data structure can be done via the MATLAB app or MATLAB Command Window.  We are changing the configuration of the vehicle by changing fields in Vehicle that indicate if the anti-roll bar is present or not.</p><pre class="codeinput">Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'Droplink_Sedan_Hamba_f'</span>,<span class="string">'SuspA1'</span>);
-Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'Droplink_Sedan_Hamba_r'</span>,<span class="string">'SuspA2'</span>);
+</pre><img vspace="5" hspace="5" src="sm_car_ex03_dlc_arb_08.png" alt=""> <h2 id="13">Step 10: Add anti-roll bar to front and rear in Vehicle data structure</h2><p>This adjustment to the Vehicle data structure can be done via the MATLAB app or MATLAB Command Window.  We are changing the configuration of the vehicle by changing fields in Vehicle that indicate if the anti-roll bar is present or not.</p><pre class="codeinput">Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'DroplinkRod_Sedan_Hamba_LA_f'</span>,<span class="string">'SuspA1'</span>);
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,<span class="string">'DroplinkRod_Sedan_Hamba_LA_r'</span>,<span class="string">'SuspA2'</span>);
 </pre><h2 id="14">Step 11: Trigger model update to match Vehicle data structure</h2><p>Changes to the Vehicle data structure need to be applied to the model. This process can be triggered by the MATLAB app or the MATLAB command line</p><pre class="codeinput">sm_car_config_vehicle(<span class="string">'sm_car'</span>,true);
 </pre><pre class="codeinput">close <span class="string">all</span>
 </pre><p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
@@ -116,7 +116,7 @@ open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage','force');
 
 %%
 % See implementation of anti-roll bar
-open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Anti Roll Bar/Droplink','force');
+open_system('sm_car/Vehicle/Vehicle/Chassis/SuspA1/Linkage/Anti Roll Bar/Droplink Rod','force');
 
 %% Step 3: Select Event
 % This can be done from the MATLAB app or the MATLAB Command line. It
@@ -173,8 +173,8 @@ sm_car_ex03_dlc_arb_plot2
 % vehicle by changing fields in Vehicle that indicate if the anti-roll bar
 % is present or not.
 
-Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'Droplink_Sedan_Hamba_f','SuspA1');
-Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'Droplink_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_LA_f','SuspA1');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_LA_r','SuspA2');
 
 %% Step 11: Trigger model update to match Vehicle data structure 
 % Changes to the Vehicle data structure need to be applied to the model.
