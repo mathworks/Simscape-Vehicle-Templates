@@ -306,7 +306,7 @@ manv_set = {'Skidpad', 'Constant Radius Closed-Loop'};
 driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [139 184 228 230];
+veh_set = [139 184 228 230 231];
 if(~verLessThan('MATLAB','9.11'))
     veh_set = [veh_set 198]; % Add Mbody tests
 end

@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Tuning Suspension Hardpoints to Meet Vehicle Performance Metrics</title>
 <meta name="generator" content="MATLAB 23.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-05-29">
+<meta name="DC.date" content="2025-08-26">
 <meta name="DC.source" content="sm_car_sweep_optim_test.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -148,22 +148,22 @@ sim(mdl)
 <pre class="codeinput">[simInput, simOut] = sm_car_sweep_run(mdl,Vehicle,par_list);
 CarMetricsSet = sm_car_sweep_plot_runs(simInput,simOut,<span class="string">'aRoll'</span>);
 </pre>
-<pre class="codeoutput">[29-May-2025 09:26:06] Running simulations...
-[29-May-2025 09:26:31] Completed 1 of 15 simulation runs
-[29-May-2025 09:26:42] Completed 2 of 15 simulation runs
-[29-May-2025 09:26:53] Completed 3 of 15 simulation runs
-[29-May-2025 09:27:03] Completed 4 of 15 simulation runs
-[29-May-2025 09:27:14] Completed 5 of 15 simulation runs
-[29-May-2025 09:27:25] Completed 6 of 15 simulation runs
-[29-May-2025 09:27:35] Completed 7 of 15 simulation runs
-[29-May-2025 09:27:44] Completed 8 of 15 simulation runs
-[29-May-2025 09:27:54] Completed 9 of 15 simulation runs
-[29-May-2025 09:28:04] Completed 10 of 15 simulation runs
-[29-May-2025 09:28:14] Completed 11 of 15 simulation runs
-[29-May-2025 09:28:25] Completed 12 of 15 simulation runs
-[29-May-2025 09:28:36] Completed 13 of 15 simulation runs
-[29-May-2025 09:28:47] Completed 14 of 15 simulation runs
-[29-May-2025 09:28:57] Completed 15 of 15 simulation runs
+<pre class="codeoutput">[26-Aug-2025 18:25:45] Running simulations...
+[26-Aug-2025 18:26:10] Completed 1 of 15 simulation runs
+[26-Aug-2025 18:26:22] Completed 2 of 15 simulation runs
+[26-Aug-2025 18:26:34] Completed 3 of 15 simulation runs
+[26-Aug-2025 18:26:44] Completed 4 of 15 simulation runs
+[26-Aug-2025 18:26:54] Completed 5 of 15 simulation runs
+[26-Aug-2025 18:27:06] Completed 6 of 15 simulation runs
+[26-Aug-2025 18:27:17] Completed 7 of 15 simulation runs
+[26-Aug-2025 18:27:27] Completed 8 of 15 simulation runs
+[26-Aug-2025 18:27:38] Completed 9 of 15 simulation runs
+[26-Aug-2025 18:27:48] Completed 10 of 15 simulation runs
+[26-Aug-2025 18:27:58] Completed 11 of 15 simulation runs
+[26-Aug-2025 18:28:08] Completed 12 of 15 simulation runs
+[26-Aug-2025 18:28:20] Completed 13 of 15 simulation runs
+[26-Aug-2025 18:28:30] Completed 14 of 15 simulation runs
+[26-Aug-2025 18:28:41] Completed 15 of 15 simulation runs
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot Performance Metrics Obtained from Sweep</h2>
 <p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown. The surface plot shows how the performance metric varies as the parameter values are modified.</p>
@@ -200,21 +200,21 @@ SweepTableMxRoll =
     par_A1TrackRodIn3    par_A1TrackRodOut3    Max_Roll_Angle    Max_Roll_AngleUnits
     _________________    __________________    ______________    ___________________
 
-           0.2                  0.19               1.5529               "deg"       
-           0.2                  0.23               1.3068               "deg"       
-           0.2                  0.27               1.1044               "deg"       
-          0.22                  0.19                1.699               "deg"       
-          0.22                  0.23                 1.43               "deg"       
-          0.22                  0.27               1.2168               "deg"       
-          0.24                  0.19               1.8435               "deg"       
-          0.24                  0.23               1.5567               "deg"       
-          0.24                  0.27               1.3276               "deg"       
-          0.26                  0.19                 1.98               "deg"       
-          0.26                  0.23               1.6889               "deg"       
-          0.26                  0.27               1.4409               "deg"       
-          0.28                  0.19               2.0956               "deg"       
-          0.28                  0.23               1.8191               "deg"       
-          0.28                  0.27               1.5573               "deg"       
+           0.2                  0.19                1.194               "deg"       
+           0.2                  0.23              0.95951               "deg"       
+           0.2                  0.27              0.76361               "deg"       
+          0.22                  0.19               1.3094               "deg"       
+          0.22                  0.23               1.0698               "deg"       
+          0.22                  0.27              0.86711               "deg"       
+          0.24                  0.19               1.4163               "deg"       
+          0.24                  0.23               1.1762               "deg"       
+          0.24                  0.27              0.96793               "deg"       
+          0.26                  0.19               1.5127               "deg"       
+          0.26                  0.23               1.2787               "deg"       
+          0.26                  0.27               1.0656               "deg"       
+          0.28                  0.19               1.5955               "deg"       
+          0.28                  0.23               1.3745               "deg"       
+          0.28                  0.27               1.1605               "deg"       
 
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Performance Metrics</h2>
@@ -236,29 +236,32 @@ ans =
          Names          Values    Units       Description   
     ________________    ______    _____    _________________
 
-    "Max Roll Angle"    1.5567    "deg"    "Body Roll Angle"
+    "Max Roll Angle"    1.1762    "deg"    "Body Roll Angle"
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1         1.5567          0.04      
-    1           5        1.49309          0.08     Successful Poll
-    2           9        1.36801          0.16     Successful Poll
-    3          12        1.16032          0.32     Successful Poll
-    4          12        1.16032          0.08     Refine Mesh
-    5          13        1.16032          0.02     Refine Mesh
-    6          15        1.13247          0.04     Successful Poll
-    7          16        1.13247          0.01     Refine Mesh
-    8          18        1.11857          0.02     Successful Poll
-    9          19        1.11857         0.005     Refine Mesh
-   10          21        1.11179          0.01     Successful Poll
-   11          22        1.11179        0.0025     Refine Mesh
-   12          24        1.10825         0.005     Successful Poll
-   13          25        1.10825       0.00125     Refine Mesh
-   14          26        1.10825     0.0003125     Refine Mesh
+    0           1        1.17617          0.04      
+    1           5        1.12079          0.08     Successful Poll
+    2           9        1.01576          0.16     Successful Poll
+    3          11        1.01576          0.04     Refine Mesh
+    4          15       0.961636          0.08     Successful Poll
+    5          18       0.862097          0.16     Successful Poll
+    6          20       0.862097          0.04     Refine Mesh
+    7          24       0.809098          0.08     Successful Poll
+    8          26       0.809098          0.02     Refine Mesh
+    9          29       0.786045          0.04     Successful Poll
+   10          31       0.786045          0.01     Refine Mesh
+   11          34       0.774554          0.02     Successful Poll
+   12          36       0.774554         0.005     Refine Mesh
+   13          39       0.769384          0.01     Successful Poll
+   14          41       0.769384        0.0025     Refine Mesh
+   15          44       0.766518         0.005     Successful Poll
+   16          45       0.766518       0.00125     Refine Mesh
+   17          47       0.765347        0.0025     Successful Poll
+   18          48       0.765347      0.000625     Refine Mesh
 patternsearch stopped because the mesh size was less than options.MeshTolerance.
-Elapsed time for optimization = 268.5038
-
+Elapsed time for optimization = 509.1476
  
 Metrics with Optimized Set of Parameter Values
 
@@ -269,7 +272,7 @@ CarMetricsSummary =
          Names          StartValue    FinalValues    tgtValue    Units       Description   
     ________________    __________    ___________    ________    _____    _________________
 
-    "Max Roll Angle"      1.5567        1.1082          0        "deg"    "Body Roll Angle"
+    "Max Roll Angle"      1.1762        0.76535         0        "deg"    "Body Roll Angle"
 
 
 paramSummary =
@@ -279,8 +282,8 @@ paramSummary =
     Initial     Final 
     _______    _______
 
-     0.24      0.20062
-     0.23         0.27
+     0.24          0.2
+     0.23      0.26969
 
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_07.png" alt=""> <p>The plots below show add the performance metrics from the new design. Values for the hardpoint locations were found that minimize the roll angle during the double-lane change.</p>

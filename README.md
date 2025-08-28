@@ -34,6 +34,13 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.5  -- September 2025**
+1. Added solid axle, 4 trailing arm, Watts link suspension
+2. Anti-roll bar droplink rod to lower rear arm added to many vehicle presets (previously constrained by planar joint)
+3. Many suspension parts centralized to libraries (Linkage_Arms.slx, Linkage_Uprights.slx, Susp_Components.slx)
+4. Added variable damper option, with damping coefficient set by input signal
+5. Minor adjustments to Hamba Sedan driveline differential and driveshafts to avoid CV singularity
+
 **v4.4  -- August 2025**
 1. Moved functions for kinematics and compliance calculations
 2. Added hyperlinks to quarter car testrigs for full set of KnC calculations
