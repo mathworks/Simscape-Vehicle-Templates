@@ -15,8 +15,8 @@ end
 
 % Sets for which to generate configurations
 Aero_Set  =  {'Sedan_HambaLG'};
-ArbF_Set  =  {'Droplink_Sedan_HambaLG_f'};
-ArbR_Set  =  {'Droplink_Sedan_HambaLG_r'};
+ArbF_Set  =  {'DroplinkRod_Sedan_HambaLG_LA_f'};
+ArbR_Set  =  {'DroplinkRod_Sedan_HambaLG_LA_r'};
 Body_Set  =  {'Sedan_HambaLG'};
 BodyGeometry_Set  =  {'Sedan_HambaLG'};
 Passenger_Set  =  {'Sedan_HambaLG_0111'};
@@ -398,12 +398,12 @@ Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
 Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Sedan_Hamba_0111;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Sedan_Hamba_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Sedan_Hamba_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_Hamba;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Sedan_Hamba_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
@@ -439,12 +439,12 @@ Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
 Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Sedan_Hamba_0111;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Sedan_Hamba_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Sedan_Hamba_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_Hamba;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Sedan_Hamba_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
@@ -480,12 +480,12 @@ Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
 Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Sedan_Hamba_0111;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Sedan_Hamba_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Sedan_Hamba_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_Hamba;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Sedan_Hamba_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
@@ -525,12 +525,12 @@ Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
 Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Sedan_Hamba_0111;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Sedan_Hamba_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Sedan_Hamba_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_Hamba;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Sedan_Hamba_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
@@ -571,12 +571,12 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Bus_Makhulu_1111;
 Vehicle.Chassis.Aero = VDatabase.Aero.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Bus_Makhulu_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Bus_Makhulu_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Bus_Makhulu_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
@@ -616,12 +616,12 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Bus_Makhulu_1111;
 Vehicle.Chassis.Aero = VDatabase.Aero.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Bus_Makhulu_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Bus_Makhulu_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Bus_Makhulu_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
@@ -658,12 +658,12 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Bus_Makhulu_1111;
 Vehicle.Chassis.Aero = VDatabase.Aero.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Bus_Makhulu_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Bus_Makhulu_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Bus_Makhulu_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
@@ -707,12 +707,12 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Bus_Makhulu_1111;
 Vehicle.Chassis.Aero = VDatabase.Aero.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Bus_Makhulu_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Bus_Makhulu_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Bus_Makhulu_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
@@ -754,12 +754,12 @@ Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
 Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Sedan_Hamba_0111;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Sedan_Hamba_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Sedan_Hamba_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_Hamba;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Sedan_Hamba_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
@@ -795,12 +795,12 @@ Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
 Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Sedan_Hamba_0111;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Sedan_Hamba_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Sedan_Hamba_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Sedan_Hamba;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Sedan_Hamba_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Sedan_Hamba_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A2;
@@ -837,12 +837,12 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.None;
 Vehicle.Chassis.Aero = VDatabase.Aero.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Bus_Makhulu_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Bus_Makhulu_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Bus_Makhulu_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
@@ -1001,12 +1001,12 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.Bus_Makhulu_1111;
 Vehicle.Chassis.Aero = VDatabase.Aero.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_Bus_Makhulu_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_f;
 Vehicle.Chassis.SuspA1.Steer = VDatabase.Steer.RackWheel_Bus_Makhulu_f;
 Vehicle.Chassis.SuspA1.Steer.DriverHuman = VDatabase.DriverHuman.Bus_Makhulu;
 
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_Bus_Makhulu_r;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_Bus_Makhulu_r;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Bus_Makhulu_LA_r;
 
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Bus_Makhulu_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Bus_Makhulu_Linear_A2;
@@ -1522,8 +1522,8 @@ vehcfg_set = {
     'Steer',        'WheelDrivenRack1UJoint_Achilles',              'SuspA1';...
     'Steer',        'None_default',                                 'SuspA2';...
     'DriverHuman',  'None',                                         'SuspA1';...
-    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_f',                  'SuspA1';...
-    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_r',                  'SuspA2';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_BC_f',                  'SuspA1';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_BC_r',                  'SuspA2';...
     'Tire',         'MFEval_Generic_190_50R10',                     'TireA1';
     'Tire',         'MFEval_Generic_190_50R10',                     'TireA2';
     'TireDyn',      'steady',                                       'TireA1';
@@ -1557,8 +1557,8 @@ vehcfg_set = {
     'Steer',        'WheelDrivenRack1UJoint_Achilles',              'SuspA1';...
     'Steer',        'None_default',                                 'SuspA2';...
     'DriverHuman',  'None',                                         'SuspA1';...
-    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_f',                  'SuspA1';...
-    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_r',                  'SuspA2';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_BC_f',               'SuspA1';...
+    'AntiRollBar',  'DroplinkRod_FSAE_Achilles_BC_r',               'SuspA2';...
     'Tire',         'MFSwift_Generic_190_50R10',                    'TireA1';
     'Tire',         'MFSwift_Generic_190_50R10',                    'TireA2';
     'TireDyn',      'steady',                                       'TireA1';
@@ -2082,8 +2082,8 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbone_FSAE_Achilles_f;
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishboneA_FSAE_Achilles_r;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.Droplink_FSAE_Achilles_f;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.Droplink_FSAE_Achilles_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_Achilles_LA_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_Achilles_LA_r;
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_DW_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_DW_Linear_A2;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_DW_Linear_A1;
@@ -2221,7 +2221,7 @@ Vehicle = Vehicle_216;
 vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.SplitLowerArmShockFrontAU_Sedan_HambaLG_f;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_HambaLG_f;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_HambaLG_Upr_f;
 
 % Assemble configuration description in string
 Vehicle.config = strrep(vehcfg,'dwb_','dwbAU_');
@@ -2257,8 +2257,8 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_r;
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
@@ -2279,8 +2279,8 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_r;
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
@@ -2301,8 +2301,8 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_r;
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
@@ -2323,8 +2323,8 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.DoubleWishbonePushrod_FSAE_Achilles_f;
 Vehicle.Chassis.SuspA2.Linkage = VDatabase.Linkage.DoubleWishbonePushrodNoSteer_FSAE_Achilles_r;
-Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_f;
-Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_r;
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_f;
+Vehicle.Chassis.SuspA2.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_FSAE_AchillesPush_BC_r;
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A1;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.FSAE_Achilles_Push_Linear_A2;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.FSAE_Achilles_Push_Linear_A1;
@@ -2437,12 +2437,8 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Custom Configuration 91: 15DOF, Swift
 veh_ind = veh_ind+1;
-Vehicle = Vehicle_002;
+Vehicle = Vehicle_228;
 VDatabase = evalin('base','VDatabase');
-Vehicle.Chassis.Body = VDatabase.Body.SUV_Landy;
-Vehicle.Chassis.Body.BodyGeometry = VDatabase.BodyGeometry.CAD_SUV_Landy;
-Vehicle.Chassis.Body.BodyLoad = VDatabase.BodyLoad.None;
-Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.SUV_Landy_1011;
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_r','SuspA2');
@@ -2475,11 +2471,11 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_228;
 Vehicle.Chassis.SuspA1 = VDatabase.Susp.AxleTA2PR_SUV_Landy_f;
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossWheelDriven_SUV_Landy_f','SuspA1');
-Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_Linear_A1;
-Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_Linear_A1;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_TA2PR_Linear_A1;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_TA2PR_Linear_A1;
 Vehicle.Chassis.SuspA2 = VDatabase.Susp.AxleTA3_SUV_Landy_r;
-Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_Linear_A1;
-Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA3_Linear_A2;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA3_Linear_A2;
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossActuator_SUV_Landy_r','SuspA2');
 
 % Assemble configuration description in string
@@ -2491,6 +2487,30 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 93: Rigid Axle, 2TA Panhard, 4TA Watts, MFMBody
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_228;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_SUV_Landy_f','SuspA1');
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_DW_Linear_A1;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_DW_Linear_A1;
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'RackWheel_SUV_Landy_f','SuspA1');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'SUV_Landy','SuspA1');
+Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_SUV_Landy_LA_f;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'AxleTA4Watts_SUV_Landy_r','SuspA2');
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA4Watts_Linear_A2;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA4Watts_Linear_A2;
+Vehicle.Chassis.SuspA2.AxleTA4Watts.Bumpstop.class.Value = 'None';
+
+% Assemble configuration description in string
+Vehicle.config = 'Landy_Ax4Watts_MFMBody_steady_fCVpCVr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 
 %% Return to main directory
