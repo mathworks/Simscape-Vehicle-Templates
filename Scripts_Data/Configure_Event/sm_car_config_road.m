@@ -458,12 +458,20 @@ switch lower(scenename)
                 Vehicle.Chassis.(tireField).TireOuter = VDatabase.Tire.(tirInst_testrig);
                 Vehicle.Chassis.(tireField).TireInner.TireBody = tirBody_Inn{axle_i};
                 Vehicle.Chassis.(tireField).TireOuter.TireBody = tirBody_Out{axle_i};
-                if(strcmpi(scenename,'knc'))
-                    % Set stiffness value so that tire compliance 
+
+                % For Tire2x, two posts are connected to the same rigidly
+                % connected axle. "Compliant" is required to avoid
+                % kinematic issues in roll.
+                Vehicle.Chassis.(tireField).TireInner.WheelPostConnection.class.Value = 'Compliant';
+                Vehicle.Chassis.(tireField).TireOuter.WheelPostConnection.class.Value = 'Compliant';
+
+                % - If rigid connection is permitted, this code could be uncommented
+                %if(strcmpi(scenename,'knc'))
+                    % Set WheelPostConnection value so that tire compliance 
                     % is not modeled on post
-                    Vehicle.Chassis.(tireField).TireInner.K.Value = 0;
-                    Vehicle.Chassis.(tireField).TireOuter.K.Value = 0;
-                end
+                %    Vehicle.Chassis.(tireField).TireInner.WheelPostConnection.class.Value = 'Rigid';
+                %    Vehicle.Chassis.(tireField).TireOuter.WheelPostConnection.class.Value = 'Rigid';
+                %end
             end
         end
 

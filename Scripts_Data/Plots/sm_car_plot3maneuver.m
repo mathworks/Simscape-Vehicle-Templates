@@ -8,15 +8,17 @@ fig_handle_name =   'h1_sm_car_maneuver';
 
 Init_type = evalin('base','Init.Type');
 
-handle_var = evalin('base',['who(''' fig_handle_name ''')']);
-if(isempty(handle_var))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
-elseif ~isgraphics(evalin('base',handle_var{:}))
-    evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+if(~contains(lower(Init_type),'testrig_post'))
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+    temp_colororder = get(gca,'defaultAxesColorOrder');
 end
-figure(evalin('base',fig_handle_name))
-clf(evalin('base',fig_handle_name))
-temp_colororder = get(gca,'defaultAxesColorOrder');
 
 % Handle single simulation output or logsout directly
 fieldnames_res = sim_results.getElementNames;
@@ -225,6 +227,7 @@ elseif(~isempty(hasDriveCycle))
     legend({'Reference','Measured'},'Location','NorthWest');
 
 elseif(contains(lower(Init_type),'testrig_post'))
+    %close(fig_handle_name) 
     sm_car_plot5bodymeas
 
 elseif(~isempty(hasTrajectory) && ~isempty(hasAccel))
