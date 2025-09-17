@@ -31,6 +31,9 @@ chassisFields    = fieldnames(Vehicle_in.Chassis);
 suspFieldInds = find(contains(chassisFields,'Susp'));
 suspFields = sort(chassisFields(suspFieldInds)); % Order important for copying Body sAxle values
 
+% Get Wheel Centers
+sWctr = sm_car_get_sWheelCentre(Vehicle);
+
 for axle_i = 1:length(tireRadii)
     % Assign to Tire-level field
     tireField  = tireFields{axle_i};
@@ -50,20 +53,9 @@ for axle_i = 1:length(tireRadii)
         Vehicle.Chassis.(tireField).sAxle.Comments =             ['Copied from Body.' axleField ' for Testrig_4Post'];
         
         % Hardpoint for wheel center location.  Field depends on suspension type
-        if(isfield(Vehicle_in.Chassis.(suspField),'Linkage'))
-            Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).Linkage.Upright.sWheelCentre;
-            Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from Upright.sWheelCentre for Testrig_4Post';
-        elseif(isfield(Vehicle_in.Chassis.(suspField),'Simple'))
-            Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).Simple.sWheelCentre;
-            Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from Simple.sWheelCentre for Testrig_4Post';
-        elseif(isfield(Vehicle_in.Chassis.(suspField),'LiveAxle'))
-            Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).LiveAxle.sWheelCentre;
-            Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from LiveAxle.sWheelCentre for Testrig_4Post';
-        elseif(isfield(Vehicle_in.Chassis.(suspField),'TwistBeam'))
-            Vehicle.Chassis.(tireField).sWheelCentre =           Vehicle_in.Chassis.(suspField).TwistBeam.TrailingArm.sWheelCentre;
-            Vehicle.Chassis.(tireField).sWheelCentre.Comments =  'Copied from TrailingArm.sWheelCentre for Testrig_4Post';
-        end
-        
+        Vehicle.Chassis.(tireField).sWheelCentre.Value =  sWctr(axle_i,:);%         Vehicle_in.Chassis.(suspField).Linkage.Upright.sWheelCentre;
+        Vehicle.Chassis.(tireField).sWheelCentre.Comments =  ['Copied from ' suspField];
+
     elseif(strcmp(Vehicle.Chassis.(tireField).class.Value,'Tire2x'))
         % If more than one wheel on corner, get tire type from subfield
         veh_tire_class = Vehicle_in.Chassis.(tireField).TireInner.class.Value;
