@@ -34,6 +34,16 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.6  -- September 2025**
+1. Added damper with variable coefficient and nonlinear endstops
+2. Added damper with variable force and nonlinear endstops
+3. Added control options for damper in vehicle controls
+4. Added maneuver "Testrig 4 Post Data" which controls posts with height vs. time signal
+5. Renamed maneuver "Testrig 4 Post" to "Testrig 4 Post Cycle 1" 
+6. Parameterized maneuver "Testrig 4 Post Cycle 1" which uses posts to test pitch, heave, roll, and bump.
+7. Improved roll metric calculations in KnC test
+8. Added plot of wheel slip angle difference between front and rear axles (indicates oversteer/understeer)
+
 **v4.5  -- September 2025**
 1. Added solid axle, 4 trailing arm, Watts link suspension
 2. Anti-roll bar droplink rod to lower rear arm added to many vehicle presets (previously constrained by planar joint)

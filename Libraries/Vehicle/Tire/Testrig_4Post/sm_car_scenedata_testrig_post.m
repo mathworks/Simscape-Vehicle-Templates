@@ -28,8 +28,9 @@ scene_data.base.width     = 40; %cm
 scene_data.base.thickness = 3;  %cm
 scene_data.base.color     = [0.6 0.6 0.6];
 
-scene_data.controller.k  = 1e4;
-scene_data.controller.kd = 100;
+%scene_data.controller.k    = 1e4;
+%scene_data.controller.kd   = 100;
+scene_data.controller.fActuatorCutoff  = 100; % Hz
 
 scene_data.density = scene_data.density.aluminum; %kg/m^3
 
