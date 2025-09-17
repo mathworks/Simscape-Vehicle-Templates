@@ -28,6 +28,8 @@ if(~isempty(susp_field_inds))
             sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA2PR.Upright.sWheelCentre.Value;
         elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA4Watts'))
             sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA4Watts.Axle.sWheelCentre.Value;
+        elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA3'))
+            sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA3.Upright.sWheelCentre.Value;
         end
     end
 end

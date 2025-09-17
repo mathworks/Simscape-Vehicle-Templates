@@ -34,7 +34,8 @@ maneuver_list = {...
     'Sine With Dwell',        'SWD';
     'Slalom',                 'SLA';
     'Trailer Disturbance',    'TRD';
-    'Testrig 4 Post'          'PST';
+    'Testrig 4 Post Cycle 1'  'PS1';
+    'Testrig 4 Post Data'     'PSD';
     'Skidpad',                'SKD';
     'Constant Radius Closed-Loop', 'RAD';
     'RDF Plateau',            'RDP';
@@ -292,7 +293,7 @@ plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
 %% Test Set 8 -- Testrig
-manv_set = {'Testrig 4 Post'};
+manv_set = {'Testrig 4 Post Cycle 1','Testrig 4 Post Data'};
 driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
@@ -324,6 +325,20 @@ trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
+%% Test Set 9b -- Variable Damper
+manv_set = {'Fishhook'};
+driver_set  = {'Stanley'};
+stoptime_set = -1*ones(size(manv_set));
+solver_typ = {'variable step'};
+veh_set = [232];
+set_param('sm_car/Controller/Default','popup_damper_control_A1','Force');
+set_param('sm_car/Controller/Default','popup_damper_control_A2','Force');
+trailer_set = {'none'};
+plotstr = {'sm_car_plot1speed'};
+sm_car_test_variants_testloop
+
+set_param('sm_car/Controller/Default','popup_damper_control_A1','None');
+set_param('sm_car/Controller/Default','popup_damper_control_A2','None');
 
 %% Test Set 10 -- ABS Test
 % TEST SETUP IS UNIQUE
