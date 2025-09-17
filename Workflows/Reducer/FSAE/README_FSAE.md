@@ -29,6 +29,13 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.6  -- September 2025**
+1. Added damper with variable coefficient and nonlinear endstops
+2. Added damper with variable force and nonlinear endstops
+3. Added control options for damper in vehicle controls
+4. Improved roll metric calculations in KnC test
+5. Added plot of wheel slip angle difference between front and rear axles (indicates oversteer/understeer)
+
 **v4.5  -- September 2025**
 1. Anti-roll bar droplink rod to lower rear arm added to many vehicle presets (previously constrained by planar joint)
 2. Many suspension parts centralized to libraries (Linkage_Arms.slx, Linkage_Uprights.slx, Susp_Components.slx)

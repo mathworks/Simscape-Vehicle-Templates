@@ -2512,6 +2512,22 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 93: Rigid Axle, 2TA Panhard, 4TA Watts, MFMBody, Variable Damping Force
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_231;
+
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_TA2PR_ForceEndstopNL_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA4Watts_ForceEndstopNL_A2;
+
+% Assemble configuration description in string
+Vehicle.config = 'Landy_Ax4Watts_MFMBody_vDamperF_fCVpCVr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
 
 %% Return to main directory
 curr_proj = simulinkproject;

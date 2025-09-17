@@ -10,6 +10,8 @@ function simres = sm_car_sim_res_get(logsout,simlog,Vehicle,varName)
 
 logsout_VehBus = logsout.get('VehBus');
 
+npts = length(logsout_VehBus.Values.Chassis.SuspA1.WhlL.aToe.Time);
+
 switch varName
     case {'vWhl','wWhl'}
         [tire_radius, ~] = sm_car_get_TireRadius(Vehicle);
@@ -80,6 +82,14 @@ switch varName
         simres.data   = sqrt(logsout_vxVeh.Data.^2+logsout_vyVeh.Data.^2+logsout_vzVeh.Data.^2);
         simres.name   = 'Vehicle v';
         simres.units  = 'm/s';
+    case 'gxVeh'
+        simres.data  = logsout_VehBus.Values.Chassis.Body.CG.gx.Data;
+        simres.name  = 'Vehicle Longitudinal Acceleration';
+        simres.units = 'm/s^2';
+    case 'gyVeh'
+        simres.data  = logsout_VehBus.Values.Chassis.Body.CG.gy.Data;
+        simres.name  = 'Vehicle Lateral Acceleration';
+        simres.units = 'm/s^2';
     case 'slipAngVeh'
         logsout_vxVeh = logsout_VehBus.Values.Chassis.Body.CG.vx;
         logsout_vyVeh = logsout_VehBus.Values.Chassis.Body.CG.vy;
@@ -154,6 +164,33 @@ switch varName
         simres.name   = 'Wheel Camber Angle';
         simres.units  = 'rad';
         simres.note   = '+ is CCW from rear view';
+    case 'aSlipWhl'
+        simres.data(:,1) = logsout_VehBus.Values.Chassis.WhlL1.aSlip.Data;
+        simres.data(:,2) = logsout_VehBus.Values.Chassis.WhlR1.aSlip.Data;
+        simres.labels = {'WhlL1','WhlR1'};
+        if(isfield(logsout_VehBus.Values.Chassis,'SuspA2'))
+            simres.data(:,3) = logsout_VehBus.Values.Chassis.WhlL2.aSlip.Data;
+            simres.data(:,4) = logsout_VehBus.Values.Chassis.WhlR2.aSlip.Data;
+            simres.labels = {'WhlL1','WhlR1','WhlL2','WhlR2'};
+        end
+        simres.name   = 'Tire Slip Angle';
+        simres.units  = 'deg';
+        simres.note   = '+ is CCW from top view';
+    case 'aSlipDelta'
+        if(isfield(logsout_VehBus.Values.Chassis,'SuspA2'))
+            aSlipFL = logsout_VehBus.Values.Chassis.WhlL1.aSlip.Data;
+            aSlipFR = logsout_VehBus.Values.Chassis.WhlR1.aSlip.Data;
+            aSlipRL = logsout_VehBus.Values.Chassis.WhlL2.aSlip.Data;
+            aSlipRR = logsout_VehBus.Values.Chassis.WhlR2.aSlip.Data;
+            aSlipF  = (aSlipFL+aSlipFR)/2;
+            aSlipR  = (aSlipRL+aSlipRR)/2;
+            simres.data  = abs(aSlipF)-abs(aSlipR);
+            simres.name   = 'Tire Slip Angle Delta';
+            simres.units  = 'deg';
+            simres.note   = '|Front|-|Rear|, + is Understeer, - is Oversteer';
+        else
+            error('Cannot calculate understeer/oversteer.  Ensure your vehicle has front and rear axles.');
+        end
     case 'fRack'
         simres.data  = logsout_VehBus.Values.Chassis.SuspA1.Steer.FRack.Data(:);
         simres.name  = 'Rack Actuation Force';
@@ -194,4 +231,11 @@ switch varName
         catch
             error('Cannot calculate track rod joint angle.  Ensure your suspension has a track rod and check the code to extract angle');
         end
+end
+
+% If simulation results only provides a single value, replicate that
+% variable for every time sample.  Occurs if default output is provided by
+% a constant block.
+if(size(simres.data,1)==1)
+    simres.data = repmat(simres.data,npts,1);
 end

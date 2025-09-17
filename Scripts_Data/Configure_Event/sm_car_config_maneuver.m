@@ -575,18 +575,38 @@ switch maneuver_str
         set_param([modelname '/Check'],'start_check_time_max_dist','2','max_dist_threshold','211');
 
 
-    % --- 4 Post Testrig
-    case 'testrig 4 post'
+    % --- 4 Post Testrig, Test Cycle 1 (Pitch, Roll, Heave, Bump)
+    case 'testrig 4 post cycle 1'
         evalin('base','Init = IDatabase.Testrig_Post.Default;');
         evalin('base','Init_Trailer = IDatabase.Testrig_Post.Default;');
-        evalin('base','Maneuver = MDatabase.None.Default;');
+        %evalin('base','Maneuver = MDatabase.None.Default;');
+        evalin('base',['Maneuver = MDatabase.Testrig4Post_Cycle1.'  veh_inst ';']);
         set_param(drive_h,'popup_driver_type','Open Loop');
-        set_param(modelname,'StopTime','20');
+        stopTime = evalin('base',['MDatabase.Testrig4Post_Cycle1.'  veh_inst '.tRange.Bump(2);']);
+        set_param(modelname,'StopTime',num2str(stopTime));
         sm_car_config_road(modelname,'Testrig 4 Post');
         set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Test_Cycle_1');
-        set_param([modelname '/Check'],'start_check_time','100');
+        set_param([modelname '/Check'],'start_check_time','100','stop_speed','100');
+        set_param([modelname '/Vehicle/Vehicle'],'popup_wheel_spin','Lock');
+        set_param([modelname '/Vehicle/Vehicle Constraint'],'LabelModeActiveChoice','NoYaw');
 
-    % --- Kinematics and Compliance Test (KnC)
+    % --- 4 Post Testrig, Test Data
+    case 'testrig 4 post data'
+        evalin('base','Init = IDatabase.Testrig_Post.Default;');
+        evalin('base','Init_Trailer = IDatabase.Testrig_Post.Default;');
+        %evalin('base','Maneuver = MDatabase.None.Default;');
+        evalin('base',['Maneuver = MDatabase.Testrig4Post_randFreqLim.'  veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Open Loop');
+        stopTime = evalin('base',['MDatabase.Testrig4Post_randFreqLim.'  veh_inst '.PostL1.t.Value(end);']);
+        set_param(modelname,'StopTime',num2str(stopTime));
+        sm_car_config_road(modelname,'Testrig 4 Post');
+        set_param([modelname '/Road/Road Surface Height'],'LabelModeActiveChoice','Test_Data');
+        set_param([modelname '/Check'],'start_check_time','100','stop_speed','100');
+        set_param([modelname '/Vehicle/Vehicle'],'popup_wheel_spin','Lock');
+        set_param([modelname '/Vehicle/Vehicle Constraint'],'LabelModeActiveChoice','NoYaw');
+
+
+        % --- Kinematics and Compliance Test (KnC)
     case 'knc'
         evalin('base','Init = IDatabase.Testrig_Post.Default;');
         evalin('base','Init_Trailer = IDatabase.Testrig_Post.Default;');
