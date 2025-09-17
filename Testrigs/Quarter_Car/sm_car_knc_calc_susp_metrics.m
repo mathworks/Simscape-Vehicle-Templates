@@ -531,7 +531,7 @@ zTotal    = zBump - zRebound;
 %% Debug plot
 if(showPlots)
     % Reuse figure if it exists, else create new figure
-    fig_handle_name =   'h6_knc_normal_force';
+    fig_handle_name =   'h6_knc_normal_force_jounce';
 
     handle_var = evalin('base',['who(''' fig_handle_name ''')']);
     if(isempty(handle_var))
@@ -547,21 +547,21 @@ if(showPlots)
 
     indBumpstopAll = union(indTravelBumpSrt,indTravelReboundSrt);
 
-    plot(simlog_pzTireTCsrt,simlog_rigFzTCsrt,'.','DisplayName','Normal Force')
+    plot(simlog_pzTireTCsrt-wCtrZ(1),simlog_rigFzTCsrt,'.','DisplayName','Normal Force')
     hold on
-    plot(PzSamplePts,FzAvg,'r','DisplayName','Avg')
+    plot(PzSamplePts-wCtrZ(1),FzAvg,'r','DisplayName','Avg')
     if(~isempty(indBumpstopAll))
         hold on
-        plot(simlog_pzTireTCsrt(indBumpstopAll),   simlog_rigFzTCsrt(indBumpstopAll),'ro','DisplayName','Bumpstop')
+        plot(simlog_pzTireTCsrt(indBumpstopAll)-wCtrZ(1),   simlog_rigFzTCsrt(indBumpstopAll),'ro','DisplayName','Bumpstop')
         hold off
     end
-    title('Normal Force vs. Displacement');
+    title('Normal Force vs. Displacement, Jounce Test');
     xlabel('Vertical Displacement (m)');
     ylabel('Normal Force (N)');
     legend('Location','Best')
     text(0.05,0.95,'If this plot is noisy, reduce damping in shock absorber.',...
         'Color',[0.6 0.6 0.6],'Units','Normalized')
-
+    grid on
 end
 
 %% Wheel Center Recession
@@ -604,6 +604,38 @@ simlog_camberROsrt           = simlog_camberRO(iROsrt);
 simlog_rigFzRO               = simlog_rigFz(indRoll);
 simlog_rigFzROsrt            = simlog_rigFzRO(iROsrt);
 
+simlog_fBumpstopRO           = simlog_fBumpstop(indRoll);
+simlog_fBumpstopROsrt        = simlog_fBumpstopRO(iROsrt);
+
+
+% For finding indices where tire is going up or going down
+indROUp      = find(diff(simlog_pzTire(indRoll))>0);
+indRODown    = find(diff(simlog_pzTire(indRoll))<0);
+testIndsROUp   = indRoll(indROUp);
+testIndsRODown = indRoll(indRODown);
+
+% ------ Method to find quasi-static answer
+% Get post height during increasing and decreasing post height
+[PzPzUp, iunU] = unique(simlog_pzTire(testIndsROUp));
+[PzPzDn, iunD] = unique(simlog_pzTire(testIndsRODown));
+
+% Sample normal force during increasing and decreasing post height
+FzROUp = simlog_rigFz(testIndsROUp(iunU));
+FzRODn = simlog_rigFz(testIndsRODown(iunD));
+
+% Find common range of height sampled during increase and decrease
+PzMax     = min(max(PzPzUp),max(PzPzDn));
+PzMin     = max(min(PzPzUp),min(PzPzDn));
+
+% Sample testrig post force for test phases with increasing and decreasing post height
+PzSamplePts = linspace(PzMin,PzMax,100);
+FzPzUpSamp = interp1(PzPzUp,FzROUp,PzSamplePts);
+FzPzDnSamp = interp1(PzPzDn,FzRODn,PzSamplePts);
+
+% Average both curves to obtain testrig post force without hysteresis
+FzAvgRO = mean([FzPzUpSamp;FzPzDnSamp]);
+
+
 %% Obtain Toe, Camber: + 2deg Roll
 if(~isempty(simlog_pzTireROsrt))
     
@@ -622,8 +654,8 @@ if(~isempty(simlog_pzTireROsrt))
     rollCamber  = camberROZp - camberROZn;
 
     %% Roll Stiffness
-    fzp2deg  = interp1(simlog_pzTireROsrt,simlog_rigFzROsrt, wCtrZ+pzRoll);
-    fzn2deg  = interp1(simlog_pzTireROsrt,simlog_rigFzROsrt, wCtrZ-pzRoll);
+    fzp2deg  = interp1(PzSamplePts,FzAvgRO, wCtrZ+pzRoll);
+    fzn2deg  = interp1(PzSamplePts,FzAvgRO, wCtrZ-pzRoll);
 
     rollStiffness = (fzp2deg-fzn2deg)*(simlog_pyTire(1))/(AngleForRollTest*2); % N*m/deg
 
@@ -638,6 +670,43 @@ else
     rollStiffness = NaN;
     rollStiffnessTotal = NaN;
 end
+
+%% Debug plot
+if(showPlots)
+    % Reuse figure if it exists, else create new figure
+    fig_handle_name =   'h7_knc_normal_force_roll';
+
+    handle_var = evalin('base',['who(''' fig_handle_name ''')']);
+    if(isempty(handle_var))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    elseif ~isgraphics(evalin('base',handle_var{:}))
+        evalin('base',[fig_handle_name ' = figure(''Name'', ''' fig_handle_name ''');']);
+    end
+    figure(evalin('base',fig_handle_name))
+    clf(evalin('base',fig_handle_name))
+
+    indTravelBumpSrt    = find(simlog_fBumpstopROsrt>0.1);
+    indTravelReboundSrt = find(simlog_fBumpstopROsrt<-0.1);
+
+    indBumpstopAll = union(indTravelBumpSrt,indTravelReboundSrt);
+
+    plot(simlog_pzTireROsrt-wCtrZ(1),simlog_rigFzROsrt,'.','DisplayName','Normal Force')
+    hold on
+    plot(PzSamplePts-wCtrZ(1),FzAvgRO,'r','DisplayName','Avg')
+    if(~isempty(indBumpstopAll))
+        hold on
+        plot(simlog_pzTireROsrt(indBumpstopAll)-wCtrZ(1),   simlog_rigFzROsrt(indBumpstopAll),'ro','DisplayName','Bumpstop')
+        hold off
+    end
+    title('Normal Force vs. Displacement, Roll Test');
+    xlabel('Vertical Displacement (m)');
+    ylabel('Normal Force (N)');
+    legend('Location','Best')
+    text(0.05,0.95,'If this plot is noisy, reduce damping in shock absorber.',...
+        'Color',[0.6 0.6 0.6],'Units','Normalized')
+    grid on
+end
+
 
 %% --Steer KnC
 
@@ -790,7 +859,7 @@ end
 %% Debug Plots
 if(showPlots && length(simlog_aWheel)>1)
     % Reuse figure if it exists, else create new figure
-    fig_handle_name =   'h7_knc_steer_ratio';
+    fig_handle_name =   'h8_knc_steer_ratio';
 
     handle_var = evalin('base',['who(''' fig_handle_name ''')']);
     if(isempty(handle_var))

@@ -270,7 +270,7 @@ InitSet.Testrig_Post.Instance     = 'Default';
 InitSet.Testrig_Post.Data         = {...
     'aChassis','rad', 0,   0,     0;
     'vChassis','m/s', 0,   0,     0;
-    'sChassis','m',   0,   0,     0};
+    'sChassis','m',   0,   0,     5e-3};  % Avoid zero crossings in hardstop
 
 %% Assemble database of vehicle initial conditions
 

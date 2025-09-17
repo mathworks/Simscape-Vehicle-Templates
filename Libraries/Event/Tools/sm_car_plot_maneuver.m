@@ -125,6 +125,7 @@ elseif(~isempty(hasPostL1))
     linkaxes(ah, 'x')
     set(gca,'XLim',[0 max(Maneuver.Steer.t.Value)])
 
+    if(isfield(Maneuver.PostL1,'tz'))
     fig_handle_name = 'h2_sm_car_maneuver';
     
     handle_var = evalin('base',['who(''' fig_handle_name ''')']);
@@ -166,7 +167,7 @@ elseif(~isempty(hasPostL1))
     linkaxes(ahf, 'x')
     set(gca,'XLim',[0 max(Maneuver.Steer.t.Value)])
     legend('Location','West')
-    
+    end
 else
 	% Plot Maneuver with Open-Loop Driver Commands
     ah(1) = subplot(311);
