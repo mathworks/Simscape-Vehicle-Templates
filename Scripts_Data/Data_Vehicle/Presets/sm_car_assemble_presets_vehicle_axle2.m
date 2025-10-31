@@ -2528,6 +2528,73 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 94: Hamba, Variable Steering Ratio
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_189;
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'RackWheelVarRatio_Sedan_Hamba_f','SuspA1');
+
+Vehicle.config = 'Hamba_dwb_MFMbody_steady_RackWheelVarRatio';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 95: Hamba, Variable Steering Ratio
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_189;
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'RackWheelByWire_Sedan_Hamba_f','SuspA1');
+
+Vehicle.config = 'Hamba_dwb_MFMbody_steady_RackWheelByWire';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 96: Sedan, MFMBody, four wheel steering
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_189;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Rack_Sedan_Hamba_r','SuspA2');
+
+% Since front suspension (with steering) has been placed on rear
+% also put springs and dampers from front on rear
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_Hamba_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_Hamba_Linear_A1;
+
+% Assemble configuration description in string
+Vehicle.config = [vehcfg '_4whlstr'];
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 97: Sedan, MFMbody, 2 Motor no cooling, four wheel steering
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_194;
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_15DOF2Mot_MFMbody_steady_fCVpCVr1D_4whlstr';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
 
 %% Return to main directory
 curr_proj = simulinkproject;
