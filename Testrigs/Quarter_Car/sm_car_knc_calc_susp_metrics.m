@@ -607,38 +607,38 @@ simlog_rigFzROsrt            = simlog_rigFzRO(iROsrt);
 simlog_fBumpstopRO           = simlog_fBumpstop(indRoll);
 simlog_fBumpstopROsrt        = simlog_fBumpstopRO(iROsrt);
 
-
-% For finding indices where tire is going up or going down
-indROUp      = find(diff(simlog_pzTire(indRoll))>0);
-indRODown    = find(diff(simlog_pzTire(indRoll))<0);
-testIndsROUp   = indRoll(indROUp);
-testIndsRODown = indRoll(indRODown);
-
-% ------ Method to find quasi-static answer
-% Get post height during increasing and decreasing post height
-[PzPzUp, iunU] = unique(simlog_pzTire(testIndsROUp));
-[PzPzDn, iunD] = unique(simlog_pzTire(testIndsRODown));
-
-% Sample normal force during increasing and decreasing post height
-FzROUp = simlog_rigFz(testIndsROUp(iunU));
-FzRODn = simlog_rigFz(testIndsRODown(iunD));
-
-% Find common range of height sampled during increase and decrease
-PzMax     = min(max(PzPzUp),max(PzPzDn));
-PzMin     = max(min(PzPzUp),min(PzPzDn));
-
-% Sample testrig post force for test phases with increasing and decreasing post height
-PzSamplePts = linspace(PzMin,PzMax,100);
-FzPzUpSamp = interp1(PzPzUp,FzROUp,PzSamplePts);
-FzPzDnSamp = interp1(PzPzDn,FzRODn,PzSamplePts);
-
-% Average both curves to obtain testrig post force without hysteresis
-FzAvgRO = mean([FzPzUpSamp;FzPzDnSamp]);
-
-
 %% Obtain Toe, Camber: + 2deg Roll
 if(~isempty(simlog_pzTireROsrt))
-    
+
+    % For finding indices where tire is going up or going down
+    indROUp      = find(diff(simlog_pzTire(indRoll))>0);
+    indRODown    = find(diff(simlog_pzTire(indRoll))<0);
+    testIndsROUp   = indRoll(indROUp);
+    testIndsRODown = indRoll(indRODown);
+
+    % ------ Method to find quasi-static answer
+    % Get post height during increasing and decreasing post height
+    [PzPzUp, iunU] = unique(simlog_pzTire(testIndsROUp));
+    [PzPzDn, iunD] = unique(simlog_pzTire(testIndsRODown));
+
+    % Sample normal force during increasing and decreasing post height
+    FzROUp = simlog_rigFz(testIndsROUp(iunU));
+    FzRODn = simlog_rigFz(testIndsRODown(iunD));
+
+    % Find common range of height sampled during increase and decrease
+    PzMax     = min(max(PzPzUp),max(PzPzDn));
+    PzMin     = max(min(PzPzUp),min(PzPzDn));
+
+    % Sample testrig post force for test phases with increasing and decreasing post height
+    PzSamplePts = linspace(PzMin,PzMax,100);
+    FzPzUpSamp = interp1(PzPzUp,FzROUp,PzSamplePts);
+    FzPzDnSamp = interp1(PzPzDn,FzRODn,PzSamplePts);
+
+    % Average both curves to obtain testrig post force without hysteresis
+    FzAvgRO = mean([FzPzUpSamp;FzPzDnSamp]);
+
+
+
     AngleForRollTest = 2;
     pzRoll   = tand(AngleForRollTest)*simlog_pyTire(1);
     toeROZp    = interp1(simlog_pzTireROsrt,simlog_toeROsrt,   wCtrZ+pzRoll);
@@ -660,7 +660,7 @@ if(~isempty(simlog_pzTireROsrt))
     rollStiffness = (fzp2deg-fzn2deg)*(simlog_pyTire(1))/(AngleForRollTest*2); % N*m/deg
 
     %% Roll Stiffness (Total)
-    rollStiffnessTotal = 1/(1/rollStiffness + 1/(tireK*(simlog_pyTire(1))/(AngleForRollTest*2))); % N/mm 
+    rollStiffnessTotal = 1/(1/rollStiffness + 1/(tireK*(simlog_pyTire(1))/(AngleForRollTest*2))); % N/mm
 
 else
     % No data for right side means quarter-car test
@@ -672,7 +672,7 @@ else
 end
 
 %% Debug plot
-if(showPlots)
+if(showPlots && ~isempty(simlog_pzTireROsrt))
     % Reuse figure if it exists, else create new figure
     fig_handle_name =   'h7_knc_normal_force_roll';
 

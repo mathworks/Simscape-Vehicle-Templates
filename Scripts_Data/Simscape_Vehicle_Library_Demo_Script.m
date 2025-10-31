@@ -25,15 +25,16 @@
 % <tr>4. Lap Time + Battery SOC Optimization: <a href="matlab:web('sm_car_optim_traj_vx_regen_results_overview.html')">Overview</a>, <a href="matlab:edit('sm_car_optim_traj_vx_regen_results_mallory_park.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testing Examples</u></b><br>
-% <tr>1. Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_batt2mot_regen1.png');">Results</a><br>
-% <tr>2. Torque Vectoring: <a href="matlab:sm_car_test_torque_vectoring">Run</a>, <a href="matlab:edit('sm_car_test_torque_vectoring.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_torque_vectoring.png');">Results</a><br>
-% <tr>3. Four-Wheel Steering: <a href="matlab:sm_car_test_four_wheel_steering">Run</a>, <a href="matlab:edit('sm_car_test_four_wheel_steering.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_four_wheel_steering.png');">Results</a><br>
-% <tr>4. Anti-Lock Brakes: <a href="matlab:sm_car_test_abs">Run</a>, <a href="matlab:edit('sm_car_test_abs.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_abs.png');">Results</a><br>
-% <tr>5. Parking Maneuver: <a href="matlab:sm_car_test_parking">Run</a>, <a href="matlab:edit('sm_car_test_parking.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_parking.png');">Results</a><br>
-% <tr>6. Driving in Reverse: <a href="matlab:sm_car_test_dlc_reverse">Run</a>, <a href="matlab:edit('sm_car_test_dlc_reverse.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_dlc_reverse.png');">Results</a><br>
-% <tr>7. Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
-% <tr>8. Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
-% <tr>9. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
+% <tr>1.  Serial Regenerative Braking, 2 Motor: <a href="matlab:sm_car_test_batt2mot_regen1">Run</a>, <a href="matlab:edit('sm_car_test_batt2mot_regen1.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_batt2mot_regen1.png');">Results</a><br>
+% <tr>2.  Torque Vectoring: <a href="matlab:sm_car_test_torque_vectoring">Run</a>, <a href="matlab:edit('sm_car_test_torque_vectoring.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_torque_vectoring.png');">Results</a><br>
+% <tr>3.  Four-Wheel Steering: <a href="matlab:sm_car_test_four_wheel_steering">Run</a>, <a href="matlab:edit('sm_car_test_four_wheel_steering.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_four_wheel_steering.png');">Results</a><br>
+% <tr>4.  Steer-By-Wire: <a href="matlab:sm_car_test_steerbywire">Run</a>, <a href="matlab:edit('sm_car_test_steerbywire.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_steerbywire.png');">Results</a><br>
+% <tr>5.  Anti-Lock Brakes: <a href="matlab:sm_car_test_abs">Run</a>, <a href="matlab:edit('sm_car_test_abs.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_abs.png');">Results</a><br>
+% <tr>6.  Parking Maneuver: <a href="matlab:sm_car_test_parking">Run</a>, <a href="matlab:edit('sm_car_test_parking.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_parking.png');">Results</a><br>
+% <tr>7.  Driving in Reverse: <a href="matlab:sm_car_test_dlc_reverse">Run</a>, <a href="matlab:edit('sm_car_test_dlc_reverse.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_dlc_reverse.png');">Results</a><br>
+% <tr>8.  Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
+% <tr>9.  Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
+% <tr>10. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_results.html');"> Documentation</a><br>
