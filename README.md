@@ -34,6 +34,16 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.7  -- November 2025**
+1. Added steer-by-wire steering template and test (rack position controlled by motor, torque feedback to driver)
+2. Added variable steering ratio template (rack position set by controller)
+3. Divided steering parameter sets in sm_car_data_Steer_Rack_Column.xlsx to separate Excel files for each steering template
+4. Renamed steering controller files and blocks (Steer_Control_Axle2_SpdRatioRear.slx, Steer_Control_Axle3_FixRatioRear.slx)
+5. Added damper with nonlinear coefficient and nonlinear endstops
+6. Added suspension template split lower arm, shock to rear, ARB to upper Arm
+7. Removed unused custom unidirectional DC-DC converter
+8. Fixed mirroring of bushings with radial and axial compliance
+
 **v4.6  -- September 2025**
 1. Added damper with variable coefficient and nonlinear endstops
 2. Added damper with variable force and nonlinear endstops

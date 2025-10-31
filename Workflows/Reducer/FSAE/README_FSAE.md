@@ -29,6 +29,11 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.7  -- November 2025**
+1. Added damper with nonlinear coefficient and nonlinear endstops
+2. Renamed steering controller files and blocks (Steer_Control_Axle2_SpdRatioRear.slx, Steer_Control_Axle3_FixRatioRear.slx)
+3. Fixed mirroring of bushings with radial and axial compliance
+
 **v4.6  -- September 2025**
 1. Added damper with variable coefficient and nonlinear endstops
 2. Added damper with variable force and nonlinear endstops
