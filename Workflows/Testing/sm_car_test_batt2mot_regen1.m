@@ -6,7 +6,7 @@
 
 % Open model and configure vehicle
 open_system('sm_car');
-sm_car_load_vehicle_data('sm_car','179');
+sm_car_load_vehicle_data('sm_car','197');
 
 % Load default maneuver
 sm_car_config_maneuver('sm_car','WOT Braking')
