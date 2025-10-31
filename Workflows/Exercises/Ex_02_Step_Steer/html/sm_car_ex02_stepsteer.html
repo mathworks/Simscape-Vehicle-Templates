@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>Customize Step Steer Test</title>
-<meta name="generator" content="MATLAB 24.2">
+<meta name="generator" content="MATLAB 25.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-10-27">
+<meta name="DC.date" content="2025-10-28">
 <meta name="DC.source" content="sm_car_ex02_stepsteer.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -151,11 +151,11 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 <p>This can be done from Simulink or from the MATLAB command line.</p>
 <pre class="codeinput">sim(mdl)
 </pre>
-<h2 id="6">Step 6: Explore simulation results in Simulink Data Inspector</h2>
+<img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_04.png" alt=""> <h2 id="6">Step 6: Explore simulation results in Simulink Data Inspector</h2>
 <p>Use the Simulink Data Inspector to plot the following quantities:</p>
 <pre class="codeinput">sm_car_ex02_stepsteer_plot1
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_04.png" alt=""> <h2 id="7">Step 7: Increase step input to the steering wheel</h2>
+<img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_05.png" alt=""> <h2 id="7">Step 7: Increase step input to the steering wheel</h2>
 <p>Adjusting these numerical values in the Maneuver data structure will increase the magnitude of the steering input.</p>
 <pre class="codeinput">Maneuver.Steer.aWheel.Value = [0 0    -0.125 -0.125   0   0];
 </pre>
@@ -167,10 +167,10 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 <p>Use the Simulink Data Inspector to plot the following quantities from the both runs.</p>
 <pre class="codeinput">sm_car_ex02_stepsteer_plot2
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_05.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
+<img vspace="5" hspace="5" src="sm_car_ex02_stepsteer_06.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
 </pre>
 <p class="footer">Copyright 2018-2025 The MathWorks, Inc.<br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024b</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2025b</a>
 <br>
 </p>
 </div>
