@@ -5,7 +5,7 @@
 
 % Test four wheel steering
 open_system('sm_car');
-sm_car_load_vehicle_data('sm_car','185');  % Ideal powertrain
+sm_car_load_vehicle_data('sm_car','235');  % Ideal powertrain
 
 % Set up maneuver
 sm_car_config_maneuver('sm_car','Turn');
