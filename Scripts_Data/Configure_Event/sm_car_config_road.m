@@ -3,7 +3,7 @@ function sm_car_config_road(modelname,scenename)
 %   sm_car_config_road(modelname,tirename)
 %   This function configures the model to have a specified surface.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Find variant subsystems for inputs
 f=Simulink.FindOptions('LookUnderMasks','all');
@@ -430,7 +430,7 @@ switch lower(scenename)
     case 'mcity'
         % Unreal scene
         if(~isempty(scene_config_h))
-            if(~verLessThan('matlab','9.6'))
+            if(~verLessThan('matlab','9.6') && verLessThan('matlab','25.1'))
                 set_param(scene_config_h,'SceneDesc','Virtual Mcity');
             end
         end

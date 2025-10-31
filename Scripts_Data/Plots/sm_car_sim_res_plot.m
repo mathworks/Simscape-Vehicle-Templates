@@ -25,7 +25,9 @@ if(nargin>3)
 end
 
 % Get simulation results based on input strings
+disp(['sim_resX = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,''' strX ''');']);
 sim_resX  = sm_car_sim_res_get(logsout,simlog,Vehicle,strX);
+disp(['sim_resY = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,''' strY ''');']);
 sim_resY  = sm_car_sim_res_get(logsout,simlog,Vehicle,strY);
 
 % Create figure handle if no handle has been provided
