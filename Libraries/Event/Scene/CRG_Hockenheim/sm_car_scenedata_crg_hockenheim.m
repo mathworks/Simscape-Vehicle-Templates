@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_crg_hockenheim
 %% Scene parameters
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 curr_dir = pwd;
 cd(fileparts(which(mfilename)));

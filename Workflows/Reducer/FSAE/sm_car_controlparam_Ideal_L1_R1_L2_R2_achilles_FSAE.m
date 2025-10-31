@@ -1,6 +1,6 @@
 function control_param = sm_car_controlparam_Ideal_L1_R1_L2_R2_achilles
 %% Scene parameters
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 control_param.Name = 'Ideal_L1_R1_L2_R2_achilles';
 control_param.trq_ratio_front = 0.5;

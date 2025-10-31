@@ -9,7 +9,7 @@ function manv_data = sm_car_import_maneuver_data
 %   "sm_car_maneuverdata".  It runs those functions and saves the results
 %   in a single structure.
 %     
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
   
 % Move to root directory
 curr_dir = pwd;

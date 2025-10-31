@@ -13,7 +13,7 @@ function [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(logsout,
 %       toeCurve     Data for plotting toe curve
 %       camCurve     Data for plotting camber curve
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus = logsout.get('VehBus');

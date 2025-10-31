@@ -1,7 +1,7 @@
 function camera_data = sm_car_gen_camera_database(varargin)
 % Define Database of Viewpoint Positions for Mechanics Explorer
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 homedir = fileparts(which('sm_car.slx'));
 

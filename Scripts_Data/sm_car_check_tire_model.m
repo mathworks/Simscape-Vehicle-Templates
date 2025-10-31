@@ -2,7 +2,7 @@ function sm_car_check_tire_model(modelname)
 %sm_car_check_tire_model  Check if tire software is available for selected tire
 %   sm_car_check_tire_model(modelname)
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Find "tireModelUnavailable" by searching active variants only
 % Syntax changes with release

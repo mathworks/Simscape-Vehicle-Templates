@@ -77,5 +77,5 @@
 % using the drop down menu on the Controller mask dialog. Take a look at it
 % and customize it with your own algorithm.
 
-% Copyright 2018-2024 The MathWorks(TM), Inc.
+% Copyright 2018-2025 The MathWorks(TM), Inc.
 

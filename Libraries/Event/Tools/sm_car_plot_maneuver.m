@@ -1,6 +1,6 @@
 function sm_car_plot_maneuver(Maneuver,varargin)
 % Function to plot key parameters of predefined maneuver
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 if(nargin==1)
     plotInds = 0;

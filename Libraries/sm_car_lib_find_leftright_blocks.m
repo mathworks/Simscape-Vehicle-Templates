@@ -1,7 +1,7 @@
 function h = sm_car_lib_find_leftright_blocks(curblk)
 % Find other left/right blocks
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Search active variants only
 % Syntax changes with release

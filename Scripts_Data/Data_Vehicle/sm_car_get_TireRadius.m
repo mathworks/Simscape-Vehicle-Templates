@@ -11,7 +11,7 @@ function [tire_radius, tireFields] = sm_car_get_TireRadius(Vehicle)
 %     tire_radius   Tire radius (m)
 %     tireFields    Cell array of tire field names
 %   
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 % Find fieldnames for tires
 chassis_fnames = fieldnames(Vehicle.Chassis);

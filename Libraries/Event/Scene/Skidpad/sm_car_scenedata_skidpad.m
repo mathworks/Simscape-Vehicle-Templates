@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_skidpad
 %% Skidpad parameters
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 scene_data.Name = 'Skidpad';
 scene_data.Circle_Inner.d    = 15.25;      % m

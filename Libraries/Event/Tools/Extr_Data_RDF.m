@@ -10,7 +10,7 @@ function [xy_data_L, xy_data_R] = Extr_Data_RDF(filename, poly_line_depth, varar
 %   add 'plot' as the final argument
 %   >> Extr_Data_RDF(10,5,'plot')
 
-% Copyright 2013-2024 The MathWorks, Inc.
+% Copyright 2013-2025 The MathWorks, Inc.
 
 showplot = 'n';
 if(nargin>2)

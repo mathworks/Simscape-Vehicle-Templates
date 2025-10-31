@@ -16,7 +16,7 @@ function Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,axle_opt,arm_opt,connFi
 % The name is a label composed of
 %      <bushing type> <chassis type front/rear> <suspension type> <arm type>
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

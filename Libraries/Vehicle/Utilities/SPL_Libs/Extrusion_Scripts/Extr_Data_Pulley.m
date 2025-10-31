@@ -17,7 +17,7 @@ function [xy_data] = Extr_Data_Pulley(rad_p, h_grv, rad_h, a_grv, th_p,  varargi
 %   add 'plot' as the final argument
 %   >> Extr_Data_Pulley(0.025,0.005,0.005,25,0.02,'plot')
 
-% Copyright 2012-2024 The MathWorks, Inc.
+% Copyright 2012-2025 The MathWorks, Inc.
 
 % Default data to show diagram
 if (nargin == 0)

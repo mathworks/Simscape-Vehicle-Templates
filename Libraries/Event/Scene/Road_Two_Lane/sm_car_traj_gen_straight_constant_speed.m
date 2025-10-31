@@ -12,7 +12,7 @@ function traj = sm_car_traj_gen_straight_constant_speed(varargin)
 %      latOffset   Offset for straightline trajectory (m)
 %      showPlot    true to plot trajectory
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Vehicle initial speed
 initSpeed = 1;

@@ -4,7 +4,7 @@ function [xy_data] = sm_car_road_track_extrusion(track_ctrline,track_width,varar
 %   This function creates extrusion data for a track based on its center
 %   line profile and track width.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Check if plot should be produced
 if (isempty(varargin))

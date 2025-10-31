@@ -5,7 +5,7 @@ component custom_abs
 % y = abs(u)
 %
 
-% Copyright 2005-2024 The MathWorks, Inc.
+% Copyright 2005-2025 The MathWorks, Inc.
 
   inputs
     I = { 0, '1' }; % :left

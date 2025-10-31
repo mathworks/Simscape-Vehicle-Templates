@@ -20,7 +20,7 @@ function [xFinal,fval,TSuspMetricsFinal] = testrig_quarter_car_optim_run(mdl,Veh
 %      fval               Optimized value of performance metrics
 %      TSuspMetricsFinal  Metrics obtained with optimized parameters
 %
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2025 The MathWorks, Inc.
 
 %% Obtain and display default level of target metric (such as "bump steer")
 open_system(mdl)

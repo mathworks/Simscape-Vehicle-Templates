@@ -4,7 +4,7 @@ function sm_car_config_wind(modelname,onCar,onTrailer)
 %
 %   This function configures the wind input to the car and trailer.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Find variant subsystems for settings
 f=Simulink.FindOptions('LookUnderMasks','all');

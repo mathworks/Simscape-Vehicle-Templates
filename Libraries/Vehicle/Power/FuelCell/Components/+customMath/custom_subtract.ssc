@@ -6,7 +6,7 @@ component custom_subtract
 %
 % All connections are physical signal ports.
 
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2025 The MathWorks, Inc.
 
   inputs
     I1 = { 0, '1' }; % :left

@@ -28,7 +28,7 @@ function maneuver_data = sm_car_maneuverdata_knc(varargin)
 %    zOffsetBumpTest   Height to determine bump steer, bump camber, etc.
 %      qToeForCaster   Toe angle used to determine bump caster, KPI
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 maneuver_type = 'KnC';
 

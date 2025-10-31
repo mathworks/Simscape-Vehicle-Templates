@@ -5,7 +5,7 @@ component translational_hardstop
 % is implemented as a spring and damper that comes into contact with the 
 % slider as the gap is cleared.
 
-% Copyright 2016-2024 The MathWorks, Inc.
+% Copyright 2016-2025 The MathWorks, Inc.
 
 parameters
     upper_bnd = {0.1 , 'm'    }; % Upper bound

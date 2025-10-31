@@ -18,7 +18,7 @@ function [ verticesOut ] = Extr_Data_Round_Corners( vertices, vIdxs , R, nP)
 %         If it is a vector it has to be the same size as vIdxs.
 % nP    - Number of points on the rounded corner
 
-% Copyright 2012-2024 The MathWorks, Inc.
+% Copyright 2012-2025 The MathWorks, Inc.
 
 vsz = size(vertices);
 assert((vsz(2)==2) && (vsz(1)>=3), ...

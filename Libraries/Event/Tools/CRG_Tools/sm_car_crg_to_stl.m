@@ -6,7 +6,7 @@ function [x1, y1, z1] = sm_car_crg_to_stl(crg_file,stl_file,varargin)
 %
 %   Outputs are points used to define the STL.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Defaults
 x_extension = 0;

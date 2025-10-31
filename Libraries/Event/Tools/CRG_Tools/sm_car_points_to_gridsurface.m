@@ -19,7 +19,7 @@ function grid_surface = sm_car_points_to_gridsurface(terrain_points,npts_x,npts_
 %   You can optionally specify:
 %       showplot        'plot' to produce a plot of data with STL mesh
 
-% Copyright 2021-2024 The MathWorks, Inc
+% Copyright 2021-2025 The MathWorks, Inc
 
 showplot = 'n';
 if (nargin==4)

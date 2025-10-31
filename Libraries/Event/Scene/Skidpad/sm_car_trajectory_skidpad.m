@@ -1,6 +1,6 @@
 function sm_car_trajectory_skidpad
 % Function to construct skidpad maneuver
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)))
 

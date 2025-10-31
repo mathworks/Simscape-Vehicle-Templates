@@ -13,7 +13,7 @@ function [xy_data] = Extr_Data_Dashes(pitch, numdashes, dash_l, dash_h, Tb)
 % The profile is centered about the midpoint of the  
 % mid dash height.
 
-% Copyright 2012-2024 The MathWorks, Inc.
+% Copyright 2012-2025 The MathWorks, Inc.
 
 showplot = 'n';
 

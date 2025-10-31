@@ -11,7 +11,7 @@ function [traj_data] = sm_car_trajectory_calc(road_data,traj_coeff)
 % Trajectory is centerline as defined by CRG file.
 % A custom formula calculates target speed based on track curvature.
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 % Basic settings
 road_data = strrep(road_data,' ','_');

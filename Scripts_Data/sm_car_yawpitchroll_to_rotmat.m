@@ -18,7 +18,7 @@ function rotmat_ypr = sm_car_yawpitchroll_to_rotmat(yaw,pitch,roll)
 %   are performed on the coordinate system as rotated by the previous
 %   operation.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 Rx = [1    0           0;
       0 cos(roll) -sin(roll);

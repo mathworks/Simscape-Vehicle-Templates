@@ -4,7 +4,7 @@ function [Camera] = sm_car_define_camera(camera_param)
 % Frame parameters are used to calculate transform information for all
 % frames defined in the Camera Frames subsystem.
 %
-% Copyright 2021-2024 The MathWorks, Inc.
+% Copyright 2021-2025 The MathWorks, Inc.
 
 % Offset from vehicle reference to camera reference
 Camera.Offset.s.Value = camera_param.veh_to_cam;

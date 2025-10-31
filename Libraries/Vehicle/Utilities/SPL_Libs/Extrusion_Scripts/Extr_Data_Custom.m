@@ -2,7 +2,7 @@ function Extr_Data_Custom(xy_data)
 %Extr_Data_Custom 	Plot custom extrusion data.
 %   This function plots x-y data for a custom extrusion.
 
-% Copyright 2012-2024 The MathWorks, Inc.
+% Copyright 2012-2025 The MathWorks, Inc.
 
 % Plot diagram to show parameters and extrusion
 

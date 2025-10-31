@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_plane_grid
 %% Floor and Grid parameters
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 scene_data.Name = 'Plane_Grid';
 scene_data.Plane.l = 400;           % m

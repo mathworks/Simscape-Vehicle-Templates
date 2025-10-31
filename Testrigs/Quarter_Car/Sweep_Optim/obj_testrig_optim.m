@@ -15,7 +15,7 @@ function F  = obj_testrig_optim(x,mdl,par_list,Vehicle,metricName,tgtValue,metri
 %   Outputs
 %      F          Optimized value of performance metric
 %
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2025 The MathWorks, Inc.
 
 load_system(mdl);
 

@@ -4,7 +4,7 @@
 % The plot below shows body pitch and roll as the vehicle
 % is exposed to a specific test profile on the four-post testrig.
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 % Check for simulation results
 if ~exist('logsout_sm_car', 'var')

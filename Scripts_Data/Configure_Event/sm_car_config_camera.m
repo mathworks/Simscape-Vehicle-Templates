@@ -1,5 +1,5 @@
 function sm_car_config_camera
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 veh_config = evalin('base','Vehicle.config');
 veh_config_set = strsplit(veh_config,'_');

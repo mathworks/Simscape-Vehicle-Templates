@@ -6,7 +6,7 @@
 % configuration we enable the anti-roll bar, in the other we disable it. The
 % Simulink Data Inspector let us easily compare vehicle body measurements.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB app, project shortcut, or MATLAB Command

@@ -7,7 +7,7 @@ function traj_coeff = CRG_Create_Hockenheim
 %
 % If output is requested, provides default trajectory coefficients
 %
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2025 The MathWorks, Inc.
 
 if(nargout == 0)
     road_opts.create_stl_files = true;

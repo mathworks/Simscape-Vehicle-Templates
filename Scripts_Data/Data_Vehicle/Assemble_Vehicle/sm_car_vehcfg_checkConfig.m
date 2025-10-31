@@ -11,7 +11,7 @@ function Vehicle = sm_car_vehcfg_checkConfig(Vehicle_in)
 % 2. Putting tire radius in an explicit field (instead of having it buried
 %    in the .tir file).
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 Vehicle = Vehicle_in;
 

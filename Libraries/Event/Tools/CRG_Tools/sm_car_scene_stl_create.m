@@ -11,7 +11,7 @@ function sm_car_scene_stl_create(scene_data)
 %
 %   Example: sm_car_scene_stl_create(Scene.CRG_Mallory_Park_F)
 %
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2025 The MathWorks, Inc.
 
 curr_dir = pwd;
 

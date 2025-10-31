@@ -3,7 +3,7 @@ function sm_car_plot10_tire_force_torque(varargin)
 %  sm_car_plot10_tire_force_torque(varargin)
 %  You may specify 'vehicle' or 'trailer' to select which data is plotted
 % 
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Check if vehicle or trailer was specified
 if(nargin == 0 || strcmpi(varargin,'vehicle'))

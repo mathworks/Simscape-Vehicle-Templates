@@ -1,6 +1,6 @@
 function startup_sm_car
 % Startup file for sm_car.slx Example
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 

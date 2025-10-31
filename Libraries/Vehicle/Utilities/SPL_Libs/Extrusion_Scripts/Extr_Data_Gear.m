@@ -21,7 +21,7 @@ function [xy_data] = Extr_Data_Gear(type, Dp, N, radh, varargin)
 %   add 'plot' as the final argument
 %   >> Extr_Data_Gear('internal',0.25, 20, 0.01, 'plot')
 
-% Copyright 2013-2024 The MathWorks, Inc.
+% Copyright 2013-2025 The MathWorks, Inc.
 
 Ap = 14.5; % Pressure Angle
 showplot = 'n';

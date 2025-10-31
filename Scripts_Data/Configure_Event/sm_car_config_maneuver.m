@@ -3,7 +3,7 @@ function sm_car_config_maneuver(modelname,maneuver)
 %   sm_car_config_maneuver(modelname,maneuver)
 %   This function configures the model to execute the desired maneuver.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Find variant subsystems for settings
 f=Simulink.FindOptions('regexp',1);

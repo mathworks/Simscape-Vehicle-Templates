@@ -26,7 +26,7 @@ function maneuver_data = sm_car_maneuverdata_sine_dwell(varargin)
 %       Accel   Accelerator pedal (0 for open-loop portion of test)
 %       Additional fields for driver model
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 maneuver_type = 'Sine_With_Dwell';
 

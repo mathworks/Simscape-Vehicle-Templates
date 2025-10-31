@@ -7,7 +7,7 @@ function sm_car_config_vehicle(mdl,triggerVariants)
 %   It also sets some other settings and variant subsystem settings
 %   associated with the vehicle type.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 % Only if the model is open should it be configured
 if(bdIsLoaded(mdl))

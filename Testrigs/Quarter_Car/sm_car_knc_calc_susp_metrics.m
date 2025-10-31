@@ -42,7 +42,7 @@ function TSuspMetrics = sm_car_knc_calc_susp_metrics(simlog_toe,...
 %       tireW            Tire width (m)
 %       showPlots        true or false to show plots detailing calculations
 
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 %% Get indices for each phase of simulation results
 indToeCamb   = intersect(find(simlog_t>=testPhases.Jounce(1)),find(simlog_t<=testPhases.Rebound(2)));

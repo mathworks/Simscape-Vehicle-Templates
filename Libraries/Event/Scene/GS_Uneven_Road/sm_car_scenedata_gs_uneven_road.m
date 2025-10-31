@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_gs_uneven_road
 %% Scene parameters
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 %% Defining this maneuver
 % The code below adds the grid surface for uneven road to the Scene

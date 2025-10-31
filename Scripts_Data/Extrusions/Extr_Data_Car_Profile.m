@@ -16,7 +16,7 @@ function [xy_data_top, xy_data_side] = Extr_Data_Car_Profile(whl_rad, whl_base, 
 %   add 'plot' as the final argument
 %   >> Extr_Data_Car_Profile(0.43, 3.2, 0.05,'plot')
 
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 if (nargin == 0)
     whl_rad = 0.43;

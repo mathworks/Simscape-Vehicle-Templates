@@ -7,7 +7,7 @@ function sm_car_centerline_to_crg(road_name,road_opts)
 % <root file name>_centerline.crg   Centerline definition
 % <root file name>_centerline.stl   Centerline geometry
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2025 The MathWorks, Inc.
 
 % Basic settings
 root_outfiles = strrep(road_name,' ','_');

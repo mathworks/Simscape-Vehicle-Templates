@@ -4,7 +4,7 @@ function uLim = vectorLimit(u,a,b)
 %    If useZeroCrossing is true, zero crossings will be enabled at u=a and 
 %    at u=b.
 
-% Copyright 2017-2024 The MathWorks, Inc.
+% Copyright 2017-2025 The MathWorks, Inc.
 
 definitions
   % Auto-generated saturation function for vector inputs

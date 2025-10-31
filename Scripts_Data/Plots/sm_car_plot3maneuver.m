@@ -1,6 +1,6 @@
 function sm_car_plot3maneuver(Maneuver,sim_results)
 % Function to plot key parameters of predefined maneuver
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 
 % Prepare first figure and handle

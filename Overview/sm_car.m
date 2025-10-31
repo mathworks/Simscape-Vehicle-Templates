@@ -7,7 +7,7 @@
 % MathWorks products. A modular library of components gives users a great
 % starting point for creating custom vehicle models.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2025 The MathWorks, Inc.
 
 
 %% Model

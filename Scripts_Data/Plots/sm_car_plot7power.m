@@ -4,7 +4,7 @@ function sm_car_plot7power(logsout_data)
 %
 % Plot results from electric powertrains
 %
-% Copyright 2016-2024 The MathWorks, Inc.
+% Copyright 2016-2025 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus  = logsout_data.get('VehBus');
