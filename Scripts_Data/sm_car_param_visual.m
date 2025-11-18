@@ -14,6 +14,7 @@ Visual.clr.bluelight   = [0.5 0.8 1.0];
 Visual.clr.black       = [0.0 0.0 0.0];
 Visual.clr.yellow      = [1.0 1.0 0.0];
 Visual.clr.green       = [0.2 1.0 0.0];
+Visual.clr.greenbright = [0.6 1.0 0.0];
 Visual.clr.red         = [1.0 0.0 0.2];
 Visual.clr.reddark     = [0.6 0.0 0.2];
 Visual.clr.orange      = [1.0 0.8 0.4];
@@ -61,6 +62,8 @@ Visual.SteeringArm.clr      = Visual.clr.green;
 Visual.TrackRod.clr         = Visual.clr.purple;
 
 Visual.Bushing.clr          = Visual.clr.gray;
+Visual.BushingShell.clr     = [0.2 0.4 1.0];
+Visual.BushingXAxis.clr     = Visual.clr.greenbright;
 
 Visual.SteeringRack.clr     = Visual.clr.bluepure;
 Visual.SteeringShafts.clr   = Visual.clr.gray;

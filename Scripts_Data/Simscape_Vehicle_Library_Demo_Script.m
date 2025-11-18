@@ -35,6 +35,7 @@
 % <tr>8.  Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
 % <tr>9.  Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
 % <tr>10. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
+% <tr>11. Powertrain Configurations: <a href="matlab:web('sm_car_testing_powertrain_configs.html');">Results</a>, <a href="matlab:edit('sm_car_testing_powertrain_configs');">Edit Code</a><br>
 % <br>
 % <tr><b><u>Testrigs</u></b><br>
 % <tr>1.  Quarter-Car Testrig: <a href="matlab:cd(fileparts(which('testrig_quarter_car.slx')));open_system('testrig_quarter_car');">Open Model</a>, <a href="matlab:web('testrig_quarter_car_results.html');"> Documentation</a><br>
