@@ -54,11 +54,17 @@ TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true
 %%
 TSuspMetrics
 
-%% Split Lower Arm, Shock to Lower Arm Front
+%% Split Lower Arm, Shock to Lower Arm Front, Bushings
 %
 
-sm_car_load_vehicle_data('none','032')
+sm_car_load_vehicle_data('none','048')
 set_param([bdroot '/Axle'],'AxNum','Front');
+
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAF','BushLink_AxRad_SLGf_S2LAR_LAF');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAR','BushLink_Ax3_SLGf_S2LAF_LAR');
+
+Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection = VDatabase.Subframe_Conn.BushARB_Ax3_SedanLG_f;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
@@ -129,13 +135,18 @@ TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true
 %%
 TSuspMetrics
 
-%% MacPherson
+%% MacPherson, Bushings
 %
 
 sm_car_load_vehicle_data('none','218')
 set_param([bdroot '/Axle'],'AxNum','Front');
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_Tr3Ro3_SHf_MacP');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','ARB','BushARB_Tr3Ro3_SLGf_MacP');
+Vehicle.Chassis.SuspA1.Linkage.Shock_to_Subframe = VDatabase.Subframe_Conn.BushARB_Tr3Ro3_SLGf_MacP;
+
 Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.0,0.10,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
