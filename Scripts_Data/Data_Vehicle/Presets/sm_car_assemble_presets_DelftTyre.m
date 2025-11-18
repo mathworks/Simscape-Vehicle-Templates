@@ -33,7 +33,7 @@ SuspF_Set = {'dwb_SHL','dwa_SHL','S2LAF_SHL','S2LAR_SHL','5S2LAF_SHL','5S2LAR_SH
 Tire_Set  = {'MFEval_Generic_235_50R24','Delft_Generic_235_50R24'};
 Tire_Dyn_Set = {'steady','lintra'};
 %TireBody_Set = {'Parameterized'};
-Drv_Set = {'f1Dr1D_SHL','f1D3Dr1D_SHL','fCVpCVr1D_SHL','fCVpCVflexr1D_SHL'};
+Drv_Set = {'A2_D1D2_1D_1D_HL','A2_D1D2_1D3D_1D_HL','A2_D1D2_CVpCV_1D_HL','A2_D1D2_CVpCVflex_1D_HL'};
 
 %% Assemble individual configurations by looping on sets defined above
 
@@ -135,7 +135,7 @@ Vehicle = Vehicle_000;
 %% Custom Configuration 1: One Driveshaft
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCVr1D_1sh_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D12v_CVpCV_1D_HL');
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal1Motor_default');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_HambaLG','front');
 
@@ -155,7 +155,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 2: CVpCV Front and Rear
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCVrCVpCV_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_CVpCV_CVpCV_HL');
 
 % Configure tire dynamics
 Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'steady','front');
@@ -173,7 +173,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 3: ABS
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D3Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D3D_1D_HL');
 Vehicle = sm_car_vehcfg_setBrakes(Vehicle,'ABS_Sedan_HambaLG');
 
 % Configure tire dynamics
@@ -192,7 +192,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 4: Nonlinear Spring
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D3Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D3D_1D_HL');
 Vehicle = sm_car_vehcfg_setSpring(Vehicle,'in_nlFlinR_SHL');
 
 % Configure tire dynamics
@@ -211,7 +211,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 5: Interconnected Springs, Nonlinear Rear
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D3Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D3D_1D_HL');
 Vehicle = sm_car_vehcfg_setSpring(Vehicle,'con_linFnlR_SHL');
 
 % Configure tire dynamics
@@ -230,7 +230,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 6: Independent Spring, Linear only (no variants)
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D3Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D3D_1D_HL');
 Vehicle = sm_car_vehcfg_setSpring(Vehicle,'lin_linFlinR_SHL');
 
 % Configure tire dynamics
@@ -249,7 +249,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 7: Independent Damper, Nonlinear Rear
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D3Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D3D_1D_HL');
 Vehicle = sm_car_vehcfg_setDamper(Vehicle,'in_linFnlR_SHL');
 
 % Configure tire dynamics
@@ -268,7 +268,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 8: Interconnected Damper, Nonlinear Front
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1D3Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D3D_1D_HL');
 Vehicle = sm_car_vehcfg_setDamper(Vehicle,'con_nlFlinR_SHL');
 
 % Configure tire dynamics
@@ -287,7 +287,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 %% Custom Configuration 9: Driveline CVCVp
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_000;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVCVpr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_CVCVp_1D_HL');
 
 % Configure tire dynamics
 Vehicle = sm_car_vehcfg_setTireDyn(Vehicle,'steady','front');
@@ -1033,7 +1033,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_139;
 Vehicle.Powertrain.Power = VDatabase.Power.Electric3Motor_default;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCVr1D_3sh_SH');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1S2_CVpCV_1D_HL');
 % Assemble configuration description in string
 Vehicle.config = 'Hamba_E3sha_MFEval_steady_fCVpCVr1D';
 
@@ -1047,7 +1047,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_140;
 Vehicle.Powertrain.Power = VDatabase.Power.Electric3Motor_default;
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCVr1D_3sh_SH');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1S2_CVpCV_1D_HL');
 % Assemble configuration description in string
 Vehicle.config = 'Hamba_E3sha_Delft_steady_fCVpCVr1D';
 
@@ -1143,7 +1143,7 @@ Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','front');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','rear');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','front');
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric3Motor_default');
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCVr1D_3sh_SH');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1S2_CVpCV_1D_HL');
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Active_1_Loop');
 
 % Assemble configuration description in string
@@ -1164,7 +1164,7 @@ Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','front');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','rear');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','front');
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric3Motor_default');
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'fCVpCVr1D_3sh_SH');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1S2_CVpCV_1D_HL');
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'Active_1_Loop');
 
 % Assemble configuration description in string
@@ -1185,10 +1185,10 @@ Vehicle = sm_car_vehcfg_setSusp(Vehicle,'15DOF_SH','rear');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','front');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','rear');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','front');
-Vehicle = sm_car_vehcfg_setDrv(Vehicle,'f1Dr1D_SHL');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D_1D_HL');
 
 % Assemble configuration description in string
-Vehicle.config = 'Hamba_15DOF_Delft_steady_f1Dr1D_SHL';
+Vehicle.config = 'Hamba_15DOF_Delft_steady_A2_D1D2_1D_1D_HL';
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
