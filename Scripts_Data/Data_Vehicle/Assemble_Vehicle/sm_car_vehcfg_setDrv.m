@@ -2,12 +2,21 @@ function Vehicle = sm_car_vehcfg_setDrv(Vehicle,drv_opt)
 % Copy data from VDatabase to Vehicle data structure
 %
 % drv_opt contains string indicating configuration of driveline.
-%      f<front driveshafts>r<rear differential>_<platform>
+% Not every combination is supplied, but for the combinations which are
+% supported this is how the string is assembled.
+%      A<number of axles>_D<axles with differential>_ ...
+%          <shaft types for driven axles>_<vehicle instance>
 %
-%   <front differential>   1D, 1D with non-rotating 3D shafts,
-%                            or options for 3D driveshafts
-%   <rear differential>    Same as front
-%   <platform>             Abbreviation for Sedan Hamba "SH", etc.
+%      Example: 'A2_D1D2_1D_1D_SH'
+%           A2    = Two axles
+%           D1D2  = Differentials on first and second axles
+%           1D_1D = 1D shafts on first and second axles
+%           SH    = Sedan Hamba instance
+%
+%      Special character combinations
+%           D23   = Differentials on 2nd and 3rd axle, 
+%                     driven by same input shaft.
+%           CV    = Constant Velocity joint
 %
 % Copyright 2019-2025 The MathWorks, Inc.
 
@@ -15,10 +24,10 @@ function Vehicle = sm_car_vehcfg_setDrv(Vehicle,drv_opt)
 VDatabase = evalin('base','VDatabase');
 
 switch drv_opt
-    case 'f1Dr1D_SHL'
-        % Front: 1D shafts
-        % Rear:  1D shafts
-        % Sedan HambaLG configuration
+    case 'A2_D1D2_1D_1D_HL'       % Formerly 'f1Dr1D_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Axle 1: Differential, 1D shafts
+        % Axle 2: Differential, 1D shafts
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts1D_Sedan_HambaLG_f';
@@ -27,9 +36,40 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'f1D3Dr1D_SHL'
-        % 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
+    case 'A2_D1D2_1D_1D_HA'        % Formerly 'f1Dr1D_SH'
+        % Two Axle, Sedan Hamba instance
+        % Axle 1: Differential, 1D shafts
+        % Axle 2: Differential, 1D shafts
+        instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
+        
+        instanceDiffA1     = 'Gear1DShafts1D_Sedan_Hamba_f';
+        instanceDrShA1     = 'Shaft1D_default';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_Hamba_r';
+        instanceDrShA2     = 'Shaft1D_default';
+        
+    case 'A2_D1_1D_HA'              % Formerly 'f1D_SH'
+        % Two Axle, Sedan Hamba instance
+        % Axle 1: Differential, 1D shafts
+        % Axle 2: Unpowered
+        instanceDriveline = 'Axle2_A1_A1Diff_default';
+        
+        instanceDiffA1     = 'Gear1DShafts1D_Sedan_Hamba_f';
+        instanceDrShA1     = 'Shaft1D_default';
+        
+    case 'A2_D2_1D_HA'              % Formerly 'r1D_SH'
+        % Two Axle, Sedan Hamba instance
+        % Axle 1: Unpowered
+        % Axle 2: Differential, 1D shafts
+        instanceDriveline = 'Axle2_A2_A2Diff_default';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_Hamba_r';
+        instanceDrShA2     = 'Shaft1D_default';
+        
+    case 'A2_D1D2_1D3D_1D_HL'       % Formerly 'f1D3Dr1D_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Axle 1: Differential, 1D shafts with non-rotating 3D shafts for visualization
+        % Axle 2: 1D shafts
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3Dfix_Sedan_HambaLG_f';
@@ -38,10 +78,10 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'f1D3Dr1D_SH'
-        % 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
-        % Sedan Hamba configuration
+    case 'A2_D1D2_1D3D_1D_HA'      % Formerly 'f1D3Dr1D_SH'
+        % Two Axle, Sedan Hamba instance
+        % Axle 1: Differential, 1D shafts with non-rotating 3D shafts for visualization
+        % Axle 2: 1D shafts
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_Hamba_f';
@@ -50,31 +90,32 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_Hamba_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'A11D_A21D3_A31D_BM3'
-        % Three Axle Bus Makhulu configuration
-        % One powered shaft
-        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
+    case 'A3_D2_1D3D_BM'          % Formerly 'A11D_A21D3_A31D_BM3'
+        % Three Axle, Bus Makhulu instance
+        % Axle 1: Unpowered
+        % Axle 2: Differential, 1D shafts
+        % Axle 3: Unpowered
         instanceDriveline = 'Axle3_A2_A2Diff_Bus_Makhulu_Axle3';
         
         instanceDiffA2     = 'Gear1DShafts1D_Bus_Makhulu_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'A11D_A21D3_A31D_TA3'
-        % Three Axle Truck Amandla configuration
-        % One powered shaft, one powered axle (6x2)
-        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
+    case 'A3_D2_1D3D_TA'          % Formerly 'A11D_A21D3_A31D_TA3'
+        % Three Axle, Truck Amandla instance
+        % Axle 1: Unpowered
+        % Axle 2: Differential, 1D shafts
+        % Axle 3: Unpowered
         instanceDriveline = 'Axle3_A2_A2Diff_Truck_Amandla_Axle3';
         
         instanceDiffA2     = 'Gear1DShafts1D_Truck_Amandla_A2';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'A11D_A21D3_A31D3_BM3'
-        % Three Axle Bus Makhulu configuration
+    case 'A3_D23_1D_1D_BM'    % Formerly 'A11D_A21D3_A31D3_BM3'
+        % Three Axle,  Bus Makhulu instance
         % One powered shaft, two powered axles (6x4)
-        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
+        % Axle 1: Unpowered
+        % Axle 2: Differential, 1D shafts
+        % Axle 3: Differential, 1D shafts
         instanceDriveline = 'Axle3_A23_A2Diff_A3Diff_Bus_Makhulu_Axle3';
         
         instanceDiffA2     = 'Gear1DShafts1D_Bus_Makhulu_r';
@@ -83,11 +124,12 @@ switch drv_opt
         instanceDiffA3     = 'Gear1DShafts1D_Bus_Makhulu_r';
         instanceDrShA3     = 'Shaft1D_default';
         
-    case 'A11D_A21D3_A31D3_TA3'
-        % Three Axle Truck Amandla configuration
+    case 'A3_D23_1D_1D_TA'    % Formerly 'A11D_A21D3_A31D3_TA3'
+        % Three Axle, Truck Amandla instance
         % One powered shaft, two powered axles (6x4)
-        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
+        % Axle 1: Unpowered
+        % Axle 2: Differential, 1D shafts
+        % Axle 3: Differential, 1D shafts
         instanceDriveline = 'Axle3_A23_A2Diff_A3Diff_Truck_Amandla_Axle3';
         
         instanceDiffA2     = 'Gear1DShafts1D_Truck_Amandla_A2';
@@ -96,11 +138,10 @@ switch drv_opt
         instanceDiffA3     = 'Gear1DShafts1D_Truck_Amandla_A3';
         instanceDrShA3     = 'Shaft1D_default';
         
-    case 'f1D3Dr1D_BM'
-        % Two Axle Bus Makhulu configuration
-        % Two powered shaft, two powered axles (4x4)
-        % Front: 1D shafts for power, non-rotating 3D shafts for visualization
-        % Rear:  1D shafts
+    case 'A2_D1D2_1D3D_1D_BM'    % Formerly 'f1D3Dr1D_BM'
+        % Two Axle, Bus Makhulu instance
+        % Axle 1: Differential, 1D shafts with non-rotating 3D shafts for visualization
+        % Axle 2: Differential, 1D shafts 
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Bus_Makhulu_f';
@@ -109,9 +150,10 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Bus_Makhulu_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'fCVpCVr1D_SHL'
-        % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
-        % Rear:  1D shafts
+    case 'A2_D1D2_CVpCV_1D_HL'    % Formerly 'fCVpCVr1D_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Axle 1: Differential, 3D shafts, CV-prismatic-driveshaft-CV
+        % Axle 2: Differential, 1D shafts 
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
@@ -123,9 +165,10 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'fCVpCVflexr1D_SHL'
-        % Front: 3D shafts for power: CV-prismatic-flexible driveshaft-CV
-        % Rear:  1D shafts
+    case 'A2_D1D2_CVpCVflex_1D_HL'    % Formerly 'fCVpCVflexr1D_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Axle 1: Differential, 3D shafts, CV-prismatic-flexible driveshaft-CV
+        % Axle 2: Differential, 1D shafts 
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
@@ -137,9 +180,10 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'fCVCVpr1D_SHL'
-        % Front: 3D shafts for power: CV-driveshaft-prismatic-CV
-        % Rear:  1D shafts
+    case 'A2_D1D2_CVCVp_1D_HL'    % Formerly 'fCVCVpr1D_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Axle 1: Differential, 3D shafts, CV-driveshaft-prismatic-CV
+        % Axle 2: Differential, 1D shafts 
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
@@ -151,10 +195,11 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'fCVpCVr1D_1sh_SHL'
-        % Single driven shaft
-        % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
-        % Rear:  1D shaft
+    case 'A2_D12v_CVpCV_1D_HL'    % Formerly 'fCVpCVr1D_1sh_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Single driven shaft, viscous coupling to rear axle
+        % Axle 1: Differential, 3D shafts, CV-prismatic-driveshaft-CV
+        % Axle 2: Differential, 1D shafts 
         instanceDriveline  = 'Axle2_A12Visc_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
@@ -166,10 +211,11 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'fCVpCVr1D_3sh_SH'
+    case 'A2_D1S2_CVpCV_1D_HL'    % Formerly 'fCVpCVr1D_3sh_SH'
+        % Two Axle, Sedan HambaLG instance
         % Three driven shafts
-        % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
-        % Rear:  1D shafts
+        % Axle 1: Differential, 3D shafts, CV-prismatic-driveshaft-CV
+        % Axle 2: 1D shafts, left and right
         instanceDriveline = 'Axle2_A1_L2_R2_A1Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_Hamba_f';
@@ -180,15 +226,44 @@ switch drv_opt
         
         instanceDrShA2     = 'Shaft1D_default';
         
-    case 'f1D_r1D_4sh_SH'
-        % Four driven shafts
-        % Front: 1D shafts
-        % Rear:  1D shafts
+    case 'A2_D1S2_1D_1D_HA'    % Formerly 'f1Dr1D_3sh_SH'
+        % Two Axle, Sedan Hamba instance
+        % Three driven shafts
+        % Axle 1: Differential, 1D shafts
+        % Axle 2: 1D shafts, left and right
+        instanceDriveline = 'Axle2_A1_L2_R2_A1Diff_default';
+        
+        instanceDiffA1     = 'Gear1DShafts1D_Sedan_Hamba_f';
+        instanceDrShA1     = 'Shaft1D_default';
+        
+        instanceDrShA2     = 'Shaft1D_default';
+        
+    case 'A2_S1S2_1D_1D_HA'    % Formerly 'f1D_r1D_4sh_SH'
+        % Two Axle, Sedan Hamba instance
+        % Four driven shafts (4WD)
+        % Axle 1: 1D shafts, left and right
+        % Axle 2: 1D shafts, left and right
         instanceDriveline = 'Axle2_L1_R1_L2_R2_default';
         
-    case 'fCVpCVrCVpCV_SHL'
-        % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
-        % Rear : 3D shafts for power: CV-prismatic-driveshaft-CV
+    case 'A2_S1_1D_HA'    % Formerly 'f1D_2sh_SH'
+        % Two Axle, Sedan Hamba instance
+        % Two driven shafts (FWD)
+        % Axle 1: 1D shafts, left and right
+        % Axle 2: Unpowered
+        instanceDriveline = 'Axle2_L1_R1_default';
+        
+    case 'A2_S2_1D_HA'    % Formerly 'r1D_2sh_SH'
+        % Two Axle, Sedan Hamba instance
+        % Two driven shafts (RWD)
+        % Axle 1: Unpowered
+        % Axle 2: 1D shafts, left and right
+        instanceDriveline = 'Axle2_L2_R2_default';
+        
+    case 'A2_D1D2_CVpCV_CVpCV_HL'    % Formerly 'fCVpCVrCVpCV_SHL'
+        % Two Axle, Sedan Hamba instance
+        % Two driven shafts (AWD)
+        % Axle 1: Differential, 3D shafts, CV-prismatic-driveshaft-CV
+        % Axle 2: Differential, 3D shafts, CV-prismatic-driveshaft-CV
         instanceDriveline = 'Axle2_A1_A2_A1Diff_A2Diff_default';
         
         instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
@@ -209,8 +284,11 @@ switch drv_opt
     case 'Axle2_None'
         instanceDriveline = 'Axle2_None';
         
-    case 'fCVpCV_FC1m'
-        % One driven shafts, FWD only
+    case 'A2_D1_CVpCV_FC'    % Formerly 'fCVpCV_FC1m'
+        % Two Axle, Sedan Hamba instance
+        % One driven shaft, FWD
+        % Axle 1: Differential, 3D shafts, CV-prismatic-driveshaft-CV
+        % Axle 2: Unpowered
         % Front: 3D shafts for power: CV-prismatic-driveshaft-CV
         instanceDriveline  = 'Axle2_A1_A1Diff_FuelCell1Motor';
         

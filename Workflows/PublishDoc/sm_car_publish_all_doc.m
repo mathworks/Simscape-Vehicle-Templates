@@ -67,3 +67,7 @@ for test_i = 1:length(testFileList)
     saveas(gcf,['' testFileList{test_i} '.png' '']);
     close(gcf)
 end
+
+%% Republish Powertrain Configurations
+cd(fileparts(which('sm_car_testing_powertrain_configs.m')))
+publish('sm_car_testing_powertrain_configs.m','showCode',true)
