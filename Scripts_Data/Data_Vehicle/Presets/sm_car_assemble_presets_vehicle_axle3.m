@@ -1,6 +1,6 @@
 function sm_car_assemble_presets_vehicle_axle3
 % Code to create presets for 3-axle vehicle
-% Copyright 2019-2025 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 %% Change to directory for vehicle data
 cd(fileparts(which(mfilename)));
@@ -34,7 +34,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_BM3',        ''};
+    'Driveline',    'A3_D2_1D3D_BM',        ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -50,7 +50,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %%  Bus Makhulu 3Axle 15DOF MFeval 6x4 
 drv_ind = strcmp(vehcfg_set(:,1),'Driveline');
-vehcfg_set{drv_ind,2} = 'A11D_A21D3_A31D3_BM3';
+vehcfg_set{drv_ind,2} = 'A3_D23_1D_1D_BM';
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Makhulu3Axle_15DOF_MFEval_steady_6x4';
 
@@ -86,7 +86,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_BM3',        ''};
+    'Driveline',    'A3_D2_1D3D_BM',        ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -102,7 +102,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Bus Makhulu 3Axle MFSwift 15DOF 6x4
 drv_ind = strcmp(vehcfg_set(:,1),'Driveline');
-vehcfg_set{drv_ind,2} = 'A11D_A21D3_A31D3_BM3';
+vehcfg_set{drv_ind,2} = 'A3_D23_1D_1D_BM';
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Makhulu3Axle_15DOF_MFSwift_steady_6x4';
 
@@ -139,7 +139,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_BM3',        ''};
+    'Driveline',    'A3_D2_1D3D_BM',        ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -155,7 +155,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Bus Makhulu 3Axle MFEval dwb 6x4 
 drv_ind = strcmp(vehcfg_set(:,1),'Driveline');
-vehcfg_set{drv_ind,2} = 'A11D_A21D3_A31D3_BM3';
+vehcfg_set{drv_ind,2} = 'A3_D23_1D_1D_BM';
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Makhulu3Axle_dwb_MFEval_steady_6x4';
 
@@ -191,7 +191,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_BM3',        ''};
+    'Driveline',    'A3_D2_1D3D_BM',        ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -207,7 +207,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Bus Makhulu 3Axle MFSwift dwb 6x4
 drv_ind = strcmp(vehcfg_set(:,1),'Driveline');
-vehcfg_set{drv_ind,2} = 'A11D_A21D3_A31D3_BM3';
+vehcfg_set{drv_ind,2} = 'A3_D23_1D_1D_BM';
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Makhulu3Axle_dwb_MFSwift_steady_6x4';
 
@@ -243,7 +243,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_TA3',               ''};
+    'Driveline',    'A3_D2_1D3D_TA',               ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -260,7 +260,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Truck Amandla MFeval 6x4
 drv_ind = strcmp(vehcfg_set(:,1),'Driveline');
-vehcfg_set{drv_ind,2} = 'A11D_A21D3_A31D3_TA3';
+vehcfg_set{drv_ind,2} = 'A3_D23_1D_1D_TA';
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Amandla3Axle_15DOF_MFEval_steady_6x4';
 
@@ -296,7 +296,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_TA3',               ''};
+    'Driveline',    'A3_D2_1D3D_TA',               ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -313,7 +313,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Truck Amandla MFSwift 6x4
 drv_ind = strcmp(vehcfg_set(:,1),'Driveline');
-vehcfg_set{drv_ind,2} = 'A11D_A21D3_A31D3_TA3';
+vehcfg_set{drv_ind,2} = 'A3_D23_1D_1D_TA';
 Vehicle = sm_car_vehcfg_assemble_vehicle(vehcfg_set);
 Vehicle.config = 'Amandla3Axle_15DOF_MFSwift_steady_6x4';
 
@@ -349,7 +349,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D_TA3',               ''};
+    'Driveline',    'A3_D2_1D3D_TA',               ''};
                       
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 
@@ -408,7 +408,7 @@ vehcfg_set = {
     'TireDyn',      'steady',                            'TireA1';
     'TireDyn',      'steady',                            'TireA2';
     'TireDyn',      'steady',                            'TireA3';
-    'Driveline',    'A11D_A21D3_A31D3_TA3',               ''};
+    'Driveline',    'A3_D23_1D_1D_TA',               ''};
 
 assignin('base','vehcfg_set',vehcfg_set); % For debugging
 

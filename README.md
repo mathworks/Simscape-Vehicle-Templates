@@ -34,6 +34,17 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.8  -- December 2025**
+1. Re-architected bushing models, adding sleeve and shell geometry
+2. Added test models for bushings
+3. Added several powertrain configurations 
+   Ideal FWD, Ideal RWD, 1 and 2 motor
+   Electric FWD, Electric RWD, 1 and 2 motor
+   Ideal 4WD, three motor
+4. Updated option names in sm_car_vehcfg_setDrv() for consistency
+5. Updated option names in configuration app.
+
+
 **v4.7  -- November 2025**
 1. Added steer-by-wire steering template and test (rack position controlled by motor, torque feedback to driver)
 2. Added variable steering ratio template (rack position set by controller)

@@ -4,7 +4,7 @@
 % Plot results of vehicle test: position, x and y velocity components,
 % vehicle speed, and steering input.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 % Check for simulation results
 if ~exist('logsout_sm_car', 'var')
@@ -48,7 +48,12 @@ hold on
 for whl_i = 1:length(whl_inds)
     logsout_nWhl = logsout_VehBus.Values.Chassis.(whlnames{whl_i}).n;
     radius_ind = str2num(whlnames{whl_i}(end));
-    plot(logsout_nWhl.Time, logsout_nWhl.Data*3.6*tire_radius(radius_ind),'LineWidth', 1,'DisplayName',whlnames{whl_i})
+    if(contains(whlnames{whl_i},'R'))
+        lineStyle = '--';
+    else
+        lineStyle = '-';
+    end
+    plot(logsout_nWhl.Time, logsout_nWhl.Data*3.6*tire_radius(radius_ind),'LineWidth',2,'LineStyle',lineStyle,'DisplayName',whlnames{whl_i})
 end
 hold off
 grid on
