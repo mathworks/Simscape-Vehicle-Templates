@@ -320,6 +320,7 @@ cl_manv_longLat = {...
     'Skidpad';
     'Straight_Constant_Speed';
     'Fishhook';
+    'Coastdown';
     'Sine_With_Dwell';
     'Ramp_Steer';
     'Slalom'};
