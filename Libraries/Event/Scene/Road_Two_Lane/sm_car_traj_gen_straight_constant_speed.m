@@ -12,7 +12,7 @@ function traj = sm_car_traj_gen_straight_constant_speed(varargin)
 %      latOffset   Offset for straightline trajectory (m)
 %      showPlot    true to plot trajectory
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 % Vehicle initial speed
 initSpeed = 1;
@@ -42,12 +42,12 @@ if(isnan(tgtDist))
 end
 
 % Assemble waypoints
-x_waypoints =  [0 tgtDist tgtDist*10];
-y_waypoints =  [0 0 0]+latOffset;
-vx_waypoints = [initSpeed tgtSpd tgtSpd];
+x_waypoints =  [0        tgtDist tgtDist*20 tgtDist*21 tgtDist*22];
+y_waypoints =  [0 0 0 0 0]+latOffset;
+vx_waypoints = [initSpeed tgtSpd tgtSpd initSpeed initSpeed];
 
 % Construct sample points
-numpts = 100;
+numpts = 400;
 x_new  = [x_waypoints(1):(x_waypoints(end)-x_waypoints(1))/numpts:(x_waypoints(end)-(x_waypoints(end)-x_waypoints(1))/numpts) x_waypoints(end)];
 
 % Interpolate to get lateral distance and speed

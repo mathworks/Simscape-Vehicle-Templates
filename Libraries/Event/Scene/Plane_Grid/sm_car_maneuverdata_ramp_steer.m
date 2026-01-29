@@ -25,7 +25,7 @@ function maneuver_data = sm_car_maneuverdata_ramp_steer(varargin)
 %       Accel   Accelerator pedal (0 for open-loop portion of test)
 %       Additional fields for driver model
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 maneuver_type = 'Ramp_Steer';
 
@@ -35,7 +35,7 @@ if(nargin == 0)
 Instance_List = {...
     'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
-    tgtSpd   =  [50   50  50  50  50  50  50];  % km/h
+    tgtSpd   =  [50   50  20  50  50  50  50];  % km/h
     tgtTime  =  [8     8   8   8   8   8   8];  % sec
     tgtDist  =  [NaN NaN NaN NaN NaN NaN NaN];  % sec
     qStr     =  [25   25  25  25  25  25  25];  % deg

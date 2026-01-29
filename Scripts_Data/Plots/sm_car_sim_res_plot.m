@@ -48,8 +48,15 @@ else
     ax_h = fig_h;
 end
 
+lineStyleOrder = {'-','--','-.',':'};
 % Plot results
-plot(ax_h,sim_resX.data,sim_resY.data,'LineWidth',1)
+for y_i = 1:size(sim_resY.data,2)
+    lsi = rem(y_i,length(lineStyleOrder));
+    if(lsi==0),lsi = length(lineStyleOrder);end
+    plot(ax_h,sim_resX.data,sim_resY.data(:,y_i),'LineWidth',2,'LineStyle',lineStyleOrder{lsi});
+    hold(ax_h,'on')
+end
+hold(ax_h,'off')
 xlabel(ax_h,[sim_resX.name ' (' sim_resX.units ')'])
 ylabel(ax_h,[sim_resY.name ' (' sim_resY.units ')'])
 
