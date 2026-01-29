@@ -294,6 +294,20 @@ switch maneuver_str
         % the second part of the maneuver starts
         set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
         
+    % --- Coastdown
+    case 'coastdown'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Coastdown.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Coastdown.' veh_inst ';']);
+        stopTime = evalin('base','num2str(Maneuver.Steer.t.Value(end));');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime',stopTime);
+        % For only this maneuver, driver commands will be overridden once
+        % the second part of the maneuver starts
+        set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
+        
     % --- Sine with Dwell
     case 'sine with dwell'
         evalin('base',['Init = IDatabase.Flat.' init_inst ';']);

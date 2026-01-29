@@ -211,6 +211,22 @@ switch drv_opt
         instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
         instanceDrShA2     = 'Shaft1D_default';
         
+    case 'A2_D12d_CVpCV_1D_HL'    % Formerly 'fCVpCVr1D_1sh_SHL'
+        % Two Axle, Sedan HambaLG instance
+        % Single driven shaft, viscous coupling to rear axle
+        % Axle 1: Differential, 3D shafts, CV-prismatic-driveshaft-CV
+        % Axle 2: Differential, 1D shafts 
+        instanceDriveline  = 'Axle2_A12Diff_A1Diff_A2Diff_default';
+        
+        instanceDiffA1     = 'Gear1DShafts3D_Sedan_HambaLG_f';
+        instanceDrShA1     = 'Shaft3D_default';
+        instanceDrShA1CVi   = 'CVPrismatic_default';
+        instanceDrShA1Sh    = 'Rigid_Sedan_HambaLG_f';
+        instanceDrShA1CVo   = 'CV_default';
+        
+        instanceDiffA2     = 'Gear1DShafts1D_Sedan_HambaLG_r';
+        instanceDrShA2     = 'Shaft1D_default';
+        
     case 'A2_D1S2_CVpCV_1D_HL'    % Formerly 'fCVpCVr1D_3sh_SH'
         % Two Axle, Sedan HambaLG instance
         % Three driven shafts

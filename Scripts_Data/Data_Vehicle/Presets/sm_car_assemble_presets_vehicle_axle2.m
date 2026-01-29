@@ -2171,7 +2171,7 @@ Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L1_R1_L2_R2_default');
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'SplitLowerArmShockFront_Sedan_Hamba_f','SuspA1');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA', 'BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA', 'BushArm_AxRad_Sef_DW_UA');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAF','BushLink_AxRad_Sef_S2LAF_LAF');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAR','BushLink_AxRad_Sef_S2LAF_LAR');
 
@@ -2201,7 +2201,7 @@ vehcfg = Vehicle.config;
 
 Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.MacPherson_Sedan_HambaLG_f;
 Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_Sedan_HambaLG_mc_f;
-Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection = VDatabase.Subframe_Conn.BushARB_Ax3_SedanLG_mac_f; 
+Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection = VDatabase.Subframe_Conn.BushARB_Ax3_SLGf_MacP; 
 Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_HambaLG_Mac_Linear_A1;
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.Sedan_HambaLG_Mac_Linear_A1;
@@ -2236,10 +2236,10 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 veh_ind = veh_ind+1;
 vehcfg = Vehicle.config;
 
-Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe = VDatabase.Subframe_Conn.BushArm_Ax3_SedanLG_UA;
+Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe = VDatabase.Subframe_Conn.BushArm_Ax3_SLGf_S2LAF_UA;
 Vehicle.Chassis.SuspA1.Linkage.LowerArmR_to_Subframe = VDatabase.Subframe_Conn.BushLink_Ax3_SLGf_S2LAF_LAR;
 Vehicle.Chassis.SuspA1.Linkage.LowerArmF_to_Subframe = VDatabase.Subframe_Conn.BushLink_Ax3_SLGf_S2LAF_LAF;
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','ARB','BushARB_Ax3_SedanLGAU_f');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','ARB','BushARB_Ax3_SLGf_S2LAF');
 
 % Assemble configuration description in string
 Vehicle.config = strrep(vehcfg,'steady','bushings');
@@ -2588,6 +2588,52 @@ Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
 
 % Assemble configuration description in string
 Vehicle.config = 'Hamba_15DOF2Mot_MFMbody_steady_fCVpCVr1D_4whlstr';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 98: SedanLG, MFMbody, 2 Motor no cooling S2LAF ARB Damper, 5LinkNoSteer
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_189;  
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'SplitLowerArmShockFrontAD_Sedan_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_Dam_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'FiveLinkShockCenterAUNoSteer_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_5LUpr_r','SuspA2');
+%Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_235_50R24','TireA1');
+%Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_235_50R24','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_dwb_MFMbody_steady_S2LAFarbD_5Llac';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
+
+%% Custom Configuration 99: SedanLG, MFMbody, 2 Motor no cooling S2LAR ARB Damper, 5LinkNoSteer
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_189;  
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'SplitLowerArmShockRearAD_Sedan_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_Dam_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'FiveLinkShockCenterAUNoSteer_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_5LUpr_r','SuspA2');
+%Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_235_50R24','TireA1');
+%Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_235_50R24','TireA2');
+
+% Assemble configuration description in string
+Vehicle.config = 'Hamba_dwb_MFMbody_steady_S2LARarbD_5Llac';
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
