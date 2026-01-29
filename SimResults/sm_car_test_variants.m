@@ -1,6 +1,6 @@
 % Script to test many configurations under many events
 % Not a complete sweep of all combinations, but every variant is activated
-% Copyright 2019-2025 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 maneuver_list = {...
     'CRG Mallory Park',       'CMP';
@@ -104,7 +104,7 @@ solver_typ = {'variable step'};
 %veh_set1 = [0:1:7];
 
 % FULL TEST
-veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 215 218 219 220 223 227];
+veh_set1 = [0:1:7 16:16:112 113:1:119 128:1:139 141 143 144 147 215 218 219 220 223 227 237 238];
 
 trailer_set = {'none'};
 driver_set  = {'Stanley'};

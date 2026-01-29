@@ -3,7 +3,7 @@ function sm_car_config_maneuver(modelname,maneuver)
 %   sm_car_config_maneuver(modelname,maneuver)
 %   This function configures the model to execute the desired maneuver.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 % Find variant subsystems for settings
 f=Simulink.FindOptions('regexp',1);
@@ -287,6 +287,20 @@ switch maneuver_str
         evalin('base',['Maneuver = MDatabase.Fishhook.' veh_inst ';']);
         set_param(drive_h,'popup_driver_type','Closed Loop');
         evalin('base',['Driver = DDatabase.Fishhook.' veh_inst ';']);
+        stopTime = evalin('base','num2str(Maneuver.Steer.t.Value(end));');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime',stopTime);
+        % For only this maneuver, driver commands will be overridden once
+        % the second part of the maneuver starts
+        set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
+        
+    % --- Coastdown
+    case 'coastdown'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Coastdown.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Coastdown.' veh_inst ';']);
         stopTime = evalin('base','num2str(Maneuver.Steer.t.Value(end));');
         sm_car_config_road(modelname,'Plane Grid');
         set_param(modelname,'StopTime',stopTime);

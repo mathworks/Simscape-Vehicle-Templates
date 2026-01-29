@@ -29,6 +29,17 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 Copyright 2024 The MathWorks, Inc.
  
 ### **Release History**
+**v4.9  -- February 2026**
+(Not all changes to Simscape Vehicle Templates affect this repository)
+1. Added coastdown maneuver
+2. Added two-axle driveline with open center differential
+3. Added suspension template split lower arm, shock to front, anti-roll bar to damper
+4. Added suspension template split lower arm, shock to rear, anti-roll bar to damper
+5. Added suspension template 5 link, shock to lower center arm, non-steerable
+6. Added suspension template 5 link, shock to lower center arm, non-steerable
+7. Adjusted options for joint position targets in linkages and bushings
+8. Fixed generate sm_car_traj_gen_straight_constant_speed.m to avoid wrapping issue
+
 **v4.8  -- December 2025**
 1. Re-architected bushing models, adding sleeve and shell geometry
 2. Added test models for bushings

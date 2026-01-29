@@ -12,7 +12,12 @@ logsout_VehBus = logsout.get('VehBus');
 
 npts = length(logsout_VehBus.Values.Chassis.SuspA1.WhlL.aToe.Time);
 
+dataFound = 1; % Assume data request worked
 switch varName
+    case 'time'
+        simres.data  = logsout_VehBus.Values.Chassis.SuspA1.WhlL.aToe.Time;
+        simres.name  = 'Time';
+        simres.units = 's';
     case {'vWhl','wWhl'}
         [tire_radius, ~] = sm_car_get_TireRadius(Vehicle);
 
@@ -120,10 +125,49 @@ switch varName
         simres.data  = logsout_VehBus.Values.World.nYaw.Data(:);
         simres.name  = 'Vehicle Yaw Rate';
         simres.units = 'rad/s';
-    case 'time'
-        simres.data  = logsout_VehBus.Values.Chassis.SuspA1.WhlL.aToe.Time;
-        simres.name  = 'Time';
-        simres.units = 's';
+    case {'fShock','xShock','vShock'}
+        fName = varName(1);
+        chassis_log_fieldnames = fieldnames(logsout_VehBus.Values.Chassis);        
+        susp_inds = find(startsWith(chassis_log_fieldnames,'Susp'));
+        suspnames = sort(chassis_log_fieldnames(susp_inds));
+        data_ind = 0;
+        for susp_i = 1:length(susp_inds)
+            data_ind = data_ind+1;
+            if(isfield(logsout_VehBus.Values.Chassis.(suspnames{susp_i}),'LinkageL'))
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).LinkageL.Shock.(fName).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' L'];
+                data_ind = data_ind+1;
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).LinkageR.Shock.(fName).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' R'];
+            elseif(isfield(logsout_VehBus.Values.Chassis.(suspnames{susp_i}),'Linkage'))
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).Linkage.ShockL.(fName).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' L'];
+                data_ind = data_ind+1;
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).Linkage.ShockR.(fName).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' R'];
+            end
+        end
+        switch fName
+            case 'f'
+                simres.units  = 'N';
+                simres.name   = 'Shock Force';
+            case 'v'
+                simres.units  = 'm/s';
+                simres.name   = 'Shock Velocity';
+            case 'x'
+                simres.units  = 'm';
+                simres.name   = 'Shock Displacement';
+        end
+    case 'trqWhl'
+        driveline_log_fieldnames = fieldnames(logsout_VehBus.Values.Driveline);
+        drs_inds = find(startsWith(driveline_log_fieldnames,'MDriveshaft'));
+        drsnames = sort(driveline_log_fieldnames(drs_inds));
+        for drs_i = 1:length(drs_inds)
+            simres.data(:,drs_i) = logsout_VehBus.Values.Driveline.(drsnames{drs_i}).Data;
+        end
+        simres.units  = 'N*m';
+        simres.name   = 'Wheel Torque';
+        simres.labels = strrep(drsnames,'MDriveshaft','');
     case {'fxWhl','fyWhl','fzWhl','mxWhl','myWhl','mzWhl'}
         chassis_log_fieldnames = fieldnames(logsout_VehBus.Values.Chassis);
         whl_inds = find(startsWith(chassis_log_fieldnames,'Whl'));
@@ -231,11 +275,22 @@ switch varName
         catch
             error('Cannot calculate track rod joint angle.  Ensure your suspension has a track rod and check the code to extract angle');
         end
+    otherwise
+        warning(['Data name ' varName ' not recognized']);
+        dataFound = 0;
+        
+        % Dummy data
+        simres.data = -1;
+        simres.name  = 'Data Not Found';
+        simres.units = '1';
+        simres.labels = {'Not Found'};
 end
 
 % If simulation results only provides a single value, replicate that
 % variable for every time sample.  Occurs if default output is provided by
 % a constant block.
-if(size(simres.data,1)==1)
-    simres.data = repmat(simres.data,npts,1);
+if(dataFound==1)
+    if(size(simres.data,1)==1)
+        simres.data = repmat(simres.data,npts,1);
+    end
 end
