@@ -62,10 +62,10 @@ matlab.io.saveVariablesToScript('Init_data_wot_braking.m','Init');
 
 % Save Decoupled vehicle to script
 sm_car_load_vehicle_data('none','214');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sef_DW_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
@@ -82,10 +82,10 @@ matlab.io.saveVariablesToScript('Init_data_skidpad.m','Init')
 
 % Save Pushrod vehicle to script
 sm_car_load_vehicle_data(mdl_0,'224');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sef_DW_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
@@ -99,10 +99,10 @@ matlab.io.saveVariablesToScript('Vehicle_data_dwpushrod.m','Vehicle')
 
 % Save Pullrod vehicle to script
 sm_car_load_vehicle_data(mdl_0,'215');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sef_DW_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
@@ -120,10 +120,10 @@ matlab.io.saveVariablesToScript('Init_data_hockenheim.m','Init')
 
 % Save Double Wishbone vehicle to script
 sm_car_load_vehicle_data(mdl_0,'213');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A2','LA','BushArm_AxRad_Sef_DW_LA');
 Vehicle.Chassis.SuspA1.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA1.Linkage.Lower_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
 Vehicle.Chassis.SuspA2.Linkage.Upper_Arm_to_Subframe.class.Value = 'Rigid_1Rev';
