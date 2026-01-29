@@ -34,6 +34,16 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.9  -- February 2026**
+1. Added coastdown maneuver
+2. Added two-axle driveline with open center differential
+3. Added suspension template split lower arm, shock to front, anti-roll bar to damper
+4. Added suspension template split lower arm, shock to rear, anti-roll bar to damper
+5. Added suspension template 5 link, shock to lower center arm, non-steerable
+6. Adjusted options for joint position targets in linkages and bushings
+7. Adjusted bushing field names in VDatabase for consistency
+8. Fixed generate sm_car_traj_gen_straight_constant_speed.m to avoid wrapping issue
+
 **v4.8  -- December 2025**
 1. Re-architected bushing models, adding sleeve and shell geometry
 2. Added test models for bushings
@@ -43,7 +53,6 @@ adjust the libraries so that variant can be selected.
    Ideal 4WD, three motor
 4. Updated option names in sm_car_vehcfg_setDrv() for consistency
 5. Updated option names in configuration app.
-
 
 **v4.7  -- November 2025**
 1. Added steer-by-wire steering template and test (rack position controlled by motor, torque feedback to driver)
