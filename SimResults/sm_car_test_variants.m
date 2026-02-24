@@ -3,6 +3,7 @@
 % Copyright 2019-2024 The MathWorks, Inc.
 
 maneuver_list = {...
+    'Coastdown',              'COA';
     'CRG Mallory Park',       'CMP';
     'CRG Mallory Park F',     'CMF';
     'CRG Hockenheim',         'CHO';
@@ -316,11 +317,11 @@ plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
 
 %% Test Set 9a -- Fishhook and more
-manv_set = {'Fishhook','Sine With Dwell','Ramp Steer','Slalom'};
+manv_set = {'Fishhook','Sine With Dwell','Ramp Steer','Slalom', 'Coastdown'};
 driver_set  = {'Stanley'};
 stoptime_set = -1*ones(size(manv_set));
 solver_typ = {'variable step'};
-veh_set = [189 218];
+veh_set = [189 218 239];
 trailer_set = {'none'};
 plotstr = {'sm_car_plot1speed'};
 sm_car_test_variants_testloop
@@ -339,6 +340,22 @@ sm_car_test_variants_testloop
 
 set_param('sm_car/Controller/Default','popup_damper_control_A1','None');
 set_param('sm_car/Controller/Default','popup_damper_control_A2','None');
+
+%% Test Set 9c -- Hydropneumatic
+manv_set = {'Steering'};
+driver_set  = {'Stanley'};
+stoptime_set = -1*ones(size(manv_set));
+solver_typ = {'variable step'};
+veh_set = [241];
+set_param('sm_car/Controller/Default','popup_spring_control_A1','Hydropneumatic');
+set_param('sm_car/Controller/Default','popup_spring_control_A2','Hydropneumatic');
+trailer_set = {'none'};
+plotstr = {'sm_car_plot1speed'};
+sm_car_test_variants_testloop
+
+set_param('sm_car/Controller/Default','popup_spring_control_A1','None');
+set_param('sm_car/Controller/Default','popup_spring_control_A2','None');
+
 
 %% Test Set 10 -- ABS Test
 % TEST SETUP IS UNIQUE

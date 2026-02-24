@@ -2,7 +2,7 @@ function [MFSwifttbx_pth,MFSwifttbx_folders]=sm_car_startupMFSwift
 % DETERMINE IF MF-SWIFT DIRECTORY IS ON PATH
 % CHECK IF TOOLBOX ALREADY ON PATH
 
-% Copyright 2014-2025 The MathWorks, Inc.
+% Copyright 2014-2024 The MathWorks, Inc.
 
 curr_proj = simulinkproject;
 path_preMFSwift = strsplit(path,';');
@@ -74,6 +74,8 @@ if(~MFSwifttbxOnPath)
             library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2412'];
         elseif(mfswift_ver==2506)
             library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2506'];
+        elseif(mfswift_ver==2512)
+            library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2512'];
         end
         addpath(library_path);
         % Add opencrg tools to path
@@ -108,6 +110,8 @@ else
         library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2412'];
     elseif(mfswift_ver==2506)
         library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2506'];
+    elseif(mfswift_ver==2512)
+        library_path = [curr_proj.RootFolder filesep 'Libraries' filesep 'Vehicle' filesep 'Tire' filesep 'MFSwift' filesep 'MFSwift_2512'];
     end
     if(isempty(library_path))
         warning('off','backtrace')

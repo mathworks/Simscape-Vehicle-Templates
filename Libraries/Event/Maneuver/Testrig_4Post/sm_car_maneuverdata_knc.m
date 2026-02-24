@@ -28,7 +28,7 @@ function maneuver_data = sm_car_maneuverdata_knc(varargin)
 %    zOffsetBumpTest   Height to determine bump steer, bump camber, etc.
 %      qToeForCaster   Toe angle used to determine bump caster, KPI
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 maneuver_type = 'KnC';
 
@@ -37,10 +37,10 @@ if(nargin == 0)
     % Generate test sequences for all vehicle classes in Simscape Vehicle Templates
     Instance_List = {...
         'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
-    Jounce       =  [   0.14  0.22  0.10    0.15  0.22  0.22  0.05];  % m
-    Rebound      =  [  -0.15 -0.15 -0.11 -0.10 -0.15 -0.15 -0.03];  % m
+    Jounce       =  [   0.14  0.22  0.16    0.15  0.22  0.22  0.05];  % m
+    Rebound      =  [  -0.15 -0.15 -0.12 -0.10 -0.15 -0.15 -0.03];  % m
     zBumpHeight  =  [   0.01  0.01  0.01  0.01  0.01  0.01  0.01];  % m
-    qSteerCaster =  [   0.95  0.95  0.95  0.95  0.95  0.95  0.95];  % rad
+    qSteerCaster =  [   0.95  0.95  1.30  0.95  0.95  0.95  0.95];  % rad
     Roll         =  [   0.10  0.10  0.10  0.10  0.10  0.10  0.07];  % m
     tAlign       =  [ 500   500   500   500   500   500   500   ]*2;  % m
     fLong        =  [1200  1200  1200  1200  1200  1200  1200   ]*2;  % m
