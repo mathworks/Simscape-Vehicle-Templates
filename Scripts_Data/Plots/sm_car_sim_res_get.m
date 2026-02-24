@@ -145,6 +145,20 @@ switch varName
                 data_ind = data_ind+1;
                 simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).Linkage.ShockR.(fName).Data;
                 simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' R'];
+            elseif(isfield(logsout_VehBus.Values.Chassis.(suspnames{susp_i}),'LUT'))
+                fNameData = strrep(varName,'Shock','Spring');
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).LUT.SuspL.Kinematic.(fNameData).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' L'];
+                data_ind = data_ind+1;
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).LUT.SuspR.Kinematic.(fNameData).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' R'];            
+            elseif(isfield(logsout_VehBus.Values.Chassis.(suspnames{susp_i}),'Simple'))
+                fNameData = strrep(varName,'Shock','Spring');
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).Simple.(fNameData).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' L'];
+                data_ind = data_ind+1;
+                simres.data(:,data_ind) = logsout_VehBus.Values.Chassis.(suspnames{susp_i}).Simple.(fNameData).Data;
+                simres.labels{data_ind} = [strrep(suspnames{susp_i},'Susp','') ' R'];            
             end
         end
         switch fName
