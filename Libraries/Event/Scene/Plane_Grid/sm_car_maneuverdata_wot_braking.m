@@ -49,4 +49,7 @@ mdata.Truck_Amandla.Accel.rPedal.Value = [0.00	0.00	1.00	1.00	0.00	0.00];
 mdata.Truck_Rhuqa.Brake.rPedal.Value = [0.00	0.00	0.30	0.30	0.00	0.00]; 
 mdata.Truck_Rhuqa.Accel.rPedal.Value = [0.00	0.00	0.50	0.50	0.00	0.00]; 
 
+mdata.SUV_Landy.Brake.rPedal.Value = [0.00	0.00	0.30	0.30	0.00	0.00]; 
+mdata.SUV_Landy.Accel.rPedal.Value = [0.00	0.00	0.30	0.30	0.00	0.00]; 
+
 maneuver_data.(maneuver_type) = mdata;

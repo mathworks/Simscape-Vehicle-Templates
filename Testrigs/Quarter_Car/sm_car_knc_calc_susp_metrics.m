@@ -845,8 +845,8 @@ else
     % Check aligning torque and lateral force tests
     indsForFRack = [indATInPhs; indATOutPhs; indLAInPhs; indLAOutPhs];
 
-    if(~isempty(indsForFRack))
-    % Find maximum force magnitude
+    if(~isempty(indsForFRack) && length(simlog_FRack)>1)
+    % Find maximum force magnitude    
         FRackMax  = max(abs(simlog_FRack(indsForFRack)))/1000;
     else
         % Aligning torque and lateral force tests not run
