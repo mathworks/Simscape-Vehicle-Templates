@@ -55,6 +55,12 @@ for axle_i = 1:numAxles
     
     if(strcmpi(Instance,'notfound'))
         warning(['Spring data ' sprAxleData{axle_i} ' not found.']);
+    elseif(strcmpi(Instance,'none') && contains(instanceSprings,'Interconnected'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Spring.(instanceName) = VDatabase.Spring.(Instance);
+    elseif(strcmpi(Instance,'none') && contains(instanceSprings,'Independent'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Spring.(instanceName) = VDatabase.Spring.No_Spring;
     elseif(~strcmpi(Instance,'none'))
         instanceName = ['Axle' num2str(axle_i)];
         Vehicle.Chassis.Spring.(instanceName) = VDatabase.Spring.(Instance);

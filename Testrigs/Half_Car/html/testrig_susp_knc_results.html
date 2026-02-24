@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Simscape Vehicle Library, KnC Tests, Half Car</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-11-17">
+<meta name="DC.date" content="2026-02-23">
 <meta name="DC.source" content="testrig_susp_knc_results.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -96,7 +96,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <a href="#5">Double Wishbone, Bushing Inboard Connections</a>
 </li>
 <li>
-<a href="#7">Split Lower Arm, Shock to Lower Arm Front, Bushings</a>
+<a href="#7">Split Lower Arm, Shock to Lower Arm Rear, Bushings</a>
 </li>
 <li>
 <a href="#9">Split Lower Arm, Shock to Lower Arm Rear</a>
@@ -131,6 +131,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <li>
 <a href="#29">Live Axle (Rear, No Steering)</a>
 </li>
+<li>
+<a href="#31">Panhard Rod (Front)</a>
+</li>
+<li>
+<a href="#33">Trailing Arm (Rear)</a>
+</li>
+<li>
+<a href="#34">Watts (Rear)</a>
+</li>
 </ul>
 </div>
 <h2 id="1">Model</h2>
@@ -148,29 +157,29 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                     -3.588e-14    "deg"        "+Toe In"                              
-    "Camber"                                  1.2722e-14    "deg"        "+Top Out"                             
+    "Toe"                                     1.4002e-14    "deg"        "+Toe In"                              
+    "Camber"                                 -2.5444e-14    "deg"        "+Top Out"                             
     "Caster"                                      15.329    "deg"        "+Top Rear of WC"                      
     "KPI"                                         1.4742    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"               -0.2741    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  4.2504    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -24.158    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Steer"                                  4.2632    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -24.164    "deg/m"      "+/- 10mm, +Top Out"                   
     "Bump Caster"                                 22.589    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                96.114    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                77.879    "mm"         "+Inside Wheel Center"                 
+    "Scrub Radius"                                 77.88    "mm"         "+Inside Wheel Center"                 
     "Hub Long Offset"                            -3.1535    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              87.199    "mm"         "+Inside Wheel Center"                 
+    "Hub Lat Offset"                                87.2    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             76.693    "N/mm"       "+/-20mm, Wheel Center"                
-    "Ride Rate"                                   61.349    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Rate"                                    61.35    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.31022    "Hz"         "Uses Ride Rate"                       
     "Wheel Travel Bump"                          0.20329    "mm"         "Up"                                   
     "Wheel Travel Rebound"                      -0.13116    "mm"         "Down"                                 
     "Wheel Travel Total"                         0.33445    "mm"         "Up+Down"                              
-    "WC Recession Long"                          0.03307    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                        -0.0040982    "mm/m"       "+In"                                  
+    "WC Recession Long"                         0.033091    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        -0.0041358    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.74745    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.74745    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                  0.2561    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Steer"                                 0.25595    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -1.6814    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              1737.8    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                          1699    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
@@ -183,19 +192,19 @@ TSuspMetrics =
     "TCD Kerb to Kerb"                            15.275    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            15.758    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                              17.687    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                   3.3864e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                  2.7629e-14    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      1.8369e-14    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     2.5536e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -5.3009e-15    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -1.0602e-14    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"     -4.6259e-14    "mm/kN"      "In Phase"                             
+    "Toe/Align Torque (In)"                  -4.7873e-15    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                 -2.0989e-15    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -4.3855e-15    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                    -1.2115e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   7.9514e-15    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                  1.0602e-14    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"       -1.3878e-13    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"      -9.2519e-14    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"           2.2377e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"           3.606e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                      5.7378e-17    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (In)"       -9.2519e-14    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"      -1.3878e-13    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"           6.2202e-15    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          7.8427e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      9.4832e-18    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="5">Double Wishbone, Bushing Inboard Connections</h2>
@@ -210,27 +219,27 @@ TSuspMetrics =
     "Toe"                                        0.88569    "deg"        "+Toe In"                              
     "Camber"                                    -0.61312    "deg"        "+Top Out"                             
     "Caster"                                      15.052    "deg"        "+Top Rear of WC"                      
-    "KPI"                                         1.0751    "deg"        "+Top Inside Bottom"                   
+    "KPI"                                         1.0752    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.26891    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  11.947    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -30.313    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                  19.82    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Bump Steer"                                   12.22    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -30.503    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                                 19.817    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                94.419    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                80.544    "mm"         "+Inside Wheel Center"                 
+    "Scrub Radius"                                80.566    "mm"         "+Inside Wheel Center"                 
     "Hub Long Offset"                             -2.968    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              87.341    "mm"         "+Inside Wheel Center"                 
+    "Hub Lat Offset"                              87.363    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             74.356    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                   59.845    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.30639    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                          0.21116    "mm"         "Up"                                   
+    "Wheel Travel Bump"                          0.21126    "mm"         "Up"                                   
     "Wheel Travel Rebound"                      -0.13194    "mm"         "Down"                                 
-    "Wheel Travel Total"                          0.3431    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.050426    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                         0.0077209    "mm/m"       "+In"                                  
-    "Spring Ratio"                               0.72728    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                               0.72728    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.86991    "deg"        "+/-2deg Roll, +Toe In"                
-    "Roll Camber"                                -2.1656    "deg"        "+/-2deg Roll, +Top Out"               
+    "Wheel Travel Total"                          0.3432    "mm"         "Up+Down"                              
+    "WC Recession Long"                         0.050998    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                         0.0080008    "mm/m"       "+In"                                  
+    "Spring Ratio"                               0.72671    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                               0.72671    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                 0.86676    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                -2.1635    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              1681.8    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        1645.5    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
     "Max Rack Travel"                             55.103    "mm"         "Rack Travel at Max Steer"             
@@ -241,79 +250,79 @@ TSuspMetrics =
     "Ackermann at Max Inner"                     -9.5008    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                            14.894    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            15.395    "m"          "To Outer Front Body Corner"           
-    "Max Rack Force"                              17.591    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                     -0.87188    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                    -0.87306    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                         -0.2737    "deg/kN"     "In Phase"                             
+    "Max Rack Force"                               17.59    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                     -0.87205    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                    -0.87308    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                        -0.27373    "deg/kN"     "In Phase"                             
     "Toe/Lat Force (Out)"                       -0.27419    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                      0.19331    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (In)"                      0.19333    "deg/kN"     "In Phase"                             
     "Camber/Lat Force (Out)"                     0.19368    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"        0.099442    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (In)"        0.099416    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"       0.099077    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"              0.56    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"          0.55685    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"            -0.061821    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"           -0.066083    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                     -0.00064967    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (In)"           0.55985    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"          0.55686    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"            -0.061813    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"           -0.066078    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                     -0.00064989    "mm/kN"      "0:-1kN"                               
 
 </pre>
-<h2 id="7">Split Lower Arm, Shock to Lower Arm Front, Bushings</h2>
+<h2 id="7">Split Lower Arm, Shock to Lower Arm Rear, Bushings</h2>
 <img vspace="5" hspace="5" src="testrig_susp_knc_results_06.png" alt=""> <pre class="codeoutput">
 TSuspMetrics =
 
   48&times;4 table
 
-                    Names                      Values        Units                    Description              
-    _____________________________________    __________    _________    _______________________________________
+                    Names                      Values         Units                    Description              
+    _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                        1.1423    "deg"        "+Toe In"                              
-    "Camber"                                   -0.77398    "deg"        "+Top Out"                             
-    "Caster"                                     14.487    "deg"        "+Top Rear of WC"                      
-    "KPI"                                         7.767    "deg"        "+Top Inside Bottom"                   
-    "Camber Change per Toe Change"             -0.25838    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                 13.947    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                               -31.824    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                27.629    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                               93.083    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                              0.37658    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                          -0.48841    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                             49.772    "mm"         "+Inside Wheel Center"                 
-    "Suspension Rate"                            71.065    "N/mm"       "+/-20mm, Wheel Center"                
-    "Ride Rate"                                  57.694    "N/mm"       "+/-20mm, Contact Patch"               
-    "Ride Frequency"                            0.30083    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                         0.21554    "mm"         "Up"                                   
-    "Wheel Travel Rebound"                     -0.13235    "mm"         "Down"                                 
-    "Wheel Travel Total"                        0.34789    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.05381    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                         0.011075    "mm/m"       "+In"                                  
-    "Spring Ratio"                              0.71354    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                              0.71354    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                0.97921    "deg"        "+/-2deg Roll, +Toe In"                
-    "Roll Camber"                               -2.2576    "deg"        "+/-2deg Roll, +Top Out"               
-    "Roll Stiffness"                             1571.9    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
-    "Roll Stiffness Total"                       1540.1    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
-    "Max Rack Travel"                            55.103    "mm"         "Rack Travel at Max Steer"             
-    "Steering Ratio"                             1.7912    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
-    "Max Toe Out"                               -27.777    "deg"        "+Toe In"                              
-    "Max Toe In"                                 29.257    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                 -34.673    "%"          "0% if parallel, 100% if ideal"        
-    "Ackermann at Max Inner"                    -14.994    "%"          "0% if parallel, 100% if ideal"        
-    "TCD Kerb to Kerb"                           15.079    "m"          "To Outer Front Wheel"                 
-    "TCD Wall to Wall"                           15.572    "m"          "To Outer Front Body Corner"           
-    "Max Rack Force"                             17.012    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                     -1.0057    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                    -1.0077    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                        -0.3172    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                      -0.31787    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                     0.21968    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                    0.22018    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"        0.17707    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"       0.17652    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"          0.93709    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"         0.93282    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"           0.0035289    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -0.0024525    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                     -0.0006601    "mm/kN"      "0:-1kN"                               
+    "Toe"                                         1.1423    "deg"        "+Toe In"                              
+    "Camber"                                    -0.77398    "deg"        "+Top Out"                             
+    "Caster"                                      14.487    "deg"        "+Top Rear of WC"                      
+    "KPI"                                         7.7667    "deg"        "+Top Inside Bottom"                   
+    "Camber Change per Toe Change"              -0.25838    "deg/deg"    "+/-1 deg"                             
+    "Bump Steer"                                  14.304    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -32.058    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                                 27.631    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                                93.082    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                               0.41588    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                           -0.48879    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              49.809    "mm"         "+Inside Wheel Center"                 
+    "Suspension Rate"                             71.065    "N/mm"       "+/-20mm, Wheel Center"                
+    "Ride Rate"                                   57.695    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Frequency"                             0.30083    "Hz"         "Uses Ride Rate"                       
+    "Wheel Travel Bump"                          0.21556    "mm"         "Up"                                   
+    "Wheel Travel Rebound"                      -0.13235    "mm"         "Down"                                 
+    "Wheel Travel Total"                         0.34791    "mm"         "Up+Down"                              
+    "WC Recession Long"                         0.054392    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                          0.011361    "mm/m"       "+In"                                  
+    "Spring Ratio"                               0.71281    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                               0.71281    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                 0.97803    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                -2.2571    "deg"        "+/-2deg Roll, +Top Out"               
+    "Roll Stiffness"                              1571.9    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
+    "Roll Stiffness Total"                        1540.1    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
+    "Max Rack Travel"                             55.103    "mm"         "Rack Travel at Max Steer"             
+    "Steering Ratio"                              1.7912    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
+    "Max Toe Out"                                -27.777    "deg"        "+Toe In"                              
+    "Max Toe In"                                  29.257    "deg"        "+Toe In"                              
+    "Ackermann at 20 deg Inner"                  -34.673    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at Max Inner"                     -14.994    "%"          "0% if parallel, 100% if ideal"        
+    "TCD Kerb to Kerb"                            15.079    "m"          "To Outer Front Wheel"                 
+    "TCD Wall to Wall"                            15.572    "m"          "To Outer Front Body Corner"           
+    "Max Rack Force"                              17.012    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                      -1.0058    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                     -1.0076    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                        -0.31724    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                       -0.31792    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                       0.2197    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                     0.22021    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"         0.17704    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"        0.17647    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"           0.93687    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"          0.93253    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"             0.003526    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          -0.0024534    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                     -0.00066025    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="9">Split Lower Arm, Shock to Lower Arm Rear</h2>
@@ -325,29 +334,29 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                     5.9393e-15    "deg"        "+Toe In"                              
-    "Camber"                                 -6.3611e-14    "deg"        "+Top Out"                             
+    "Toe"                                     9.1904e-15    "deg"        "+Toe In"                              
+    "Camber"                                 -3.8167e-14    "deg"        "+Top Out"                             
     "Caster"                                      14.846    "deg"        "+Top Rear of WC"                      
     "KPI"                                         8.0894    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.26506    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  4.1563    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -24.117    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Steer"                                  4.1539    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -24.116    "deg/m"      "+/- 10mm, +Top Out"                   
     "Bump Caster"                                 29.988    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                                95.068    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                               -1.8893    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                           -0.92675    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              49.583    "mm"         "+Inside Wheel Center"                 
+    "Caster Trail"                                95.067    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                               -1.8922    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                           -0.92788    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                               49.58    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             73.934    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                   59.572    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.30569    "Hz"         "Uses Ride Rate"                       
     "Wheel Travel Bump"                          0.20586    "mm"         "Up"                                   
     "Wheel Travel Rebound"                      -0.13133    "mm"         "Down"                                 
-    "Wheel Travel Total"                         0.33718    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.035785    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                        -0.0040953    "mm/m"       "+In"                                  
+    "Wheel Travel Total"                         0.33719    "mm"         "Up+Down"                              
+    "WC Recession Long"                         0.035782    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        -0.0040883    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.74027    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.74027    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.23397    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Steer"                                 0.23388    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -1.6785    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              1684.1    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        1647.6    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
@@ -360,19 +369,19 @@ TSuspMetrics =
     "TCD Kerb to Kerb"                            15.529    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                                16    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                              17.273    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                   1.3033e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                 -1.3163e-14    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      6.9508e-15    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     1.3824e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                   7.9514e-15    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (In)"                   1.9523e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                 -2.6088e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -4.2007e-15    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     3.4785e-15    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                  -5.3009e-15    "deg/kN"     "In Phase"                             
     "Camber/Lat Force (Out)"                           0    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"      4.6259e-14    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
     "Lat Compliance CP/Lat Force (In)"        4.1633e-13    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"       4.1633e-13    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"           7.2347e-15    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"          3.7968e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                      2.3195e-17    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (Out)"       3.7007e-13    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"           1.3639e-14    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          8.5168e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      1.2706e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="11">Five Link, Shock to Lower Arm Front</h2>
@@ -384,29 +393,29 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                    -1.1661e-15    "deg"        "+Toe In"                              
-    "Camber"                                 -2.5444e-14    "deg"        "+Top Out"                             
+    "Toe"                                     9.0425e-15    "deg"        "+Toe In"                              
+    "Camber"                                 -3.8167e-14    "deg"        "+Top Out"                             
     "Caster"                                       15.84    "deg"        "+Top Rear of WC"                      
     "KPI"                                          2.747    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.28371    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  4.0273    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -24.295    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Steer"                                    4.05    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -24.306    "deg/m"      "+/- 10mm, +Top Out"                   
     "Bump Caster"                                 28.783    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                103.54    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                11.343    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            0.79148    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              28.718    "mm"         "+Inside Wheel Center"                 
+    "Scrub Radius"                                11.354    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            0.79276    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              28.729    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             80.198    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                   63.572    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.31579    "Hz"         "Uses Ride Rate"                       
     "Wheel Travel Bump"                           0.1964    "mm"         "Up"                                   
     "Wheel Travel Rebound"                      -0.13268    "mm"         "Down"                                 
     "Wheel Travel Total"                         0.32908    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.031236    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                        -0.0046825    "mm/m"       "+In"                                  
+    "WC Recession Long"                         0.031262    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        -0.0047511    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.75431    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.75431    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.23529    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Steer"                                 0.23525    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -1.6931    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                                1791    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        1749.8    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
@@ -414,24 +423,24 @@ TSuspMetrics =
     "Steering Ratio"                              1.9318    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
     "Max Toe Out"                                -30.386    "deg"        "+Toe In"                              
     "Max Toe In"                                  27.747    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                   28.521    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at 20 deg Inner"                    28.52    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                      29.712    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                            15.806    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            16.265    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                              17.097    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                  -5.3276e-15    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                  2.9173e-15    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      5.5443e-15    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                    -2.8105e-15    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -2.6505e-15    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -5.3009e-15    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"     -3.8812e-11    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"    -3.8858e-11    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"       -3.5342e-11    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"      -3.5296e-11    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"           7.2235e-15    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -1.5336e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                     -4.1732e-17    "mm/kN"      "0:-1kN"                               
+    "Toe/Align Torque (In)"                  -2.3508e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  4.2493e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -1.5118e-14    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     8.9746e-15    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   7.9514e-15    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                           0    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"         2.313e-13    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"       4.1633e-13    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"          -5.7106e-15    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          -1.282e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      -5.682e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="13">Five Link, Shock to Lower Arm Front, Constraints</h2>
@@ -443,26 +452,26 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                     3.8405e-16    "deg"        "+Toe In"                              
-    "Camber"                                 -3.8167e-14    "deg"        "+Top Out"                             
+    "Toe"                                    -1.2529e-14    "deg"        "+Toe In"                              
+    "Camber"                                 -6.3611e-14    "deg"        "+Top Out"                             
     "Caster"                                       15.84    "deg"        "+Top Rear of WC"                      
     "KPI"                                          2.747    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.28371    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  4.0339    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Steer"                                  4.0326    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                -24.298    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 28.783    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Bump Caster"                                 28.784    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                103.54    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                11.339    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            0.79173    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              28.714    "mm"         "+Inside Wheel Center"                 
-    "Suspension Rate"                              74.15    "N/mm"       "+/-20mm, Wheel Center"                
+    "Scrub Radius"                                11.345    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            0.79141    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              28.721    "mm"         "+Inside Wheel Center"                 
+    "Suspension Rate"                             74.149    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                   59.711    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.30605    "Hz"         "Uses Ride Rate"                       
     "Wheel Travel Bump"                          0.20601    "mm"         "Up"                                   
     "Wheel Travel Rebound"                      -0.13114    "mm"         "Down"                                 
     "Wheel Travel Total"                         0.33715    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.031243    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                        -0.0047026    "mm/m"       "+In"                                  
+    "WC Recession Long"                         0.031242    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        -0.0046985    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.74065    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.74065    "1"          "Damper Disp/WC Disp"                  
     "Roll Steer"                                 0.23538    "deg"        "+/-2deg Roll, +Toe In"                
@@ -473,24 +482,24 @@ TSuspMetrics =
     "Steering Ratio"                              1.9318    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
     "Max Toe Out"                                -30.386    "deg"        "+Toe In"                              
     "Max Toe In"                                  27.747    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                    28.52    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at 20 deg Inner"                   28.521    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                      29.712    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                            15.806    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            16.265    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                              17.097    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                  -6.0084e-15    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                  -3.056e-15    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      5.3377e-15    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     1.7287e-15    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -5.3009e-15    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -5.3009e-15    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"     -3.2382e-12    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"    -3.2382e-12    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"       -6.0137e-13    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"      -6.0137e-13    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"          -1.1937e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -1.3744e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                     -2.7611e-17    "mm/kN"      "0:-1kN"                               
+    "Toe/Align Torque (In)"                   3.5727e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  5.7771e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                      4.5433e-15    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     5.0867e-15    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   1.0602e-14    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                  1.3252e-14    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"        3.7007e-13    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"       3.2382e-13    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"           9.3273e-15    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          5.3766e-16    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      1.1401e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="15">Five Link, Shock to Lower Arm Rear</h2>
@@ -502,29 +511,29 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                    -2.4177e-14    "deg"        "+Toe In"                              
+    "Toe"                                     -2.249e-15    "deg"        "+Toe In"                              
     "Camber"                                  -1.145e-13    "deg"        "+Top Out"                             
     "Caster"                                       15.84    "deg"        "+Top Rear of WC"                      
     "KPI"                                          2.747    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.28371    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  4.0403    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -24.302    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Steer"                                  4.0375    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                  -24.3    "deg/m"      "+/- 10mm, +Top Out"                   
     "Bump Caster"                                 28.783    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                103.54    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                11.349    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            0.79256    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              28.724    "mm"         "+Inside Wheel Center"                 
+    "Scrub Radius"                                11.361    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            0.79175    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              28.736    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             80.253    "N/mm"       "+/-20mm, Wheel Center"                
-    "Ride Rate"                                   63.606    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Rate"                                   63.607    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.31587    "Hz"         "Uses Ride Rate"                       
     "Wheel Travel Bump"                           0.1964    "mm"         "Up"                                   
     "Wheel Travel Rebound"                      -0.13268    "mm"         "Down"                                 
     "Wheel Travel Total"                         0.32908    "mm"         "Up+Down"                              
-    "WC Recession Long"                         0.031251    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                        -0.0047223    "mm/m"       "+In"                                  
+    "WC Recession Long"                         0.031247    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        -0.0047128    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.75431    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.75431    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.23542    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Steer"                                 0.23534    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -1.6932    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              1810.5    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        1768.4    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
@@ -532,24 +541,24 @@ TSuspMetrics =
     "Steering Ratio"                              1.9318    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
     "Max Toe Out"                                -30.386    "deg"        "+Toe In"                              
     "Max Toe In"                                  27.747    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                    28.52    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at 20 deg Inner"                   28.521    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                      29.712    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                            15.806    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            16.265    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                              17.097    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                   1.4478e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                   3.514e-15    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                     -7.6138e-16    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     4.0997e-16    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                   2.6505e-15    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -2.6505e-15    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"     -3.5018e-11    "mm/kN"      "In Phase"                             
+    "Toe/Align Torque (In)"                   1.6867e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                 -1.4056e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -1.5872e-14    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                    -1.8624e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                  -1.0602e-14    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                 -5.3009e-15    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"     -3.4972e-11    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"    -3.5018e-11    "mm/kN"      "Out Phase"                            
     "Lat Compliance CP/Lat Force (In)"       -3.1826e-11    "mm/kN"      "In Phase"                             
     "Lat Compliance CP/Lat Force (Out)"      -3.1873e-11    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"           3.0455e-15    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -3.3676e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                      3.8362e-17    "mm/kN"      "0:-1kN"                               
+    "Long Compliance Steer Braking"          -1.8917e-14    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"         -1.2446e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      6.7816e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="17">MacPherson, Bushings</h2>
@@ -563,52 +572,52 @@ TSuspMetrics =
 
     "Toe"                                        0.53412    "deg"        "+Toe In"                              
     "Camber"                                    -0.19545    "deg"        "+Top Out"                             
-    "Caster"                                      4.6045    "deg"        "+Top Rear of WC"                      
+    "Caster"                                      4.6044    "deg"        "+Top Rear of WC"                      
     "KPI"                                         9.8105    "deg"        "+Top Inside Bottom"                   
-    "Camber Change per Toe Change"             -0.080533    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  13.703    "deg/m"      "+/- 10mm, +Toe In"                    
-    "Bump Camber"                                -24.029    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 18.163    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                               -6.8624    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                59.878    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            -36.028    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                               122.5    "mm"         "+Inside Wheel Center"                 
+    "Camber Change per Toe Change"             -0.080532    "deg/deg"    "+/-1 deg"                             
+    "Bump Steer"                                  13.224    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                -23.853    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                                 18.162    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                               -6.8444    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                                59.811    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                             -36.01    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              122.43    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             121.24    "N/mm"       "+/-20mm, Wheel Center"                
-    "Ride Rate"                                   86.889    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Rate"                                   86.888    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.36918    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                         0.034797    "mm"         "Up"                                   
+    "Wheel Travel Bump"                         0.034802    "mm"         "Up"                                   
     "Wheel Travel Rebound"                     -0.080825    "mm"         "Down"                                 
-    "Wheel Travel Total"                         0.11562    "mm"         "Up+Down"                              
-    "WC Recession Long"                          0.11063    "mm/m"       "+Backwards"                           
-    "WC Recession Lat"                          0.021001    "mm/m"       "+In"                                  
-    "Spring Ratio"                               0.86551    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                               0.86551    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.95055    "deg"        "+/-2deg Roll, +Toe In"                
-    "Roll Camber"                                -1.6875    "deg"        "+/-2deg Roll, +Top Out"               
+    "Wheel Travel Total"                         0.11563    "mm"         "Up+Down"                              
+    "WC Recession Long"                          0.10955    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                          0.020145    "mm/m"       "+In"                                  
+    "Spring Ratio"                               0.87026    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                               0.87026    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                 0.95251    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                 -1.688    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              2757.4    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        2660.9    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
     "Max Rack Travel"                             57.643    "mm"         "Rack Travel at Max Steer"             
     "Steering Ratio"                              1.6834    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
     "Max Toe Out"                                 -32.92    "deg"        "+Toe In"                              
     "Max Toe In"                                  32.527    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                  -9.0482    "%"          "0% if parallel, 100% if ideal"        
-    "Ackermann at Max Inner"                      3.2395    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at 20 deg Inner"                  -9.0483    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at Max Inner"                      3.2394    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                            13.749    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                             14.31    "m"          "To Outer Front Body Corner"           
-    "Max Rack Force"                              9.4967    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                      -1.1522    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                      -1.154    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                        -0.24975    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                       -0.25017    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                     0.077245    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                    0.077438    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"         0.31796    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"         0.3173    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"           0.95028    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"           0.9482    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"            -0.061064    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"              -0.063    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                     -0.00074289    "mm/kN"      "0:-1kN"                               
+    "Max Rack Force"                               9.497    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                      -1.1524    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                     -1.1536    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                        -0.24976    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                       -0.25023    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                     0.077247    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                     0.07745    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"         0.31794    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"        0.31718    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"           0.95026    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"          0.94799    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"            -0.061069    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"            -0.06301    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                     -0.00074198    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="19">Formula Student Vehicle, Pullrod</h2>
@@ -620,14 +629,14 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                    -2.6607e-14    "deg"        "+Toe In"                              
+    "Toe"                                     2.8261e-14    "deg"        "+Toe In"                              
     "Camber"                                  1.2722e-14    "deg"        "+Top Out"                             
     "Caster"                                      7.6444    "deg"        "+Top Rear of WC"                      
     "KPI"                                         5.1617    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.13421    "deg/deg"    "+/-1 deg"                             
-    "Bump Steer"                                  1.4705    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Steer"                                  1.4706    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                -52.291    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 34.789    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Bump Caster"                                  34.79    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                48.433    "mm"         "+Forward of Contact Patch"            
     "Scrub Radius"                                23.197    "mm"         "+Inside Wheel Center"                 
     "Hub Long Offset"                             17.129    "mm"         "+Forward of WC"                       
@@ -635,14 +644,14 @@ TSuspMetrics =
     "Suspension Rate"                              40.22    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                   35.557    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.92843    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                         0.048384    "mm"         "Up"                                   
+    "Wheel Travel Bump"                         0.048385    "mm"         "Up"                                   
     "Wheel Travel Rebound"                     -0.026218    "mm"         "Down"                                 
-    "Wheel Travel Total"                        0.074602    "mm"         "Up+Down"                              
+    "Wheel Travel Total"                        0.074603    "mm"         "Up+Down"                              
     "WC Recession Long"                        -0.056196    "mm/m"       "+Backwards"                           
     "WC Recession Lat"                          -0.16006    "mm/m"       "+In"                                  
     "Spring Ratio"                               0.94489    "1"          "Spring Disp/WC Disp"                  
     "Damper Ratio"                               0.94489    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.06239    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Steer"                                0.062389    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -2.2642    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              8426.4    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        7155.7    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
@@ -655,19 +664,19 @@ TSuspMetrics =
     "TCD Kerb to Kerb"                            8.4318    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                              9.03    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                                   0    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                   2.4924e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                 -6.2355e-14    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      -6.417e-18    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                    -4.1322e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -1.0602e-14    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                  2.6505e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Align Torque (In)"                  -2.1698e-13    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                 -1.1007e-13    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                      -8.233e-14    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                    -7.5371e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                  -2.6505e-15    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                 -2.1204e-14    "deg/kN"     "Out Phase"                            
     "Lat Compliance WCtr/Lat Force (In)"     -1.8504e-13    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"    -9.2519e-14    "mm/kN"      "Out Phase"                            
     "Lat Compliance CP/Lat Force (In)"       -2.7756e-13    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"      -2.7756e-13    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"          -1.1618e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -3.3751e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                       3.997e-17    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (Out)"      -9.2519e-14    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"          -1.0452e-13    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          -4.698e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                     -7.1658e-18    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="21">Formula Student Vehicle, Pushrod</h2>
@@ -679,14 +688,14 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                     4.7662e-14    "deg"        "+Toe In"                              
-    "Camber"                                  1.2722e-14    "deg"        "+Top Out"                             
+    "Toe"                                     1.0342e-13    "deg"        "+Toe In"                              
+    "Camber"                                 -3.8167e-14    "deg"        "+Top Out"                             
     "Caster"                                      7.6328    "deg"        "+Top Rear of WC"                      
     "KPI"                                         5.0021    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"                -0.134    "deg/deg"    "+/-1 deg"                             
     "Bump Steer"                                   17.64    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                -56.983    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 1.9161    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Bump Caster"                                 1.9117    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                48.436    "mm"         "+Forward of Contact Patch"            
     "Scrub Radius"                                24.205    "mm"         "+Inside Wheel Center"                 
     "Hub Long Offset"                              17.18    "mm"         "+Forward of WC"                       
@@ -694,9 +703,9 @@ TSuspMetrics =
     "Suspension Rate"                              78.15    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                   62.278    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                              1.2287    "Hz"         "Uses Ride Rate"                       
-    "Wheel Travel Bump"                          0.02936    "mm"         "Up"                                   
+    "Wheel Travel Bump"                         0.029356    "mm"         "Up"                                   
     "Wheel Travel Rebound"                     -0.029381    "mm"         "Down"                                 
-    "Wheel Travel Total"                        0.058741    "mm"         "Up+Down"                              
+    "Wheel Travel Total"                        0.058738    "mm"         "Up+Down"                              
     "WC Recession Long"                        -0.095187    "mm/m"       "+Backwards"                           
     "WC Recession Lat"                          -0.16532    "mm/m"       "+In"                                  
     "Spring Ratio"                                1.3634    "1"          "Spring Disp/WC Disp"                  
@@ -714,19 +723,19 @@ TSuspMetrics =
     "TCD Kerb to Kerb"                            8.4398    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            9.0373    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                                   0    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                   1.6131e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                  1.6102e-13    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      4.6597e-14    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     3.2417e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -4.2407e-14    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -3.1806e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Align Torque (In)"                   3.4298e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                 -1.4984e-13    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -3.8479e-14    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                      5.218e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   1.0602e-14    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                  1.0602e-14    "deg/kN"     "Out Phase"                            
     "Lat Compliance WCtr/Lat Force (In)"     -9.2519e-14    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"    -9.2519e-14    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"                 0    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (In)"       -9.2519e-14    "mm/kN"      "In Phase"                             
     "Lat Compliance CP/Lat Force (Out)"      -9.2519e-14    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"            5.709e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"          1.9088e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                      1.1758e-16    "mm/kN"      "0:-1kN"                               
+    "Long Compliance Steer Braking"          -2.0008e-14    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"         -4.2278e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                     -3.3214e-18    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="23">Formula Student Vehicle, Decoupled Wishbone</h2>
@@ -738,14 +747,14 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                    -1.7954e-13    "deg"        "+Toe In"                              
-    "Camber"                                  6.3611e-14    "deg"        "+Top Out"                             
+    "Toe"                                    -1.0012e-13    "deg"        "+Toe In"                              
+    "Camber"                                 -1.2722e-14    "deg"        "+Top Out"                             
     "Caster"                                      7.6444    "deg"        "+Top Rear of WC"                      
     "KPI"                                         5.1617    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.13421    "deg/deg"    "+/-1 deg"                             
     "Bump Steer"                                  1.4705    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                -52.291    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 34.787    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Bump Caster"                                 34.786    "deg/m"      "+/- 10mm, +Caster Decrease"           
     "Caster Trail"                                48.433    "mm"         "+Forward of Contact Patch"            
     "Scrub Radius"                                23.197    "mm"         "+Inside Wheel Center"                 
     "Hub Long Offset"                             17.129    "mm"         "+Forward of WC"                       
@@ -758,9 +767,9 @@ TSuspMetrics =
     "Wheel Travel Total"                             NaN    "mm"         "Up+Down"                              
     "WC Recession Long"                        -0.056196    "mm/m"       "+Backwards"                           
     "WC Recession Lat"                          -0.16006    "mm/m"       "+In"                                  
-    "Spring Ratio"                                1.1298    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                                1.1298    "1"          "Damper Disp/WC Disp"                  
-    "Roll Steer"                                 0.06239    "deg"        "+/-2deg Roll, +Toe In"                
+    "Spring Ratio"                                1.1306    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                                1.1306    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                0.062388    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -2.2642    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              463.95    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
     "Roll Stiffness Total"                        459.46    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
@@ -773,19 +782,19 @@ TSuspMetrics =
     "TCD Kerb to Kerb"                            8.4318    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                              9.03    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                                   0    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                    3.087e-13    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                   2.404e-13    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                      1.1442e-13    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     7.9914e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -4.5058e-14    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                  -5.831e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Align Torque (In)"                   -3.572e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  8.4446e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                      1.9114e-15    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     3.8891e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   3.4456e-14    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                  1.8553e-14    "deg/kN"     "Out Phase"                            
     "Lat Compliance WCtr/Lat Force (In)"     -9.2519e-14    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"    -9.2519e-14    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"        9.2519e-14    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"       1.8504e-13    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"            9.049e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -4.2076e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                        2.16e-16    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (In)"                 0    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"       9.2519e-14    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"           8.5004e-14    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          1.6075e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      7.0105e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="25">Formula Student Vehicle, Decoupled Five Link</h2>
@@ -797,18 +806,18 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                    -1.9084e-16    "deg"        "+Toe In"                              
-    "Camber"                                  1.2722e-14    "deg"        "+Top Out"                             
+    "Toe"                                     7.4021e-14    "deg"        "+Toe In"                              
+    "Camber"                                 -1.2722e-14    "deg"        "+Top Out"                             
     "Caster"                                      9.0193    "deg"        "+Top Rear of WC"                      
     "KPI"                                          15.12    "deg"        "+Top Inside Bottom"                   
     "Camber Change per Toe Change"              -0.15872    "deg/deg"    "+/-1 deg"                             
     "Bump Steer"                                   1.964    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                -51.814    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                                 57.819    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                                25.487    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                               -14.431    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            -11.534    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              48.588    "mm"         "+Inside Wheel Center"                 
+    "Bump Caster"                                 57.818    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                                25.469    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                               -14.358    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            -11.552    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              48.661    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                             28.206    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                    25.83    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                             0.79132    "Hz"         "Uses Ride Rate"                       
@@ -817,8 +826,8 @@ TSuspMetrics =
     "Wheel Travel Total"                             NaN    "mm"         "Up+Down"                              
     "WC Recession Long"                        -0.063292    "mm/m"       "+Backwards"                           
     "WC Recession Lat"                          -0.15946    "mm/m"       "+In"                                  
-    "Spring Ratio"                                1.1279    "1"          "Spring Disp/WC Disp"                  
-    "Damper Ratio"                                1.1279    "1"          "Damper Disp/WC Disp"                  
+    "Spring Ratio"                                1.1284    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                                1.1284    "1"          "Damper Disp/WC Disp"                  
     "Roll Steer"                                0.082944    "deg"        "+/-2deg Roll, +Toe In"                
     "Roll Camber"                                -2.2439    "deg"        "+/-2deg Roll, +Top Out"               
     "Roll Stiffness"                              462.12    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
@@ -827,24 +836,24 @@ TSuspMetrics =
     "Steering Ratio"                               2.984    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
     "Max Toe Out"                                -28.443    "deg"        "+Toe In"                              
     "Max Toe In"                                  23.912    "deg"        "+Toe In"                              
-    "Ackermann at 20 deg Inner"                   38.421    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at 20 deg Inner"                    38.42    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                      42.151    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                            7.9304    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                            8.5731    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                                   0    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                  -1.6876e-14    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                 -4.0482e-15    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                     -4.7722e-15    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                     9.3852e-14    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                   1.0602e-14    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -4.2407e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Align Torque (In)"                  -4.7679e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  -2.602e-13    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -4.7646e-14    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     4.4727e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   2.3854e-14    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                 -1.0602e-14    "deg/kN"     "Out Phase"                            
     "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
     "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"                 0    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"       1.8504e-13    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"           5.0211e-14    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"          8.3265e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                     -7.0531e-17    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (In)"        1.8504e-13    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"       3.7007e-13    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"          -8.8982e-14    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"         -3.4827e-14    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      1.6092e-16    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="27">Twist Beam (Rear, No Steering)</h2>
@@ -856,18 +865,18 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                        0.07621    "deg"        "+Toe In"                              
-    "Camber"                                     -1.8585    "deg"        "+Top Out"                             
-    "Caster"                                  6.4729e-05    "deg"        "+Top Rear of WC"                      
-    "KPI"                                         89.249    "deg"        "+Top Inside Bottom"                   
-    "Camber Change per Toe Change"           -1.1303e-06    "deg/deg"    "+/-1 deg"                             
+    "Toe"                                        0.07403    "deg"        "+Toe In"                              
+    "Camber"                                     -1.8422    "deg"        "+Top Out"                             
+    "Caster"                                   5.555e-05    "deg"        "+Top Rear of WC"                      
+    "KPI"                                          87.59    "deg"        "+Top Inside Bottom"                   
+    "Camber Change per Toe Change"           -9.7005e-07    "deg/deg"    "+/-1 deg"                             
     "Bump Steer"                                     NaN    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                    NaN    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                               0.073077    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                               0.45684    "mm"         "+Forward of Contact Patch"            
-    "Scrub Radius"                                -26705    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                            0.45644    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                              2.1379    "mm"         "+Inside Wheel Center"                 
+    "Bump Caster"                              -0.064583    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                               0.45679    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                               -8312.2    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            0.45645    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              2.1381    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                                NaN    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                      NaN    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                                 NaN    "Hz"         "Uses Ride Rate"                       
@@ -884,26 +893,26 @@ TSuspMetrics =
     "Roll Stiffness Total"                           NaN    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
     "Max Rack Travel"                                  0    "mm"         "Rack Travel at Max Steer"             
     "Steering Ratio"                                   0    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
-    "Max Toe Out"                                0.22843    "deg"        "+Toe In"                              
-    "Max Toe In"                                 0.22843    "deg"        "+Toe In"                              
+    "Max Toe Out"                                0.22844    "deg"        "+Toe In"                              
+    "Max Toe In"                                 0.22844    "deg"        "+Toe In"                              
     "Ackermann at 20 deg Inner"                      NaN    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                         NaN    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                                 0    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                                 0    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                                 NaN    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                     -0.97676    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                     0.11257    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                        -0.42539    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                      -0.019742    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                     -0.09501    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                     0.47529    "deg/kN"     "Out Phase"                            
-    "Lat Compliance WCtr/Lat Force (In)"         -5.3602    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"        -1.5498    "mm/kN"      "Out Phase"                            
-    "Lat Compliance CP/Lat Force (In)"            4.6946    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"           5.0058    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"              0.08291    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"           -0.049099    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                      0.00076123    "mm/kN"      "0:-1kN"                               
+    "Toe/Align Torque (In)"                     -0.97207    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                     0.11702    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                        -0.42357    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                      -0.017886    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                     -0.10896    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                     0.46133    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"         -5.3608    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"        -1.5501    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"            4.6961    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"           5.0076    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"             0.084794    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"           -0.049103    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      0.00076127    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <h2 id="29">Live Axle (Rear, No Steering)</h2>
@@ -915,18 +924,18 @@ TSuspMetrics =
                     Names                      Values         Units                    Description              
     _____________________________________    ___________    _________    _______________________________________
 
-    "Toe"                                     1.0106e-05    "deg"        "+Toe In"                              
-    "Camber"                                   0.0005062    "deg"        "+Top Out"                             
-    "Caster"                                           0    "deg"        "+Top Rear of WC"                      
+    "Toe"                                    -1.3439e-07    "deg"        "+Toe In"                              
+    "Camber"                                 -8.3067e-06    "deg"        "+Top Out"                             
+    "Caster"                                 -3.6454e-13    "deg"        "+Top Rear of WC"                      
     "KPI"                                            NaN    "deg"        "+Top Inside Bottom"                   
-    "Camber Change per Toe Change"                     0    "deg/deg"    "+/-1 deg"                             
+    "Camber Change per Toe Change"            6.3611e-15    "deg/deg"    "+/-1 deg"                             
     "Bump Steer"                                     NaN    "deg/m"      "+/- 10mm, +Toe In"                    
     "Bump Camber"                                    NaN    "deg/m"      "+/- 10mm, +Top Out"                   
-    "Bump Caster"                             9.1135e-11    "deg/m"      "+/- 10mm, +Caster Decrease"           
-    "Caster Trail"                             -0.015353    "mm"         "+Forward of Contact Patch"            
+    "Bump Caster"                             1.8227e-11    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                             -0.014892    "mm"         "+Forward of Contact Patch"            
     "Scrub Radius"                                   NaN    "mm"         "+Inside Wheel Center"                 
-    "Hub Long Offset"                          -0.015353    "mm"         "+Forward of WC"                       
-    "Hub Lat Offset"                             -2.8907    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                          -0.014892    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                             -10.649    "mm"         "+Inside Wheel Center"                 
     "Suspension Rate"                                NaN    "N/mm"       "+/-20mm, Wheel Center"                
     "Ride Rate"                                      NaN    "N/mm"       "+/-20mm, Contact Patch"               
     "Ride Frequency"                                 NaN    "Hz"         "Uses Ride Rate"                       
@@ -943,26 +952,145 @@ TSuspMetrics =
     "Roll Stiffness Total"                           NaN    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
     "Max Rack Travel"                                  0    "mm"         "Rack Travel at Max Steer"             
     "Steering Ratio"                                   0    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
-    "Max Toe Out"                            -1.2378e-10    "deg"        "+Toe In"                              
-    "Max Toe In"                              1.6754e-10    "deg"        "+Toe In"                              
+    "Max Toe Out"                            -4.7953e-10    "deg"        "+Toe In"                              
+    "Max Toe In"                              5.8005e-16    "deg"        "+Toe In"                              
     "Ackermann at 20 deg Inner"                      NaN    "%"          "0% if parallel, 100% if ideal"        
     "Ackermann at Max Inner"                         NaN    "%"          "0% if parallel, 100% if ideal"        
     "TCD Kerb to Kerb"                                 0    "m"          "To Outer Front Wheel"                 
     "TCD Wall to Wall"                                 0    "m"          "To Outer Front Body Corner"           
     "Max Rack Force"                                 NaN    "kN"         "From Applied Forces and Torques"      
-    "Toe/Align Torque (In)"                  -0.00053993    "deg/kN"     "In Phase"                             
-    "Toe/Align Torque (Out)"                 -2.0211e-05    "deg/kN"     "Out Phase"                            
-    "Toe/Lat Force (In)"                     -0.00013837    "deg/kN"     "In Phase"                             
-    "Toe/Lat Force (Out)"                    -8.4213e-06    "deg/kN"     "Out Phase"                            
-    "Camber/Lat Force (In)"                  -0.00042183    "deg/kN"     "In Phase"                             
-    "Camber/Lat Force (Out)"                 -0.00042183    "deg/kN"     "Out Phase"                            
+    "Toe/Align Torque (In)"                  -0.00051945    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  2.6877e-07    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -0.00012983    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     1.1199e-07    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                   6.9223e-06    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                  6.9223e-06    "deg/kN"     "Out Phase"                            
     "Lat Compliance WCtr/Lat Force (In)"        -0.14589    "mm/kN"      "In Phase"                             
-    "Lat Compliance WCtr/Lat Force (Out)"     2.3916e-10    "mm/kN"      "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (Out)"     9.0853e-11    "mm/kN"      "Out Phase"                            
     "Lat Compliance CP/Lat Force (In)"          -0.14589    "mm/kN"      "In Phase"                             
-    "Lat Compliance CP/Lat Force (Out)"       2.3916e-10    "mm/kN"      "Out Phase"                            
-    "Long Compliance Steer Braking"          -8.4213e-06    "deg/kN"     "0:1kN, +Toe In"                       
-    "Long Compliance Steer Tracking"         -3.5253e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
-    "WC Long Compliance"                      0.00057926    "mm/kN"      "0:-1kN"                               
+    "Lat Compliance CP/Lat Force (Out)"       9.0946e-11    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"           1.1199e-07    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"         -1.4718e-10    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                      0.00057942    "mm/kN"      "0:-1kN"                               
+
+</pre>
+<h2 id="31">Panhard Rod (Front)</h2>
+<img vspace="5" hspace="5" src="testrig_susp_knc_results_18.png" alt=""> <pre class="codeoutput">
+TSuspMetrics =
+
+  48&times;4 table
+
+                    Names                      Values         Units                    Description              
+    _____________________________________    ___________    _________    _______________________________________
+
+    "Toe"                                       -0.76527    "deg"        "+Toe In"                              
+    "Camber"                                   -0.036075    "deg"        "+Top Out"                             
+    "Caster"                                     -2.7424    "deg"        "+Top Rear of WC"                      
+    "KPI"                                         6.7537    "deg"        "+Top Inside Bottom"                   
+    "Camber Change per Toe Change"              0.047898    "deg/deg"    "+/-1 deg"                             
+    "Bump Steer"                                  3.3892    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                                0.93286    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                                 57.992    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                               -21.184    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                                 72.23    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                            -2.0719    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                              119.48    "mm"         "+Inside Wheel Center"                 
+    "Suspension Rate"                             49.073    "N/mm"       "+/-20mm, Wheel Center"                
+    "Ride Rate"                                   39.765    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Frequency"                             0.29204    "Hz"         "Uses Ride Rate"                       
+    "Wheel Travel Bump"                          0.15404    "mm"         "Up"                                   
+    "Wheel Travel Rebound"                      -0.10476    "mm"         "Down"                                 
+    "Wheel Travel Total"                          0.2588    "mm"         "Up+Down"                              
+    "WC Recession Long"                         0.074617    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                          0.076997    "mm/m"       "+In"                                  
+    "Spring Ratio"                               0.98906    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                               0.98906    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                 0.32879    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                -1.9656    "deg"        "+/-2deg Roll, +Top Out"               
+    "Roll Stiffness"                              199.75    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
+    "Roll Stiffness Total"                        198.75    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
+    "Max Rack Travel"                                  0    "mm"         "Rack Travel at Max Steer"             
+    "Steering Ratio"                              1.0182    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
+    "Max Toe Out"                                -38.405    "deg"        "+Toe In"                              
+    "Max Toe In"                                  30.826    "deg"        "+Toe In"                              
+    "Ackermann at 20 deg Inner"               4.0354e+16    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at Max Inner"                         Inf    "%"          "0% if parallel, 100% if ideal"        
+    "TCD Kerb to Kerb"                            10.806    "m"          "To Outer Front Wheel"                 
+    "TCD Wall to Wall"                            12.426    "m"          "To Outer Front Body Corner"           
+    "Max Rack Force"                                 NaN    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                   1.8874e-14    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                   1.954e-14    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                     -1.5728e-15    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                     1.3415e-14    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                            0    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                           0    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"               0    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"              0    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"                 0    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"                0    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"           8.4192e-15    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"          1.9429e-15    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                       0.0013174    "mm/kN"      "0:-1kN"                               
+
+</pre>
+<h2 id="33">Trailing Arm (Rear)</h2>
+<img vspace="5" hspace="5" src="testrig_susp_knc_results_19.png" alt=""> <h2 id="34">Watts (Rear)</h2>
+<img vspace="5" hspace="5" src="testrig_susp_knc_results_20.png" alt=""> <pre class="codeoutput">
+TSuspMetrics =
+
+  48&times;4 table
+
+                    Names                      Values         Units                    Description              
+    _____________________________________    ___________    _________    _______________________________________
+
+    "Toe"                                     3.4398e-15    "deg"        "+Toe In"                              
+    "Camber"                                  2.5444e-14    "deg"        "+Top Out"                             
+    "Caster"                                           0    "deg"        "+Top Rear of WC"                      
+    "KPI"                                            NaN    "deg"        "+Top Inside Bottom"                   
+    "Camber Change per Toe Change"                     0    "deg/deg"    "+/-1 deg"                             
+    "Bump Steer"                              1.0511e-14    "deg/m"      "+/- 10mm, +Toe In"                    
+    "Bump Camber"                             1.0085e-12    "deg/m"      "+/- 10mm, +Top Out"                   
+    "Bump Caster"                             -2.734e-11    "deg/m"      "+/- 10mm, +Caster Decrease"           
+    "Caster Trail"                           -4.9097e-05    "mm"         "+Forward of Contact Patch"            
+    "Scrub Radius"                                   NaN    "mm"         "+Inside Wheel Center"                 
+    "Hub Long Offset"                        -4.9097e-05    "mm"         "+Forward of WC"                       
+    "Hub Lat Offset"                             -223.87    "mm"         "+Inside Wheel Center"                 
+    "Suspension Rate"                             51.961    "N/mm"       "+/-20mm, Wheel Center"                
+    "Ride Rate"                                   41.641    "N/mm"       "+/-20mm, Contact Patch"               
+    "Ride Frequency"                             0.29885    "Hz"         "Uses Ride Rate"                       
+    "Wheel Travel Bump"                          0.12793    "mm"         "Up"                                   
+    "Wheel Travel Rebound"                      -0.13841    "mm"         "Down"                                 
+    "Wheel Travel Total"                         0.26634    "mm"         "Up+Down"                              
+    "WC Recession Long"                        -0.070963    "mm/m"       "+Backwards"                           
+    "WC Recession Lat"                        5.5511e-15    "mm/m"       "+In"                                  
+    "Spring Ratio"                               0.99976    "1"          "Spring Disp/WC Disp"                  
+    "Damper Ratio"                               0.99976    "1"          "Damper Disp/WC Disp"                  
+    "Roll Steer"                                -0.14053    "deg"        "+/-2deg Roll, +Toe In"                
+    "Roll Camber"                                -2.0012    "deg"        "+/-2deg Roll, +Top Out"               
+    "Roll Stiffness"                              197.46    "N*m/deg"    "+/-2deg Roll, Wheel Center"           
+    "Roll Stiffness Total"                        196.46    "N*m/deg"    "+/-2deg Roll, Contact Patch"          
+    "Max Rack Travel"                                  0    "mm"         "Rack Travel at Max Steer"             
+    "Steering Ratio"                                   0    "1"          "Handwheel Angle/Toe Angle, 20 deg Toe"
+    "Max Toe Out"                            -4.9589e-15    "deg"        "+Toe In"                              
+    "Max Toe In"                              6.1703e-15    "deg"        "+Toe In"                              
+    "Ackermann at 20 deg Inner"                      NaN    "%"          "0% if parallel, 100% if ideal"        
+    "Ackermann at Max Inner"                         NaN    "%"          "0% if parallel, 100% if ideal"        
+    "TCD Kerb to Kerb"                                 0    "m"          "To Outer Front Wheel"                 
+    "TCD Wall to Wall"                                 0    "m"          "To Outer Front Body Corner"           
+    "Max Rack Force"                                 NaN    "kN"         "From Applied Forces and Torques"      
+    "Toe/Align Torque (In)"                   1.5267e-15    "deg/kN"     "In Phase"                             
+    "Toe/Align Torque (Out)"                  1.2852e-15    "deg/kN"     "Out Phase"                            
+    "Toe/Lat Force (In)"                      -3.251e-16    "deg/kN"     "In Phase"                             
+    "Toe/Lat Force (Out)"                    -7.1464e-16    "deg/kN"     "Out Phase"                            
+    "Camber/Lat Force (In)"                            0    "deg/kN"     "In Phase"                             
+    "Camber/Lat Force (Out)"                           0    "deg/kN"     "Out Phase"                            
+    "Lat Compliance WCtr/Lat Force (In)"     -2.9338e-09    "mm/kN"      "In Phase"                             
+    "Lat Compliance WCtr/Lat Force (Out)"    -2.9337e-09    "mm/kN"      "Out Phase"                            
+    "Lat Compliance CP/Lat Force (In)"       -4.0659e-09    "mm/kN"      "In Phase"                             
+    "Lat Compliance CP/Lat Force (Out)"      -4.0657e-09    "mm/kN"      "Out Phase"                            
+    "Long Compliance Steer Braking"          -1.5381e-16    "deg/kN"     "0:1kN, +Toe In"                       
+    "Long Compliance Steer Tracking"         -1.6713e-17    "deg/kN"     "-1:+1kN, +Toe In"                     
+    "WC Long Compliance"                     -3.4783e-17    "mm/kN"      "0:-1kN"                               
 
 </pre>
 <p class="footer">Copyright 2018-2024 The MathWorks, Inc.<br>
@@ -1017,8 +1145,8 @@ TSuspMetrics
 sm_car_load_vehicle_data('none','000')
 set_param([bdroot '/Axle'],'AxNum','Front');
 
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sedan_LA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
@@ -1028,17 +1156,17 @@ TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true
 %%
 TSuspMetrics
 
-%% Split Lower Arm, Shock to Lower Arm Front, Bushings
+%% Split Lower Arm, Shock to Lower Arm Rear, Bushings
 %
 
 sm_car_load_vehicle_data('none','048')
 set_param([bdroot '/Axle'],'AxNum','Front');
 
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sedan_UA');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAF','BushLink_AxRad_SLGf_S2LAR_LAF');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAR','BushLink_Ax3_SLGf_S2LAF_LAR');
 
-Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection = VDatabase.Subframe_Conn.BushARB_Ax3_SedanLG_f;
+Vehicle.Chassis.SuspA1.AntiRollBar.SubframeConnection = VDatabase.Subframe_Conn.BushARB_Ax3_SLGf_S2LAR;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
@@ -1117,7 +1245,7 @@ set_param([bdroot '/Axle'],'AxNum','Front');
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 
-Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_Tr3Ro3_SHf_MacP');
+Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_Tr3Ro3_Sef_MacP_UA');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','ARB','BushARB_Tr3Ro3_SLGf_MacP');
 Vehicle.Chassis.SuspA1.Linkage.Shock_to_Subframe = VDatabase.Subframe_Conn.BushARB_Tr3Ro3_SLGf_MacP;
 
@@ -1219,6 +1347,47 @@ TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true
 %%
 TSuspMetrics
 
+%% Panhard Rod (Front)
+%
+
+sm_car_load_vehicle_data('none','230')
+set_param([bdroot '/Axle'],'AxNum','Front');
+
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+Maneuver = MDatabase.KnC.SUV_Landy;
+
+out=sim('testrig_susp_knc');
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+
+%%
+TSuspMetrics
+
+%% Trailing Arm (Rear)
+%
+
+sm_car_load_vehicle_data('none','230')
+set_param([bdroot '/Axle'],'AxNum','Rear');
+
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+Maneuver = sm_car_maneuverdata_knc(0.19,-0.13,0.01,0.05,0.03,500,1200,1200,1200,1200,-0.3);
+
+out=sim('testrig_susp_knc');
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+
+%% Watts (Rear)
+%
+
+sm_car_load_vehicle_data('none','231')
+set_param([bdroot '/Axle'],'AxNum','Rear');
+
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+Maneuver = sm_car_maneuverdata_knc(0.15,-0.15,0.01,0.05,0.03,500,1200,1200,1200,1200,-0.3);
+
+out=sim('testrig_susp_knc');
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+
+%%
+TSuspMetrics
 
 %%
 bdclose all

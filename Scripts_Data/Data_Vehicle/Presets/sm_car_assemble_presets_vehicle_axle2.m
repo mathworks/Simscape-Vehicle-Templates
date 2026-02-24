@@ -102,6 +102,10 @@ for TDi = 1:length(Tire_Dyn_Set)
         if(strcmpi(SuspF_Set_cfg{SFi},'5CS2LAF_f'))
             Vehicle.Chassis.SuspA1.Linkage.class.Value = 'FiveLinkConstraintShockFront';
         end
+        if(contains(SuspF_Set_cfg{SFi},'15DOF'))
+            Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','NoSpringA1_NoSpringA2_None');
+            Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
+        end
 
         % Assemble configuration description in string
         bodystrings = strsplit(Body_Set{BOi},'_');
@@ -1130,6 +1134,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_139;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1148,6 +1154,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_140;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1166,6 +1174,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_139;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1186,6 +1196,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_140;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1207,6 +1219,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_139;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1228,6 +1242,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_140;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1250,6 +1266,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_140;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -1326,6 +1344,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_140;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -2021,6 +2041,8 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_139;
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
@@ -2411,6 +2433,8 @@ Vehicle.Chassis.Body.Passenger = VDatabase.Passenger.SUV_Landy_1011;
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Landy_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'SUV_Landy','SuspA1');
@@ -2442,6 +2466,8 @@ VDatabase = evalin('base','VDatabase');
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_SUV_Landy_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','None_None_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Landy_f','SuspA1');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'None_default','SuspA2');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'SUV_Landy','SuspA1');
@@ -2471,8 +2497,10 @@ veh_ind = veh_ind+1;
 Vehicle = Vehicle_228;
 Vehicle.Chassis.SuspA1 = VDatabase.Susp.AxleTA2PR_SUV_Landy_f;
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossWheelDriven_SUV_Landy_f','SuspA1');
-Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_TA2PR_Linear_A1;
-Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_TA2PR_Linear_A1;
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_TA2PR_AsymmetricLinear_A1;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_TA2PR_AsymmetricLinear_A1;
 Vehicle.Chassis.SuspA2 = VDatabase.Susp.AxleTA3_SUV_Landy_r;
 Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA3_Linear_A2;
 Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA3_Linear_A2;
@@ -2487,13 +2515,16 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
-%% Custom Configuration 93: Rigid Axle, 2TA Panhard, 4TA Watts, MFMBody
+%% Custom Configuration 93: Rigid Axle, Double Wishbone, 4TA Watts, MFMBody
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_228;
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'DoubleWishbone_SUV_Landy_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_DW_Linear_A1;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Independent','SHlinA1_SHlinA2_None');
 Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_DW_Linear_A1;
+
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'RackWheel_SUV_Landy_f','SuspA1');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'SUV_Landy','SuspA1');
 Vehicle.Chassis.SuspA1.AntiRollBar = VDatabase.AntiRollBar.DroplinkRod_SUV_Landy_LA_f;
@@ -2516,7 +2547,7 @@ disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 veh_ind = veh_ind+1;
 Vehicle = Vehicle_231;
 
-Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_TA2PR_ForceEndstopNL_A1;
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_DW_ForceEndstopNL_A1;
 Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA4Watts_ForceEndstopNL_A2;
 
 % Assemble configuration description in string
@@ -2583,6 +2614,8 @@ Vehicle = Vehicle_194;
 vehcfg = Vehicle.config;
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_f','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_None','NoSpringA1_NoSpringA2_None');
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_None','None_None_None');
 Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_r','SuspA2');
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,'None');
 
@@ -2641,6 +2674,72 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 100: Sedan, MFMbody, LUT Susp F, 15DOF R
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_193;  
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'LUT_Sedan_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'LUT_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D_1D_HA');
+Vehicle.Chassis.SuspA1.LUT.Compliance = VDatabase.Susp_Compliance.Compliance_Tr3Ro3_Sef_LUT_Whl;
+Vehicle.Chassis.SuspA1.LUT.Compliance.class.Value = 'Rigid';
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'15DOF','LUTf');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
+%% Custom Configuration 101: SedanLG, MFMbody, MacP F, PanRod R
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_216;  
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSusp(Vehicle,'AxleTA2PR_Sedan_HambaLG_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossActuator_SUV_Landy_r','SuspA2');
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_HambaLG_TA2PR_AsymmetricLinear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_HambaLG_TA2PR_AsymmetricLinear_A2;
+Vehicle.Chassis.SuspA2.AxleTA2PR.Shock_Connection.class.Value = 'CylDownCylBot';
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'dwb','MacPpanRod');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 102: SUV Landy, Hydropneumatic Susp, 2 Trailing Arm, Panhard Rod, MFMBody
+veh_ind = veh_ind+1;
+
+Vehicle = Vehicle_230;  
+vehcfg = Vehicle.config;
+
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_TA2PR_AsymmetricAirOilPiston_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA3_AirOilPiston_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','None_None_None');
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'Ax2APanTrail','Ax2APanTrailHydroA1A2');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 %% Return to main directory
 curr_proj = simulinkproject;
