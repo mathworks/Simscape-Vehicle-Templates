@@ -26,11 +26,17 @@ View on File Exchange:  [![View Formula Student Vehicle with Simscape on File Ex
 2. Click on the hyperlinks to swap suspension types and maneuver. 
 3. Modify parameter values in the "Vehicle" data structure in the MATLAB workspace.
 
-Copyright 2024 The MathWorks, Inc.
+Copyright 2026 The MathWorks, Inc.
  
 ### **Release History**
-**v4.9  -- February 2026**
 (Not all changes to Simscape Vehicle Templates affect this repository)
+**v4.10 -- February 2026**
+1. Compatible with MF-Swift v2512.
+2. Fixed torque sensor placement on several driveline templates.
+3. Calculate Suspension Metrics compatible with Simple Suspension.
+4. Added anti-roll bar with lever defined by 4 intermediate points.
+
+**v4.9  -- February 2026**
 1. Added coastdown maneuver
 2. Added two-axle driveline with open center differential
 3. Added suspension template split lower arm, shock to front, anti-roll bar to damper
