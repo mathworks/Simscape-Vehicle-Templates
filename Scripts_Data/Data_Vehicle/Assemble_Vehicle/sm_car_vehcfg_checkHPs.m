@@ -19,7 +19,7 @@ function hp_check_sum = sm_car_vehcfg_checkHPs(Vehicle,varargin)
 %    Shock hardpoints with damper hardpoints
 %    Shock endstops with Damper endstops
 %
-% Copyright 2023-2025 The MathWorks, Inc.
+% Copyright 2023-2024 The MathWorks, Inc.
 
 showres = false;
 if(nargin>1)
@@ -41,7 +41,7 @@ if(~isempty(susp_field_inds))
     for sus_i=1:length(susp_field_inds)
         % Extract suspension names
         suspName = cha_fnames{susp_field_inds(sus_i)};
-        
+
         % Only perform comparison if suspension has hardpoints - Simple does not
         if(~strcmp(Vehicle.Chassis.(suspName).class.Value,'Simple'))
             % Assemble index of suspension for output
@@ -54,16 +54,18 @@ if(~isempty(susp_field_inds))
                 hp_check_sum.(csSuName).Tr2Ra_InO = sum(Vehicle.Chassis.(suspName).Linkage.TrackRod.sInboard.Value  - Vehicle.Chassis.(suspName).Steer.Rack.sOutboard.Value);
             catch
             end
-            
+
             % For Linkage suspension class
             if(strcmp(Vehicle.Chassis.(suspName).class.Value,'Linkage'))
-                
+
                 hp_check_sum.(csSuName).Sh2Sp_Top = norm(Vehicle.Chassis.(suspName).Linkage.Shock.sTop.Value    - Vehicle.Chassis.Spring.(csAxName).sTop.Value);
                 hp_check_sum.(csSuName).Sh2Sp_Bot = norm(Vehicle.Chassis.(suspName).Linkage.Shock.sBottom.Value - Vehicle.Chassis.Spring.(csAxName).sBottom.Value);
                 hp_check_sum.(csSuName).Sh2Da_Top = norm(Vehicle.Chassis.(suspName).Linkage.Shock.sTop.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTop.Value);
                 hp_check_sum.(csSuName).Sh2Da_Bot = norm(Vehicle.Chassis.(suspName).Linkage.Shock.sBottom.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottom.Value);
-                hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).Linkage.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
-                hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).Linkage.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
+                if(isfield(Vehicle.Chassis.Damper.(csAxName).Endstop, 'xMin'))
+                    hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).Linkage.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
+                    hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).Linkage.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
+                end
 
                 fieldsForDropLink = {'LowerWishbone','LowerArmR'};
                 foundInd = NaN;
@@ -74,25 +76,27 @@ if(~isempty(susp_field_inds))
                 end
                 if(~isnan(foundInd))
                     try
-                    hp_check_sum.(csSuName).Arm2DropLink = sum(Vehicle.Chassis.(suspName).Linkage.(fieldsForDropLink{i}).sARB.Value  - Vehicle.Chassis.(suspName).AntiRollBar.sSuspension.Value);
+                        hp_check_sum.(csSuName).Arm2DropLink = sum(Vehicle.Chassis.(suspName).Linkage.(fieldsForDropLink{i}).sARB.Value  - Vehicle.Chassis.(suspName).AntiRollBar.sSuspension.Value);
                     catch
                     end
                 end
-                
+
 
                 if(showres)
                     % Match HPs, Shock and Spring
                     disp([csSuName ', Shock and Spring Top: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Top)]);
                     disp([csSuName ', Shock and Spring Bot: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Bot)]);
-                    
+
                     % Match HPs, Shock and Damper
                     disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
                     disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
-                    
+
                     % Match Endstop Limits, Shock and Damper
-                    disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
-                    disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
-                    
+                    if(isfield(hp_check_sum.(csSuName), 'Sh2Da_xMn'))
+                        disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
+                        disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
+                    end
+
                     % Match Steering - track rod and rack
                     if(isfield(hp_check_sum.(csSuName),'Tr2Ra_InO'))
                         disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
@@ -104,22 +108,22 @@ if(~isempty(susp_field_inds))
                     end
                 end
 
-            % For LiveAxle suspension class
+                % For LiveAxle suspension class
             elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'LiveAxle'))
                 hp_check_sum.(csSuName).Sh2Da_Top = norm(Vehicle.Chassis.(suspName).LiveAxle.Shock.sTop.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTop.Value);
                 hp_check_sum.(csSuName).Sh2Da_Bot = norm(Vehicle.Chassis.(suspName).LiveAxle.Shock.sBottom.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottom.Value);
                 hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).LiveAxle.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
                 hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).LiveAxle.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
-                
+
                 if(showres)
                     % Match HPs, Shock and Damper
                     disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
                     disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
-                    
+
                     % Match Endstop Limits, Shock and Damper
                     disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
                     disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
-                    
+
                     % Match Steering - track rod and rack
                     if(isfield(hp_check_sum.(csSuName),'Tr2Ra_InO'))
                         disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
@@ -133,51 +137,61 @@ if(~isempty(susp_field_inds))
                 hp_check_sum.(csSuName).Sh2Sp_Bot = norm(Vehicle.Chassis.(suspName).TwistBeam.Spring.sBottom.Value - Vehicle.Chassis.Spring.(csAxName).sBottom.Value);
                 hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).TwistBeam.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
                 hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).TwistBeam.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
-                
+
                 if(showres)
                     % Match HPs, Shock and Damper
                     disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
                     disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
-                    
+
                     disp([csSuName ', Shock and Spring Top: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Top)]);
                     disp([csSuName ', Shock and Spring Bot: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Bot)]);
-                    
+
                     % Match Endstop Limits, Shock and Damper
                     disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
                     disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
-                    
+
                     % Match Steering - track rod and rack
                     if(isfield(hp_check_sum.(csSuName),'Tr2Ra_InO'))
                         disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
                     end
                 end
-                
+
             elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA2PR'))
 
-                hp_check_sum.(csSuName).Sh2Da_Top = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sTop.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTop.Value);
-                hp_check_sum.(csSuName).Sh2Da_Bot = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sBottom.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottom.Value);
-                hp_check_sum.(csSuName).Sh2Sp_Top = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sTop.Value    - Vehicle.Chassis.Spring.(csAxName).sTop.Value);
-                hp_check_sum.(csSuName).Sh2Sp_Bot = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sBottom.Value - Vehicle.Chassis.Spring.(csAxName).sBottom.Value);
+                hp_check_sum.(csSuName).Sh2Da_TopLef = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sTopL.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTopL.Value);
+                hp_check_sum.(csSuName).Sh2Da_BotLef = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sBottomL.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottomL.Value);
+                hp_check_sum.(csSuName).Sh2Da_TopRig = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sTopR.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTopR.Value);
+                hp_check_sum.(csSuName).Sh2Da_BotRig = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sBottomR.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottomR.Value);
+                hp_check_sum.(csSuName).Sh2Sp_TopLef = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sTopL.Value    - Vehicle.Chassis.Spring.(csAxName).sTopL.Value);
+                hp_check_sum.(csSuName).Sh2Sp_BotLef = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sBottomL.Value - Vehicle.Chassis.Spring.(csAxName).sBottomL.Value);
+                hp_check_sum.(csSuName).Sh2Sp_TopRig = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sTopR.Value    - Vehicle.Chassis.Spring.(csAxName).sTopR.Value);
+                hp_check_sum.(csSuName).Sh2Sp_BotRig = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Shock.sBottomR.Value - Vehicle.Chassis.Spring.(csAxName).sBottomR.Value);
                 hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).AxleTA2PR.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
                 hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).AxleTA2PR.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
-                hp_check_sum.(csSuName).Up2DgLink = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Upright.sDragLink.Value - Vehicle.Chassis.(suspName).Steer.DragLink.sUpright.Value);
-                
+                hp_check_sum.(csSuName).Up2DgLinkL = norm(Vehicle.Chassis.(suspName).AxleTA2PR.Upright.sDragLinkL.Value - Vehicle.Chassis.(suspName).Steer.DragLink.sUpright.Value);
+
                 if(showres)
                     % Match HPs, Shock and Damper
-                    disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
-                    disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
-                    
-                    disp([csSuName ', Shock and Spring Top: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Top)]);
-                    disp([csSuName ', Shock and Spring Bot: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Bot)]);
-                    
+                    disp([csSuName ', Shock and Damper TopL: ' num2str(hp_check_sum.(csSuName).Sh2Da_TopLef)]);
+                    disp([csSuName ', Shock and Damper BotL: ' num2str(hp_check_sum.(csSuName).Sh2Da_BotLef)]);
+
+                    disp([csSuName ', Shock and Damper TopR: ' num2str(hp_check_sum.(csSuName).Sh2Da_TopRig)]);
+                    disp([csSuName ', Shock and Damper BotR: ' num2str(hp_check_sum.(csSuName).Sh2Da_BotRig)]);
+
+                    disp([csSuName ', Shock and Spring TopL: ' num2str(hp_check_sum.(csSuName).Sh2Sp_TopLef)]);
+                    disp([csSuName ', Shock and Spring BotL: ' num2str(hp_check_sum.(csSuName).Sh2Sp_BotLef)]);
+
+                    disp([csSuName ', Shock and Spring TopR: ' num2str(hp_check_sum.(csSuName).Sh2Sp_TopRig)]);
+                    disp([csSuName ', Shock and Spring BotR: ' num2str(hp_check_sum.(csSuName).Sh2Sp_BotRig)]);
+
                     % Match Endstop Limits, Shock and Damper
                     disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
                     disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
-                    
+
                     % Match Steering - Upright and Drag Link
-                    disp([csSuName ', Upright and Drag Link  : ' num2str(hp_check_sum.(csSuName).Up2DgLink)]);
+                    disp([csSuName ', Upright and Drag LinkL : ' num2str(hp_check_sum.(csSuName).Up2DgLinkL)]);
                 end
-                
+
             elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA3'))
 
                 hp_check_sum.(csSuName).Sh2Da_Top = norm(Vehicle.Chassis.(suspName).AxleTA3.Shock.sTop.Value    - Vehicle.Chassis.Damper.(csAxName).Damping.sTop.Value);
@@ -187,19 +201,19 @@ if(~isempty(susp_field_inds))
                 hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).AxleTA3.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
                 hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).AxleTA3.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
                 hp_check_sum.(csSuName).Up2DgLink = norm(Vehicle.Chassis.(suspName).AxleTA3.Upright.sDragLink.Value - Vehicle.Chassis.(suspName).Steer.DragLink.sUpright.Value);
-                
+
                 if(showres)
                     % Match HPs, Shock and Damper
                     disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
                     disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
-                    
+
                     disp([csSuName ', Shock and Spring Top: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Top)]);
                     disp([csSuName ', Shock and Spring Bot: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Bot)]);
-                    
+
                     % Match Endstop Limits, Shock and Damper
                     disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
                     disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
-                    
+
                     % Match Steering - Upright and Drag Link
                     disp([csSuName ', Upright and Drag Link  : ' num2str(hp_check_sum.(csSuName).Up2DgLink)]);
                 end
@@ -210,27 +224,29 @@ if(~isempty(susp_field_inds))
                 hp_check_sum.(csSuName).Sh2Da_Bot = norm(Vehicle.Chassis.(suspName).AxleTA4Watts.Damper.sBottom.Value - Vehicle.Chassis.Damper.(csAxName).Damping.sBottom.Value);
                 hp_check_sum.(csSuName).Sh2Sp_Top = norm(Vehicle.Chassis.(suspName).AxleTA4Watts.Spring.sTop.Value    - Vehicle.Chassis.Spring.(csAxName).sTop.Value);
                 hp_check_sum.(csSuName).Sh2Sp_Bot = norm(Vehicle.Chassis.(suspName).AxleTA4Watts.Spring.sBottom.Value - Vehicle.Chassis.Spring.(csAxName).sBottom.Value);
-                hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).AxleTA4Watts.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
-                hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).AxleTA4Watts.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
-                
+                if(isfield(Vehicle.Chassis.Damper.(csAxName).Endstop, 'xMin'))
+                    hp_check_sum.(csSuName).Sh2Da_xMn = Vehicle.Chassis.(suspName).AxleTA4Watts.Endstop.xMin.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMin.Value;
+                    hp_check_sum.(csSuName).Sh2Da_xMx = Vehicle.Chassis.(suspName).AxleTA4Watts.Endstop.xMax.Value  - Vehicle.Chassis.Damper.(csAxName).Endstop.xMax.Value;
+                end
                 if(showres)
                     % Match HPs, Shock and Damper
                     disp([csSuName ', Shock and Damper Top: ' num2str(hp_check_sum.(csSuName).Sh2Da_Top)]);
                     disp([csSuName ', Shock and Damper Bot: ' num2str(hp_check_sum.(csSuName).Sh2Da_Bot)]);
-                    
+
                     disp([csSuName ', Shock and Spring Top: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Top)]);
                     disp([csSuName ', Shock and Spring Bot: ' num2str(hp_check_sum.(csSuName).Sh2Sp_Bot)]);
-                    
+
                     % Match Endstop Limits, Shock and Damper
-                    disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
-                    disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
-                    
+                    if(isfield(hp_check_sum.(csSuName), 'Sh2Da_xMn'))
+                        disp([csSuName ', Endstop Limit xMin  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMn)]);
+                        disp([csSuName ', Endstop Limit xMax  : ' num2str(hp_check_sum.(csSuName).Sh2Da_xMx)]);
+                    end
                     % Match Steering - track rod and rack
                     if(isfield(hp_check_sum.(csSuName),'Tr2Ra_InO'))
                         disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
                     end
                 end
-            % For Decoupled suspension class
+                % For Decoupled suspension class
             elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'Decoupled'))
 
                 hp_check_sum.(csSuName).HSh2Sp_Lef = norm(Vehicle.Chassis.(suspName).Linkage.Shock.Heave.sLeft.Value  - Vehicle.Chassis.Spring.(csAxName).Heave.sTop.Value);
@@ -254,33 +270,33 @@ if(~isempty(susp_field_inds))
                     disp([csSuName ', Shock and Spring HeaveR: ' num2str(hp_check_sum.(csSuName).HSh2Sp_Rig)]);
                     disp([csSuName ', Shock and Spring RollL : ' num2str(hp_check_sum.(csSuName).RSh2Sp_Lef)]);
                     disp([csSuName ', Shock and Spring RollR : ' num2str(hp_check_sum.(csSuName).RSh2Sp_Rig)]);
-                    
+
                     % Match HPs, Shock and Damper
                     disp([csSuName ', Shock and Damper HeaveL: ' num2str(hp_check_sum.(csSuName).HSh2Da_Lef)]);
                     disp([csSuName ', Shock and Damper HeaveR: ' num2str(hp_check_sum.(csSuName).HSh2Da_Rig)]);
                     disp([csSuName ', Shock and Damper RollL : ' num2str(hp_check_sum.(csSuName).RSh2Da_Lef)]);
                     disp([csSuName ', Shock and Damper RollR : ' num2str(hp_check_sum.(csSuName).RSh2Da_Rig)]);
-                    
+
                     % Match Endstop Limits, Shock and Damper
                     disp([csSuName ', Endstop Lim xMin HeaveL: ' num2str(hp_check_sum.(csSuName).HSh2Da_xMn)]);
                     disp([csSuName ', Endstop Lim xMax HeaveR: ' num2str(hp_check_sum.(csSuName).HSh2Da_xMx)]);
                     disp([csSuName ', Endstop Lim xMin RollL : ' num2str(hp_check_sum.(csSuName).RSh2Da_xMn)]);
                     disp([csSuName ', Endstop Lim xMax RollR : ' num2str(hp_check_sum.(csSuName).RSh2Da_xMx)]);
-                    
+
                     % Match Steering - track rod and rack
                     if(isfield(hp_check_sum.(csSuName),'Tr2Ra_InO'))
                         disp([csSuName ', Track in, Rack out  : ' num2str(hp_check_sum.(csSuName).Tr2Ra_InO)]);
                     end
                 end
             end
-            
+
             % Calculate checksum for axle - sum all diferences
             suspCS_fnames = fieldnames(hp_check_sum.(csSuName));
             hp_check_sum.(csSuName).total = 0;
             for pt_i = 1:length(suspCS_fnames)
                 hp_check_sum.(csSuName).total = hp_check_sum.(csSuName).total + hp_check_sum.(csSuName).(suspCS_fnames{pt_i});
             end
-            
+
             % Calculate checksum for vehicle
             hp_check_sum.total = hp_check_sum.total + hp_check_sum.(csSuName).total;
         end

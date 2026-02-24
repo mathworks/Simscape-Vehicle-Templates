@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Test Power + Driveline Combinations</title>
 <meta name="generator" content="MATLAB 25.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-11-17">
+<meta name="DC.date" content="2026-02-24">
 <meta name="DC.source" content="sm_car_testing_powertrain_configs.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -131,6 +131,18 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 sm_car_load_vehicle_data(<span class="string">'sm_car_Axle3'</span>,<span class="string">'191'</span>);
 set_param(<span class="string">'sm_car/Controller'</span>,<span class="string">'popup_control'</span>,<span class="string">'Default'</span>);
+sm_car_config_maneuver(<span class="string">'sm_car'</span>,<span class="string">'WOT Braking'</span>);
+
+<span class="comment">% Check if we are publishing</span>
+isBeingPublished = any(strcmp(<span class="string">'publish'</span>, {dbstack().name}));
+</pre>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
 </pre>
 <h2 id="2">A1 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_A1_default'</span>);
@@ -140,11 +152,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_02.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_02.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_03.png" alt=""> <h2 id="4">L1 R1 Ideal</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="4">L1 R1 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_L1_R1_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S1_1D_HA'</span>);
@@ -152,11 +171,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_04.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_05.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_04.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_06.png" alt=""> <h2 id="6">A2 Ideal</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="6">A2 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_A2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D2_1D_HA'</span>);
@@ -164,9 +190,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_07.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_08.png" alt=""> <pre class="codeinput">close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_06.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_09.png" alt=""> <h2 id="8">L2 R2 Ideal</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="8">L2 R2 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_L2_R2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S2_1D_HA'</span>);
@@ -174,11 +209,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_10.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_11.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_07.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_08.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_12.png" alt=""> <h2 id="10">A1 A2 Ideal</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="10">A1 A2 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_A1_A2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D1D2_1D_1D_HA'</span>);
@@ -186,11 +228,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_13.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_14.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_09.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_10.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_15.png" alt=""> <h2 id="12">A1 L2 R2 Ideal</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="12">A1 L2 R2 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_A1_L2_R2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D1S2_1D_1D_HA'</span>);
@@ -198,11 +247,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_16.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_17.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_11.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_12.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_18.png" alt=""> <h2 id="14">L1 R1 L2 R2 Ideal</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="14">L1 R1 L2 R2 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_L1_R1_L2_R2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S1S2_1D_1D_HA'</span>);
@@ -210,11 +266,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_20.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_13.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_14.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_21.png" alt=""> <h2 id="16">A1 Electric</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="16">A1 Electric</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Electric_A1_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D1_1D_HA'</span>);
@@ -222,11 +285,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_22.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_23.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_15.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_16.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_24.png" alt=""> <h2 id="18">L1 R1 Electric</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="18">L1 R1 Electric</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Electric_L1_R1_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S1_1D_HA'</span>);
@@ -234,9 +304,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_25.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_26.png" alt=""> <pre class="codeinput">close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_17.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_18.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_27.png" alt=""> <h2 id="20">A2 Electric</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="20">A2 Electric</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Electric_A2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D2_1D_HA'</span>);
@@ -244,11 +323,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_28.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_29.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_20.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_30.png" alt=""> <h2 id="22">L2 R2 Electric</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="22">L2 R2 Electric</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Electric_L2_R2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S2_1D_HA'</span>);
@@ -256,11 +342,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_31.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_32.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_21.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_22.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_33.png" alt=""> <h2 id="24">A1 L2 R2 Electric</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="24">A1 L2 R2 Electric</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Electric_A1_L2_R2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D1S2_1D_1D_HA'</span>);
@@ -268,9 +361,18 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_34.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_35.png" alt=""> <pre class="codeinput">close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_23.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_24.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_36.png" alt=""> <h2 id="26">L1 R1 L2 R2 Electric</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="26">L1 R1 L2 R2 Electric</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Electric_L1_R1_L2_R2_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S1S2_1D_1D_HA'</span>);
@@ -278,19 +380,38 @@ open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<spa
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_37.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_38.png" alt=""> <pre class="codeinput">
-<span class="comment">% Close system so screenshot will capture it in when publishing</span>
-close_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>)
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_25.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_26.png" alt=""> <p>Close system so screenshot will capture it in when publishing</p>
+<pre class="codeinput">resetModel(isBeingPublished)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_39.png" alt=""> <h2 id="28">None</h2>
+<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
+Turning off MFEval warnings...
+Solver:CoeffChecks:Eyk -- OFF
+Solver:Limits:Exceeded -- OFF
+Solver:CoeffChecks:Et -- OFF
+Solver:CoeffChecks:Exa -- OFF
+Disabling trailer by default.
+</pre>
+<h2 id="28">None</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_S1S2_1D_1D_HA'</span>);
 open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<span class="string">'force'</span>)
 set_param(<span class="string">'sm_car'</span>,<span class="string">'SimulationCommand'</span>,<span class="string">'update'</span>)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_40.png" alt=""> <pre class="codeinput">bdclose <span class="string">all</span>
+<img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_27.png" alt=""> <pre class="codeinput">bdclose <span class="string">all</span>
 close <span class="string">all</span>
+
+<span class="keyword">function</span> resetModel(isBeingPublished)
+
+<span class="keyword">if</span>(isBeingPublished)
+    bdclose(<span class="string">'sm_car'</span>)
+    load_system(<span class="string">'sm_car'</span>)
+    sm_car_load_vehicle_data(<span class="string">'sm_car_Axle3'</span>,<span class="string">'191'</span>);
+    set_param(<span class="string">'sm_car/Controller'</span>,<span class="string">'popup_control'</span>,<span class="string">'Default'</span>);
+    sm_car_config_maneuver(<span class="string">'sm_car'</span>,<span class="string">'WOT Braking'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">end</span>
 </pre>
 <p class="footer">Copyright 2018-2025 The MathWorks, Inc.<br>
 <a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2025b</a>
@@ -312,6 +433,10 @@ load_system('sm_car')
 
 sm_car_load_vehicle_data('sm_car_Axle3','191');
 set_param('sm_car/Controller','popup_control','Default');
+sm_car_config_maneuver('sm_car','WOT Braking');
+
+% Check if we are publishing
+isBeingPublished = any(strcmp('publish', {dbstack().name}));
 
 %% A1 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_A1_default');
@@ -322,9 +447,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% L1 R1 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L1_R1_default');
@@ -335,9 +459,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% A2 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_A2_default');
@@ -348,7 +471,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+% Close system so screenshot will capture it in when publishing
+resetModel(isBeingPublished)
 
 %% L2 R2 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L2_R2_default');
@@ -359,9 +483,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% A1 A2 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_A1_A2_default');
@@ -372,9 +495,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% A1 L2 R2 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_A1_L2_R2_default');
@@ -386,9 +508,8 @@ sm_car_plot2whlspeed
 
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% L1 R1 L2 R2 Ideal
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Ideal_L1_R1_L2_R2_default');
@@ -399,9 +520,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% A1 Electric
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_A1_default');
@@ -412,9 +532,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% L1 R1 Electric
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L1_R1_default');
@@ -425,7 +544,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+% Close system so screenshot will capture it in when publishing
+resetModel(isBeingPublished)
 
 %% A2 Electric
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_A2_default');
@@ -436,9 +556,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% L2 R2 Electric
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L2_R2_default');
@@ -449,9 +568,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% A1 L2 R2 Electric
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_A1_L2_R2_default');
@@ -462,7 +580,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+% Close system so screenshot will capture it in when publishing
+resetModel(isBeingPublished)
 
 %% L1 R1 L2 R2 Electric
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'Electric_L1_R1_L2_R2_default');
@@ -473,9 +592,8 @@ sim('sm_car')
 sm_car_plot2whlspeed
 
 %%
-
 % Close system so screenshot will capture it in when publishing
-close_system('sm_car/Vehicle/Vehicle/Powertrain')
+resetModel(isBeingPublished)
 
 %% None
 Vehicle = sm_car_vehcfg_setPower(Vehicle,'None');
@@ -487,6 +605,18 @@ set_param('sm_car','SimulationCommand','update')
 %%
 bdclose all
 close all
+
+function resetModel(isBeingPublished)
+
+if(isBeingPublished)
+    bdclose('sm_car')
+    load_system('sm_car')
+    sm_car_load_vehicle_data('sm_car_Axle3','191');
+    set_param('sm_car/Controller','popup_control','Default');
+    sm_car_config_maneuver('sm_car','WOT Braking');
+end
+
+end
 
 ##### SOURCE END #####
 -->

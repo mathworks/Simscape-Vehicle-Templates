@@ -1,4 +1,4 @@
-function [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(logsout,showplot,calcMetrics,debugPlots)
+function [TSuspMetrics, toeCurve, camCurve,pxCurve,pyCurve,strCurve, fzCurve, vrtCurve] = sm_car_knc_plot1toecamber(logsout,showplot,calcMetrics,debugPlots)
 %sm_car_knc_plot1toecamber  Obtain toe curve, camber curve, and suspension metrics
 %   [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(logsout,showplot,calcMetrics,debugPlots)
 %   This function extracts specific measurements from suspension
@@ -13,7 +13,7 @@ function [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(logsout,
 %       toeCurve     Data for plotting toe curve
 %       camCurve     Data for plotting camber curve
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus = logsout.get('VehBus');
@@ -29,11 +29,23 @@ simlog_aToeR         = squeeze(logsout_VehBus.Values.Chassis.SuspA1.WhlR.aToe.Da
 simlog_aCamberX      = squeeze(logsout_VehBus.Values.Chassis.SuspA1.WhlL.aCamberX.Data);
 simlog_aToeX         = squeeze(logsout_VehBus.Values.Chassis.SuspA1.WhlL.aToeX.Data);
 simlog_rigFz         = squeeze(logsout_VehBus.Values.Chassis.WhlL1.Testrig.Fz.Data);
+simlog_rigvz         = squeeze(logsout_VehBus.Values.Chassis.WhlL1.Testrig.vz.Data);
 %simlog_rigFz        = squeeze(logsout_VehBus.Values.Chassis.WhlL1.Fz.Data);
 simlog_fBumpstop     = squeeze(logsout_VehBus.Values.Chassis.Damper.L1.FBumpstop.Data);
+if(length(simlog_fBumpstop)==1)
+    simlog_fBumpstop = zeros(size(simlog_t));
+end
 simlog_xRack         = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Steer.xRack.Data);
 simlog_FRack         = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Steer.FRack.Data);
-simlog_aWheel        = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Steer.aWheel.Data);
+if(isfield(logsout_VehBus.Values.Chassis.SuspA1.Steer,'aWheel'))
+    simlog_aWheel    = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Steer.aWheel.Data);
+elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1.Steer,'xSteerActuator'))
+    % Needs additional scaling factors
+    %simlog_aWheel    = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Steer.xSteerActuator.Data);
+    simlog_aWheel    = 0;
+else
+    simlog_aWheel = 0;
+end
 simlog_trqTz         = squeeze(logsout_RdBus.Values.L1.fcp.tz.Data);
 simlog_fLat          = squeeze(logsout_RdBus.Values.L1.fcp.fy.Data);
 simlog_fLong         = squeeze(logsout_RdBus.Values.L1.fcp.fx.Data);
@@ -41,15 +53,26 @@ simlog_yCPtch        = squeeze(logsout_VehBus.Values.Chassis.WhlL1.Testrig.py.Da
 
 if(isfield(logsout_VehBus.Values.Chassis.SuspA1,'SpringL')) % For Twist Beam
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.SpringL.x.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.SpringL.v.Data);
 elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'ShockL'))  % For Live Axle
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.ShockL.x.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.ShockL.v.Data);
 elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'Linkage'))  % For AxleTA2PR
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Linkage.ShockL.x.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Linkage.ShockL.v.Data);
+elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'LUT'))  % For LUT
+    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.LUT.SuspL.Kinematic.xSpring.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.LUT.SuspL.Kinematic.vSpring.Data);
+elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1,'Simple'))  % For 15DOF
+    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Simple.xSpring.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Simple.vSpring.Data);
 elseif(isfield(logsout_VehBus.Values.Chassis.SuspA1.LinkageL,'Shock')) % For Linkage
     simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.LinkageL.Shock.x.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.LinkageL.Shock.v.Data);
 else
     % For decoupled suspension
-    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.Spring.L1.xSpring.Data);
+    simlog_xSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.RollHeave.xHeave.x.Data);
+    simlog_vSpring       = squeeze(logsout_VehBus.Values.Chassis.SuspA1.RollHeave.xHeave.v.Data);
 end
 
 % Omit initial transient from bushings
@@ -76,6 +99,7 @@ if(calcMetrics)
     simlog_zWChp = wctrs(1,end);
     % Get indices of simulation results for vertical test phase
     indToeCamb = intersect(find(simlog_t>=Maneuver.tRange.Jounce(1)),find(simlog_t<=Maneuver.tRange.Rebound(2)));
+    indCasterZ0 = intersect(find(simlog_t>=Maneuver.tRange.Bumpz0(1)),find(simlog_t<=Maneuver.tRange.Bumpz0(2)));
 else
     % Else, generate toe and camber plots from simulation results
     indToeCamb = simlog_tStart:length(simlog_t);
@@ -91,6 +115,39 @@ toeCurve.qToe   = simlog_aToe(indToeCambPlot);
 toeCurve.pzTire = simlog_pzTire(indToeCambPlot)-simlog_pzTire(1);
 camCurve.qCam   = simlog_aCamber(indToeCambPlot);
 camCurve.pzTire = simlog_pzTire(indToeCambPlot)-simlog_pzTire(1);
+
+pxCurve.px      = simlog_pxTire(indToeCambPlot)-simlog_pxTire(1);
+pxCurve.pzTire  = simlog_pzTire(indToeCambPlot)-simlog_pzTire(1);
+pyCurve.py      = simlog_pyTire(indToeCambPlot)-simlog_pyTire(1);
+pyCurve.pzTire  = simlog_pzTire(indToeCambPlot)-simlog_pzTire(1);
+fzCurve.fz      = simlog_rigFz(indToeCambPlot);
+fzCurve.pzTire  = simlog_pzTire(indToeCambPlot)-simlog_pzTire(1);
+
+%simlog_aToe2    = logsout_VehBus.Values.Chassis.WhlL1.qxyz.Data(:,1);
+%toeCurve.qToe2  = simlog_aToe2(indToeCambPlot);
+
+if(length(simlog_aWheel)>1)
+    strCurve.aWhl   = simlog_aWheel(indCasterZ0);
+else
+    strCurve.aWhl = zeros(size(indCasterZ0));
+end
+
+if(length(simlog_aToe)>1)
+    strCurve.aToeL   = simlog_aToe(indCasterZ0);
+else
+    strCurve.aToeL = zeros(size(indCasterZ0));
+end
+
+if(length(simlog_aToeR)>1)
+    strCurve.aToeR   = simlog_aToeR(indCasterZ0);
+else
+    strCurve.aToeR = zeros(size(indCasterZ0));
+end
+
+vrtCurve.pzTire = simlog_pzTire(indToeCambPlot)-simlog_pzTire(1);
+vrtCurve.vrt    = -simlog_vSpring(indToeCambPlot)'./simlog_rigvz(indToeCambPlot)';
+vrtCurve.vspr   = -simlog_vSpring(indToeCambPlot)';
+vrtCurve.vrig   = simlog_rigvz(indToeCambPlot)';
 
 % Calculate suspension metrics
 if(calcMetrics)
@@ -129,7 +186,12 @@ else
     TSuspMetrics = [];
 end
 
-if(showplot)
+if(islogical(showplot))
+    plotTest = char(showplot+'0');
+else
+    plotTest = char(showplot);
+end
+if(strcmp(plotTest,'1') || strcmp(plotTest,'flip') )
     % Reuse figure if it exists, else create new figure
     fig_handle_name =   'h1_sm_car_testrig_quarter_car';
 
@@ -145,25 +207,39 @@ if(showplot)
     %temp_colororder = get(gca,'defaultAxesColorOrder');
 
     % Plot results
-    simlog_handles(1) = subplot(1, 2, 2);
-    plot(camCurve.qCam, camCurve.pzTire, 'LineWidth', 1)
-    grid on
-    title('Camber Curve')
-    xlabel('Camber (deg)')
+    if(strcmp(plotTest,'1'))
+        simlog_handles(1) = subplot(1, 2, 2);
+        plot(camCurve.qCam, camCurve.pzTire, 'LineWidth', 1)
+        title('Camber Curve')
+        xlabel('Camber (deg)')
+        grid on
+        simlog_handles(2) = subplot(1, 2, 1);
+        plot(toeCurve.qToe, toeCurve.pzTire, 'LineWidth', 1)
+        title('Toe Curve')
+        xlabel('Toe (deg)')
+        ylabel('Suspension Travel (m)')
+        grid on
+        linkaxes(simlog_handles,'y')
+    else
+        simlog_handles(1) = subplot(2, 1, 2);
+        plot(camCurve.pzTire, camCurve.qCam, 'LineWidth', 1)
+        ylabel('Camber (deg)')
+        xlabel('Suspension Travel (m)')
+        grid on
+        simlog_handles(2) = subplot(2, 1, 1);
+        plot(toeCurve.pzTire, toeCurve.qToe, 'LineWidth', 1)
+        title('Toe Curve')
+        ylabel('Toe (deg)')
+        linkaxes(simlog_handles,'x')
+        grid on
+    end
+
+    
     try
         varName = char(out.simlog_sm_car_testrig_quarter_car.Linkage.childIds);
         text(0.05,0.9,varName,'Units','Normalized','Color',[1 1 1]*0.5);
     catch
     end
-
-    simlog_handles(2) = subplot(1, 2, 1);
-    plot(toeCurve.qToe, toeCurve.pzTire, 'LineWidth', 1)
-    grid on
-    title('Toe Curve')
-    xlabel('Toe (deg)')
-    ylabel('Suspension Travel (m)')
-
-    linkaxes(simlog_handles,'y')
 end
 
 

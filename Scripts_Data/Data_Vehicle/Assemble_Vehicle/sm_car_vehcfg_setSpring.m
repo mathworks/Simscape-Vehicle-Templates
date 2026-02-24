@@ -9,7 +9,7 @@ function Vehicle = sm_car_vehcfg_setSpring(Vehicle,instanceSprings,spr_opt)
 % spr_opt           <Axle 1 option>_<Axle 2 option>_<Axle 3 option>
 %     See code below to map options to VDatabase structure
 %
-% Copyright 2019-2025 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');
@@ -55,6 +55,12 @@ for axle_i = 1:numAxles
     
     if(strcmpi(Instance,'notfound'))
         warning(['Spring data ' sprAxleData{axle_i} ' not found.']);
+    elseif(strcmpi(Instance,'none') && contains(instanceSprings,'Interconnected'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Spring.(instanceName) = VDatabase.Spring.(Instance);
+    elseif(strcmpi(Instance,'none') && contains(instanceSprings,'Independent'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Spring.(instanceName) = VDatabase.Spring.No_Spring;
     elseif(~strcmpi(Instance,'none'))
         instanceName = ['Axle' num2str(axle_i)];
         Vehicle.Chassis.Spring.(instanceName) = VDatabase.Spring.(Instance);
