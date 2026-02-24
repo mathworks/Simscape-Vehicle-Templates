@@ -245,6 +245,47 @@ TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true
 %%
 TSuspMetrics
 
+%% Panhard Rod (Front)
+%
+
+sm_car_load_vehicle_data('none','230')
+set_param([bdroot '/Axle'],'AxNum','Front');
+
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+Maneuver = MDatabase.KnC.SUV_Landy;
+
+out=sim('testrig_susp_knc');
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+
+%%
+TSuspMetrics
+
+%% Trailing Arm (Rear)
+%
+
+sm_car_load_vehicle_data('none','230')
+set_param([bdroot '/Axle'],'AxNum','Rear');
+
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+Maneuver = sm_car_maneuverdata_knc(0.19,-0.13,0.01,0.05,0.03,500,1200,1200,1200,1200,-0.3);
+
+out=sim('testrig_susp_knc');
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+
+%% Watts (Rear)
+%
+
+sm_car_load_vehicle_data('none','231')
+set_param([bdroot '/Axle'],'AxNum','Rear');
+
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
+Maneuver = sm_car_maneuverdata_knc(0.15,-0.15,0.01,0.05,0.03,500,1200,1200,1200,1200,-0.3);
+
+out=sim('testrig_susp_knc');
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+
+%%
+TSuspMetrics
 
 %%
 bdclose all

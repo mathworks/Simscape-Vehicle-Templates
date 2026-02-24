@@ -34,6 +34,24 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.10 -- February 2026**
+1.  Compatible with MF-Swift v2512.
+2.  Added lookup-table based kinematic suspension with compliance.
+3.  Added lookup-table based steering, for use with Simple and LUT suspensions.
+4.  Added hydropneumatic spring-damper.
+5.  Two Trailing Arm with Panhard Rod suspension now accepts asymmetrical axle connections.
+6.  Suspension template 5 link, shock to lower center arm, non-steerable has 
+    optional bushings on all arm outboard connections to upright.
+7.  Drag Link steering permits non-vertical pitman arm axis.
+8.  Fixed torque sensor placement on several driveline templates.
+9.  Presets for Simple suspension modified to have Springs and Dampers set to None
+    (spring and damper forces contained in suspension subsystem).
+    Affects 2-axle and 1-axle presets.
+10. Added option to omit damping in Dampers subsystem (not needed for Simple and LUT suspensions).
+11. Added Kingpin Inclination (KPI) and caster angle parameters to Ackermann steering.
+12. Calculate Suspension Metrics compatible with Simple Suspension.
+13. Added anti-roll bar with lever defined by 4 intermediate points.
+
 **v4.9  -- February 2026**
 1. Added coastdown maneuver
 2. Added two-axle driveline with open center differential

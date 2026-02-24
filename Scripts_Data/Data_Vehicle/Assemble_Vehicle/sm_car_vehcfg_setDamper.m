@@ -58,6 +58,12 @@ for axle_i = 1:numAxles
     
     if(strcmpi(Instance,'notfound'))
         warning(['Damper data ' damAxleData{axle_i} ' not found.']);
+    elseif(strcmpi(Instance,'none') && contains(instanceDampers,'Interconnected'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Damper.(instanceName) = VDatabase.Damper.(Instance);
+    elseif(strcmpi(Instance,'none') && contains(instanceDampers,'Independent'))
+        instanceName = ['Axle' num2str(axle_i)];
+        Vehicle.Chassis.Damper.(instanceName) = VDatabase.Damper.None;
     elseif(~strcmpi(Instance,'none'))
         instanceName = ['Axle' num2str(axle_i)];
         Vehicle.Chassis.Damper.(instanceName) = VDatabase.Damper.(Instance);
