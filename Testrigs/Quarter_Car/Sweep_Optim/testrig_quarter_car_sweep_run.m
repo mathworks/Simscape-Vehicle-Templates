@@ -66,7 +66,8 @@ clf(evalin('base',fig_handle_name))
 for r_i = 1:numTests
     
     % Get toe, camber curves
-    [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut(r_i).logsout_sm_car_testrig_quarter_car,false,true,false);
+    AxNum = 1;
+    [TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut(r_i).logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
     for f_i = 1:size(TSuspMetrics,1)
         fName = strrep(TSuspMetrics.Names(f_i),' ', '_');
