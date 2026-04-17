@@ -33,7 +33,8 @@ assignin('base','Vehicle',Vehicle)
 simOut=sim(mdl);
 
 %% Calculate performance metrics, update plot
-[TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut.logsout_sm_car_testrig_quarter_car,false,true,false);
+AxNum = 1;
+[TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut.logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
 % Extract desired performance metric
 
