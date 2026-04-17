@@ -29,12 +29,13 @@ tempStopTime = get_param(mdl,'stopTime');
 set_param(mdl,'StopTime',num2str(stopTimeBzn))
 set_param(mdl,'FastRestart','on')
 out = sim(mdl);
+AxNum = 1;
 
 % Add short name to par_list
 par_list = sm_car_param_short_name(par_list);
 
 disp('Metrics with Initial Set of Parameter Values')
-TSuspMetricsStart = sm_car_knc_plot1toecamber(out.logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetricsStart = sm_car_knc_plot1toecamber(out.logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 for mni = 1:length(metricName)
     metric_i(mni)  = find(strcmp(TSuspMetricsStart.Names,metricName{mni}));
 end
@@ -99,7 +100,7 @@ out = sim(mdl);
 
 disp(' ');
 disp('Metrics with Optimized Set of Parameter Values')
-[TSuspMetricsFinal, ~, ~] = sm_car_knc_plot1toecamber(out.logsout_sm_car_testrig_quarter_car,false,true,false);
+[TSuspMetricsFinal, ~, ~] = sm_car_knc_plot1toecamber(out.logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
 set_param(mdl,'FastRestart','off')
 set_param(mdl,'StopTime',tempStopTime)

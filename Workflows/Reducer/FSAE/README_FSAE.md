@@ -30,6 +30,9 @@ Copyright 2026 The MathWorks, Inc.
  
 ### **Release History**
 (Not all changes to Simscape Vehicle Templates affect this repository)
+**v4.11 -- April 2026**
+1. Added output to summarize measurements from KnC tests (sm_car_knc_calc_susp_metrics.m)
+
 **v4.10 -- February 2026**
 1. Compatible with MF-Swift v2512.
 2. Fixed torque sensor placement on several driveline templates.
