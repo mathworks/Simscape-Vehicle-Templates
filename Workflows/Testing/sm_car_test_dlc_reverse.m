@@ -7,7 +7,7 @@
 % Tuning of the driver parameters may be required to get good driving
 % performance.
 %
-% Copyright 2025 The MathWorks, Inc
+% Copyright 2025-2026 The MathWorks, Inc
 
 % Load vehicle
 open_system('sm_car');

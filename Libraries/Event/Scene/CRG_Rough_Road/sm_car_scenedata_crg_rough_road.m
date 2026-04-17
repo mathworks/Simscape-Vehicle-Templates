@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_crg_rough_road
 %% Scene parameters
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 curr_dir = pwd;
 cd(fileparts(which(mfilename)));

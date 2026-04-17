@@ -1,6 +1,6 @@
 % Script to test many configurations under many events
 % Not a complete sweep of all combinations, but every variant is activated
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2026 The MathWorks, Inc.
 
 maneuver_list = {...
     'Coastdown',              'COA';

@@ -1,5 +1,5 @@
 % Exercise 6: Plot results of first test
-% Copyright 2021-2025 The MathWorks, Inc.
+% Copyright 2021-2026 The MathWorks, Inc.
 
 subplot(221)
 vx_runA = logsout_sm_car.get('VehBus').Values.Chassis.Body.CG.vx;

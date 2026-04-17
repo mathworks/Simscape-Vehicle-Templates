@@ -7,7 +7,7 @@
 % The chassis contains the body, front and rear suspensions, tires,
 % springs, and dampers.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 
 

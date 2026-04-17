@@ -20,7 +20,7 @@ function [TSuspMetrics, toeCurve, camCurve, KNCRes, pxCurve,pyCurve,strCurve, fz
 %       fzCurve      Lookup table, vertical spring force vs pz wheel center
 %       vrtCurve     Lookup table, spring motion ratio   vs pz wheel center
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus = logsout.get('VehBus');

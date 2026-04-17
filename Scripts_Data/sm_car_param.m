@@ -1,4 +1,4 @@
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 %% Colors
 smcar_param.blue        = [0.2 0.4 0.6];

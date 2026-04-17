@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>Generate Lookup Table Data from Multi-Link Suspension</title>
-<meta name="generator" content="MATLAB 25.2">
+<meta name="generator" content="MATLAB 26.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2026-03-25">
+<meta name="DC.date" content="2026-04-16">
 <meta name="DC.source" content="sm_car_test_gen_data_lut_susp.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -122,11 +122,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <h2 id="1">Open models and load vehicle data</h2>
 <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_02.png" alt=""> <h2 id="2">1. Get motion ratio for damper, spring force (KnC Test)</h2>
 <p>In this step, we run a standard KnC test and extract the results from the jounce-rebound sequence to get the motion ratio for the damper. The motion ratio for the damper is (speed of shock compression/vertical speed of wheel center). The damper is turned off so that the force of the spring is easier to measure.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_03.png" alt=""> <h2 id="4">2. Get damping force for verification (KnC Test)</h2>
+<h2 id="4">2. Get damping force for verification (KnC Test)</h2>
 <p>In this step, we run a standard KnC test and extract the results from the jounce-rebound sequence to get the force from the damper. We do not include this in the final set of parameters for the lookup table suspension, we use this to confirm that the damping in the lookup table suspension is comparable to the original suspension model.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_04.png" alt=""> <h2 id="5">3. Get anti-roll bar force for lookup tables (KnC Test)</h2>
+<h2 id="5">3. Get anti-roll bar force for lookup tables (KnC Test)</h2>
 <p>In this step, we run a standard KnC test and extract the results from the roll sequence to get the force only from the anti roll bar. For this test we turn off the spring and damper so that the only force the testrig has to overcome is due to the anti-roll bar.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_05.png" alt=""> <h2 id="6">4. Get toe, camber, long. def., lat def. for lookup tables (Jounce &amp; Steer Sweep)</h2>
+<h2 id="6">4. Get toe, camber, long. def., lat def. for lookup tables (Jounce &amp; Steer Sweep)</h2>
 <p>In this step, we run a sweep over the entire motion envelope of the wheel so we can create the kinematic tables for the suspension motion. The wheel starts steered all the way to the left and moved all the way down. The following sequence is repeated until the entire steering range is covered:</p>
 <div>
 <ol>
@@ -136,21 +136,21 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <li>Increase steering slightly</li>
 </ol>
 </div>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_07.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_08.png" alt=""> <h2 id="7">5. Load generated data into Vehicle dataset</h2>
+<h2 id="7">5. Load generated data into Vehicle dataset</h2>
 <p>In this step, we load the generated lookup tables into the Vehicle data structure so we can test them on a full vehicle. The plots below show the lookup tables.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_09.png" alt=""> <h2 id="8">6. Get damping force from LUT suspension for verification (KnC test)</h2>
+<h2 id="8">6. Get damping force from LUT suspension for verification (KnC test)</h2>
 <p>In this step, we test the lookup table suspension with a standard KnC test to obtain the force from the damper. This is obtained to confirm that the lookup table suspension model captures the damping force consistently with the multibody suspension model.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_10.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_11.png" alt=""> <h2 id="9">7. Get spring force from LUT suspension for verification (KnC test)</h2>
+<h2 id="9">7. Get spring force from LUT suspension for verification (KnC test)</h2>
 <p>In this step, we test the lookup table suspension with a standard KnC test to obtain the force from the spring. This is obtained to confirm that the lookup table suspension model captures the spring force consistently with the multibody suspension model.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_12.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_13.png" alt=""> <h2 id="11">8. Test LUT suspension on front axle of full vehicle</h2>
+<h2 id="11">8. Test LUT suspension on front axle of full vehicle</h2>
 <p>In this step, we test the lookup table suspension in a full vehicle maneuver. Vehicle settings are adjusted to focus the comparison on the front suspension (lookup table vs. multi-link suspension).</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_14.png" alt=""> <h2 id="12">9. Test multi-link suspension on front axle of full vehicle</h2>
+<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_03.png" alt=""> <h2 id="12">9. Test multi-link suspension on front axle of full vehicle</h2>
 <p>In this step, we test the multi-link suspension in a full vehicle maneuver. Vehicle settings are adjusted to focus the comparison on the front suspension (lookup table vs. multi-link suspension).</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_15.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_16.png" alt=""> <h2 id="13">10. Compare results of full vehicle test</h2>
+<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_04.png" alt=""> <h2 id="13">10. Compare results of full vehicle test</h2>
 <p>In this step, we create plots to see how the suspensions compare.</p>
-<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_17.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_18.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_19.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_20.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_21.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_22.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_23.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_24.png" alt=""> <p class="footer">
+<img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_05.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_07.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_08.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_09.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_10.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_11.png" alt=""> <img vspace="5" hspace="5" src="sm_car_test_gen_data_lut_susp_12.png" alt=""> <p class="footer">
 <br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2025b</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026a</a>
 <br>
 </p>
 </div>
@@ -183,7 +183,7 @@ set_param('testrig_susp_knc/Axle/Config/Mechanism Configuration',...
 
 % *** Set to "true"  to generate data, 
 % ***        "false" to test using presets on full vehicle
-generateLUTData = true;
+generateLUTData = false;
 
 %% 1. Get motion ratio for damper, spring force (KnC Test)
 %

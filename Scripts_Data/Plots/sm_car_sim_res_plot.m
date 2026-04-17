@@ -7,7 +7,7 @@ function sm_car_sim_res_plot(strX,strY,varargin)
 %    Vehicle data structure, otherwise standard values will be taken from
 %    workspace.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 if(nargin<=3)
     fig_h = [];

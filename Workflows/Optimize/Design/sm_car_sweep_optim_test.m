@@ -15,7 +15,7 @@
 %
 % The documentation below shows the steps performed on sm_car.slx.  
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 %% Vehicle Model
 %

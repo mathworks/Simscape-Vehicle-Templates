@@ -4,7 +4,7 @@ function sm_car_create_hill_rdf(varargin)
 %
 %   showplot   'y' to plot profile for left and right sides
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)));
 

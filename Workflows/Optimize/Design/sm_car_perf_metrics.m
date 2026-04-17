@@ -13,7 +13,7 @@ function [CarMetrics,time,simRes] = sm_car_perf_metrics(logsout,simlog,Vehicle,s
 %       time        Time data
 %       simRes      Results data
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 % Get simulation results
 logsout_VehBus = logsout.get('VehBus');

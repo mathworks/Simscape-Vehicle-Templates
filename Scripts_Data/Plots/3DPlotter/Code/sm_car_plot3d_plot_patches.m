@@ -24,7 +24,7 @@ function sm_car_plot3d_plot_patches(vehiclePatchData)
 %                             Center of wheel is at [0 0 0]
 %              .radius      Single value for radius of tire
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 % Reuse figure if it exists, else create new figure
 fig_handle_name =   'h1_sm_car_plot3d_patches';

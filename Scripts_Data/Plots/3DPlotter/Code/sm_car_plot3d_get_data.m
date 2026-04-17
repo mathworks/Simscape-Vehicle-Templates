@@ -19,7 +19,7 @@ function [simTime, tireFx, tireFy, tireFz, ...
 %    velVeh       Vehicle x, y, z velocities   (n x 3)
 %    tirePx, tirePy, tirePz   Wheel center position in global x, y, z (n x 4)
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 % Extract data from logsout
 logsout_VehBus = logsout.get('VehBus');

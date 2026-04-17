@@ -14,7 +14,7 @@ function [traj, cones] = sm_car_traj_gen_slalom(varargin)
 %      numCones    Number of cones
 %      yPathMx     Max deviation of path from center line
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 % Vehicle initial speed
 initSpeed = 1;

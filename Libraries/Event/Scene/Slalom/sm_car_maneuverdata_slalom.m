@@ -26,7 +26,7 @@ function maneuver_data = sm_car_maneuverdata_slalom(varargin)
 %        Cones  Cone locations for plotting and animation
 %   Additional fields for driver model
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 maneuver_type = 'Slalom';
 

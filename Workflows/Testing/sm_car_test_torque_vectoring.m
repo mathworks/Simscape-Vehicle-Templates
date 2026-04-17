@@ -3,7 +3,7 @@
 % that have independent motors on the rear axle.
 % Manuever is simple step steer.
 
-% Copyright 2019-2025 The MathWorks, Inc
+% Copyright 2019-2026 The MathWorks, Inc
 
 % Test Torque Vectoring 
 open_system('sm_car');

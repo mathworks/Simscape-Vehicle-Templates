@@ -1,7 +1,7 @@
 function sWctr = sm_car_get_sWheelCentre(Vehicle)
 % Copy data from VDatabase to Vehicle data structure
 %
-% Copyright 2019-2024 The MathWorks, Inc.
+% Copyright 2019-2026 The MathWorks, Inc.
 
 % Find fieldnames for tires
 cha_fnames = sort(fieldnames(Vehicle.Chassis));

@@ -8,7 +8,7 @@
 %
 % This subsystem models the power source for the vehicle.
 % 
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 %% 
 % 

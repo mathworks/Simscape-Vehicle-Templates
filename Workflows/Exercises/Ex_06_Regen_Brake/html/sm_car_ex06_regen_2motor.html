@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>Explore Regenerative Braking</title>
-<meta name="generator" content="MATLAB 25.2">
+<meta name="generator" content="MATLAB 26.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2025-10-28">
+<meta name="DC.date" content="2026-04-16">
 <meta name="DC.source" content="sm_car_ex06_regen_2motor.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -173,7 +173,12 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 <p>This can be done from Simulink or from the MATLAB command line.</p>
 <pre class="codeinput">sim(mdl)
 </pre>
-<h2 id="9">Step 7: Explore simulation results in Simulink Data Inspector</h2>
+<pre class="codeoutput">Warning: Support for streaming Simscape variables to Simulation Data Inspector
+will be removed in a future release. To record Simscape data in Simulation Data
+Inspector, use selective logging and view the data in the
+Simulink.SimulationData.Dataset object. 
+</pre>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_06.png" alt=""> <h2 id="9">Step 7: Explore simulation results in Simulink Data Inspector</h2>
 <p>Use the Simulink Data Inspector to plot the following quantities.</p>
 <p>
 <table border=1><tr>
@@ -185,11 +190,11 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 </p>
 <pre class="codeinput">sm_car_ex06_regen_2motor_plot1
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_06.png" alt=""> <h2 id="10">Step 8: Create custom plot using MATLAB</h2>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_07.png" alt=""> <h2 id="10">Step 8: Create custom plot using MATLAB</h2>
 <p>To see the total torque applied at the wheel, we need to add quantities from 2 motors and four brake rotors, and we have to factor in gear ratios. This plot uses MATLAB to calculate the equivalent torque at the wheels.</p>
 <pre class="codeinput">sm_car_plot8regen(logsout_sm_car)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_07.png" alt=""> <h2 id="11">Step 9: Increase braking request</h2>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_08.png" alt=""> <h2 id="11">Step 9: Increase braking request</h2>
 <p>Adjusting these numerical values in the Maneuver data structure will increase the magnitude of the braking request from the driver.</p>
 <pre class="codeinput">
 <span class="comment">% Increase braking request</span>
@@ -198,22 +203,27 @@ sm_car_plot_maneuver(Maneuver)
 subplot(311);
 set(gca,<span class="string">'XLim'</span>, [0 30])
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_08.png" alt=""> <h2 id="12">Step 10: Run simulation with increased braking request</h2>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_09.png" alt=""> <img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_10.png" alt=""> <h2 id="12">Step 10: Run simulation with increased braking request</h2>
 <p>This can be done from Simulink or from the MATLAB command line.</p>
 <pre class="codeinput">sim(mdl)
 </pre>
-<h2 id="13">Step 11: Add simulation results to the Simulink Data Inspector</h2>
+<pre class="codeoutput">Warning: Support for streaming Simscape variables to Simulation Data Inspector
+will be removed in a future release. To record Simscape data in Simulation Data
+Inspector, use selective logging and view the data in the
+Simulink.SimulationData.Dataset object. 
+</pre>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_11.png" alt=""> <h2 id="13">Step 11: Add simulation results to the Simulink Data Inspector</h2>
 <p>Use the Simulink Data Inspector to plot the following quantities from the both runs.</p>
 <pre class="codeinput">sm_car_ex06_regen_2motor_plot2
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_09.png" alt=""> <h2 id="14">Step 12: Create custom plot using MATLAB</h2>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_12.png" alt=""> <h2 id="14">Step 12: Create custom plot using MATLAB</h2>
 <p>To see the total torque applied at the wheel, we need to add quantities from 2 motors and four brake rotors, and we have to factor in gear ratios. This plot uses MATLAB to calculate the equivalent torque at the wheels.</p>
 <pre class="codeinput">sm_car_plot8regen(logsout_sm_car)
 </pre>
-<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_10.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
+<img vspace="5" hspace="5" src="sm_car_ex06_regen_2motor_13.png" alt=""> <pre class="codeinput">close <span class="string">all</span>
 </pre>
-<p class="footer">Copyright 2018-2025 The MathWorks, Inc.<br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2025b</a>
+<p class="footer">Copyright 2018-2026 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026a</a>
 <br>
 </p>
 </div>
@@ -231,7 +241,7 @@ set(gca,<span class="string">'XLim'</span>, [0 30])
 % tests. We plot data from Simscape Logging in the Simulink Data Inspector
 % to explore the simulation results.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 %% Step 1: Open Model
 % This can be done from the MATLAB UI, project shortcut, or MATLAB Command

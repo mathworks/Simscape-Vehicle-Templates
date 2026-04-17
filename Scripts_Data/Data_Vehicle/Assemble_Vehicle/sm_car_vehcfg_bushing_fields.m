@@ -15,7 +15,7 @@ function [prefix_str,arm_str] = sm_car_vehcfg_bushing_fields(susp_name)
 %                         'LAF' Lower arm link, front
 %                         'LAR' Lower arm link, rear
 
-% Copyright 2023-2024 The MathWorks, Inc.
+% Copyright 2023-2026 The MathWorks, Inc.
 
 
 switch (susp_name)

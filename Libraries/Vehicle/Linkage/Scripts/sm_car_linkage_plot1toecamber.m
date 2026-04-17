@@ -4,7 +4,7 @@ function sm_car_linkage_plot1toecamber(modelname)
 %
 % <enter plot description here if desired>
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 % Generate simulation results if they don't exist
 

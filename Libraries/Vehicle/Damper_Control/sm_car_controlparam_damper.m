@@ -1,6 +1,6 @@
 function control_param = sm_car_controlparam_damper
 %% Damper Control Parameters
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 control_param.Name = 'Damper';
 

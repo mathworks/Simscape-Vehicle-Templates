@@ -3,7 +3,7 @@
 %
 % <enter plot description here if desired>
 %
-% Copyright 2016-2025 The MathWorks, Inc.
+% Copyright 2016-2026 The MathWorks, Inc.
 
 % Generate simulation results if they don't exist
 %if ~exist('simlog_sm_viscoelastic_testrig', 'var')

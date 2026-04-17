@@ -15,7 +15,7 @@
 % testrig_quarter_car_doublewishbone.slx.  They can also be performed on
 % testrig_quarter_car_doublewishbone_pullrod.slx.
 %
-% Copyright 2024-2025 The MathWorks, Inc.
+% Copyright 2024-2026 The MathWorks, Inc.
 
 %% Quarter-Car Testrig Model
 %

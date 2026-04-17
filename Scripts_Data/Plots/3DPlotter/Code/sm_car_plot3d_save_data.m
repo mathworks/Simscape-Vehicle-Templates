@@ -10,7 +10,7 @@ function sm_car_plot3d_save_data(logsout,Maneuver,fileName)
 %    Maneuver   Manuever.Type is used to determine suitable scene data
 %    fileName   Name of file where results should be saved
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 % Extract key data from simulation results
 [simTime, tireFx, tireFy, tireFz, ...

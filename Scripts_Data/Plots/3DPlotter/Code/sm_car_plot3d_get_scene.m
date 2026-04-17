@@ -12,7 +12,7 @@ function Scene3DPlot = sm_car_plot3d_get_scene(Scene,MDatabase)
 %    Output is Scene3DPlot, a MATLAB structure with fields containing
 %    parameters needed to plot the scene in the 3D plotter
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 % Get CRG_* scenes, which contain centerline and width
 SceneNames   = fieldnames(Scene);

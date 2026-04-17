@@ -22,7 +22,7 @@ function sm_car_plot3d_create(logsout,vehType,sceneNameInput,boxWidth,plot3DView
 %    fig_h           Handle of figure for results plot
 %    saveGIF         true to save animation of results to a GIF
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 
 %% Vehicle visualization

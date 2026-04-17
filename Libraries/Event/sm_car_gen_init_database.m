@@ -2,7 +2,7 @@ function sm_car_gen_init_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2025 The MathWorks, Inc.
+% Copyright 2019-2026 The MathWorks, Inc.
 
 disp(['Generating IDatabase from ' mfilename]);
 MDatabase = evalin('base','MDatabase');

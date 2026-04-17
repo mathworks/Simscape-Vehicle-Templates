@@ -33,7 +33,7 @@ function maneuver_data = sm_car_maneuverdata_testrig4Post_cycle1(varargin)
 %  sm_car_config_maneuver('sm_car','Testrig 4 Post Cycle 1')
 %  Maneuver = sm_car_maneuverdata_testrig4Post_cycle1(2,2,0.05,0.25,2,2,0.05,1,3,0.03,0.1,2,0.05,0.5);
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 maneuver_type = 'Testrig4Post_Cycle1';
 

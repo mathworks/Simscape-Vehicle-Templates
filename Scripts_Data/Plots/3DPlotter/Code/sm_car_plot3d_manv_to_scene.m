@@ -7,7 +7,7 @@ function sceneName = sm_car_plot3d_manv_to_scene(Maneuver)
 %
 %   Maneuver    Field Maneuver.Type is used to select the sceneName
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 if(regexp(Maneuver.Type,'CRG_.*'))
     sceneName = Maneuver.Type;   % Road follows trajectory

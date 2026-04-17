@@ -16,7 +16,7 @@
 % testrig_quarter_car_doublewishbone.slx and
 % testrig_quarter_car_pullrod.slx.
 %
-% Copyright 2024-2025 The MathWorks, Inc.
+% Copyright 2024-2026 The MathWorks, Inc.
 
 %% Quarter-Car Testrig Model
 %

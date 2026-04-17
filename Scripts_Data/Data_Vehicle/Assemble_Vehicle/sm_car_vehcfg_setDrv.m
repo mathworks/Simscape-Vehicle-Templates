@@ -18,7 +18,7 @@ function Vehicle = sm_car_vehcfg_setDrv(Vehicle,drv_opt)
 %                     driven by same input shaft.
 %           CV    = Constant Velocity joint
 %
-% Copyright 2019-2025 The MathWorks, Inc.
+% Copyright 2019-2026 The MathWorks, Inc.
 
 % Load database of vehicle data into local workspace
 VDatabase = evalin('base','VDatabase');

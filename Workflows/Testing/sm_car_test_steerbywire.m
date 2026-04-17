@@ -1,7 +1,7 @@
 % Script to test four wheel steering in sedan 
 % Manuever is Constant Radius Closed-Loop.
 
-% Copyright 2019-2025 The MathWorks, Inc
+% Copyright 2019-2026 The MathWorks, Inc
 
 % Test four wheel steering
 open_system('sm_car');

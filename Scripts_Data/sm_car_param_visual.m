@@ -1,5 +1,5 @@
 function Visual = sm_car_param_visual(car_option,varargin)
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 updateOnly = true;
 if(nargin==2)

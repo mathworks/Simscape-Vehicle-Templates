@@ -32,7 +32,7 @@ function maneuver_data = sm_car_maneuverdata_testrig4Post_randFreqLim(varargin)
 %  sm_car_config_maneuver('sm_car','Testrig 4 Post Data') 
 %  Maneuver = sm_car_maneuverdata_testrig4Post_randFreqLim(100,20,2,0.5,5,0.05,4);
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 maneuver_type = 'Testrig4Post_randFreqLim';
 

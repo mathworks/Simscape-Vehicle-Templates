@@ -6,7 +6,7 @@
 % aligning torque, lateral compliance, and longitudinal compliance tests
 % are performed and suspension metrics are extracted from the results.
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 %% Model
 %

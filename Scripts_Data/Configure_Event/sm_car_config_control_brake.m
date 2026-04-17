@@ -4,7 +4,7 @@ function sm_car_config_control_brake(mdl,ctrl_opt)
 % ctrl_opt      0   ABS control disabled
 %               1   ABS control enabled
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 blk = find_system(mdl,'regexp','on','SearchDepth',1,'popup_brake_control','.*');
 

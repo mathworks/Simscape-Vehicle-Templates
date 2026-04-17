@@ -6,7 +6,7 @@
 % App or from the MATLAB Command Line.  It can be used to provide static
 % plots or animations of portions of simulation results.
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 %% Vehicle Simulation Results Plotter App
 %

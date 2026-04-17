@@ -6,7 +6,7 @@ function simres = sm_car_sim_res_get(logsout,simlog,Vehicle,varName)
 %    be obtained from logsout and simlog variables.  Data structure Vehicle
 %    is needed for some results to obtain tire radius.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 logsout_VehBus = logsout.get('VehBus');
 

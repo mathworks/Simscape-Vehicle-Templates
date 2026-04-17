@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_slalom
 %% Floor and Grid parameters
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 scene_data.Name = 'Slalom';
 scene_data.Dashes.pitch = 7.5;      % m

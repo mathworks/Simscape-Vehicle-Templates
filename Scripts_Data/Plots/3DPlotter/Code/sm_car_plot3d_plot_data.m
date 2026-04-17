@@ -29,7 +29,7 @@ function hdls = sm_car_plot3d_plot_data(hdls, vehGeom, posVeh, psiVeh, ...
 %   plotVehicle Add to plot vehicle chassis to plot
 %   plotPatch   Add to plot patch showing path on ground traced by vehicle body
 %
-% Copyright 2025 The MathWorks, Inc.
+% Copyright 2025-2026 The MathWorks, Inc.
 
 %% Create axis figure handle - needed for all plot elements
 if ~isfield(hdls,'axH'); hdls.axH  = gca(hdls.figH); end
