@@ -28,12 +28,12 @@ sm_car_plot_maneuver(Maneuver);
 %
 
 sm_car_load_vehicle_data('none','000')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -41,7 +41,7 @@ TSuspMetrics
 %% Double Wishbone, Bushing Inboard Connections
 %
 sm_car_load_vehicle_data('none','000')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
@@ -49,7 +49,7 @@ Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -58,7 +58,7 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','048')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
 Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LAF','BushLink_AxRad_SLGf_S2LAR_LAF');
@@ -70,7 +70,7 @@ Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -79,13 +79,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','048')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -94,13 +94,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','064')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum = 1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -109,13 +109,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','080')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -124,13 +124,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','096')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.Sedan_HambaLG;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -139,7 +139,7 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','218')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 
@@ -150,7 +150,7 @@ Vehicle.Chassis.SuspA1.Linkage.Shock_to_Subframe = VDatabase.Subframe_Conn.BushA
 Maneuver = sm_car_maneuverdata_knc(0.1,-0.1,0.01,1.0,0.10,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -159,13 +159,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','198')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -174,13 +174,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','223')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -189,13 +189,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','206')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -204,13 +204,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','209')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -219,13 +219,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','227')
-set_param([bdroot '/Axle'],'AxNum','Rear');
+set_param([bdroot '/Axle'],'AxNum','Rear'); AxNum=2;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -234,13 +234,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','190')
-set_param([bdroot '/Axle'],'AxNum','Rear');
+set_param([bdroot '/Axle'],'AxNum','Rear'); AxNum=2;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.05,-0.03,0.01,1.3,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -249,13 +249,13 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','230')
-set_param([bdroot '/Axle'],'AxNum','Front');
+set_param([bdroot '/Axle'],'AxNum','Front'); AxNum=1;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = MDatabase.KnC.SUV_Landy;
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
@@ -264,25 +264,25 @@ TSuspMetrics
 %
 
 sm_car_load_vehicle_data('none','230')
-set_param([bdroot '/Axle'],'AxNum','Rear');
+set_param([bdroot '/Axle'],'AxNum','Rear'); AxNum=2;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.19,-0.13,0.01,0.05,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %% Watts (Rear)
 %
 
 sm_car_load_vehicle_data('none','231')
-set_param([bdroot '/Axle'],'AxNum','Rear');
+set_param([bdroot '/Axle'],'AxNum','Rear'); AxNum=2;
 
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.15,-0.15,0.01,0.05,0.03,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_susp_knc');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics

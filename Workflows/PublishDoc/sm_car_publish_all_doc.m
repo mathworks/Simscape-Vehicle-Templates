@@ -59,6 +59,8 @@ testFileList = {...
     'sm_car_test_abs',...
     'sm_car_test_parking',...
     'sm_car_test_dlc_reverse',...
+    'sm_car_test_hydropneu_susp',...
+    'sm_car_test_gen_data_lut_susp'
     };
 
 for test_i = 1:length(testFileList)
@@ -71,3 +73,9 @@ end
 %% Republish Powertrain Configurations
 cd(fileparts(which('sm_car_testing_powertrain_configs.m')))
 publish('sm_car_testing_powertrain_configs.m','showCode',true)
+
+%% Republish Lookup Table Data Gen Workflow
+%  --  Set Generate data to true inside file --
+cd(fileparts(which('sm_car_test_gen_data_lut_susp.m')))
+publish('sm_car_test_gen_data_lut_susp.m','showCode',false)
+

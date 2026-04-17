@@ -34,7 +34,7 @@
 % <tr>7.  Driving in Reverse: <a href="matlab:sm_car_test_dlc_reverse">Run</a>, <a href="matlab:edit('sm_car_test_dlc_reverse.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_dlc_reverse.png');">Results</a><br>
 % <tr>8.  Hydropneumatic Suspension: <a href="matlab:sm_car_test_hydropneu_susp">Run</a>, <a href="matlab:edit('sm_car_test_hydropneu_susp.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_hydropneu_susp.png');">Results</a><br>
 % <tr>9.  Generate GGV Diagram: <a href="matlab:sm_car_ggv_diagram_examples">Run</a>, <a href="matlab:edit('sm_car_ggv_diagram_examples.m');">Edit Code</a>, <a href="matlab:web('sm_car_ggv_diagram_examples.html');">Results</a><br>
-% <tr>10. Lookup-Table Suspension: <a href="matlab:sm_car_test_gen_data_lut_susp">Run</a>, <a href="matlab:edit('sm_car_test_gen_data_lut_susp.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_gen_data_lut_susp.png');">Results</a><br>
+% <tr>10. Lookup-Table Suspension: <a href="matlab:sm_car_test_gen_data_lut_susp">Run</a>, <a href="matlab:edit('sm_car_test_gen_data_lut_susp.m');">Edit Code</a>, <a href="matlab:web('sm_car_test_gen_data_lut_susp.html');">Doc</a>, <a href="matlab:web('sm_car_test_gen_data_lut_susp.png');">Results</a><br>
 % <tr>11. Display Battery Status: <a href="matlab:sm_car_display_battery_test">Run</a>, <a href="matlab:edit('sm_car_display_battery_test.m');">Edit Code</a><br>
 % <tr>12. Protected Mode: <a href="matlab:edit('sm_car_test_protected_mode.m');">Edit Code</a><br>
 % <tr>13. Powertrain Configurations: <a href="matlab:web('sm_car_testing_powertrain_configs.html');">Results</a>, <a href="matlab:edit('sm_car_testing_powertrain_configs');">Edit Code</a><br>

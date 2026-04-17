@@ -6,7 +6,7 @@
 % aligning torque, lateral compliance, and longitudinal compliance tests
 % are performed and suspension metrics are extracted from the results.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 %% Model
 %
@@ -27,11 +27,12 @@ sm_car_plot_maneuver(Maneuver);
 %% Double Wishbone, Rigid Inboard Connections
 %
 sm_car_load_vehicle_data('none','213');
+AxNum = 1;
 Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[0 0 0 0 0],'SuspA1');
 Maneuver = sm_car_maneuverdata_knc(0.17,-0.21,0.01,1.3,0.1,500,1200,1200,1200,1200,-0.3);
 
 out=sim('testrig_quarter_car_doublewishbone');
-TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+TSuspMetrics = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,true,true,false);
 
 %%
 TSuspMetrics
