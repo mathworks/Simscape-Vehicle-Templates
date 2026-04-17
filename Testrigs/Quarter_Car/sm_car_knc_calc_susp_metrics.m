@@ -1,9 +1,11 @@
-function TSuspMetrics = sm_car_knc_calc_susp_metrics(simlog_toe,...
-    simlog_camber,simlog_toeX,simlog_camberX,simlog_toeR,...
+function [TSuspMetrics,KNCres] = sm_car_knc_calc_susp_metrics(simlog_toe,...
+    simlog_camber,simlog_toeX,simlog_camberX,simlog_toeR,simlog_camberR,...
     simlog_pxTire, simlog_pyTire, simlog_pzTire, ...
-    testPhases,qToeMeas,zOffsetBumpTest,simlog_t,wCtrZ,simlog_rigFz,...
+    simlog_pxTireR, simlog_pyTireR, simlog_pzTireR, ...
+    testPhases,qToeMeas,zOffsetBumpTest,simlog_t,wCtrZ,simlog_rigFz,simlog_rigFzR,...
     simlog_fBumpstop,simlog_xSpring,simlog_xRack,simlog_FRack,simlog_aWheel,...
-    simlog_trqTz,simlog_fLat,simlog_fLong,simlog_yCPtch,...
+    simlog_trqTz,simlog_fLat,simlog_fLong,simlog_yCPtch,simlog_zCPtch,simlog_yCPtchR,simlog_zCPtchR,...
+    simlog_fLatO,simlog_fLongWC,...
     veh_track,veh_wheelbase,veh_mass,veh_sW2W,tireK,tireW,showPlots)
 % sm_car_calc_susp_metrics Calculates suspension metrics
 %    TSuspMetrics = sm_car_calc_susp_metrics(...)
@@ -15,10 +17,14 @@ function TSuspMetrics = sm_car_knc_calc_susp_metrics(simlog_toe,...
 %       simlog_camber    Camber measured using z axis of wheel spin frame (deg)
 %       simlog_toeX      Toe measured using x axis of wheel spin frame  (deg)
 %       simlog_toeR      Toe (right) measured using z axis of wheel spin frame (deg)
+%       simlog_camberR   Camber (right)  measured using z axis of wheel spin frame (deg)
 %       simlog_camberX   Camber measured using z axis of wheel spin frame (deg)
 %       simlog_pxTire    Position of wheel center in global X-frame (m)
 %       simlog_pyTire    Position of wheel center in global Y-frame (m)
 %       simlog_pzTire    Position of wheel center in global Z-frame (m)
+%       simlog_pxTireR   Position of wheel center in global X-frame (m)  (RIGHT)
+%       simlog_pyTireR   Position of wheel center in global Y-frame (m)  (RIGHT)
+%       simlog_pzTireR   Position of wheel center in global Z-frame (m)  (RIGHT)
 %       testPhases       Time periods [start finish] for each phase of test (sec)
 %       qToeMeas         Toe angle used for caster angle calculation (deg)
 %       zOffsetBumpTest  Height for calculating bump steer, bump camber, ... (m)
@@ -34,6 +40,9 @@ function TSuspMetrics = sm_car_knc_calc_susp_metrics(simlog_toe,...
 %       simlog_fLat      Lateral Force applied by testrig (N)
 %       simlog_fLong     Longitudinal Force applied by testrig (N)
 %       simlog_yCPtch    Displacement at contact patch along global y (m)
+%       simlog_zCPtch    Displacement at contact patch along global z (m)
+%       simlog_yCPtchR   Displacement at contact patch along global y (m) (RIGHT)
+%       simlog_zCPtchR   Displacement at contact patch along global z (m) (RIGHT)
 %       veh_track        Track of vehicle (m)
 %       veh_wheelbase    Wheelbase of vehicle (m)
 %       veh_mass         Mass of chassis (kg)
@@ -42,7 +51,7 @@ function TSuspMetrics = sm_car_knc_calc_susp_metrics(simlog_toe,...
 %       tireW            Tire width (m)
 %       showPlots        true or false to show plots detailing calculations
 
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 %% Get indices for each phase of simulation results
 indToeCamb   = intersect(find(simlog_t>=testPhases.Jounce(1)),find(simlog_t<=testPhases.Rebound(2)));
@@ -59,11 +68,157 @@ indLAOutPhs  = intersect(find(simlog_t>=testPhases.LatFrcOut(1)),find(simlog_t<=
 indLOBrk     = intersect(find(simlog_t>=testPhases.LongFrcBrk(1)),find(simlog_t<=testPhases.LongFrcBrk(2)));
 indLOAcc     = intersect(find(simlog_t>=testPhases.LongFrcAcc(1)),find(simlog_t<=testPhases.LongFrcAcc(2)));
 
+% Indices for outputs
+indBouncePara = intersect(find(simlog_t>=testPhases.Jounce(1)),find(simlog_t<=testPhases.Rebound(2)));
+indBounceOppo = intersect(find(simlog_t>=testPhases.Rollp(1)), find(simlog_t<=testPhases.Rolln(2)));
+indBrakePara  = intersect(find(simlog_t>=testPhases.LongFrcBrk_All(1)),  find(simlog_t<=testPhases.LongFrcBrk_All(2)));
+indBrakeLeft  = intersect(find(simlog_t>=testPhases.LongFrcLBrk_All(1)), find(simlog_t<=testPhases.LongFrcLBrk_All(2)));
+indLatCPPara  = intersect(find(simlog_t>=testPhases.LatFrcPara_All(1)),  find(simlog_t<=testPhases.LatFrcPara_All(2)));
+indLatCPOppo  = intersect(find(simlog_t>=testPhases.LatFrcOpp_All(1)),   find(simlog_t<=testPhases.LatFrcOpp_All(2)));
+indLatOFPara  = intersect(find(simlog_t>=testPhases.LatFrcOPara_All(1)), find(simlog_t<=testPhases.LatFrcOPara_All(2)));
+indLatOFLeft  = intersect(find(simlog_t>=testPhases.LatFrcOLeft_All(1)), find(simlog_t<=testPhases.LatFrcOLeft_All(2)));
+indPushPara   = intersect(find(simlog_t>=testPhases.LongFrcWCBrk_All(1)),  find(simlog_t<=testPhases.LongFrcWCBrk_All(2)));
+indPushLeft   = intersect(find(simlog_t>=testPhases.LongFrcWCLBrk_All(1)), find(simlog_t<=testPhases.LongFrcWCLBrk_All(2)));
+
+% Assemble data for output
+KNCres.Bounce.PAR.time       = simlog_t(indBouncePara);
+KNCres.Bounce.PAR.xSpringL   = simlog_xSpring(indBouncePara);
+KNCres.Bounce.PAR.qToeL      = simlog_toe(indBouncePara);
+KNCres.Bounce.PAR.qToeLdelta = simlog_toe(indBouncePara)-simlog_toe(indBouncePara(1));
+KNCres.Bounce.PAR.qCamberL   = simlog_camber(indBouncePara);
+KNCres.Bounce.PAR.qCamberLdelta   = simlog_camber(indBouncePara)-simlog_camber(1);
+KNCres.Bounce.PAR.fzTire     = simlog_rigFz(indBouncePara);
+KNCres.Bounce.PAR.pzWC       = simlog_pzTire(indBouncePara);
+KNCres.Bounce.PAR.pyPtch     = simlog_yCPtch(indBouncePara);
+KNCres.Bounce.PAR.pzPtch     = simlog_zCPtch(indBouncePara);
+if(length(simlog_yCPtchR)>1)
+    KNCres.Bounce.PAR.pyPtchR = simlog_yCPtchR(indBouncePara);
+    KNCres.Bounce.PAR.pzPtchR = simlog_zCPtchR(indBouncePara);
+    KNCres.Bounce.PAR.pzWCR   = simlog_pzTireR(indBouncePara);
+else
+    KNCres.Bounce.PAR.pyPtchR = zeros(size(indBouncePara));
+    KNCres.Bounce.PAR.pzPtchR = zeros(size(indBouncePara));
+    KNCres.Bounce.PAR.pzWCR   = zeros(size(indBouncePara));
+end
+
+if(isempty(indPushLeft))
+    KNCres = [];
+else
+    KNCres.Bounce.OPP.time       = simlog_t(indBounceOppo);
+    KNCres.Bounce.OPP.xSpringL   = simlog_xSpring(indBounceOppo);
+    KNCres.Bounce.OPP.qToeL      = simlog_toe(indBounceOppo);
+    KNCres.Bounce.OPP.qToeLdelta = simlog_toe(indBounceOppo)-simlog_toe(indBounceOppo(1));
+    KNCres.Bounce.OPP.qCamberL   = simlog_camber(indBounceOppo);
+    KNCres.Bounce.OPP.qCamberLdelta   = simlog_camber(indBounceOppo)-simlog_camber(indBounceOppo(1));
+    KNCres.Bounce.OPP.fzTireL     = simlog_rigFz(indBounceOppo);
+    KNCres.Bounce.OPP.pzWCL       = simlog_pzTire(indBounceOppo);
+    KNCres.Brake.PAR.time          = simlog_t(indBrakePara);
+    KNCres.Brake.PAR.fxTire        = simlog_fLong(indBrakePara);
+    KNCres.Brake.PAR.qToeLdelta    = simlog_toe(indBrakePara)    -simlog_toe    (indBrakePara(1));
+    KNCres.Brake.PAR.qCamberLdelta = simlog_camber(indBrakePara) -simlog_camber (indBrakePara(1));
+    if(length(simlog_toeR)>1)
+        KNCres.Brake.PAR.qToeRdelta    = simlog_toeR(indBrakePara)   -simlog_toeR   (indBrakePara(1));
+        KNCres.Brake.PAR.qCamberRdelta = simlog_camberR(indBrakePara)-simlog_camberR(indBrakePara(1));
+        KNCres.Bounce.OPP.fzTireR      = simlog_rigFzR(indBounceOppo);
+        KNCres.Bounce.OPP.pzWCR        = simlog_pzTireR(indBounceOppo);
+    else
+        KNCres.Brake.PAR.qToeRdelta    = zeros(size(indBrakePara));
+        KNCres.Brake.PAR.qCamberRdelta = zeros(size(indBrakePara));
+        KNCres.Bounce.OPP.fzTireR      = zeros(size(indBounceOppo));
+        KNCres.Bounce.OPP.pzWCR        = zeros(size(indBounceOppo));
+    end
+
+    KNCres.Brake.LEFT.time          = simlog_t(indBrakeLeft);
+    KNCres.Brake.LEFT.fxTire        = simlog_fLong(indBrakeLeft);
+    KNCres.Brake.LEFT.qToeLdelta    = simlog_toe(indBrakeLeft)    -simlog_toe    (indBrakeLeft(1));
+    KNCres.Brake.LEFT.qCamberLdelta = simlog_camber(indBrakeLeft) -simlog_camber (indBrakeLeft(1));
+    if(length(simlog_toeR)>1)
+        KNCres.Brake.LEFT.qToeRdelta    = simlog_toeR(indBrakeLeft)   -simlog_toeR   (indBrakeLeft(1));
+        KNCres.Brake.LEFT.qCamberRdelta = simlog_camberR(indBrakeLeft)-simlog_camberR(indBrakeLeft(1));
+    else
+        KNCres.Brake.LEFT.qToeRdelta    = zeros(size(indBrakeLeft));
+        KNCres.Brake.LEFT.qCamberRdelta = zeros(size(indBrakeLeft));
+    end
+
+    KNCres.LateralCP.PAR.time          = simlog_t(indLatCPPara);
+    KNCres.LateralCP.PAR.fyTire        = simlog_fLat(indLatCPPara);
+    KNCres.LateralCP.PAR.qToeLdelta    = simlog_toe(indLatCPPara)  -simlog_toe (indLatCPPara(1));
+    KNCres.LateralCP.PAR.qCamberLdelta = simlog_camber (indLatCPPara) -simlog_camber (indLatCPPara(1));
+    if(length(simlog_toeR)>1)
+        KNCres.LateralCP.PAR.qToeRdelta    = simlog_toeR(indLatCPPara) -simlog_toeR(indLatCPPara(1));
+        KNCres.LateralCP.PAR.qCamberRdelta = simlog_camberR(indLatCPPara) -simlog_camberR(indLatCPPara(1));
+    else
+        KNCres.LateralCP.PAR.qToeRdelta    = zeros(size(indLatCPPara));
+        KNCres.LateralCP.PAR.qCamberRdelta = zeros(size(indLatCPPara));
+    end
+
+    KNCres.LateralCP.OPP.time          = simlog_t(indLatCPOppo);
+    KNCres.LateralCP.OPP.fyTire        = simlog_fLat(indLatCPOppo);
+    KNCres.LateralCP.OPP.qToeLdelta    = simlog_toe(indLatCPOppo)     -simlog_toe    (indLatCPOppo(1));
+    KNCres.LateralCP.OPP.qCamberLdelta = simlog_camber (indLatCPOppo) -simlog_camber (indLatCPOppo(1));
+    if(length(simlog_toeR)>1)
+        KNCres.LateralCP.OPP.qToeRdelta    = simlog_toeR(indLatCPOppo)    -simlog_toeR   (indLatCPOppo(1));
+        KNCres.LateralCP.OPP.qCamberRdelta = simlog_camberR(indLatCPOppo) -simlog_camberR(indLatCPOppo(1));
+    else
+        KNCres.LateralCP.OPP.qToeRdelta    = zeros(size(indLatCPOppo));
+        KNCres.LateralCP.OPP.qCamberRdelta = zeros(size(indLatCPOppo));
+    end
+
+    KNCres.LateralOff.PAR.time          = simlog_t(indLatOFPara);
+    KNCres.LateralOff.PAR.fyTire        = simlog_fLatO(indLatOFPara);
+    KNCres.LateralOff.PAR.qToeLdelta    = simlog_toe(indLatOFPara)  -simlog_toe (indLatOFPara(1));
+    KNCres.LateralOff.PAR.qCamberLdelta = simlog_camber (indLatOFPara) -simlog_camber (indLatOFPara(1));
+    if(length(simlog_toeR)>1)
+        KNCres.LateralOff.PAR.qToeRdelta    = simlog_toeR(indLatOFPara) -simlog_toeR(indLatOFPara(1));
+        KNCres.LateralOff.PAR.qCamberRdelta = simlog_camberR(indLatOFPara) -simlog_camberR(indLatOFPara(1));
+    else
+        KNCres.LateralOff.PAR.qToeRdelta    = zeros(size(indLatOFPara));
+        KNCres.LateralOff.PAR.qCamberRdelta = zeros(size(indLatOFPara));
+    end
+
+    KNCres.LateralOff.LEFT.time          = simlog_t(indLatOFLeft);
+    KNCres.LateralOff.LEFT.fyTire        = simlog_fLatO(indLatOFLeft);
+    KNCres.LateralOff.LEFT.qToeLdelta    = simlog_toe(indLatOFLeft)     -simlog_toe    (indLatOFLeft(1));
+    KNCres.LateralOff.LEFT.qCamberLdelta = simlog_camber (indLatOFLeft) -simlog_camber (indLatOFLeft(1));
+    if(length(simlog_toeR)>1)
+        KNCres.LateralOff.LEFT.qToeRdelta    = simlog_toeR(indLatOFLeft)    -simlog_toeR   (indLatOFLeft(1));
+        KNCres.LateralOff.LEFT.qCamberRdelta = simlog_camberR(indLatOFLeft) -simlog_camberR(indLatOFLeft(1));
+    else
+        KNCres.LateralOff.LEFT.qToeRdelta    = zeros(size(indLatOFLeft));
+        KNCres.LateralOff.LEFT.qCamberRdelta = zeros(size(indLatOFLeft));
+    end
+
+    KNCres.LongWC.PAR.time          = simlog_t(indPushPara);
+    KNCres.LongWC.PAR.fxTire        = simlog_fLongWC(indPushPara);
+    KNCres.LongWC.PAR.qToeLdelta    = simlog_toe(indPushPara)     -simlog_toe    (indPushPara(1));
+    KNCres.LongWC.PAR.qCamberLdelta = simlog_camber (indPushPara) -simlog_camber (indPushPara(1));
+    if(length(simlog_toeR)>1)
+        KNCres.LongWC.PAR.qToeRdelta    = simlog_toeR(indPushPara)    -simlog_toeR   (indPushPara(1));
+        KNCres.LongWC.PAR.qCamberRdelta = simlog_camberR(indPushPara) -simlog_camberR(indPushPara(1));
+    else
+        KNCres.LongWC.PAR.qToeRdelta    = zeros(size(indPushPara));
+        KNCres.LongWC.PAR.qCamberRdelta = zeros(size(indPushPara));
+    end
+
+    KNCres.LongWC.LEFT.time          = simlog_t(indPushLeft);
+    KNCres.LongWC.LEFT.fxTire        = simlog_fLongWC(indPushLeft);
+    KNCres.LongWC.LEFT.qToeLdelta    = simlog_toe(indPushLeft)     -simlog_toe    (indPushLeft(1));
+    KNCres.LongWC.LEFT.qCamberLdelta = simlog_camber (indPushLeft) -simlog_camber (indPushLeft(1));
+    if(length(simlog_toeR)>1)
+        KNCres.LongWC.LEFT.qToeRdelta    = simlog_toeR(indPushLeft)    -simlog_toeR   (indPushLeft(1));
+        KNCres.LongWC.LEFT.qCamberRdelta = simlog_camberR(indPushLeft) -simlog_camberR(indPushLeft(1));
+    else
+        KNCres.LongWC.LEFT.qToeRdelta    = zeros(size(indPushLeft));
+        KNCres.LongWC.LEFT.qCamberRdelta = zeros(size(indPushLeft));
+    end
+
+end
+
 % For finding indices where tire is going up or going down
 indTCUp      = find(diff(simlog_pzTire(indToeCamb))>0);
 indTCDown    = find(diff(simlog_pzTire(indToeCamb))<0);
- testIndsTCUp   = indToeCamb(indTCUp);
- testIndsTCDown = indToeCamb(indTCDown);
+testIndsTCUp   = indToeCamb(indTCUp);
+testIndsTCDown = indToeCamb(indTCDown);
 
 % For finding indices where steer is increasing or decreasing
 if(length(simlog_aWheel)>1)
@@ -608,7 +763,7 @@ simlog_fBumpstopRO           = simlog_fBumpstop(indRoll);
 simlog_fBumpstopROsrt        = simlog_fBumpstopRO(iROsrt);
 
 %% Obtain Toe, Camber: + 2deg Roll
-if(~isempty(simlog_pzTireROsrt))
+if(~isempty(simlog_pzTireROsrt) && ((max(simlog_pzTireROsrt)-min(simlog_pzTireROsrt))>1e-3))
 
     % For finding indices where tire is going up or going down
     indROUp      = find(diff(simlog_pzTire(indRoll))>0);
@@ -672,7 +827,7 @@ else
 end
 
 %% Debug plot
-if(showPlots && ~isempty(simlog_pzTireROsrt))
+if(showPlots && ~isempty(simlog_pzTireROsrt) && ((max(simlog_pzTireROsrt)-min(simlog_pzTireROsrt))>1e-3)) 
     % Reuse figure if it exists, else create new figure
     fig_handle_name =   'h7_knc_normal_force_roll';
 

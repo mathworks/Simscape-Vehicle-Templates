@@ -2681,8 +2681,7 @@ Vehicle = Vehicle_193;
 vehcfg = Vehicle.config;
 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'LUT_Sedan_Hamba_f','SuspA1');
-Vehicle = sm_car_vehcfg_setSteer(Vehicle,'Ackermann_Hamba_f','SuspA1');
-Vehicle = sm_car_vehcfg_setSteer(Vehicle,'LUT_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DriverWheel_Hamba_f','SuspA1');
 Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'Sedan_Hamba','SuspA1');
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D_1D_HA');
 Vehicle.Chassis.SuspA1.LUT.Compliance = VDatabase.Susp_Compliance.Compliance_Tr3Ro3_Sef_LUT_Whl;
@@ -2698,22 +2697,22 @@ save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
 
-%% Custom Configuration 101: SedanLG, MFMbody, MacP F, PanRod R
+%% Custom Configuration 101: SUV, MFMbody, DWish F, PanRod R
 veh_ind = veh_ind+1;
 
-Vehicle = Vehicle_216;  
+Vehicle = Vehicle_231;  
 vehcfg = Vehicle.config;
 
-Vehicle = sm_car_vehcfg_setSusp(Vehicle,'AxleTA2PR_Sedan_HambaLG_r','SuspA2');
-Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossActuator_SUV_Landy_r','SuspA2');
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.AxleTA2PRNoSteer_Sedan_HambaLG_r;
 Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
-Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.Sedan_HambaLG_TA2PR_AsymmetricLinear_A2;
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_DW_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA2PRNoSteer_AsymmetricLinear_A2;
 Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
-Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.Sedan_HambaLG_TA2PR_AsymmetricLinear_A2;
-Vehicle.Chassis.SuspA2.AxleTA2PR.Shock_Connection.class.Value = 'CylDownCylBot';
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_DW_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA2PRNoSteer_AsymmetricLinear_A2;
 
 % Assemble configuration description in string
-Vehicle.config = strrep(vehcfg,'dwb','MacPpanRod');
+Vehicle.config = strrep(vehcfg,'Ax4Watts','DWBpanRodNoSteer');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
@@ -2734,6 +2733,54 @@ Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','None_None_None
 
 % Assemble configuration description in string
 Vehicle.config = strrep(vehcfg,'Ax2APanTrail','Ax2APanTrailHydroA1A2');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+
+%% Custom Configuration 103: Sedan Hamba LG, MFMbody, DWish F, PanRod R
+
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_227;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.Body.BodyGeometry = VDatabase.BodyGeometry.Sedan_Hamba;
+Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D_1D_HL');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_213_40R21','TireA1');
+Vehicle = sm_car_vehcfg_setTire(Vehicle,'MFMbody_Generic_213_40R21','TireA2');
+Vehicle = sm_car_vehcfg_setPeopleOnOff(Vehicle,[1 0 0 0 0],'SuspA1');
+Vehicle.Chassis.SuspA1.Linkage                        = VDatabase.Linkage.MacPherson_Sedan_Hamba_f;
+Vehicle.Chassis.SuspA1.AntiRollBar                    = VDatabase.AntiRollBar.DroplinkRod_Sedan_Hamba_mc_f;
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.AxleTA2PRNoSteer_Sedan_HambaLG_r;
+Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.Sedan_Hamba_Mac_Linear_A1;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA2PRNoSteer_AsymmetricLinear_A2;
+Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.Sedan_Hamba_Mac_Linear_A1;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA2PRNoSteer_AsymmetricLinear_A2;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'TwistBeam','MacPpanRodNoSteer');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 104: Sedan Hamba LG, MFMbody, MacPherson Split LA F, PanRod R
+
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_242;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.SuspA1.Linkage = VDatabase.Linkage.MacPhersonSplitLowerArm_Sedan_Hamba_f;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MacPpanRodNoSteer','MacPSpLApanRodNoSteer');
 
 % Save under Vehicle_###
 veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
