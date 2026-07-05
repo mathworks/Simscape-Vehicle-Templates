@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_ice_patch
 %% Floor and Grid parameters
-% Copyright 2018-2026 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 scene_data.Name = 'Ice_Patch';
 scene_data.Plane.l = 400;           % m
@@ -28,3 +28,13 @@ scene_data.Ice.z = 0.005;               % m
 scene_data.Ice.h = 0.011;           % m
 scene_data.Ice.clr = [0.8 1.0 1.0]; % [R G B]
 scene_data.Ice.opc = 1;             % (0-1)
+
+scene_data.Mu_Scaling.x = [  0  59.9  60 90    90.1 200];
+scene_data.Mu_Scaling.y = [-60 -30.1 -30 -0.01  0    60];
+scene_data.Mu_Scaling.scale = [  ...
+    1   1     1      1     1     1;
+    1   1     1      1     1     1;
+    1   1     0.4    0.4   1     1;
+    1   1     0.4    0.4   1     1;
+    1   1     1      1     1     1;
+    1   1     1      1     1     1];
