@@ -34,6 +34,12 @@ close all
 cd(fileparts(which('sm_car_sweep_optim_test.m')))
 publish('sm_car_sweep_optim_test.m')
 
+%% Publish Full Vehicle Parking Optimization Doc
+bdclose('sm_car')
+close all
+cd(fileparts(which('sm_car_sweep_optim_strfrc_test.m')))
+publish('sm_car_sweep_optim_strfrc_test.m')
+
 %% Republish Main Script
 cd(fileparts(which('Simscape_Vehicle_Library_Demo_Script.m')))
 sscRepublishDemoScript('Simscape_Vehicle_Library_Demo_Script.m')
