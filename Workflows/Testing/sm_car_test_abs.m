@@ -2,7 +2,7 @@
 
 % Copyright 2019-2024 The MathWorks, Inc
 
-% Test Torque Vectoring 
+% Test ABS 
 open_system('sm_car');
 
 out_abs_test = sm_car_test_abs_function('hamba');

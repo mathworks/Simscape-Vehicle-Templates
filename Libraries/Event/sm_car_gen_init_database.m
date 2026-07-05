@@ -39,6 +39,14 @@ InitSet.Flat.Data      = {...
     'vChassis','m/s', 1, 0,       0;
     'sChassis','m',   5, 0,       0};
 
+%% Scene Flat Surface, Reverse
+InitSet.Parking.Type      = 'Parking';
+InitSet.Parking.Instance  = '';
+InitSet.Parking.Data      = {...
+    'aChassis','rad',  0, 0,       0;
+    'vChassis','m/s', -2, 0,       0;
+    'sChassis','m',   35, 0,       0};
+
 %% Scene Mallory Park, Forwards Lap, Slow Start
 InitSet.Mallory_Park.Type = 'Mallory_Park';
 InitSet.Mallory_Park.Instance     = '';
