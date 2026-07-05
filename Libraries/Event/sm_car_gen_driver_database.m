@@ -319,6 +319,7 @@ cl_manv_longLat = {...
     'Constant_Radius_CL';
     'Skidpad';
     'Straight_Constant_Speed';
+    'Parking';
     'Fishhook';
     'Coastdown';
     'Sine_With_Dwell';

@@ -1,4 +1,4 @@
-% Script to generate lookup table data from multi-link suspension
+%% Generate Lookup Table Data from Multi-Link Suspension
 %
 % Using kinematic and compliance tests, we can generate the data necessary
 % to replicate the kinematic and compliant behavior of a multi-link
@@ -6,13 +6,12 @@
 % suspension and process the simulation results to get the data required to
 % parameterize a lookup-table based kinematic joint.
 %
-% Copyright 2025 The MathWorks, Inc
+% Copyright 2026 The MathWorks, Inc
 
-% Open models and load vehicle data
+%% Open models and load vehicle data
+% 
 open_system('sm_car')
 open_system('testrig_susp_knc')
-set_param('testrig_susp_knc/Axle/Config/Mechanism Configuration',...
-    'GravityVector','[0 0 -9.80665]*0');
 
 % Preset number
 preset_num = '189'; % Double Wishbone
@@ -20,36 +19,43 @@ preset_num = '189'; % Double Wishbone
 % Load preset
 sm_car_load_vehicle_data('none',preset_num);
 
-% --- Eliminate effects LUT suspension cannot capture
-% Remove Anti Roll bar, not included in LUT Susp
+% Turn off gravity
+set_param('testrig_susp_knc/Axle/Config/Mechanism Configuration',...
+    'GravityVector','[0 0 -9.80665]*0');
+
+% *** Set to "true"  to generate data, 
+% ***        "false" to test using presets on full vehicle
+generateLUTData = false;
+
+%% 1. Get motion ratio for damper, spring force (KnC Test)
+%
+% In this step, we run a standard KnC test and extract the results from the
+% jounce-rebound sequence to get the motion ratio for the damper.  The
+% motion ratio for the damper is (speed of shock compression/vertical speed
+% of wheel center). The damper is turned off so that the force of the
+% spring is easier to measure.
+
+% Load KnC Motion Profiles
+if(generateLUTData)
+
+Maneuver = MDatabase.KnC.Sedan_Hamba;
+set_param('testrig_susp_knc','StopTime',num2str(Maneuver.PostL1.t.Value(end)));
+
+% Remove Anti Roll bar 
 Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA1');
 
-% Reduce mass of all parts not included in LUT suspension
-Vehicle.Chassis.SuspA1.Linkage.UpperWishbone.m.Value = 0.01;
-Vehicle.Chassis.SuspA1.Linkage.LowerWishbone.m.Value = 0.01;
-Vehicle.Chassis.SuspA1.Linkage.Upright.m.Value       = 0.01;
-Vehicle.Chassis.SuspA1.Linkage.TrackRod.m.Value      = 0.01;
-Vehicle.Chassis.SuspA1.Linkage.Upright.mAxle.Value   = 0.01;
-Vehicle.Chassis.SuspA1.AntiRollBar.m.Value= 0.01;
-Vehicle.Chassis.SuspA1.Linkage.Shock.mPiston.Value   = 0.01;
-Vehicle.Chassis.SuspA1.Linkage.Shock.mCylinder.Value = 0.01;
-Vehicle.Chassis.SuspA1.Steer.Rack.m.Value            = 0.01;
-
-% Turn off damping to make stiffness capture easier
+% Turn off damping 
 dtemp = Vehicle.Chassis.Damper.Axle1.Damping.d.Value;
 Vehicle.Chassis.Damper.Axle1.Damping.d.Value = 0;
 
-
-%% Run simulation and extract necessary results 
-% Load KnC Motion Profiles
-Maneuver = MDatabase.KnC.Sedan_Hamba;
-
+% Run simulation
 sim('testrig_susp_knc')
-[TSuspMetricsLink,toeCurve,camCurve,pxCurve,pyCurve,strCurve, fzCurve, vrtCurve] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
 
-%% Extract a lookup table representing the kinematic behavior 
-% Results are from the jounce-rebound portion of the Kinematics and Compliance test.
+% Extract lookup tables 
+AxNum = 1;
+[TSuspMetricsLink,toeCurve,camCurve, ~,pxCurve,pyCurve,strCurve, fzCurve, vrtCurve] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
+% Settings for LUT generation
 opts = struct;
 opts.dupMethod    = "mean";     % merge duplicate x by averaging y
 opts.gridMethod   = "uniform";  % evenly spaced breakpoints
@@ -60,189 +66,299 @@ opts.smoothY      = 0;
 % Number of points for lookup tables
 npts = 20;
 
-% -- Generate Lookup Tables
+% Motion ratio, used for damping in final model
+[bp_vr, tbl_vr, info] = buildLookupTable(vrtCurve.pzTire, vrtCurve.vrt, npts, opts);
+
+% -- Generate 1D kinematic lookup tables (kept for reference but not used)
 [bp_px, tbl_px, ~] = buildLookupTable(pxCurve.pzTire, pxCurve.px, npts, opts);     % Long
 [bp_py, tbl_py, ~] = buildLookupTable(pyCurve.pzTire, pyCurve.py, npts, opts);     % Lat
 [bp_qz, tbl_qz, ~] = buildLookupTable(toeCurve.pzTire, toeCurve.qToe, npts, opts); % Toe
 [bp_qx, tbl_qx, ~] = buildLookupTable(camCurve.pzTire, camCurve.qCam, npts, opts); % Camber
 [bp_fz, tbl_fz, ~] = buildLookupTable(fzCurve.pzTire, fzCurve.fz, npts, opts);     % Spring Force
 
-% Steering
+% -- Steering (kept for reference but not used)
 [bp_aToeL, tbl_qToeL, ~] = buildLookupTable(strCurve.aWhl, strCurve.aToeL, npts, opts); 
 [bp_aToeR, tbl_qToeR, ~] = buildLookupTable(strCurve.aWhl, strCurve.aToeR, npts, opts);
 
-% Motion ratio, used for damping
-[bp_vr, tbl_vr, info] = buildLookupTable(vrtCurve.pzTire, vrtCurve.vrt, npts, opts);
-
-% Plot curves and lookup table points
-figure(77)
-subplot(221)
-plot(pxCurve.px,pxCurve.pzTire,'LineWidth',1,'DisplayName','Test');
-hold on
-plot(tbl_px,bp_px,'ro','DisplayName','LUT')
-hold off
-title('Wheel Center pz vs. px')
-xlabel('x Long (m)');
-ylabel('z Height (m)');
-legend('Location','Best')
-
-subplot(222)
-plot(pyCurve.py,pxCurve.pzTire,'LineWidth',1,'DisplayName','Test');
-hold on
-plot(tbl_py,bp_py,'ro','DisplayName','LUT')
-hold off
-title('Wheel Center pz vs. py')
-xlabel('y Lateral (m)');
-ylabel('z Height (m)');
-
-subplot(223)
-plot(toeCurve.qToe,toeCurve.pzTire,'LineWidth',1,'DisplayName','Test');
-hold on
-plot(tbl_qz,bp_qz,'ro','DisplayName','LUT')
-hold off
-title('Wheel Center pz vs. Toe')
-xlabel('Toe Angle (deg)');
-ylabel('z Height (m)');
-
-subplot(224)
-plot(camCurve.qCam,camCurve.pzTire,'LineWidth',1,'DisplayName','Test');
-hold on
-plot(tbl_qx,bp_qx,'ro','DisplayName','LUT')
-hold off
-title('Wheel Center pz vs. Camber')
-xlabel('Camber Angle (deg)');
-ylabel('z Height (m)');
-
-figure(78)
-plot(strCurve.aWhl, strCurve.aToeL,'LineWidth',1,'DisplayName','Test L');
-hold on
-plot(strCurve.aWhl, strCurve.aToeR,'LineWidth',1,'DisplayName','Test R');
-plot(bp_aToeL,tbl_qToeL,'ko','DisplayName','LUT')
-plot(bp_aToeR,tbl_qToeR,'kx','DisplayName','LUT')
-hold off
-title('q Handwheel pz vs. Toe')
-xlabel('Toe Angle (deg)');
-ylabel('z Height (m)');
-
-figure(79)
+% Plot force curves from spring
+figure(176)
 subplot(121)
 plot(fzCurve.fz, fzCurve.pzTire,'LineWidth',1,'DisplayName','Link');
 hold on
-plot(tbl_fz,bp_fz,'ro','DisplayName','LUT')
+plot(tbl_fz,bp_fz,'ro','DisplayName','LUT Points')
 hold off
 title('Fz Force vs Height (Spring)')
 xlabel('Force (N)');
 ylabel('z Height (m)');
 
-%% Run simulation with damping and no spring to verify damping force
+%% 2. Get damping force for verification (KnC Test)
+%
+% In this step, we run a standard KnC test and extract the results from the
+% jounce-rebound sequence to get the force from the damper. We do not
+% include this in the final set of parameters for the lookup table
+% suspension, we use this to confirm that the damping in the lookup
+% table suspension is comparable to the original suspension model.
+
+% Turn damping back on
 Vehicle.Chassis.Damper.Axle1.Damping.d.Value = dtemp;
+
+% Turn spring stiffness off
 ktemp = Vehicle.Chassis.Spring.Axle1.K.Value;
 Vehicle.Chassis.Spring.Axle1.K.Value = 1e-3;
-sim('testrig_susp_knc')
-[~,~,~,~,~,~,fzCurveDS,~] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
 
-% Add damping force to plot
-figure(79)
+% Run simulation
+sim('testrig_susp_knc')
+
+% Extract results
+[~,~,~,~,~,~,~,fzCurveDS,~] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
+
+% Plot damping force from multilink suspension
+figure(176)
 subplot(122)
 plot(fzCurveDS.fz, fzCurveDS.pzTire,'LineWidth',1,'DisplayName','Link');
 title('Fz Force vs Height (Damper)')
 xlabel('Force (N)');
 ylabel('z Height (m)');
 
-%% Load lookup table data into preset
-sm_car_load_vehicle_data('none','239');
+%% 3. Get anti-roll bar force for lookup tables (KnC Test)
+%
+% In this step, we run a standard KnC test and extract the results from the
+% roll sequence to get the force only from the anti roll bar. For this test
+% we turn off the spring and damper so that the only force the testrig has
+% to overcome is due to the anti-roll bar.
 
-Vehicle.Chassis.SuspA1.LUT.Kinematics.aToe.Value  = tbl_qz;
-Vehicle.Chassis.SuspA1.LUT.Kinematics.zaToe.Value = bp_qz;
+% Damper off, spring off
+Vehicle.Chassis.Damper.Axle1.Damping.d.Value = 1e-3;
+ktemp = Vehicle.Chassis.Spring.Axle1.K.Value;
+Vehicle.Chassis.Spring.Axle1.K.Value         = 1e-3;
 
-Vehicle.Chassis.SuspA1.LUT.Kinematics.aCamber.Value  = tbl_qx;
-Vehicle.Chassis.SuspA1.LUT.Kinematics.zaCamber.Value = bp_qx;
+% Anti Roll Bar on with no damping
+Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'DroplinkRod_Sedan_Hamba_LA_f','SuspA1');
+arbd_temp = Vehicle.Chassis.SuspA1.AntiRollBar.d.Value;
+Vehicle.Chassis.SuspA1.AntiRollBar.d.Value = 0;
 
-Vehicle.Chassis.SuspA1.LUT.Kinematics.xLong.Value  = tbl_px;
-Vehicle.Chassis.SuspA1.LUT.Kinematics.zxLong.Value = bp_px;
+% Run simulation
+sim('testrig_susp_knc')
 
-Vehicle.Chassis.SuspA1.LUT.Kinematics.xLat.Value  = tbl_py;
-Vehicle.Chassis.SuspA1.LUT.Kinematics.zxLat.Value = bp_py;
+% Extract results
+[~,~,~,KNCRes,~,~,~,~,~] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
-Vehicle.Chassis.SuspA1.LUT.Kinematics.aCaster.Value  = tbl_py*0;
-Vehicle.Chassis.SuspA1.LUT.Kinematics.zaCaster.Value = bp_py;
+% Generate lookup table
+[bp_arbdz, tbl_arbFz, ~] = buildLookupTable(KNCRes.Bounce.OPP.pzWCL-KNCRes.Bounce.OPP.pzWCR, KNCRes.Bounce.OPP.fzTireL-KNCRes.Bounce.OPP.fzTireR, npts, opts);     % Long
+SusKin.Arb.dz.Value = bp_arbdz;
+SusKin.Arb.f.Value  = tbl_arbFz;
+
+% Plot force from anti-roll bar
+figure(177)
+plot(SusKin.Arb.dz.Value, SusKin.Arb.f.Value,'LineWidth',1,'DisplayName','Link');
+title('Anti-Roll Bar Force')
+xlabel('Wheel Center Height Difference, Left-Right (m)');
+ylabel('Force Couple at Wheel Centers (N)');
+grid on
+
+%% 4. Get toe, camber, long. def., lat def. for lookup tables (Jounce & Steer Sweep)
+%
+% In this step, we run a sweep over the entire motion envelope of the wheel
+% so we can create the kinematic tables for the suspension motion. The
+% wheel starts steered all the way to the left and moved all the way down.
+% The following sequence is repeated until the entire steering range is
+% covered:
+% 
+% # Move all the way up
+% # Increase steering slightly
+% # Move all the way down
+% # Increase steering slightly
+
+% Load sequence to sweep wheel center height and steering angle
+Maneuver = MDatabase.JounceSteerSweep.Sedan_Hamba;
+set_param('testrig_susp_knc','StopTime',num2str(Maneuver.PostL1.t.Value(end)));
+
+% Run simulation
+sim('testrig_susp_knc');
+
+% Extract results
+logsout_VehBus   = logsout_sm_car_testrig_quarter_car.get('VehBus');
+simlog_t         = logsout_VehBus.Values.Chassis.WhlL1.xyz.Time;
+simlog_pxTire    = logsout_VehBus.Values.Chassis.WhlL1.xyz.Data(:,1);
+simlog_pyTire    = logsout_VehBus.Values.Chassis.WhlL1.xyz.Data(:,2);
+simlog_pzTire    = logsout_VehBus.Values.Chassis.WhlL1.xyz.Data(:,3);
+simlog_aCamber   = squeeze(logsout_VehBus.Values.Chassis.SuspA1.WhlL.aCamber.Data);
+simlog_aToe      = squeeze(logsout_VehBus.Values.Chassis.SuspA1.WhlL.aToe.Data);
+simlog_aWheel    = squeeze(logsout_VehBus.Values.Chassis.SuspA1.Steer.aWheel.Data);
+
+% Omit phase moving wheel to lower right position
+indStart = find(simlog_t>20,1);
+
+% Generate lookup tables
+nZ = 22;     % Number of wheel center height breakpoints
+nA = 23;     % Number of steering angle breakpoints
+
+[bpZ, bpA, TbleToeL, ~] = build2DLUT_fromTimeSweep(simlog_pzTire(indStart:end)-simlog_pzTire(1), simlog_aWheel(indStart:end), simlog_aToe(indStart:end), nZ, nA, ...
+    'DupMethod','mean','TolZ',1e-4,'TolA',1e-4,'GridMethodZ','uniform','GridMethodA','uniform','InterpMethod','linear','MakePlots',true);
+SusKin.aToe.Value  = TbleToeL;
+SusKin.zaToe.Value = bpZ;
+SusKin.qaToe.Value = bpA;
+
+[bpZ, bpA, TbleCambL, ~] = build2DLUT_fromTimeSweep(simlog_pzTire(indStart:end)-simlog_pzTire(1), simlog_aWheel(indStart:end), simlog_aCamber(indStart:end), nZ, nA, ...
+    'DupMethod','mean','TolZ',1e-4,'TolA',1e-4,'GridMethodZ','uniform','GridMethodA','uniform','InterpMethod','linear','MakePlots',false);
+SusKin.aCamber.Value  = TbleCambL;
+SusKin.zaCamber.Value = bpZ;
+SusKin.qaCamber.Value = bpA;
+
+[bpZ, bpA, TblexTireL, ~] = build2DLUT_fromTimeSweep(simlog_pzTire(indStart:end)-simlog_pzTire(1), simlog_aWheel(indStart:end), simlog_pxTire(indStart:end)-simlog_pxTire(1), nZ, nA, ...
+    'DupMethod','mean','TolZ',1e-4,'TolA',1e-4,'GridMethodZ','uniform','GridMethodA','uniform','InterpMethod','linear','MakePlots',false);
+SusKin.xLong.Value  = TblexTireL;
+SusKin.zxLong.Value = bpZ;
+SusKin.qxLong.Value = bpA;
+
+[bpZ, bpA, TbleyTireL, ~] = build2DLUT_fromTimeSweep(simlog_pzTire(indStart:end)-simlog_pzTire(1), simlog_aWheel(indStart:end), simlog_pyTire(indStart:end)-simlog_pyTire(1), nZ, nA, ...
+    'DupMethod','mean','TolZ',1e-4,'TolA',1e-4,'GridMethodZ','uniform','GridMethodA','uniform','InterpMethod','linear','MakePlots',false);
+SusKin.xLat.Value  = TbleyTireL;
+SusKin.zxLat.Value = bpZ;
+SusKin.qxLat.Value = bpA;
+
+SusKin.aCaster.Value  = TbleyTireL*0;
+SusKin.zaCaster.Value = bpZ;
+SusKin.qaCaster.Value = bpA;
+
+%% 5. Load generated data into Vehicle dataset
+%
+% In this step, we load the generated lookup tables into the Vehicle data
+% structure so we can test them on a full vehicle.  The plots below show
+% the lookup tables.
+
+sm_car_load_vehicle_data('none','239'); % Load from preset during testing
+
+% Only steering wheel, no passenger, no driver
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DriverWheel_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setPassenger(Vehicle,'None');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'None','SuspA1');
+
+% Populate Vehicle structure with lookup tables
+Vehicle.Chassis.SuspA1.LUT.Kinematics.aToe.Value  = SusKin.aToe.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.zaToe.Value = SusKin.zaToe.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.qaToe.Value = SusKin.qaToe.Value;
+
+Vehicle.Chassis.SuspA1.LUT.Kinematics.aCamber.Value  = SusKin.aCamber.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.zaCamber.Value = SusKin.zaCamber.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.qaCamber.Value = SusKin.qaCamber.Value;
+
+Vehicle.Chassis.SuspA1.LUT.Kinematics.xLong.Value  = SusKin.xLong.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.zxLong.Value = SusKin.zxLong.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.qxLong.Value = SusKin.qxLong.Value;
+
+Vehicle.Chassis.SuspA1.LUT.Kinematics.xLat.Value  = SusKin.xLat.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.zxLat.Value = SusKin.zxLat.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.qxLat.Value = SusKin.qxLat.Value;
+
+Vehicle.Chassis.SuspA1.LUT.Kinematics.aCaster.Value  = SusKin.aCaster.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.zaCaster.Value = SusKin.zaCaster.Value;
+Vehicle.Chassis.SuspA1.LUT.Kinematics.qaCaster.Value = SusKin.qaCaster.Value;
 
 Vehicle.Chassis.SuspA1.LUT.Spring.f.Value = tbl_fz;
 Vehicle.Chassis.SuspA1.LUT.Spring.x.Value = bp_fz;
+
+Vehicle.Chassis.SuspA1.LUT.AntiRollBar.dz.Value = SusKin.Arb.dz.Value;
+Vehicle.Chassis.SuspA1.LUT.AntiRollBar.f.Value  = SusKin.Arb.f.Value;
 
 % Damping coefficient is taken directly from multibody model
 Vehicle.Chassis.SuspA1.LUT.Spring.d.Value = 5500;
 
 % Motion ratio, used to determine damping force
-Vehicle.Chassis.SuspA1.LUT.Spring.vrt.Value = tbl_vr;
+Vehicle.Chassis.SuspA1.LUT.Spring.vrt.Value  = tbl_vr;
 Vehicle.Chassis.SuspA1.LUT.Spring.zvrt.Value = bp_vr;
 
-%% Test LUT suspension against multilink suspension
- 
+% Plot 2D suspension lookup tables
+sm_car_lut_plot1lutkin(Vehicle.Chassis.SuspA1.LUT.Kinematics);
+
+%% 6. Get damping force from LUT suspension for verification (KnC test)
+%
+% In this step, we test the lookup table suspension with a standard KnC
+% test to obtain the force from the damper.  This is obtained to confirm
+% that the lookup table suspension model captures the damping force
+% consistently with the multibody suspension model.
+
 % Test with no spring to get force from damper
 Vehicle.Chassis.SuspA1.LUT.Spring.f.Value    = tbl_fz*0;
-Vehicle.Chassis.SuspA1.LUT.Spring.x.Value    = bp_fz;
-Vehicle.Chassis.SuspA1.LUT.Spring.vrt.Value  = tbl_vr;
-Vehicle.Chassis.SuspA1.LUT.Spring.zvrt.Value = bp_vr;
-sim('testrig_susp_knc')
-[~,~,~,~,~, ~, fzCurveLUD,~] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
 
-% Test with spring and damper
-Vehicle.Chassis.SuspA1.LUT.Spring.f.Value    = tbl_fz;
-Vehicle.Chassis.SuspA1.LUT.Spring.x.Value    = bp_fz;
-Vehicle.Chassis.SuspA1.LUT.Spring.vrt.Value  = tbl_vr;
-Vehicle.Chassis.SuspA1.LUT.Spring.zvrt.Value = bp_vr;
-sim('testrig_susp_knc')
-[TSuspMetrics,toeCurveLUT,camCurveLUT,pxCurveLUT,pyCurveLUT, strCurveLUT, fzCurveLUT,vrtCurveLUT] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,true,true,false);
+% Load KnC test sequence
+Maneuver = MDatabase.KnC.Sedan_Hamba;
+set_param('testrig_susp_knc','StopTime',num2str(Maneuver.PostL1.t.Value(end)));
 
+% Run simulation
+sim('testrig_susp_knc')
+
+% Extract rig force (acting against damper)
+[~,~,~,~,~,~, ~, fzCurveLUD,~] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
 % Add results from LUT KnC test to previous plots
-figure(77)
-subplot(221)
-hold on
-plot(pxCurveLUT.px,pxCurveLUT.pzTire,'k--','LineWidth',1,'DisplayName','LUT');
-hold off
-legend('Location','Best')
-
-subplot(222)
-hold on
-plot(pyCurveLUT.py,pxCurveLUT.pzTire,'k--','LineWidth',1,'DisplayName','LUT');
-hold off
-
-subplot(223)
-hold on
-plot(toeCurveLUT.qToe,toeCurveLUT.pzTire,'k--','LineWidth',1,'DisplayName','LUT');
-hold off
-
-subplot(224)
-hold on
-plot(camCurveLUT.qCam,camCurveLUT.pzTire,'k--','LineWidth',1,'DisplayName','LUT');
-hold off
-
-figure(79)
-subplot(121)
-hold on
-plot(fzCurveLUT.fz, fzCurveLUT.pzTire,'k--','LineWidth',1,'DisplayName','LUT');
-hold off
-
+figure(176)
 subplot(122)
 hold on
 plot(fzCurveLUD.fz, fzCurveLUD.pzTire,'k--','LineWidth',1,'DisplayName','LUT');
 hold off
+legend('Location','Best')
 
-%% Test on Fishhook Maneuver
-%sm_car_load_vehicle_data('none','239');
+%% 7. Get spring force from LUT suspension for verification (KnC test)
+%
+% In this step, we test the lookup table suspension with a standard KnC
+% test to obtain the force from the spring.  This is obtained to confirm
+% that the lookup table suspension model captures the spring force
+% consistently with the multibody suspension model.
 
-% Use Simple suspension on rear and 1D Drivetrain
+% Re-enable spring
+Vehicle.Chassis.SuspA1.LUT.Spring.f.Value    = tbl_fz;
+
+% Run simulation
+sim('testrig_susp_knc')
+
+% Extract rig force (acting against spring and damper)
+[~,~,~,~,~,~, ~, fzCurveLUT,~] = sm_car_knc_plot1toecamber(logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
+
+% Add results from LUT KnC test to previous plots
+figure(176)
+subplot(121)
+hold on
+plot(fzCurveLUT.fz, fzCurveLUT.pzTire,'k--','LineWidth',1,'DisplayName','LUT Results');
+hold off
+legend('Location','Best')
+
+end
+%% 8. Test LUT suspension on front axle of full vehicle
+%
+% In this step, we test the lookup table suspension in a full vehicle
+% maneuver. Vehicle settings are adjusted to focus the comparison on the
+% front suspension (lookup table vs. multi-link suspension).
+open_system('sm_car')
+
+if(~generateLUTData)
+   % Load from preset if you wish to skip previous steps
+  sm_car_load_vehicle_data('none','239');  % Load from preset during testing
+  bp_vr  = Vehicle.Chassis.SuspA1.LUT.Spring.zvrt.Value;
+  tbl_vr = Vehicle.Chassis.SuspA1.LUT.Spring.vrt.Value;
+end
+
+% Use simple vehicle settings to increase emphasis of front suspension
+% Same settings will be used on the vehicle with the multi-link suspension 
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D_1D_HA');
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DriverWheel_Hamba_f','SuspA1');
+Vehicle = sm_car_vehcfg_setPassenger(Vehicle,'None');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'None','SuspA1');
 
-% Set internal masses to very low values
+% Set internal masses to very low values to 
+% eliminate differences with the multi-link suspension
 Vehicle.Chassis.SuspA1.LUT.Axle.mAxle.Value = 0.01;
 Vehicle.Chassis.SuspA1.LUT.UnsprungMass.m.Value = 0.01;
 
 % Select test for comparison
 sm_car_config_maneuver('sm_car','Fishhook');
+%Maneuver.Steer.aWheel.Value = Maneuver.Steer.aWheel.Value*-1;
+%Maneuver.Trajectory.vx.Value = Maneuver.Trajectory.vx.Value*0.75;
+
+%sm_car_config_maneuver('sm_car','WOT Braking');
+%Maneuver.Accel.rPedal.Value = Maneuver.Accel.rPedal.Value*0.5;
+
 %sm_car_config_maneuver('sm_car','Low Speed Steer');
 %sm_car_config_maneuver('sm_car','None');
 
@@ -264,27 +380,42 @@ sim_toe_LUT = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'toeWhl');
 sim_wpz_LUT = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'pzWhl');
 sim_xSp_LUT = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'xShock');
 sim_vveh_LUT = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'vVeh');
+ElapsedSimTimeLUT = Elapsed_Sim_Time;
 
-% Load multi-link suspension
+sm_car_plot1speed
+
+%% 9. Test multi-link suspension on front axle of full vehicle
+%
+% In this step, we test the multi-link suspension in a full vehicle
+% maneuver. Vehicle settings are adjusted to focus the comparison on the
+% front suspension (lookup table vs. multi-link suspension).
+
 sm_car_load_vehicle_data('none',preset_num);
 
 % Use Simple suspension on rear, 1D Drivetrain
 Vehicle = sm_car_vehcfg_setSusp(Vehicle,'Simple15DOF_Sedan_Hamba_r','SuspA2');
 Vehicle = sm_car_vehcfg_setDrv(Vehicle,'A2_D1D2_1D_1D_HA');
-
-% Remove Anti Roll bar, not included in LUT Susp
-Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA1');
+Vehicle = sm_car_vehcfg_setPassenger(Vehicle,'None');
+Vehicle = sm_car_vehcfg_setDriverHuman(Vehicle,'None','SuspA1');
 
 % Reduce mass of all parts not included in LUT suspension
+% (eliminate all sources of difference for comparison)
 Vehicle.Chassis.SuspA1.Linkage.UpperWishbone.m.Value = 0.01;
 Vehicle.Chassis.SuspA1.Linkage.LowerWishbone.m.Value = 0.01;
 Vehicle.Chassis.SuspA1.Linkage.Upright.m.Value       = 0.01;
 Vehicle.Chassis.SuspA1.Linkage.TrackRod.m.Value      = 0.01;
 Vehicle.Chassis.SuspA1.Linkage.Upright.mAxle.Value   = 0.01;
-Vehicle.Chassis.SuspA1.AntiRollBar.m.Value= 0.01;
+Vehicle.Chassis.SuspA1.AntiRollBar.m.Value           = 0.01;
 Vehicle.Chassis.SuspA1.Linkage.Shock.mPiston.Value   = 0.01;
 Vehicle.Chassis.SuspA1.Linkage.Shock.mCylinder.Value = 0.01;
 Vehicle.Chassis.SuspA1.Steer.Rack.m.Value            = 0.01;
+
+% Optional: Remove Anti Roll bar to see impact
+%Vehicle = sm_car_vehcfg_setAntiRollBar(Vehicle,'None','SuspA1');
+
+% Optional: Enable bushings to see impact
+%Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','UA','BushArm_AxRad_Sef_DW_UA');
+%Vehicle = sm_car_vehcfg_setSubframeConn(Vehicle,'A1','LA','BushArm_AxRad_Sef_DW_LA');
 
 % Run simulation
 sim('sm_car')
@@ -301,18 +432,23 @@ sim_toe_Link = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'toeWhl')
 sim_wpz_Link = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'pzWhl');
 sim_xSp_Link = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'xShock');
 sim_vveh_Link = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'vVeh');
+ElapsedSimTimeLink = Elapsed_Sim_Time;
 
-% -- Create Comparison Plots
+sm_car_plot1speed
 
-% Plot vehicle position
+%% 10. Compare results of full vehicle test
+%
+% In this step, we create plots to see how the suspensions compare.
+
+% --- Plot vehicle position
 figure(178); set(gcf,'Name','h1_vehicle_pxy')
 subplot(221)
-plot(sim_px_LUT.data,sim_py_LUT.data,'LineWidth',1,'DisplayName','LUT')
+plot(sim_px_Link.data,sim_py_Link.data,'LineWidth',1,'DisplayName','Link')
 hold on
-plot(sim_px_Link.data,sim_py_Link.data,'--','LineWidth',1,'DisplayName','Link')
+plot(sim_px_LUT.data,sim_py_LUT.data,'--','LineWidth',1,'DisplayName','LUT')
 hold off
 grid on
-legend('Location','Best')
+legend('Location','southeast')
 axis equal
 title('Vehicle Position')
 xlabel('X (m)')
@@ -321,9 +457,9 @@ mxX = max([sim_px_LUT.data;sim_px_Link.data])*1.1;
 set(gca,'XLim',[100 mxX]);
 
 subplot(222)
-plot(sim_t_LUT.data,sim_vveh_LUT.data,'LineWidth',1,'DisplayName','LUT')
+plot(sim_t_Link.data,sim_vveh_Link.data,'LineWidth',1,'DisplayName','Link')
 hold on
-plot(sim_t_Link.data,sim_vveh_Link.data,'--','LineWidth',1,'DisplayName','Link')
+plot(sim_t_LUT.data,sim_vveh_LUT.data,'--','LineWidth',1,'DisplayName','LUT')
 hold off
 xlabel('Time (s)')
 ylabel('Vehicle Spd (m/s)')
@@ -343,46 +479,65 @@ ylabel('Toe Angle (deg)')
 subplot(224)
 sim_resX = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'time');
 sim_resY = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'aSteer');
-plot(sim_resX.data,sim_resY.data)
+plot(sim_resX.data,sim_resY.data,'b','LineWidth',1)
 xlabel('Time (s)')
 ylabel('Steer Whl Angle (rad)')
 title ('Steer Whl Angle')
 grid on
 
-
-
-% Plot Tire Vertical Force
+% --- Plot Tire Vertical Force
 figure(179); set(gcf,'Name','h1_whl_fz')
-ah(1) = subplot(121);
-plot(sim_t_LUT.data,sim_fz_LUT.data')
-text(0.2,0.09,sprintf('%3.3f',sum(sim_fz_LUT.data(end,:))),'Units','normalized')
-title('Fz, LUT')
-grid on
-
-ah(2) = subplot(122);
-plot(sim_t_Link.data,sim_fz_Link.data)
-text(0.2,0.09,sprintf('%3.3f',sum(sim_fz_Link.data(end,:))),'Units','normalized')
-title('Fz, Link')
-grid on
-
-linkaxes(ah,'y')
-
-% Plot Chassis Roll Angle
-figure(180); set(gcf,'Name','h1_vehicle_roll')
-plot(sim_t_LUT.data,sim_rll_LUT.data,'LineWidth',1,'DisplayName','LUT')
+ah(1) = subplot(221);
+plot(sim_t_Link.data,sim_fz_Link.data(:,1)','DisplayName','Link')
 hold on
+plot(sim_t_LUT.data,sim_fz_LUT.data(:,1)','--','DisplayName','LUT')
+hold off
+text(0.2,0.09,sprintf('LUT %3.3f',sum(sim_fz_LUT.data(end,:))),'Units','normalized')
+title('Fz, FL')
+grid on
+legend('Location','Best')
+
+ah(2) = subplot(222);
+plot(sim_t_Link.data,sim_fz_Link.data(:,3)','DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_fz_LUT.data(:,3)','--','DisplayName','LUT')
+hold off
+text(0.2,0.09,sprintf('Link %3.3f',sum(sim_fz_Link.data(end,:))),'Units','normalized')
+title('Fz, FR')
+grid on
+
+ah(3) = subplot(223);
+plot(sim_t_Link.data,sim_fz_Link.data(:,2)','DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_fz_LUT.data(:,2)','--','DisplayName','LUT')
+hold off
+title('Fz, RR')
+grid on
+
+ah(2) = subplot(224);
+plot(sim_t_Link.data,sim_fz_Link.data(:,4)','DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_fz_LUT.data(:,4)','--','DisplayName','LUT')
+hold off
+title('Fz, RL')
+grid on
+linkaxes(ah,'xy')
+
+% --- Plot Chassis Roll Angle
+figure(180); set(gcf,'Name','h1_vehicle_roll')
 plot(sim_t_Link.data,sim_rll_Link.data,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_rll_LUT.data,'--','LineWidth',1,'DisplayName','LUT')
 hold off
 title('Roll Angle')
 legend('Location','Best')
 grid on
 
-
-% Plot Chassis Pitch Angle
+% --- Plot Chassis Pitch Angle
 figure(181); set(gcf,'Name','h1_vehicle_pitch')
-plot(sim_t_LUT.data,sim_pit_LUT.data*180/pi,'LineWidth',1,'DisplayName','LUT')
-hold on
 plot(sim_t_Link.data,sim_pit_Link.data*180/pi,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_pit_LUT.data*180/pi,'--','LineWidth',1,'DisplayName','LUT')
 hold off
 title('Pitch Angle')
 legend('Location','Best')
@@ -390,28 +545,36 @@ grid on
 xlabel('Time (s)')
 ylabel('Pitch Angle (deg)')
 
-
-% Plot Front Left Toe Angle
+% --- Plot Front Left Toe Angle
 figure(182); set(gcf,'Name','h1_whl_toe')
-ah2(2) = subplot(122);
-plot(sim_t_Link.data,sim_toe_Link.data(:,1:2)*180/pi,'LineWidth',1)
-title('Toe Angle, Link')
+ah2(2) = subplot(121);
+plot(sim_t_Link.data,sim_toe_Link.data(:,1)*180/pi,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_toe_LUT.data(:,1)*180/pi,'--','LineWidth',1,'DisplayName','LUT')
+hold off
+title('Toe Angle, FL')
 grid on
 xlabel('Time (s)')
-ylabel('Toe Angle (deg)')
-ah2(1) = subplot(121);
-plot(sim_t_LUT.data,sim_toe_LUT.data(:,1:2)*180/pi,'LineWidth',1)
-title('Toe Angle, LUT')
+ylabel('Toe Angle FL (deg)')
+legend('Location','Best')
+
+ah2(1) = subplot(122);
+plot(sim_t_Link.data,sim_toe_Link.data(:,2)*180/pi,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_toe_LUT.data(:,2)*180/pi,'--','LineWidth',1,'DisplayName','LUT')
+hold off
+title('Toe Angle, FR')
 xlabel('Time (s)')
-ylabel('Toe Angle (deg)')
+ylabel('Toe Angle FR (deg)')
 grid on
+legend('Location','Best')
 linkaxes(ah2,'xy')
 
-% Plot vehicle position z
+% --- Plot vehicle position z (height)
 figure(183); set(gcf,'Name','h1_vehicle_pz')
-plot(sim_t_LUT.data,sim_pz_LUT.data,'LineWidth',1,'DisplayName','LUT')
-hold on
 plot(sim_t_Link.data,sim_pz_Link.data,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_pz_LUT.data,'--','LineWidth',1,'DisplayName','LUT')
 hold off
 grid on
 xlabel('Time (s)')
@@ -419,36 +582,97 @@ ylabel('Position in z (m)')
 title('Vehicle Height')
 legend('Location','Best')
 
-% Plot wheel vertical position
+% --- Plot wheel vertical position
 figure(184); set(gcf,'Name','h1_wheel_pz')
-ah3(1) = subplot(121);
-plot(sim_t_LUT.data,sim_wpz_LUT.data,'LineWidth',1,'DisplayName','LUT')
-title('Whl Ctr z, LUT')
+ah3(1) = subplot(221);
+plot(sim_t_Link.data,sim_wpz_Link.data(:,1),'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_wpz_LUT.data(:,1),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+title('Whl Ctr z, FL')
 xlabel('Time (s)')
 ylabel('Position in z (m)')
 grid on
-ah3(2) = subplot(122);
-plot(sim_t_Link.data,sim_wpz_Link.data,'LineWidth',1,'DisplayName','Link')
+legend('Location','Best')
+
+ah3(2) = subplot(222);
+plot(sim_t_Link.data,sim_wpz_Link.data(:,3),'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_wpz_LUT.data(:,3),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+title('Whl Ctr z, FR')
+ylabel('Position in z (m)')
 grid on
-title('Whl Ctr z, Link')
+
+ah3(3) = subplot(223);
+plot(sim_t_Link.data,sim_wpz_Link.data(:,2),'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_wpz_LUT.data(:,2),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+title('Whl Ctr z, RL')
 xlabel('Time (s)')
 ylabel('Position in z (m)')
+grid on
+
+ah3(4) = subplot(224);
+plot(sim_t_Link.data,sim_wpz_Link.data(:,4),'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_wpz_LUT.data(:,4),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+title('Whl Ctr z, RR')
+xlabel('Time (s)')
+ylabel('Position in z (m)')
+grid on
+
 linkaxes(ah3,'xy')
 
-
-% Plot Spring Extension
+% --- Plot Spring Extension
 figure(185); set(gcf,'Name','h1_xSpring')
-ah4(2) = subplot(122);
-plot(sim_t_Link.data,(sim_xSp_Link.data-sim_xSp_Link.data(1,:))./[-0.7653 -0.7653 1 1],'LineWidth',1,'DisplayName','Link')
-grid on
-title('xSpring, Link')
-xlabel('Time (s)')
-ylabel('Extension (m)')
-ah4(1) = subplot(121);
-plot(sim_t_LUT.data,sim_xSp_LUT.data-sim_xSp_LUT.data(1,:),'LineWidth',1,'DisplayName','LUT')
-grid on
-title('xSpring, LUT')
-xlabel('Time (s)')
-ylabel('Extension (m)')
-linkaxes(ah4,'xy')
+ah4(1) = subplot(221);
 
+xSpr = -(sim_xSp_Link.data(:,1)-sim_xSp_Link.data(1,1))./interp1(bp_vr,tbl_vr,sim_xSp_Link.data(:,1)-sim_xSp_Link.data(1,1));
+plot(sim_t_Link.data,xSpr,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_xSp_LUT.data(:,1)-sim_xSp_LUT.data(1,1),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+grid on
+title('xSpring, FL')
+ylabel('Extension (m)')
+legend('Location','Best')
+
+ah4(2) = subplot(222);
+
+xSpr = -(sim_xSp_Link.data(:,2)-sim_xSp_Link.data(1,2))./interp1(bp_vr,tbl_vr,sim_xSp_Link.data(:,2)-sim_xSp_Link.data(1,2));
+plot(sim_t_Link.data,xSpr,'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_xSp_LUT.data(:,2)-sim_xSp_LUT.data(1,2),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+grid on
+title('xSpring, FR')
+ylabel('Extension (m)')
+
+ah4(3) = subplot(223);
+plot(sim_t_Link.data,(sim_xSp_Link.data(:,3)-sim_xSp_Link.data(1,3)),'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_xSp_LUT.data(:,3)-sim_xSp_LUT.data(1,3),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+grid on
+title('xSpring, RL')
+ylabel('Extension (m)')
+xlabel('Time (s)')
+
+ah4(4) = subplot(224);
+plot(sim_t_Link.data,(sim_xSp_Link.data(:,4)-sim_xSp_Link.data(1,4)),'LineWidth',1,'DisplayName','Link')
+hold on
+plot(sim_t_LUT.data,sim_xSp_LUT.data(:,4)-sim_xSp_LUT.data(1,4),'--','LineWidth',1,'DisplayName','LUT')
+hold off
+grid on
+title('xSpring, RL')
+ylabel('Extension (m)')
+xlabel('Time (s)')
+subplot(221);
+
+linkaxes(ah4,'x')
+
+% Bring this figure back to the front
+figure(178);

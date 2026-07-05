@@ -29,6 +29,9 @@ if(~isempty(susp_field_inds))
         elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA2PR'))
             % Panhard rod axle is asymmetrical.  Return left wheel center
             sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA2PR.Upright.sWheelCentreL.Value;
+        elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA2PRNoSteer'))
+            % Panhard rod axle is asymmetrical.  Return left wheel center
+            sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA2PR.Axle.sWheelCentreL.Value;
         elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA4Watts'))
             sWctr(sus_i,:) = Vehicle.Chassis.(suspName).AxleTA4Watts.Axle.sWheelCentre.Value;
         elseif(strcmp(Vehicle.Chassis.(suspName).class.Value,'AxleTA3'))

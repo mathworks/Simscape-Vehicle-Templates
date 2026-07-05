@@ -1,5 +1,5 @@
 # **Simscape Vehicle Templates**
-Copyright 2018-2025 The MathWorks, Inc.
+Copyright 2018-2026 The MathWorks, Inc.
 
 This library contains library blocks and a configurable vehicle model.  
 You can:
@@ -34,6 +34,34 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.12 -- July 2026**
+1.  Added parameterized grid surface as Scene
+2.  Added trapezoidal bump maneuver
+3.  Added elk test maneuver with ice patch.
+4.  Added parking maneuver.
+5.  Added optimization example for minimizing rack force.
+6.  Added bushing forces and deflections to logged signals.
+7.  Added damping coefficient to steering rack
+8.  Added steering wheel actuator torque measurements
+9.  Changed friction coefficient scaling definition to lookup table.
+10. Added nonlinear asymmetrical spring variant.
+11. Nonlinear spring force may have force preload, extension must be 0 at design position.
+12. Added script to convert vehicle data structure to MATLAB code
+13. Fixed tire parameterization (removed unused Mass, Inertia parameters; sOffset used in mask)
+
+**v4.11 -- April 2026**
+1. Added MacPherson suspension template with split lower arm.
+2. Added suspension template Panhard Rod with no steering
+3. Fixed suspension template Panhard Rod steering - symmetrical kinematic arm constraints
+4. Added steering template with independent position commands for steering wheel and rack
+   Suitable for determining requirements for steer-by-wire control systems
+5. Half and quarter car testrigs adapted to handle case where wheel center height 
+   and tire radius are not the same.
+6. Added roll center calculation with test scripts for half and full vehicle.
+7. Lookup table suspension uses 2D tables for kinematics, includes anti-roll bar behavior.
+8. Test sequence to sweep jounce and steer motion for lookup table supension added.
+9. Added output to summarize measurements from KnC tests (sm_car_knc_calc_susp_metrics.m)
+
 **v4.10 -- February 2026**
 1.  Compatible with MF-Swift v2512.
 2.  Added lookup-table based kinematic suspension with compliance.

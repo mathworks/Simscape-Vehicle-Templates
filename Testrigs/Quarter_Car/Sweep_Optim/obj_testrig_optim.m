@@ -15,7 +15,7 @@ function F  = obj_testrig_optim(x,mdl,par_list,Vehicle,metricName,tgtValue,metri
 %   Outputs
 %      F          Optimized value of performance metric
 %
-% Copyright 2020-2025 The MathWorks, Inc.
+% Copyright 2020-2024 The MathWorks, Inc.
 
 load_system(mdl);
 
@@ -33,7 +33,8 @@ assignin('base','Vehicle',Vehicle)
 simOut=sim(mdl);
 
 %% Calculate performance metrics, update plot
-[TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut.logsout_sm_car_testrig_quarter_car,false,true,false);
+AxNum = 1;
+[TSuspMetrics, toeCurve, camCurve] = sm_car_knc_plot1toecamber(simOut.logsout_sm_car_testrig_quarter_car,AxNum,false,true,false);
 
 % Extract desired performance metric
 

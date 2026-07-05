@@ -34,6 +34,12 @@ close all
 cd(fileparts(which('sm_car_sweep_optim_test.m')))
 publish('sm_car_sweep_optim_test.m')
 
+%% Publish Full Vehicle Parking Optimization Doc
+bdclose('sm_car')
+close all
+cd(fileparts(which('sm_car_sweep_optim_strfrc_test.m')))
+publish('sm_car_sweep_optim_strfrc_test.m')
+
 %% Republish Main Script
 cd(fileparts(which('Simscape_Vehicle_Library_Demo_Script.m')))
 sscRepublishDemoScript('Simscape_Vehicle_Library_Demo_Script.m')
@@ -59,6 +65,8 @@ testFileList = {...
     'sm_car_test_abs',...
     'sm_car_test_parking',...
     'sm_car_test_dlc_reverse',...
+    'sm_car_test_hydropneu_susp',...
+    'sm_car_test_gen_data_lut_susp'
     };
 
 for test_i = 1:length(testFileList)
@@ -71,3 +79,9 @@ end
 %% Republish Powertrain Configurations
 cd(fileparts(which('sm_car_testing_powertrain_configs.m')))
 publish('sm_car_testing_powertrain_configs.m','showCode',true)
+
+%% Republish Lookup Table Data Gen Workflow
+%  --  Set Generate data to true inside file --
+cd(fileparts(which('sm_car_test_gen_data_lut_susp.m')))
+publish('sm_car_test_gen_data_lut_susp.m','showCode',false)
+

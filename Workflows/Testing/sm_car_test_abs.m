@@ -1,8 +1,8 @@
 % Script to test anti-lock braking algorithm
 
-% Copyright 2019-2025 The MathWorks, Inc
+% Copyright 2019-2024 The MathWorks, Inc
 
-% Test Torque Vectoring 
+% Test ABS 
 open_system('sm_car');
 
 out_abs_test = sm_car_test_abs_function('hamba');
