@@ -34,6 +34,21 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.12 -- July 2026**
+1.  Added parameterized grid surface as Scene
+2.  Added trapezoidal bump maneuver
+3.  Added elk test maneuver with ice patch.
+4.  Added parking maneuver.
+5.  Added optimization example for minimizing rack force.
+6.  Added bushing forces and deflections to logged signals.
+7.  Added damping coefficient to steering rack
+8.  Added steering wheel actuator torque measurements
+9.  Changed friction coefficient scaling definition to lookup table.
+10. Added nonlinear asymmetrical spring variant.
+11. Nonlinear spring force may have force preload, extension must be 0 at design position.
+12. Added script to convert vehicle data structure to MATLAB code
+13. Fixed tire parameterization (removed unused Mass, Inertia parameters; sOffset used in mask)
+
 **v4.11 -- April 2026**
 1. Added MacPherson suspension template with split lower arm.
 2. Added suspension template Panhard Rod with no steering

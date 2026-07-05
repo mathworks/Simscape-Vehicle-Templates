@@ -13,7 +13,11 @@ function out_abs_test = sm_car_test_abs_function(test_vehicle_platform)
 
 if (strcmpi(test_vehicle_platform,'hamba'))
     % Run test with Hamba
-    veh_index = '156';
+    if(verLessThan('MATLAB','24.2'))
+        veh_index = '156';
+    else
+        veh_index = '244';
+    end
 elseif (strcmpi(test_vehicle_platform,'hambalg'))
     % Run test with HambaLG
     veh_index = '130';
