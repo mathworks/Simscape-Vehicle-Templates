@@ -261,6 +261,10 @@ switch varName
         simres.data  = logsout_VehBus.Values.Chassis.SuspA1.Steer.aWheel.Data(:);
         simres.name  = 'Steering Wheel Angle';
         simres.units = 'rad';
+    case 'tSteer'
+        simres.data  = logsout_VehBus.Values.Chassis.SuspA1.Steer.trqWheel.Data(:);
+        simres.name  = 'Steering Wheel Torque';
+        simres.units = 'N*m';
     case 'qTrackRod'
         % Suspension may not have a track rod, or it may require extra
         % logic to obtain the correct field.  Use try-catch.

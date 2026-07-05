@@ -114,6 +114,21 @@ switch maneuver_str
         set_param(modelname,'StopTime','20');
         sm_car_config_road(modelname,'Ice Patch');
 
+    % --- Elk Test
+    case 'elk test'
+        evalin('base',['Init = IDatabase.Double_Lane_Change.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Double_Lane_Change.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Elk_Test.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Double_Lane_Change.' veh_inst ';']);
+        sm_car_config_road(modelname,'Elk Test');
+
+        % Ensure event runs until vehicle crosses finish line
+        set_param(modelname,'StopTime','100');        
+        % Stop maneuver when vehicle is through double lane change cones (xMax)
+        set_param([modelname '/Check'],'start_check_time_max_dist','2','max_dist_threshold','Maneuver.xMax.Value');
+
+
     % --- Low Speed Steer
     case 'low speed steer'
         evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
@@ -280,6 +295,20 @@ switch maneuver_str
         % The maneuver trajectory crosses itself.
         set_param([modelname '/Driver/Closed Loop/Maneuver'],'popup_window','Yes');
 
+    % --- Parking Reverse
+    case 'parking'
+        evalin('base',['Init = IDatabase.Parking.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Parking.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Parking.' veh_inst ';']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Parking.' veh_inst ';']);
+        stopTime = evalin('base','num2str(Maneuver.Brake.t.Value(end));');
+        sm_car_config_road(modelname,'Plane Grid');
+        set_param(modelname,'StopTime',stopTime);
+        % For only this maneuver, driver commands will be overridden once
+        % the second part of the maneuver starts
+        set_param([modelname '/Driver/Closed Loop/Driver Override'],'popup_driver_override','Override');
+        set_param([modelname '/Check'],'start_check_time','1000');        
     % --- Fishhook
     case 'fishhook'
         evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
@@ -585,8 +614,36 @@ switch maneuver_str
 
         % Ensure event runs until vehicle reaches end of bumps
         set_param(modelname,'StopTime','100');        
-        % Stop maneuver when vehicle is through double lane change cones (xMax)
+        % Stop maneuver before vehicle leaves surface
         set_param([modelname '/Check'],'start_check_time_max_dist','2','max_dist_threshold','211');
+
+    % --- GS Grid Surface Flat
+    case 'gs grid surface flat'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Straight_Constant_Speed_12_50.' veh_inst ';']);
+        evalin('base',['Maneuver.Trajectory.vx.Value = Maneuver.Trajectory.vx.Value*0.5;']);
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Straight_Constant_Speed.' veh_inst ';']);
+
+        evalin('base','Scene.GS_Grid_Surface = Scene.GS_Grid_Surface_Flat;');
+        sm_car_config_road(modelname,'GS Grid Surface');
+        set_param(modelname,'StopTime','30');
+
+    case 'gs grid surface bumptrpz'
+        evalin('base',['Init = IDatabase.Flat.' init_inst ';']);
+        evalin('base',['Init_Trailer = IDatabase.Flat.' init_inst_trl ';']);
+        evalin('base',['Maneuver = MDatabase.Straight_Constant_Speed_12_50.' veh_inst ';']);
+        % Scale speed
+        evalin('base','Maneuver.Trajectory.vx.Value = Maneuver.Trajectory.vx.Value*0.5;');
+        % Remove lateral offset from two-lane road
+        evalin('base','Maneuver.Trajectory.y.Value = Maneuver.Trajectory.y.Value*0;');
+        set_param(drive_h,'popup_driver_type','Closed Loop');
+        evalin('base',['Driver = DDatabase.Straight_Constant_Speed.' veh_inst ';']);
+
+        evalin('base','Scene.GS_Grid_Surface = Scene.GS_Grid_Surface_BumpTrpz;');
+        sm_car_config_road(modelname,'GS Grid Surface');
+        set_param(modelname,'StopTime','25');
 
 
     % --- 4 Post Testrig, Test Cycle 1 (Pitch, Roll, Heave, Bump)
