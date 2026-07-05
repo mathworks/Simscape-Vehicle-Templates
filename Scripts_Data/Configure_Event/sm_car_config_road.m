@@ -7,7 +7,7 @@ function sm_car_config_road(modelname,scenename)
 
 % Find variant subsystems for inputs
 f=Simulink.FindOptions('LookUnderMasks','all');
-mu_scaling_h=Simulink.findBlocks(modelname,'Name','Mu Scaling by Position',f);
+mu_scaling_h=Simulink.findBlocks(modelname,'Name','Surface Mu Scaling',f);
 
 f=Simulink.FindOptions('LookUnderMasks','all','regexp',1);
 scene_config_h=Simulink.findBlocks(modelname,'SceneDesc','.*',f);
@@ -134,7 +134,8 @@ if((~strcmpi(scenename,'testrig 4 post') && ~strcmpi(scenename,'knc')) && sum(co
 end
 
 % Set ground to have high friction everywhere
-set_param(mu_scaling_h,'muFL_in','1','muFR_in','1','muRL_in','1','muRR_in','1')
+set_param(mu_scaling_h,'LabelModeActiveChoice','Constant');
+evalin('base','Scene.Mu_Scaling.constant = 1;')
 
 % Specific checks for combinations
 % Non-flat CRG files
@@ -163,13 +164,15 @@ switch lower(scenename)
     case 'plane grid'
         % No special commands
     case 'ice patch'
-        set_param(mu_scaling_h,'muFL_in','0.4','muFR_in','0.4','muRL_in','0.4','muRR_in','0.4');
+        evalin('base','Scene.Mu_Scaling = Scene.Ice_Patch.Mu_Scaling;');
+        set_param(mu_scaling_h,'LabelModeActiveChoice','LUT_Position');
+        %set_param(mu_scaling_h,'muFL_in','0.4','muFR_in','0.4','muRL_in','0.4','muRR_in','0.4');
         if(sum(contains(tirClass,'MFSwift')))
             % Mask in Tire_MFSwift sets road type based on filename
             % Must contain "external" to change to external road definition
             roadFile = 'which(''<External Road>'')';
         end
-        if(sum([contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
+        if(verLessThan('MATLAB','24.2') && sum([contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
             error_str = sprintf(['Simscape Multibody tire cannot be used for this maneuver.\n' ...
                 tire_diag_str_fmt '\n'...
                 tireTr_diag_str_fmt '\n'...
@@ -177,8 +180,23 @@ switch lower(scenename)
             errordlg(error_str,'Wrong Tire Software')
         end
 
-    case 'crg hockenheim'
-        
+    case 'elk test'
+        evalin('base','Scene.Mu_Scaling = Scene.Elk_Test.Mu_Scaling;');
+        set_param(mu_scaling_h,'LabelModeActiveChoice','LUT_Position');
+        if(sum(contains(tirClass,'MFSwift')))
+            % Mask in Tire_MFSwift sets road type based on filename
+            % Must contain "external" to change to external road definition
+            roadFile = 'which(''<External Road>'')';
+        end
+        if(verLessThan('MATLAB','24.2') && sum([contains(tirClass,'MFMbody') contains(tirClassTr,'MFMbody')]))
+            error_str = sprintf(['Simscape Multibody tire cannot be used for this maneuver.\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                '--> All values for active components CANNOT be ''MFMbody''']);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
+    case 'crg hockenheim'        
         if(checkNonFlatCRG)
             error_str = sprintf([messgNonFlatCRG1 '\n' ...
                 tire_diag_str_fmt '\n'...
@@ -308,6 +326,18 @@ switch lower(scenename)
 
         % Select STL file
         roadFile = 'GS_Uneven_Road.stl';
+
+    case 'gs grid surface'
+        if(checkGridSurface)
+            error_str = sprintf([messgGridSurface1 '\n' ...
+                tire_diag_str_fmt '\n'...
+                tireTr_diag_str_fmt '\n'...
+                messgGridSurface2]);
+            errordlg(error_str,'Wrong Tire Software')
+        end
+
+        % Select STL file
+        roadFile = 'GS_Grid_Surface.stl';
 
     case 'crg suzuka'
         if(checkNonFlatCRG)
