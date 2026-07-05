@@ -2,7 +2,7 @@ function sm_car_gen_init_database
 % Define vehicle-level initial conditions for maneuvers
 % Vehicle position, orientation, initial speed, initial wheel speed
 %
-% Copyright 2019-2025 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 disp(['Generating IDatabase from ' mfilename]);
 MDatabase = evalin('base','MDatabase');
@@ -38,6 +38,14 @@ InitSet.Flat.Data      = {...
     'aChassis','rad', 0, 0,       0;
     'vChassis','m/s', 1, 0,       0;
     'sChassis','m',   5, 0,       0};
+
+%% Scene Flat Surface, Reverse
+InitSet.Parking.Type      = 'Parking';
+InitSet.Parking.Instance  = '';
+InitSet.Parking.Data      = {...
+    'aChassis','rad',  0, 0,       0;
+    'vChassis','m/s', -2, 0,       0;
+    'sChassis','m',   35, 0,       0};
 
 %% Scene Mallory Park, Forwards Lap, Slow Start
 InitSet.Mallory_Park.Type = 'Mallory_Park';
