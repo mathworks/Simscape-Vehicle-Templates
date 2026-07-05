@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Tuning Suspension Hardpoints to Meet Vehicle Performance Metrics</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2026-02-21">
+<meta name="DC.date" content="2026-07-05">
 <meta name="DC.source" content="sm_car_sweep_optim_test.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -148,22 +148,22 @@ sim(mdl)
 <pre class="codeinput">[simInput, simOut] = sm_car_sweep_run(mdl,Vehicle,par_list);
 CarMetricsSet = sm_car_sweep_plot_runs(simInput,simOut,<span class="string">'aRoll'</span>);
 </pre>
-<pre class="codeoutput">[21-Feb-2026 19:31:16] Running simulations...
-[21-Feb-2026 19:31:39] Completed 1 of 15 simulation runs
-[21-Feb-2026 19:31:50] Completed 2 of 15 simulation runs
-[21-Feb-2026 19:32:01] Completed 3 of 15 simulation runs
-[21-Feb-2026 19:32:09] Completed 4 of 15 simulation runs
-[21-Feb-2026 19:32:19] Completed 5 of 15 simulation runs
-[21-Feb-2026 19:32:28] Completed 6 of 15 simulation runs
-[21-Feb-2026 19:32:39] Completed 7 of 15 simulation runs
-[21-Feb-2026 19:32:48] Completed 8 of 15 simulation runs
-[21-Feb-2026 19:32:58] Completed 9 of 15 simulation runs
-[21-Feb-2026 19:33:07] Completed 10 of 15 simulation runs
-[21-Feb-2026 19:33:16] Completed 11 of 15 simulation runs
-[21-Feb-2026 19:33:25] Completed 12 of 15 simulation runs
-[21-Feb-2026 19:33:35] Completed 13 of 15 simulation runs
-[21-Feb-2026 19:33:45] Completed 14 of 15 simulation runs
-[21-Feb-2026 19:33:54] Completed 15 of 15 simulation runs
+<pre class="codeoutput">[05-Jul-2026 08:22:33] Running simulations...
+[05-Jul-2026 08:23:01] Completed 1 of 15 simulation runs
+[05-Jul-2026 08:23:14] Completed 2 of 15 simulation runs
+[05-Jul-2026 08:23:26] Completed 3 of 15 simulation runs
+[05-Jul-2026 08:23:35] Completed 4 of 15 simulation runs
+[05-Jul-2026 08:23:47] Completed 5 of 15 simulation runs
+[05-Jul-2026 08:23:58] Completed 6 of 15 simulation runs
+[05-Jul-2026 08:24:10] Completed 7 of 15 simulation runs
+[05-Jul-2026 08:24:21] Completed 8 of 15 simulation runs
+[05-Jul-2026 08:24:31] Completed 9 of 15 simulation runs
+[05-Jul-2026 08:24:42] Completed 10 of 15 simulation runs
+[05-Jul-2026 08:24:52] Completed 11 of 15 simulation runs
+[05-Jul-2026 08:25:02] Completed 12 of 15 simulation runs
+[05-Jul-2026 08:25:16] Completed 13 of 15 simulation runs
+[05-Jul-2026 08:25:28] Completed 14 of 15 simulation runs
+[05-Jul-2026 08:25:40] Completed 15 of 15 simulation runs
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_test_04.png" alt=""> <h2 id="5">Display and Plot Performance Metrics Obtained from Sweep</h2>
 <p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown. The surface plot shows how the performance metric varies as the parameter values are modified.</p>
@@ -261,7 +261,7 @@ Iter     Func-count       f(x)      MeshSize     Method
    17          47       0.764992        0.0025     Successful Poll
    18          48       0.764992      0.000625     Refine Mesh
 patternsearch stopped because the mesh size was less than options.MeshTolerance.
-Elapsed time for optimization = 461.7665
+Elapsed time for optimization = 487.0672
  
 Metrics with Optimized Set of Parameter Values
 

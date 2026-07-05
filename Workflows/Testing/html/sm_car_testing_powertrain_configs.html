@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Test Power + Driveline Combinations</title>
 <meta name="generator" content="MATLAB 24.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2026-02-24">
+<meta name="DC.date" content="2026-07-05">
 <meta name="DC.source" content="sm_car_testing_powertrain_configs.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -136,14 +136,6 @@ sm_car_config_maneuver(<span class="string">'sm_car'</span>,<span class="string"
 <span class="comment">% Check if we are publishing</span>
 isBeingPublished = any(strcmp(<span class="string">'publish'</span>, {dbstack().name}));
 </pre>
-<pre class="codeoutput">Loading default data for 2-axle vehicle and 1-axle trailer.
-Turning off MFEval warnings...
-Solver:CoeffChecks:Eyk -- OFF
-Solver:Limits:Exceeded -- OFF
-Solver:CoeffChecks:Et -- OFF
-Solver:CoeffChecks:Exa -- OFF
-Disabling trailer by default.
-</pre>
 <h2 id="2">A1 Ideal</h2>
 <pre class="codeinput">Vehicle = sm_car_vehcfg_setPower(Vehicle,<span class="string">'Ideal_A1_default'</span>);
 Vehicle = sm_car_vehcfg_setPowerCooling(Vehicle,<span class="string">'None'</span>);
@@ -151,19 +143,6 @@ Vehicle = sm_car_vehcfg_setDrv(Vehicle,<span class="string">'A2_D1_1D_HA'</span>
 open_system(<span class="string">'sm_car/Vehicle/Vehicle/Powertrain'</span>,<span class="string">'force'</span>)
 sim(<span class="string">'sm_car'</span>)
 sm_car_plot2whlspeed
-</pre>
-<pre class="codeoutput">============================================ 
-==                                        == 
-==      Copyright 1996-2013               == 
-==      TNO                               == 
-==      P.O. Box 756                      == 
-==      5700 AT Helmond                   == 
-==      The Netherlands                   == 
-==      www.delft-tyre.nl                 == 
-==                                        == 
-============================================ 
-DELFT-TYRE MF-Tyre/MF-Swift 6.2.0.2                
-============================================
 </pre>
 <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_01.png" alt=""> <img vspace="5" hspace="5" src="sm_car_testing_powertrain_configs_02.png" alt=""> <p>Only close and reopen model if publishing example doc</p>
 <pre class="codeinput">resetModel(isBeingPublished)

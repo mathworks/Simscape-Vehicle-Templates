@@ -2788,6 +2788,54 @@ eval([veh_var_name ' = Vehicle;']);
 save(veh_var_name,veh_var_name);
 disp([pad(veh_var_name,12) ': ' Vehicle.config]);
 
+%% Custom Configuration 105: Sedan Hamba , MFMbody, ABS
+
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_156;  
+vehcfg = Vehicle.config;
+
+Vehicle.Chassis.TireA1 = VDatabase.Tire.MFMbody_213_40R21;
+Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_213_40R21;
+Vehicle.Chassis.TireA2 = VDatabase.Tire.MFMbody_213_40R21;
+Vehicle.Chassis.TireA2.TireBody = VDatabase.TireBody.CAD_213_40R21;
+
+% Assemble configuration description in string
+Vehicle.config = strrep(vehcfg,'MFEval','MFMbody');
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
+%% Custom Configuration 106: Rigid Axle, 2 Trailing Arm, Panhard Rod, MFMBody
+veh_ind = veh_ind+1;
+Vehicle = Vehicle_228;
+
+Vehicle.Chassis.SuspA1 = VDatabase.Susp.AxleTA2PR_SUV_Landy_f;
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossWheelDriven_SUV_Landy_f','SuspA1');
+Vehicle.Chassis.Spring.class.Value = 'Interconnected';
+Vehicle.Chassis.Damper.class.Value = 'Interconnected';
+%Vehicle = sm_car_vehcfg_setSpring(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Spring.Axle1 = VDatabase.Spring.SUV_Landy_TA2PR_AsymmetricNonlinear_A1;
+%Vehicle = sm_car_vehcfg_setDamper(Vehicle,'Axle2_Interconnected','SHlinA1_SHlinA2_None');
+Vehicle.Chassis.Damper.Axle1 = VDatabase.Damper.SUV_Landy_TA2PR_AsymmetricNonlinear_A1;
+
+Vehicle.Chassis.SuspA2 = VDatabase.Susp.AxleTA3_SUV_Landy_r;
+Vehicle.Chassis.Spring.Axle2 = VDatabase.Spring.SUV_Landy_TA3_Nonlinear_A2;
+Vehicle.Chassis.Damper.Axle2 = VDatabase.Damper.SUV_Landy_TA3_Nonlinear_A2;
+
+Vehicle = sm_car_vehcfg_setSteer(Vehicle,'DragCrossActuator_SUV_Landy_r','SuspA2');
+
+% Assemble configuration description in string
+Vehicle.config = 'Landy_Ax2APanTrailNL_MFMBody_steady_fCVpCVr1D';
+
+% Save under Vehicle_###
+veh_var_name = ['Vehicle_' pad(num2str(veh_ind),3,'left','0')]; 
+eval([veh_var_name ' = Vehicle;']);
+save(veh_var_name,veh_var_name);
+disp([pad(veh_var_name,12) ': ' Vehicle.config]);
+
 %% Return to main directory
 curr_proj = simulinkproject;
 cd(curr_proj.RootFolder)

@@ -37,22 +37,41 @@ Init.Chassis.sChassis.Value(1) = 35;
 % Set Steering Wheel Input to be open loop
 set_param('sm_car/Driver/Closed Loop/Driver Override','popup_driver_override','Override');
 
-Maneuver.TStart.aSteer.Value = 0;   % Use open-loop commands for steering
-Maneuver.TStart.rBrake.Value = 12;   % Use open-loop commands for brake
-Maneuver.TStart.rAccel.Value = 12;  % Use closed-loop commands for accel
-
 % Steering command
-Maneuver.Steer.t.Value      = [0 4 6 10 12 200];
-Maneuver.Steer.aWheel.Value = [0 0 1 -1  0   0]*-0.4363;
-Maneuver.Brake.t.Value      = [0 4 6 12 14 200];
-Maneuver.Brake.rPedal.Value = [0 0 0  0  1   1]*0.5;
+qStr   = 25;  % (deg)     Amplitude of steering angle
+wStr   = 25;  % (deg/sec) Steering angle rate
+
+% Convert to steering angle vs. time vectors
+durStr =  ... % Durations per phase
+    [4
+    abs((qStr-0)/wStr)
+    abs((qStr- (-qStr))/wStr)
+    abs((qStr-0)/wStr)
+    0.5
+    ];
+
+tStr    = [0; cumsum(durStr)];
+qStrVec = [0 0 qStr -qStr 0 0]*pi/180;
+
+% Use vectors in manuever settings
+Maneuver.Steer.t.Value      = tStr;
+Maneuver.Steer.aWheel.Value = qStrVec;
+
+% Braking time vector must relate to steering input
+Maneuver.Brake.t.Value      = [tStr; tStr(end)+0.1; tStr(end)+1; tStr(end)+1.5; tStr(end)+2];
+Maneuver.Brake.rPedal.Value = [tStr*0; 1; 1; 0; 0]*0.5;
 
 % Accel and brake commands - need to be defined, but are not used
 Maneuver.Accel.t.Value      = [0 4 6 10 14 200];
 Maneuver.Accel.rPedal.Value = [0 0 0  0  0   0];
 
+% Set threshholds when to override closed loop commands
+Maneuver.TStart.aSteer.Value = 0;  % Use open-loop commands for steering
+Maneuver.TStart.rBrake.Value = 0;  % Use open-loop commands for brake
+Maneuver.TStart.rAccel.Value = tStr(end);  % Use closed-loop commands for accel
+
 % Simulate model
-set_param('sm_car','StopTime','14');
+set_param('sm_car','StopTime',num2str(max(Maneuver.Brake.t.Value)));
 sim('sm_car');
 
 % Plot 
@@ -74,13 +93,31 @@ Init.Chassis.vChassis.Value(1) = 0;
 Init.Axle1.nWheel.Value       = Init.Axle1.nWheel.Value.*[0 0 1];
 Init.Axle2.nWheel.Value       = Init.Axle2.nWheel.Value.*[0 0 1];
 
+% Steering command
+qStr   = 35;  % (deg)     Amplitude of steering angle
+wStr   = 15;  % (deg/sec) Steering angle rate
+
+% Convert to steering angle vs. time vectors
+durStr =  ... % Durations per phase
+    [4
+    abs((qStr-0)/wStr)
+    abs((qStr- (-qStr))/wStr)
+    abs((qStr-0)/wStr)
+    0.5
+    ];
+
+tStr    = [0; cumsum(durStr)];
+qStrVec = [0 0 qStr -qStr 0 0]*pi/180;
+
+% Use vectors in manuever settings
+Maneuver.Steer.t.Value      = tStr;
+Maneuver.Steer.aWheel.Value = qStrVec;
+
 Maneuver.Accel.t.Value      = [0 4 6 10 12 200];
 Maneuver.Accel.rPedal.Value = [1 1 1  1  1   1]*0;
-Maneuver.Steer.t.Value      = [0 4 6 10 12 200];
-Maneuver.Steer.aWheel.Value = [0 0 1 -1  0   0]*0.4363;
 
 % Simulate model
-set_param('sm_car','StopTime','14');
+set_param('sm_car','StopTime',num2str(max(Maneuver.Steer.t.Value)));
 sim('sm_car');
 
 figure(12)
@@ -92,7 +129,20 @@ title('Parking Maneuver, Standing Still')
 
 ahs(2) = subplot(212);
 sm_car_sim_res_plot('time','fRack',ahs(2));
+
+% Plot rack force vs. displacement
 fRackPark  = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'fRack');
+xRackPark  = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'xRack');
+tRackPark  = sm_car_sim_res_get(logsout_sm_car,simlog_sm_car,Vehicle,'time');
+
+indStart = find(tRackPark.data>=tStr(2),1);
+
+figure(52)
+plot(xRackPark.data(indStart:end),fRackPark.data(indStart:end))
+grid on
+xlabel('Rack Displacement (m)');
+ylabel('Rack Actuator Force (N)')
+title('Rack Actuator Force vs. Displacement')
 
 %% Perform test at +7 km/hr 
 % Load constant speed maneuver (closed-loop control)
