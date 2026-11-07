@@ -30,6 +30,11 @@ Copyright 2026 The MathWorks, Inc.
  
 ### **Release History**
 (Not all changes to Simscape Vehicle Templates affect this repository)
+**v4.13 -- July 2026**
+1.  Red vehicle (closed-loop pose target visual) can be turned off
+6.  Maneuver block can handle trajectories exactly along +y and -y
+3.  Fixed force application axis of "External Force and Torque WC" in sm_car_testrig_utilities_lib.slx
+
 **v4.12 -- July 2026**
 1. Added bushing forces and deflections to logged signals.
 2. Added bushing forces and deflections to logged signals.
