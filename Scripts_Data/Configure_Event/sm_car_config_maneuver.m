@@ -26,7 +26,8 @@ switch veh_body
     case 'makhulu3axle', veh_inst = 'Bus_Makhulu';   init_inst = 'Bus_Makhulu_Axle3';
     case 'achilles',     veh_inst = 'FSAE_Achilles'; init_inst = 'FSAE_Achilles';
     otherwise
-        error(['Vehicle type ' veh_body ' not recognized.']);
+        warning(['Vehicle type ' veh_body ' not recognized.']);
+        veh_inst = 'Sedan_Hamba';   init_inst = 'Sedan_Hamba';
 end
 
 % Get trailer type from model (Trailer.config, dropdown setting)
