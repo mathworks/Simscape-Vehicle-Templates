@@ -1,0 +1,292 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Hydropneumatic Spring-Damper Testrig</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2026-10-29"><meta name="DC.source" content="testrig_AirOilPiston.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Hydropneumatic Spring-Damper Testrig</h1><!--introduction--><p>This example models a hydropneumatic spring for an offroad vehicle suspension.  Control signals can select a stiff or soft spring, adjust the damping, and adjust the ride height.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Model</a></li><li><a href="#2">Hydropneumatic Spring Damper</a></li><li><a href="#3">Damper Subsystem</a></li><li><a href="#4">Ride Height Subsystem</a></li><li><a href="#5">Simulation Results: Soft Suspension, Step Input</a></li><li><a href="#6">Simulation Results: Stiff Suspension, Step Input</a></li><li><a href="#7">Simulation Results: Soft Suspension, Triangle Input</a></li><li><a href="#8">Simulation Results: Stiff Suspension, Triangle Input</a></li><li><a href="#9">Simulation Results: Soft Suspension, Chirp Input</a></li><li><a href="#11">Simulation Results: Stiff Suspension, Chirp Input</a></li><li><a href="#13">Simulation Results: Soft Suspension, Rough Road Input</a></li><li><a href="#14">Simulation Results: Soft Suspension, Ride Height System</a></li><li><a href="#15">Simulation Results: Stiff Suspension, Ride Height System</a></li><li><a href="#16">Simulation Results from Simscape Logging: Soft Suspension, Spring Extension Triangle</a></li><li><a href="#17">Simulation Results from Simscape Logging: Stiff Suspension, Spring Extension Triangle</a></li></ul></div><h2 id="1">Model</h2><img vspace="5" hspace="5" src="testrig_AirOilPiston_01.png" alt=""> <h2 id="2">Hydropneumatic Spring Damper</h2><p>The hydropneumatic spring-damper model has mechanical connections to the unsprung mass (wheel) and the sprung mass (chassis). The lower oil chamber connects to two gas springs (soft and stiff) via an oil damper. Different volumes in the gas springs enable different stiffnesses.  A ride height system can add or remove oil to adjust the ride height.</p><p><a href="matlab:open_system('testrig_AirOilPiston');open_system('testrig_AirOilPiston/AirOilPiston','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="testrig_AirOilPiston_02.png" alt=""> <h2 id="3">Damper Subsystem</h2><p>This subsystem models the damper.  Multiple flow paths enable a nonlinear damping characteristic.</p><p><a href="matlab:open_system('testrig_AirOilPiston');open_system('testrig_AirOilPiston/AirOilPiston/Damper','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="testrig_AirOilPiston_03.png" alt=""> <h2 id="4">Ride Height Subsystem</h2><p>This subsystem models the ride height system.  The pump is modeled as an ideal pressure source.  Control signals open valves to let flow into and out of the oil chamber.</p><p><a href="matlab:open_system('testrig_AirOilPiston');open_system('testrig_AirOilPiston/AirOilPiston/Ride%20Height','force');">Open Subsystem</a></p><img vspace="5" hspace="5" src="testrig_AirOilPiston_04.png" alt=""> <h2 id="5">Simulation Results: Soft Suspension, Step Input</h2><p>This test actuates the road height using a step profile for road height. Spring deflection and damper flow are plotted. The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_05.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_06.png" alt=""> <h2 id="6">Simulation Results: Stiff Suspension, Step Input</h2><p>This test actuates the road height using a step profile for road height. Spring deflection and damper flow are plotted. The stiff suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_08.png" alt=""> <h2 id="7">Simulation Results: Soft Suspension, Triangle Input</h2><p>This test actuates the road height using a triangular profile.  Spring deflection and damper flow are plotted. The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_09.png" alt=""> <h2 id="8">Simulation Results: Stiff Suspension, Triangle Input</h2><p>This test actuates the road height using a triangular profile.  Spring deflection and damper flow are plotted. The stiff suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_10.png" alt=""> <h2 id="9">Simulation Results: Soft Suspension, Chirp Input</h2><p>This test actuates the road height using a chirp profile, which is a sine wave with a continuously increasing frequency.  This lets us see how the suspension responds at varying frequencies. Spring deflection and damper flow are plotted. The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_11.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_12.png" alt=""> <pre>Removing the orifice damper flows from the upper plot, we can see that
+when the pressure relief valves open, the response of the system is
+affected.</pre><img vspace="5" hspace="5" src="testrig_AirOilPiston_13.png" alt=""> <h2 id="11">Simulation Results: Stiff Suspension, Chirp Input</h2><p>This test actuates the road height using a chirp profile, which is a sine wave with a continuously increasing frequency.  Spring deflection and damper flow are plotted. The stiff suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_14.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_15.png" alt=""> <pre>Removing the orifice damper flows from the upper plot, we can see that
+when the pressure relief valves open, the response of the system is
+affected.</pre><img vspace="5" hspace="5" src="testrig_AirOilPiston_16.png" alt=""> <h2 id="13">Simulation Results: Soft Suspension, Rough Road Input</h2><p>This test actuates the road height using a rough road profile for road height.  Spring deflection and damper flow are plotted. The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_17.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_18.png" alt=""> <h2 id="14">Simulation Results: Soft Suspension, Ride Height System</h2><p>This test holds the road height constant as the ride height system adds and removes oil from the lower chamber.  The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_19.png" alt=""> <h2 id="15">Simulation Results: Stiff Suspension, Ride Height System</h2><p>This test holds the road height constant as the ride height system adds and removes oil from the lower chamber.  The stiff suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_20.png" alt=""> <h2 id="16">Simulation Results from Simscape Logging: Soft Suspension, Spring Extension Triangle</h2><p>This test holds the road height constant as the spring is compressed and extended.  Compression and extension is done using a triangle wave for spring length. The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_21.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_22.png" alt=""> <h2 id="17">Simulation Results from Simscape Logging: Stiff Suspension, Spring Extension Triangle</h2><p>This test holds the road height constant as the spring is compressed and extended.  Compression and extension is done using a triangle wave for spring length. The soft suspension is selected.</p><img vspace="5" hspace="5" src="testrig_AirOilPiston_23.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_24.png" alt=""> <p class="footer">Copyright 2018-2025 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Hydropneumatic Spring-Damper Testrig
+% 
+% This example models a hydropneumatic spring for an offroad vehicle
+% suspension.  Control signals can select a stiff or soft spring, adjust
+% the damping, and adjust the ride height.
+%
+% Copyright 2018-2025 The MathWorks, Inc.
+
+
+%% Model
+
+open_system('testrig_AirOilPiston')
+
+set_param(find_system('testrig_AirOilPiston','MatchFilter',@Simulink.match.allVariants,'FindAll', 'on','type','annotation','Tag','ModelFeatures'),'Interpreter','off')
+
+%% Hydropneumatic Spring Damper
+%
+% The hydropneumatic spring-damper model has mechanical connections to the
+% unsprung mass (wheel) and the sprung mass (chassis). The lower oil
+% chamber connects to two gas springs (soft and stiff) via an oil damper.
+% Different volumes in the gas springs enable different stiffnesses.  A
+% ride height system can add or remove oil to adjust the ride height.
+%
+% <matlab:open_system('testrig_AirOilPiston');open_system('testrig_AirOilPiston/AirOilPiston','force'); Open Subsystem>
+
+set_param('testrig_AirOilPiston/AirOilPiston','LinkStatus','none')
+open_system('testrig_AirOilPiston/AirOilPiston','force')
+
+%% Damper Subsystem
+%
+% This subsystem models the damper.  Multiple flow paths enable a nonlinear
+% damping characteristic.
+%
+% <matlab:open_system('testrig_AirOilPiston');open_system('testrig_AirOilPiston/AirOilPiston/Damper','force'); Open Subsystem>
+
+set_param('testrig_AirOilPiston/AirOilPiston/Damper','LinkStatus','none')
+open_system('testrig_AirOilPiston/AirOilPiston/Damper','force')
+
+%% Ride Height Subsystem
+%
+% This subsystem models the ride height system.  The pump is modeled as an
+% ideal pressure source.  Control signals open valves to let flow into and
+% out of the oil chamber.
+%
+% <matlab:open_system('testrig_AirOilPiston');open_system('testrig_AirOilPiston/AirOilPiston/Ride%20Height','force'); Open Subsystem>
+
+set_param('testrig_AirOilPiston/AirOilPiston/Ride Height','LinkStatus','none')
+open_system('testrig_AirOilPiston/AirOilPiston/Ride Height','force')
+
+%% Simulation Results: Soft Suspension, Step Input
+%
+% This test actuates the road height using a step profile for road height.
+% Spring deflection and damper flow are plotted. The soft suspension is
+% selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Step','Soft')
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+
+%% Simulation Results: Stiff Suspension, Step Input
+%
+% This test actuates the road height using a step profile for road height.
+% Spring deflection and damper flow are plotted. The stiff suspension is
+% selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Step','Stiff')
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+
+%% Simulation Results: Soft Suspension, Triangle Input
+%
+% This test actuates the road height using a triangular profile.  Spring
+% deflection and damper flow are plotted. The soft suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Triangle','Soft')
+sim('testrig_AirOilPiston')
+close(h2_testrig_AirOilPiston)
+testrig_AirOilPiston_plot5pressvsdisp
+
+%% Simulation Results: Stiff Suspension, Triangle Input
+%
+% This test actuates the road height using a triangular profile.  Spring
+% deflection and damper flow are plotted. The stiff suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Triangle','Stiff')
+sim('testrig_AirOilPiston')
+close(h5_testrig_AirOilPiston)
+testrig_AirOilPiston_plot5pressvsdisp
+
+%% Simulation Results: Soft Suspension, Chirp Input
+%
+% This test actuates the road height using a chirp profile, which is a sine
+% wave with a continuously increasing frequency.  This lets us see how the
+% suspension responds at varying frequencies. Spring deflection and damper
+% flow are plotted. The soft suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Chirp','Soft')
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+
+%%
+%  Removing the orifice damper flows from the upper plot, we can see that
+%  when the pressure relief valves open, the response of the system is
+%  affected.
+
+ax1 = subplot(2,1,2);      % get handle to first subplot
+h = findobj(ax1,'Type','line');
+
+delete(h(1:2))             % delete CVD and Orifice
+legend(ax1,'show')
+set(ax1,'YLim',[-0.3 0.3])
+
+%% Simulation Results: Stiff Suspension, Chirp Input
+%
+% This test actuates the road height using a chirp profile, which is a sine
+% wave with a continuously increasing frequency.  Spring deflection and
+% damper flow are plotted. The stiff suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Chirp','Stiff')
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+
+%%
+%  Removing the orifice damper flows from the upper plot, we can see that
+%  when the pressure relief valves open, the response of the system is
+%  affected.
+
+ax1 = subplot(2,1,2);      % get handle to first subplot
+h = findobj(ax1,'Type','line');
+
+delete(h(1:2))             % delete CVD and Orifice
+legend(ax1,'show')
+set(ax1,'YLim',[-0.3 0.3])
+
+%% Simulation Results: Soft Suspension, Rough Road Input
+%
+% This test actuates the road height using a rough road profile for road
+% height.  Spring deflection and damper flow are plotted. The soft
+% suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Rough','Soft')
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+
+%% Simulation Results: Soft Suspension, Ride Height System
+%
+% This test holds the road height constant as the ride height system adds
+% and removes oil from the lower chamber.  The soft suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Ride Height','Soft')
+sim('testrig_AirOilPiston')
+
+close(h1_testrig_AirOilPiston)
+close(h2_testrig_AirOilPiston)
+testrig_AirOilPiston_plot3qrideheight
+
+%% Simulation Results: Stiff Suspension, Ride Height System
+%
+% This test holds the road height constant as the ride height system adds
+% and removes oil from the lower chamber.  The stiff suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Ride Height','Stiff')
+
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot3qrideheight
+
+%% Simulation Results from Simscape Logging: Soft Suspension, Spring Extension Triangle
+%
+% This test holds the road height constant as the spring is compressed and
+% extended.  Compression and extension is done using a triangle wave for
+% spring length. The soft suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Extension Triangle','Soft')
+
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+testrig_AirOilPiston_plot4volchamb
+
+%% Simulation Results from Simscape Logging: Stiff Suspension, Spring Extension Triangle
+%
+% This test holds the road height constant as the spring is compressed and
+% extended.  Compression and extension is done using a triangle wave for
+% spring length. The soft suspension is selected.
+%
+
+testrig_AirOilPiston_test_config('testrig_AirOilPiston','Extension Triangle','Stiff')
+
+sim('testrig_AirOilPiston')
+testrig_AirOilPiston_plot1xspring
+testrig_AirOilPiston_plot2qdamper
+testrig_AirOilPiston_plot4volchamb
+
+
+%%
+
+%clear all
+close all
+bdclose all
+
+##### SOURCE END #####
+--></body></html>
