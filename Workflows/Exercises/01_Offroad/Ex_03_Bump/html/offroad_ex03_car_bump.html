@@ -1,0 +1,450 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Hydropneumatic Suspension, Full Vehicle</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2026-10-29">
+<meta name="DC.source" content="offroad_ex03_car_bump.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Hydropneumatic Suspension, Full Vehicle</h1>
+<!--introduction-->
+<p>The commands below simulate a multibody model of a vehicle with a hydropneumatic suspension. A custom bump is defined using MATLAB, and the vehicle is driven over this bump. Plots of the simulation results show how the suspension performs in soft and stiff configurations.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Step 1: Open full vehicle model</a>
+</li>
+<li>
+<a href="#2">Step 2: Configure model with hydropneumatic suspension, soft settings</a>
+</li>
+<li>
+<a href="#3">Step 3: Select maneuver</a>
+</li>
+<li>
+<a href="#4">Step 4: Run simulation</a>
+</li>
+<li>
+<a href="#5">Step 5: Explore simulation results: strut pressure</a>
+</li>
+<li>
+<a href="#6">Step 6: Explore simulation results: roll and pitch angles</a>
+</li>
+<li>
+<a href="#7">Step 7: Configure model with hydropneumatic suspension, stiff settings</a>
+</li>
+<li>
+<a href="#8">Step 8: Run simulation</a>
+</li>
+<li>
+<a href="#9">Step 9: Explore simulation results: strut pressure</a>
+</li>
+<li>
+<a href="#10">Step 10: Explore simulation results: roll and pitch angles</a>
+</li>
+<li>
+<a href="#11">Step 11: Compare strut pressure for different suspension settings</a>
+</li>
+<li>
+<a href="#12">Step 12: Compare roll and pitch angle for different suspension settings</a>
+</li>
+<li>
+<a href="#13">Step 13: Compare vertical acceleration for different suspension settings</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Step 1: Open full vehicle model</h2>
+<p>This can be done from the project shortcut or MATLAB Command line.</p>
+<pre class="codeinput">mdl = <span class="string">'sm_car'</span>;
+open_system(mdl)
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_01.png" alt=""> <h2 id="2">Step 2: Configure model with hydropneumatic suspension, soft settings</h2>
+<p>This can be done by adjusting the model or from the MATLAB Command line. This step selects vehicle configuration using preset number 241 which is a SUV with a hydropneumatic suspension. Further adjustments are made to prepare the vehicle and controller for the tests</p>
+<pre class="codeinput">sm_car_load_vehicle_data(mdl,<span class="string">'241'</span>);
+
+<span class="comment">% Drive each wheel independently with an ideal torque source</span>
+Vehicle.Powertrain.Driveline = VDatabase.Driveline.Axle2_L1_R1_L2_R2_default;
+Vehicle.Powertrain.Power     = VDatabase.Power.Ideal_L1_R1_L2_R2_default;
+
+<span class="comment">% Make the chassis geometry transparent</span>
+Vehicle.Chassis.Body.BodyGeometry.Opacity.Value = 0.3;
+
+<span class="comment">% Enable controller with soft suspension setting</span>
+set_param([mdl <span class="string">'/Controller/Default'</span>],<span class="keyword">...</span>
+    <span class="string">'popup_spring_control_A1'</span>,<span class="string">'Hydropneumatic'</span>,<span class="keyword">...</span>
+    <span class="string">'popup_gas_spring_A1'</span>,<span class="string">'Soft'</span>);
+set_param([mdl <span class="string">'/Controller/Default'</span>],<span class="keyword">...</span>
+    <span class="string">'popup_spring_control_A2'</span>,<span class="string">'Hydropneumatic'</span>,<span class="keyword">...</span>
+    <span class="string">'popup_gas_spring_A1'</span>,<span class="string">'Soft'</span>);
+
+<span class="comment">% Disable rear steering</span>
+Control.Default.Steer.Gain.nRearAct.Value = 0;
+</pre>
+<h2 id="3">Step 3: Select maneuver</h2>
+<p>This code configures the test to drive the vehicle over a bump at a constant speed. For versions earlier than MATLAB R2025b, a different maneuver must be used.</p>
+<pre class="codeinput">
+<span class="keyword">if</span>(verLessThan(<span class="string">'MATLAB'</span>,<span class="string">'25.2'</span>))
+    sm_car_config_maneuver(mdl,<span class="string">'WOT Braking'</span>);
+    <span class="comment">% Alternate: Double-Lane Change</span>
+    <span class="comment">%sm_car_config_maneuver(mdl,'Double Lane Change ISO3888');</span>
+<span class="keyword">else</span>
+    sm_car_config_maneuver(mdl,<span class="string">'GS Grid Surface BumpTrpz'</span>);
+    <span class="comment">% Custom bump definition</span>
+    offroad_ex03_car_bump_define
+    <span class="comment">% Alternate: Double-Lane Change</span>
+    <span class="comment">%sm_car_config_maneuver(mdl,'Double Lane Change ISO3888');</span>
+<span class="keyword">end</span>
+</pre>
+<h2 id="4">Step 4: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="5">Step 5: Explore simulation results: strut pressure</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">sm_car_plot12airoilspr_press
+
+<span class="comment">% Save results for comparison: strut pressure</span>
+stFL_p_soft = stFL_p;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_02.png" alt=""> <h2 id="6">Step 6: Explore simulation results: roll and pitch angles</h2>
+<p>Use the Simulink Data Inspector to plot the following quantities:</p>
+<pre class="codeinput">sm_car_plot5bodymeas
+
+<span class="comment">% Save results for comparison: roll and pitch angle</span>
+simlog_t_soft      = simlog_t;
+simlog_aRoll_soft  = simlog_aRoll;
+simlog_aPitch_soft = simlog_aPitch;
+
+<span class="comment">% Save results for comparison: CG vertical acceleration</span>
+gz_soft   = logsout_sm_car.get(<span class="string">'VehBus'</span>).Values.Chassis.Body.CG.gz.Data;
+gz_soft_t = logsout_sm_car.get(<span class="string">'VehBus'</span>).Values.Chassis.Body.CG.gz.Time;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_03.png" alt=""> <h2 id="7">Step 7: Configure model with hydropneumatic suspension, stiff settings</h2>
+<pre class="codeinput">set_param([mdl <span class="string">'/Controller/Default'</span>],<span class="keyword">...</span>
+    <span class="string">'popup_spring_control_A1'</span>,<span class="string">'Hydropneumatic'</span>,<span class="keyword">...</span>
+    <span class="string">'popup_gas_spring_A1'</span>,<span class="string">'Stiff'</span>);
+set_param([mdl <span class="string">'/Controller/Default'</span>],<span class="keyword">...</span>
+    <span class="string">'popup_spring_control_A2'</span>,<span class="string">'Hydropneumatic'</span>,<span class="keyword">...</span>
+    <span class="string">'popup_gas_spring_A1'</span>,<span class="string">'Stiff'</span>);
+</pre>
+<h2 id="8">Step 8: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">close(h5_sm_car)
+sim(mdl)
+</pre>
+<h2 id="9">Step 9: Explore simulation results: strut pressure</h2>
+<p>Use the Simulink Data Inspector to plot the following quantities:</p>
+<pre class="codeinput">sm_car_plot12airoilspr_press
+
+<span class="comment">% Save results for comparison: strut pressure</span>
+stFL_p_stiff = stFL_p;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_04.png" alt=""> <h2 id="10">Step 10: Explore simulation results: roll and pitch angles</h2>
+<p>Use the Simulink Data Inspector to plot the following quantities:</p>
+<pre class="codeinput">sm_car_plot5bodymeas
+
+<span class="comment">% Save results for comparison: roll and pitch angle</span>
+simlog_t_stiff      = simlog_t;
+simlog_aRoll_stiff  = simlog_aRoll;
+simlog_aPitch_stiff = simlog_aPitch;
+
+<span class="comment">% Save results for comparison: CG vertical acceleration</span>
+gz_stiff   = logsout_sm_car.get(<span class="string">'VehBus'</span>).Values.Chassis.Body.CG.gz.Data;
+gz_stiff_t = logsout_sm_car.get(<span class="string">'VehBus'</span>).Values.Chassis.Body.CG.gz.Time;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_05.png" alt=""> <h2 id="11">Step 11: Compare strut pressure for different suspension settings</h2>
+<p>This plot shows the response for the suspension system with the soft spring and the stiff spring.</p>
+<pre class="codeinput">figure(999);
+plot(stFL_p_soft.time,stFL_p_soft.values,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Soft'</span>);
+hold <span class="string">on</span>;
+plot(stFL_p_stiff.time,stFL_p_stiff.values,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Stiff'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Pressure (MPa)'</span>);
+title(<span class="string">'Strut Pressure'</span>);
+legend <span class="string">show</span>;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_06.png" alt=""> <h2 id="12">Step 12: Compare roll and pitch angle for different suspension settings</h2>
+<p>This plot shows the response for the suspension system with the soft spring and the stiff spring.</p>
+<pre class="codeinput">figure(998);
+subplot(211)
+plot(simlog_t_soft,simlog_aRoll_soft,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Soft'</span>);
+hold <span class="string">on</span>;
+plot(simlog_t_stiff,simlog_aRoll_stiff,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Stiff'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Roll Angle'</span>);
+title(<span class="string">'Roll Angle'</span>);
+legend <span class="string">show</span>;
+
+subplot(212)
+plot(simlog_t_soft,simlog_aPitch_soft,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Soft'</span>);
+hold <span class="string">on</span>;
+plot(simlog_t_stiff,simlog_aPitch_stiff,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Stiff'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Pressure (MPa)'</span>);
+title(<span class="string">'Pitch Angle'</span>);
+legend <span class="string">show</span>;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_07.png" alt=""> <h2 id="13">Step 13: Compare vertical acceleration for different suspension settings</h2>
+<p>This plot shows the response for the suspension system with the soft spring and the stiff spring.</p>
+<pre class="codeinput">figure(997);
+plot(gz_soft_t,gz_soft,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Soft'</span>);
+hold <span class="string">on</span>;
+plot(gz_stiff_t,gz_stiff,<span class="string">'-.'</span>,<span class="string">'LineWidth'</span>,1,<span class="string">'DisplayName'</span>,<span class="string">'Stiff'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Roll Angle'</span>);
+title(<span class="string">'Vertical Acceleration, Chassis CG'</span>);
+legend <span class="string">show</span>;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex03_car_bump_08.png" alt=""> <p class="footer">Copyright 2026 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Hydropneumatic Suspension, Full Vehicle
+% 
+% The commands below simulate a multibody model of a vehicle with a
+% hydropneumatic suspension. A custom bump is defined using MATLAB, and the
+% vehicle is driven over this bump. Plots of the simulation results show
+% how the suspension performs in soft and stiff configurations.
+%
+% Copyright 2026 The MathWorks, Inc.
+
+%% Step 1: Open full vehicle model
+% This can be done from the  project shortcut or MATLAB Command line.
+mdl = 'sm_car';
+open_system(mdl)
+
+%% Step 2: Configure model with hydropneumatic suspension, soft settings
+% This can be done by adjusting the model or from the MATLAB Command line.
+% This step selects vehicle configuration using preset number 241 which is
+% a SUV with a hydropneumatic suspension. Further adjustments are made to
+% prepare the vehicle and controller for the tests
+
+sm_car_load_vehicle_data(mdl,'241');
+
+% Drive each wheel independently with an ideal torque source
+Vehicle.Powertrain.Driveline = VDatabase.Driveline.Axle2_L1_R1_L2_R2_default;
+Vehicle.Powertrain.Power     = VDatabase.Power.Ideal_L1_R1_L2_R2_default;
+
+% Make the chassis geometry transparent
+Vehicle.Chassis.Body.BodyGeometry.Opacity.Value = 0.3;
+
+% Enable controller with soft suspension setting
+set_param([mdl '/Controller/Default'],...
+    'popup_spring_control_A1','Hydropneumatic',...
+    'popup_gas_spring_A1','Soft');
+set_param([mdl '/Controller/Default'],...
+    'popup_spring_control_A2','Hydropneumatic',...
+    'popup_gas_spring_A1','Soft');
+
+% Disable rear steering
+Control.Default.Steer.Gain.nRearAct.Value = 0;
+
+%% Step 3: Select maneuver
+% This code configures the test to drive the vehicle over a bump at a
+% constant speed. For versions earlier than MATLAB R2025b, a different
+% maneuver must be used.
+if(verLessThan('MATLAB','25.2'))
+    sm_car_config_maneuver(mdl,'WOT Braking');
+    % Alternate: Double-Lane Change
+    %sm_car_config_maneuver(mdl,'Double Lane Change ISO3888');
+else
+    sm_car_config_maneuver(mdl,'GS Grid Surface BumpTrpz');
+    % Custom bump definition
+    offroad_ex03_car_bump_define
+    % Alternate: Double-Lane Change
+    %sm_car_config_maneuver(mdl,'Double Lane Change ISO3888');
+end
+
+
+%% Step 4: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 5: Explore simulation results: strut pressure
+% Use the Simscape Results Explorer to plot the following quantities:
+sm_car_plot12airoilspr_press
+
+% Save results for comparison: strut pressure
+stFL_p_soft = stFL_p;
+
+%% Step 6: Explore simulation results: roll and pitch angles
+% Use the Simulink Data Inspector to plot the following quantities:
+sm_car_plot5bodymeas
+
+% Save results for comparison: roll and pitch angle
+simlog_t_soft      = simlog_t;
+simlog_aRoll_soft  = simlog_aRoll;
+simlog_aPitch_soft = simlog_aPitch;
+
+% Save results for comparison: CG vertical acceleration
+gz_soft   = logsout_sm_car.get('VehBus').Values.Chassis.Body.CG.gz.Data;
+gz_soft_t = logsout_sm_car.get('VehBus').Values.Chassis.Body.CG.gz.Time;
+
+%% Step 7: Configure model with hydropneumatic suspension, stiff settings
+set_param([mdl '/Controller/Default'],...
+    'popup_spring_control_A1','Hydropneumatic',...
+    'popup_gas_spring_A1','Stiff');
+set_param([mdl '/Controller/Default'],...
+    'popup_spring_control_A2','Hydropneumatic',...
+    'popup_gas_spring_A1','Stiff');
+
+%% Step 8: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+close(h5_sm_car)
+sim(mdl)
+
+%% Step 9: Explore simulation results: strut pressure
+% Use the Simulink Data Inspector to plot the following quantities:
+sm_car_plot12airoilspr_press
+
+% Save results for comparison: strut pressure
+stFL_p_stiff = stFL_p;
+
+%% Step 10: Explore simulation results: roll and pitch angles
+% Use the Simulink Data Inspector to plot the following quantities:
+sm_car_plot5bodymeas
+
+% Save results for comparison: roll and pitch angle
+simlog_t_stiff      = simlog_t;
+simlog_aRoll_stiff  = simlog_aRoll;
+simlog_aPitch_stiff = simlog_aPitch;
+
+% Save results for comparison: CG vertical acceleration
+gz_stiff   = logsout_sm_car.get('VehBus').Values.Chassis.Body.CG.gz.Data;
+gz_stiff_t = logsout_sm_car.get('VehBus').Values.Chassis.Body.CG.gz.Time;
+
+%% Step 11: Compare strut pressure for different suspension settings
+% This plot shows the response for the suspension system with the soft
+% spring and the stiff spring.
+
+figure(999);
+plot(stFL_p_soft.time,stFL_p_soft.values,'-.','LineWidth',1,'DisplayName','Soft');
+hold on;
+plot(stFL_p_stiff.time,stFL_p_stiff.values,'-.','LineWidth',1,'DisplayName','Stiff');
+hold off;
+xlabel('Time (s)');
+ylabel('Pressure (MPa)');
+title('Strut Pressure');
+legend show;
+
+%% Step 12: Compare roll and pitch angle for different suspension settings
+% This plot shows the response for the suspension system with the soft
+% spring and the stiff spring.
+
+figure(998);
+subplot(211)
+plot(simlog_t_soft,simlog_aRoll_soft,'-.','LineWidth',1,'DisplayName','Soft');
+hold on;
+plot(simlog_t_stiff,simlog_aRoll_stiff,'-.','LineWidth',1,'DisplayName','Stiff');
+hold off;
+xlabel('Time (s)');
+ylabel('Roll Angle');
+title('Roll Angle');
+legend show;
+
+subplot(212)
+plot(simlog_t_soft,simlog_aPitch_soft,'-.','LineWidth',1,'DisplayName','Soft');
+hold on;
+plot(simlog_t_stiff,simlog_aPitch_stiff,'-.','LineWidth',1,'DisplayName','Stiff');
+hold off;
+xlabel('Time (s)');
+ylabel('Pressure (MPa)');
+title('Pitch Angle');
+legend show;
+
+%% Step 13: Compare vertical acceleration for different suspension settings
+% This plot shows the response for the suspension system with the soft
+% spring and the stiff spring.
+
+figure(997);
+plot(gz_soft_t,gz_soft,'-.','LineWidth',1,'DisplayName','Soft');
+hold on;
+plot(gz_stiff_t,gz_stiff,'-.','LineWidth',1,'DisplayName','Stiff');
+hold off;
+xlabel('Time (s)');
+ylabel('Roll Angle');
+title('Vertical Acceleration, Chassis CG');
+legend show;
+
+##### SOURCE END #####
+-->
+</body>
+</html>
