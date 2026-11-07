@@ -1,0 +1,289 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Hydropneumatic Suspension, Quarter-Car Model</title><meta name="generator" content="MATLAB 9.12"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2026-10-29"><meta name="DC.source" content="offroad_ex02_airOilSpring.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Hydropneumatic Suspension, Quarter-Car Model</h1><!--introduction--><p>The commands below simulate a model of a quarter-car vehicle with a hydropneumatic suspension. Tests include different road height inputs and a test of the ride height system.  Plots of the simulation results show how the suspension performs in soft and stiff configurations.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Step 1: Open Model</a></li><li><a href="#2">Step 2: Configure model for step test with soft suspension</a></li><li><a href="#3">Step 3: Run simulation</a></li><li><a href="#4">Step 4: Explore simulation results</a></li><li><a href="#5">Step 5: Configure model for step test with stiff suspension</a></li><li><a href="#6">Step 6: Run simulation</a></li><li><a href="#7">Step 7: Explore simulation results</a></li><li><a href="#8">Step 8: Plot response to step input for both settings</a></li><li><a href="#9">Step 9: Configure model for chirp test with soft suspension</a></li><li><a href="#10">Step 10: Run simulation</a></li><li><a href="#11">Step 11: Explore simulation results</a></li><li><a href="#12">Step 12: Configure model for chirp test with stiff suspension</a></li><li><a href="#13">Step 13: Run simulation</a></li><li><a href="#14">Step 14: Explore simulation results</a></li><li><a href="#15">Step 15: Plot chirp input response for both settings</a></li><li><a href="#16">Step 16: Configure model for triangle test with soft suspension</a></li><li><a href="#17">Step 17: Run simulation</a></li><li><a href="#18">Step 18: Explore simulation results</a></li><li><a href="#19">Step 19: Configure model for triangle test with stiff suspension</a></li><li><a href="#20">Step 20: Run simulation</a></li><li><a href="#21">Step 21: Explore simulation results</a></li><li><a href="#22">Step 22: Configure suspension for ride height test</a></li><li><a href="#23">Step 23: Run simulation</a></li><li><a href="#24">Step 24: Plot ride height test results: Flow rates</a></li><li><a href="#25">Step 25: Plot ride height test results: Chamber volumes</a></li></ul></div><h2 id="1">Step 1: Open Model</h2><p>This can be done from the  project shortcut or MATLAB Command line.</p><pre class="codeinput">mdl = <span class="string">'testrig_AirOilPiston_multibody'</span>;
+open_system(mdl)
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_01.png" alt=""> <h2 id="2">Step 2: Configure model for step test with soft suspension</h2><p>This can be done by adjusting the model or from the MATLAB Command line. This step selects the step test and configures the suspension to use its soft setting (larger volume gas spring).</p><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Step'</span>,<span class="string">'Soft'</span>);
+</pre><h2 id="3">Step 3: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="4">Step 4: Explore simulation results</h2><p>Use the Simulink Data Inspector to plot the following quantities:</p><pre class="codeinput">testrig_AirOilPiston_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+logsout_Soft_xRoad = logsout_xInput;
+logsout_Soft_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Soft_Time  = logsout_Time;
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_02.png" alt=""> <h2 id="5">Step 5: Configure model for step test with stiff suspension</h2><p>This can be done by adjusting the model or from the MATLAB Command line. This step selects the step test and configures the suspension to use its stiff setting (smaller volume gas spring).</p><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Step'</span>,<span class="string">'Stiff'</span>);
+</pre><h2 id="6">Step 6: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="7">Step 7: Explore simulation results</h2><p>Use the Simulink Data Inspector to plot the following quantities:</p><pre class="codeinput">testrig_AirOilPiston_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+logsout_Stiff_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Stiff_Time  = logsout_Time;
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_03.png" alt=""> <h2 id="8">Step 8: Plot response to step input for both settings</h2><p>This plot shows the response for the suspension system with the soft spring and the stiff spring.</p><pre class="codeinput">figure(999);
+plot(logsout_Soft_Time, logsout_Soft_xUSM, <span class="string">'DisplayName'</span>, <span class="string">'Soft Setting'</span>);
+hold <span class="string">on</span>;
+plot(logsout_Stiff_Time, logsout_Stiff_xUSM, <span class="string">'DisplayName'</span>, <span class="string">'Stiff Setting'</span>);
+plot(logsout_Soft_Time, logsout_Soft_xRoad, <span class="string">'g'</span>, <span class="string">'DisplayName'</span>, <span class="string">'Road Input'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Response'</span>);
+title(<span class="string">'Comparison of Soft and Stiff Settings'</span>);
+legend <span class="string">show</span>;
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_04.png" alt=""> <h2 id="9">Step 9: Configure model for chirp test with soft suspension</h2><p>This step selects the chirp test and configures the suspension to use its soft setting (larger volume gas spring).</p><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Chirp'</span>,<span class="string">'Soft'</span>);
+</pre><h2 id="10">Step 10: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="11">Step 11: Explore simulation results</h2><p>Use the Simulink Data Inspector to plot the following quantities:</p><pre class="codeinput">testrig_AirOilPiston_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+logsout_Soft_xRoad = logsout_xInput;
+logsout_Soft_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Soft_Time  = logsout_Time;
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_05.png" alt=""> <h2 id="12">Step 12: Configure model for chirp test with stiff suspension</h2><p>This step selects the chirp test and configures the suspension to use its stiff setting (smaller volume gas spring).</p><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Chirp'</span>,<span class="string">'Stiff'</span>);
+</pre><h2 id="13">Step 13: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="14">Step 14: Explore simulation results</h2><p>Use the Simulink Data Inspector to plot the following quantities:</p><pre class="codeinput">testrig_AirOilPiston_plot1xspring
+logsout_Stiff_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Stiff_Time  = logsout_Time;
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_06.png" alt=""> <h2 id="15">Step 15: Plot chirp input response for both settings</h2><pre class="codeinput">figure(998);
+plot(logsout_Soft_Time, logsout_Soft_xUSM, <span class="string">'DisplayName'</span>, <span class="string">'Soft Setting'</span>);
+hold <span class="string">on</span>;
+plot(logsout_Stiff_Time, logsout_Stiff_xUSM, <span class="string">'DisplayName'</span>, <span class="string">'Stiff Setting'</span>);
+plot(logsout_Soft_Time, logsout_Soft_xRoad, <span class="string">'g'</span>, <span class="string">'DisplayName'</span>, <span class="string">'Road Input'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Response'</span>);
+title(<span class="string">'Comparison of Soft and Stiff Settings'</span>);
+legend <span class="string">show</span>;
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_07.png" alt=""> <h2 id="16">Step 16: Configure model for triangle test with soft suspension</h2><p>This step selects the triangle test and configures the suspension to use its soft setting (larger volume gas spring).</p><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Triangle'</span>,<span class="string">'Soft'</span>);
+</pre><h2 id="17">Step 17: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="18">Step 18: Explore simulation results</h2><p>Use the Simulink Data Inspector to plot the following quantities:</p><pre class="codeinput">testrig_AirOilPiston_plot5pressvsdisp
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_08.png" alt=""> <h2 id="19">Step 19: Configure model for triangle test with stiff suspension</h2><p>This step selects the triangle test and configures the suspension to use its stiff setting (smaller volume gas spring).</p><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Triangle'</span>,<span class="string">'Stiff'</span>);
+</pre><h2 id="20">Step 20: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="21">Step 21: Explore simulation results</h2><p>Use the Simulink Data Inspector to plot the following quantities:</p><pre class="codeinput">testrig_AirOilPiston_plot5pressvsdisp
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_09.png" alt=""> <h2 id="22">Step 22: Configure suspension for ride height test</h2><pre class="codeinput">testrig_AirOilPiston_test_config(mdl,<span class="string">'Ride Height'</span>,<span class="string">'Soft'</span>);
+</pre><h2 id="23">Step 23: Run simulation</h2><p>This can be done from Simulink or from the MATLAB command line.</p><pre class="codeinput">sim(mdl)
+</pre><h2 id="24">Step 24: Plot ride height test results: Flow rates</h2><pre class="codeinput">testrig_AirOilPiston_plot3qrideheight
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_10.png" alt=""> <h2 id="25">Step 25: Plot ride height test results: Chamber volumes</h2><pre class="codeinput">testrig_AirOilPiston_plot4volchamb
+</pre><img vspace="5" hspace="5" src="offroad_ex02_airOilSpring_11.png" alt=""> <p class="footer">Copyright 2026 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2022a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Hydropneumatic Suspension, Quarter-Car Model
+% 
+% The commands below simulate a model of a quarter-car vehicle with a
+% hydropneumatic suspension. Tests include different road height inputs and
+% a test of the ride height system.  Plots of the simulation results show
+% how the suspension performs in soft and stiff configurations.
+%
+% Copyright 2026 The MathWorks, Inc.
+
+%% Step 1: Open Model
+% This can be done from the  project shortcut or MATLAB Command line.
+mdl = 'testrig_AirOilPiston_multibody';
+open_system(mdl)
+
+%% Step 2: Configure model for step test with soft suspension
+% This can be done by adjusting the model or from the MATLAB Command line.
+% This step selects the step test and configures the suspension to use its
+% soft setting (larger volume gas spring).
+
+testrig_AirOilPiston_test_config(mdl,'Step','Soft');
+
+%% Step 3: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 4: Explore simulation results
+% Use the Simulink Data Inspector to plot the following quantities:
+testrig_AirOilPiston_plot1xspring
+
+% Save results for comparison plot
+logsout_Soft_xRoad = logsout_xInput;
+logsout_Soft_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Soft_Time  = logsout_Time;
+
+%% Step 5: Configure model for step test with stiff suspension
+% This can be done by adjusting the model or from the MATLAB Command line.
+% This step selects the step test and configures the suspension to use its
+% stiff setting (smaller volume gas spring).
+testrig_AirOilPiston_test_config(mdl,'Step','Stiff');
+
+%% Step 6: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 7: Explore simulation results
+% Use the Simulink Data Inspector to plot the following quantities:
+testrig_AirOilPiston_plot1xspring
+
+% Save results for comparison plot
+logsout_Stiff_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Stiff_Time  = logsout_Time;
+
+%% Step 8: Plot response to step input for both settings
+% This plot shows the response for the suspension system with the soft
+% spring and the stiff spring.
+
+figure(999);
+plot(logsout_Soft_Time, logsout_Soft_xUSM, 'DisplayName', 'Soft Setting');
+hold on;
+plot(logsout_Stiff_Time, logsout_Stiff_xUSM, 'DisplayName', 'Stiff Setting');
+plot(logsout_Soft_Time, logsout_Soft_xRoad, 'g', 'DisplayName', 'Road Input');
+hold off;
+xlabel('Time (s)');
+ylabel('Response');
+title('Comparison of Soft and Stiff Settings');
+legend show;
+
+%% Step 9: Configure model for chirp test with soft suspension
+% This step selects the chirp test and configures the suspension to use its
+% soft setting (larger volume gas spring).
+
+testrig_AirOilPiston_test_config(mdl,'Chirp','Soft');
+
+%% Step 10: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 11: Explore simulation results
+% Use the Simulink Data Inspector to plot the following quantities:
+testrig_AirOilPiston_plot1xspring
+
+% Save results for comparison plot
+logsout_Soft_xRoad = logsout_xInput;
+logsout_Soft_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Soft_Time  = logsout_Time;
+
+%% Step 12: Configure model for chirp test with stiff suspension
+% This step selects the chirp test and configures the suspension to use its
+% stiff setting (smaller volume gas spring).
+
+testrig_AirOilPiston_test_config(mdl,'Chirp','Stiff');
+
+%% Step 13: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 14: Explore simulation results
+% Use the Simulink Data Inspector to plot the following quantities:
+
+testrig_AirOilPiston_plot1xspring
+logsout_Stiff_xUSM  = logsout_xSpring+logsout_xInput;
+logsout_Stiff_Time  = logsout_Time;
+
+%% Step 15: Plot chirp input response for both settings
+figure(998);
+plot(logsout_Soft_Time, logsout_Soft_xUSM, 'DisplayName', 'Soft Setting');
+hold on;
+plot(logsout_Stiff_Time, logsout_Stiff_xUSM, 'DisplayName', 'Stiff Setting');
+plot(logsout_Soft_Time, logsout_Soft_xRoad, 'g', 'DisplayName', 'Road Input');
+hold off;
+xlabel('Time (s)');
+ylabel('Response');
+title('Comparison of Soft and Stiff Settings');
+legend show;
+
+%% Step 16: Configure model for triangle test with soft suspension
+% This step selects the triangle test and configures the suspension to use
+% its soft setting (larger volume gas spring).
+
+testrig_AirOilPiston_test_config(mdl,'Triangle','Soft');
+
+%% Step 17: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 18: Explore simulation results
+% Use the Simulink Data Inspector to plot the following quantities:
+testrig_AirOilPiston_plot5pressvsdisp
+
+%% Step 19: Configure model for triangle test with stiff suspension
+% This step selects the triangle test and configures the suspension to use
+% its stiff setting (smaller volume gas spring).
+
+testrig_AirOilPiston_test_config(mdl,'Triangle','Stiff');
+
+%% Step 20: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 21: Explore simulation results
+% Use the Simulink Data Inspector to plot the following quantities:
+
+testrig_AirOilPiston_plot5pressvsdisp
+
+%% Step 22: Configure suspension for ride height test
+testrig_AirOilPiston_test_config(mdl,'Ride Height','Soft');
+
+%% Step 23: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 24: Plot ride height test results: Flow rates
+testrig_AirOilPiston_plot3qrideheight
+
+%% Step 25: Plot ride height test results: Chamber volumes
+testrig_AirOilPiston_plot4volchamb
+##### SOURCE END #####
+--></body></html>

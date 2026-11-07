@@ -52,4 +52,7 @@ for i = 1:length(fieldnames(mdata))
     mdata.(Instance).Trajectory = load(mdata.(Instance).Trajectory_LoadFile.Value);
 end
 
+% Trajectory Adjustments (larger vehicles)
+mdata.SUV_Landy.Trajectory.vx.Value = mdata.SUV_Landy.Trajectory.vx.Value*0.8;
+
 maneuver_data.(maneuver_type) = mdata;

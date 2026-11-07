@@ -2444,9 +2444,18 @@ Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_235_80R17;
 Vehicle.Chassis.TireA2 = VDatabase.Tire.MFMbody_235_80R17;
 Vehicle.Chassis.TireA2.TireBody = VDatabase.TireBody.CAD_235_80R17;
 
-Vehicle.Powertrain.Driveline.DifferentialA1 = VDatabase.Differential.Gear1DShafts3D_Sedan_Hamba_f;
-Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
-Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
+Vehicle.Powertrain.Driveline.DifferentialA1 = VDatabase.Differential.Gear1DShafts3D_SUV_Landy_f;
+Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft = VDatabase.Shaft.Rigid_SUV_Landy_f;
+Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft = VDatabase.Shaft.Rigid_SUV_Landy_f;
+
+%{
+Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft.l.Value = 0.3;
+Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft.l.Value = 0.3;
+Vehicle.Powertrain.Driveline.DifferentialA1.ShaftOutL.sInboard.Value(3) = 0.1;
+Vehicle.Powertrain.Driveline.DifferentialA1.ShaftOutR.sInboard.Value(3) = 0.1;
+Vehicle.Powertrain.Driveline.DifferentialA1.ShaftOutL.l.Value = 0.35;
+Vehicle.Powertrain.Driveline.DifferentialA1.ShaftOutR.l.Value = 0.35;
+%}
 
 Vehicle.Brakes = VDatabase.Brakes.Axle2_PedalAbstract_DiscDisc_Sedan_Hamba;
 
@@ -2477,9 +2486,9 @@ Vehicle.Chassis.TireA1.TireBody = VDatabase.TireBody.CAD_235_80R17;
 Vehicle.Chassis.TireA2 = VDatabase.Tire.MFSwift_235_80R17;
 Vehicle.Chassis.TireA2.TireBody = VDatabase.TireBody.CAD_235_80R17;
 
-Vehicle.Powertrain.Driveline.DifferentialA1 = VDatabase.Differential.Gear1DShafts3D_Sedan_Hamba_f;
-Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
-Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft = VDatabase.Shaft.Rigid_Sedan_Hamba_f;
+Vehicle.Powertrain.Driveline.DifferentialA1 = VDatabase.Differential.Gear1DShafts3D_SUV_Landy_f;
+Vehicle.Powertrain.Driveline.DriveshaftL1.Shaft = VDatabase.Shaft.Rigid_SUV_Landy_f;
+Vehicle.Powertrain.Driveline.DriveshaftR1.Shaft = VDatabase.Shaft.Rigid_SUV_Landy_f;
 
 Vehicle.Brakes = VDatabase.Brakes.Axle2_PedalAbstract_DiscDisc_Sedan_Hamba;
 
