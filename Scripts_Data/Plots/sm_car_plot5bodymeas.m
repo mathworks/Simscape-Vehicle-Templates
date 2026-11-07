@@ -77,7 +77,7 @@ end
 linkaxes(simlog_handles, 'x')
 
 % Remove temporary variables
-clear simlog_t simlog_handles temp_colororder
-clear simlog_pz* simlog_aRoll simlog_aPitch simlog_aYaw
+%clear simlog_t simlog_handles temp_colororder
+%clear simlog_pz* simlog_aRoll simlog_aPitch simlog_aYaw
 clear simlog_RdBus simlog_VehBus
 
