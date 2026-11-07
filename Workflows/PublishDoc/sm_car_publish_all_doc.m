@@ -55,6 +55,24 @@ Simscape_Vehicle_Templates_Exercises_test_all
 cd(fileparts(which('Simscape_Vehicle_Templates_Exercises.m')))
 sscRepublishDemoScript('Simscape_Vehicle_Templates_Exercises.m');
 
+%% Republish Offroad Exercises
+cd(fileparts(which('Simscape_Vehicle_Templates_Exercises_Offroad_test_all.m')))
+Simscape_Vehicle_Templates_Exercises_Offroad_test_all
+
+cd(fileparts(which('Simscape_Vehicle_Templates_Exercises_Offroad.m')))
+sscRepublishDemoScript('Simscape_Vehicle_Templates_Exercises_Offroad.m');
+
+%% Republish Air Oil Spring Testrig
+cd(fileparts(which('testrig_AirOilPiston.slx')))
+cd('Overview')
+publish('testrig_AirOilPiston.m','showCode',false)
+publish('testrig_AirOilPiston_multibody.m','showCode',false)
+
+%% Republish Fuel Cell Doc
+cd(fileparts(which('ssc_car_FuelCell1Motor.slx')))
+cd('Overview')
+publish('ssc_car_FuelCell1Motor.m','showCode',false)
+
 %% Republish Testing Examples
 cd(fileparts(which('sm_car_test_torque_vectoring.m')))
 testFileList = {...

@@ -4,7 +4,7 @@
 % The plot below shows body pitch and roll as the vehicle
 % is exposed to a specific test profile on the four-post testrig.
 %
-% Copyright 2019-2026 The MathWorks, Inc.
+% Copyright 2019-2024 The MathWorks, Inc.
 
 % Check for simulation results
 if ~exist('logsout_sm_car', 'var')
@@ -77,7 +77,7 @@ end
 linkaxes(simlog_handles, 'x')
 
 % Remove temporary variables
-clear simlog_t simlog_handles temp_colororder
-clear simlog_pz* simlog_aRoll simlog_aPitch simlog_aYaw
+%clear simlog_t simlog_handles temp_colororder
+%clear simlog_pz* simlog_aRoll simlog_aPitch simlog_aYaw
 clear simlog_RdBus simlog_VehBus
 

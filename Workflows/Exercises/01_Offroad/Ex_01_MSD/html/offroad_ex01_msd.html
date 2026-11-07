@@ -1,0 +1,549 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Double Mass-Spring-Damper, Quarter-Car Model</title>
+<meta name="generator" content="MATLAB 26.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2026-10-28">
+<meta name="DC.source" content="offroad_ex01_msd.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Double Mass-Spring-Damper, Quarter-Car Model</h1>
+<!--introduction-->
+<p>The commands below simulate a quarter-car vehicle modeled as a double mass-spring-damper. Tests include different road height inputs, including step and chirp inputs. Plots of the simulation results show how the suspension performs in soft and stiff configurations.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">Step 1: Open Model</a>
+</li>
+<li>
+<a href="#2">Step 2: Configure model for step test with soft suspension</a>
+</li>
+<li>
+<a href="#3">Step 3: Run simulation</a>
+</li>
+<li>
+<a href="#4">Step 4: Explore simulation results</a>
+</li>
+<li>
+<a href="#5">Step 5: Configure model for step test with stiff suspension</a>
+</li>
+<li>
+<a href="#6">Step 6: Run simulation</a>
+</li>
+<li>
+<a href="#7">Step 7: Explore simulation results</a>
+</li>
+<li>
+<a href="#8">Step 8: Plot response to step input for both settings</a>
+</li>
+<li>
+<a href="#9">Step 9: Configure model for chirp test with soft suspension</a>
+</li>
+<li>
+<a href="#10">Step 10: Run simulation</a>
+</li>
+<li>
+<a href="#11">Step 11: Explore simulation results</a>
+</li>
+<li>
+<a href="#12">Step 12: Configure model for chirp test with stiff suspension</a>
+</li>
+<li>
+<a href="#13">Step 13: Run simulation</a>
+</li>
+<li>
+<a href="#14">Step 14: Explore simulation results</a>
+</li>
+<li>
+<a href="#15">Step 15: Plot chirp input response for both settings</a>
+</li>
+<li>
+<a href="#16">Step 16: Configure model for triangle test with soft suspension</a>
+</li>
+<li>
+<a href="#17">Step 17: Run simulation</a>
+</li>
+<li>
+<a href="#18">Step 18: Explore simulation results</a>
+</li>
+<li>
+<a href="#19">Step 19: Configure model for triangle test with stiff suspension</a>
+</li>
+<li>
+<a href="#20">Step 20: Run simulation</a>
+</li>
+<li>
+<a href="#21">Step 21: Explore simulation results</a>
+</li>
+<li>
+<a href="#22">Step 22: Plot triangle input response for both settings</a>
+</li>
+</ul>
+</div>
+<h2 id="1">Step 1: Open Model</h2>
+<p>This can be done from the project shortcut or MATLAB Command line.</p>
+<pre class="codeinput">mdl = <span class="string">'quarter_car_msd_2x'</span>;
+open_system(mdl)
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_01.png" alt=""> <h2 id="2">Step 2: Configure model for step test with soft suspension</h2>
+<p>This can be done by adjusting the model or from the MATLAB Command line. This step selects the step test and configures the suspension to use its soft setting.</p>
+<pre class="codeinput">
+<span class="comment">% Load default parameters</span>
+quarter_car_msd_2x_param
+
+<span class="comment">% Select soft suspension parameters</span>
+k_s = k_s_soft; <span class="comment">% [N/m]</span>
+c_s = c_s_soft; <span class="comment">% [N/m]</span>
+
+<span class="comment">% Select test sequence</span>
+quarter_car_msd_2x_config(mdl,<span class="string">'Step'</span>)
+</pre>
+<h2 id="3">Step 3: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="4">Step 4: Explore simulation results</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">quarter_car_msd_2x_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+simlog_Soft_xRoad = simlog_xRoad;
+simlog_Soft_xUSM  = simlog_xUSM;
+simlog_Soft_xSM   = simlog_xSM;
+simlog_Soft_t     = simlog_t;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_02.png" alt=""> <h2 id="5">Step 5: Configure model for step test with stiff suspension</h2>
+<p>This can be done by adjusting the model or from the MATLAB Command line. This step selects the step test and configures the suspension to use its stiff setting.</p>
+<pre class="codeinput">
+<span class="comment">% Select stiff suspension parameters</span>
+k_s = k_s_stiff; <span class="comment">% [N/m]</span>
+c_s = c_s_stiff; <span class="comment">% [N/m]</span>
+
+<span class="comment">% Select test sequence</span>
+quarter_car_msd_2x_config(mdl,<span class="string">'Step'</span>)
+</pre>
+<h2 id="6">Step 6: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="7">Step 7: Explore simulation results</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">quarter_car_msd_2x_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+simlog_Stiff_xRoad = simlog_xRoad;
+simlog_Stiff_xUSM  = simlog_xUSM;
+simlog_Stiff_xSM   = simlog_xSM;
+simlog_Stiff_t     = simlog_t;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_03.png" alt=""> <h2 id="8">Step 8: Plot response to step input for both settings</h2>
+<p>This plot shows the response for the suspension system with the soft spring and the stiff spring.</p>
+<pre class="codeinput">figure(999);
+plot(simlog_Soft_t, simlog_Soft_xSM, <span class="string">'DisplayName'</span>, <span class="string">'Soft Setting'</span>);
+hold <span class="string">on</span>;
+plot(simlog_Stiff_t, simlog_Stiff_xSM, <span class="string">'DisplayName'</span>, <span class="string">'Stiff Setting'</span>);
+plot(simlog_Soft_t, simlog_Soft_xRoad, <span class="string">'g'</span>, <span class="string">'DisplayName'</span>, <span class="string">'Road Input'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Response'</span>);
+title(<span class="string">'Comparison of Soft and Stiff Settings'</span>);
+legend(<span class="string">'Location'</span>,<span class="string">'Best'</span>);
+grid <span class="string">on</span>
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_04.png" alt=""> <h2 id="9">Step 9: Configure model for chirp test with soft suspension</h2>
+<p>This step selects the chirp test and configures the suspension to use its soft setting.</p>
+<pre class="codeinput">
+<span class="comment">% Select soft suspension parameters</span>
+k_s = k_s_soft; <span class="comment">% [N/m]</span>
+c_s = c_s_soft; <span class="comment">% [N/m]</span>
+
+<span class="comment">% Select test sequence</span>
+quarter_car_msd_2x_config(mdl,<span class="string">'Chirp'</span>)
+</pre>
+<h2 id="10">Step 10: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="11">Step 11: Explore simulation results</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">quarter_car_msd_2x_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+simlog_Soft_xRoad_chirp = simlog_xRoad;
+simlog_Soft_xUSM_chirp  = simlog_xUSM;
+simlog_Soft_xSM_chirp   = simlog_xSM;
+simlog_Soft_t_chirp     = simlog_t;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_05.png" alt=""> <h2 id="12">Step 12: Configure model for chirp test with stiff suspension</h2>
+<p>This step selects the chirp test and configures the suspension to use its stiff setting.</p>
+<pre class="codeinput">
+<span class="comment">% Select stiff suspension parameters</span>
+k_s = k_s_stiff; <span class="comment">% [N/m]</span>
+c_s = c_s_stiff; <span class="comment">% [N/m]</span>
+</pre>
+<h2 id="13">Step 13: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="14">Step 14: Explore simulation results</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">quarter_car_msd_2x_plot1xspring
+
+<span class="comment">% Save results for comparison plot</span>
+simlog_Stiff_xUSM_chirp  = simlog_xUSM;
+simlog_Stiff_xSM_chirp   = simlog_xSM;
+simlog_Stiff_t_chirp     = simlog_t;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_06.png" alt=""> <h2 id="15">Step 15: Plot chirp input response for both settings</h2>
+<pre class="codeinput">figure(998);
+plot(simlog_Soft_t_chirp, simlog_Soft_xSM_chirp,   <span class="string">'DisplayName'</span>, <span class="string">'Soft Setting'</span>);
+hold <span class="string">on</span>;
+plot(simlog_Stiff_t_chirp, simlog_Stiff_xSM_chirp, <span class="string">'DisplayName'</span>, <span class="string">'Stiff Setting'</span>);
+plot(simlog_Soft_t_chirp, simlog_Soft_xRoad_chirp, <span class="string">'g'</span>, <span class="string">'DisplayName'</span>, <span class="string">'Road Input'</span>);
+hold <span class="string">off</span>;
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'Response'</span>);
+title(<span class="string">'Comparison of Soft and Stiff Settings'</span>);
+legend(<span class="string">'Location'</span>,<span class="string">'Best'</span>);
+grid <span class="string">on</span>
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_07.png" alt=""> <h2 id="16">Step 16: Configure model for triangle test with soft suspension</h2>
+<p>This step selects the triangle test and configures the suspension to use its soft setting.</p>
+<pre class="codeinput">
+<span class="comment">% Select soft suspension parameters</span>
+k_s = k_s_soft; <span class="comment">% [N/m] Approximate suspension stiffness based on mass and natural frequency</span>
+c_s = c_s_soft; <span class="comment">% [N/m] Approximate combined stiffness based on suspension and tyre springs</span>
+
+<span class="comment">% Select test sequence</span>
+quarter_car_msd_2x_config(mdl,<span class="string">'Triangle'</span>)
+</pre>
+<h2 id="17">Step 17: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="18">Step 18: Explore simulation results</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">quarter_car_msd_2x_plot2xvsfrc
+
+<span class="comment">% Save results for comparison plot</span>
+simlog_Soft_xSp       = simlog_xSp-simlog_xSp(1);
+simlog_Soft_fSM       = simlog_fSM;
+simlog_Soft_indStart  = indStart;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_08.png" alt=""> <h2 id="19">Step 19: Configure model for triangle test with stiff suspension</h2>
+<p>This step selects the triangle test and configures the suspension to use its stiff setting.</p>
+<pre class="codeinput">
+<span class="comment">% Select stiff suspension parameters</span>
+k_s = k_s_stiff; <span class="comment">% [N/m]</span>
+c_s = c_s_stiff; <span class="comment">% [N/m]</span>
+</pre>
+<h2 id="20">Step 20: Run simulation</h2>
+<p>This can be done from Simulink or from the MATLAB command line.</p>
+<pre class="codeinput">sim(mdl)
+</pre>
+<h2 id="21">Step 21: Explore simulation results</h2>
+<p>Use the Simscape Results Explorer to plot the following quantities:</p>
+<pre class="codeinput">quarter_car_msd_2x_plot2xvsfrc
+
+<span class="comment">% Save results for comparison plot</span>
+simlog_Stiff_xSp       = simlog_xSp-simlog_xSp(1);
+simlog_Stiff_fSM       = simlog_fSM;
+simlog_Stiff_indStart  = indStart;
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_09.png" alt=""> <h2 id="22">Step 22: Plot triangle input response for both settings</h2>
+<pre class="codeinput">figure(997);
+plot(simlog_Soft_xSp(simlog_Soft_indStart:end),simlog_Soft_fSM(simlog_Soft_indStart:end),<span class="string">'DisplayName'</span>,<span class="string">'Soft'</span>)
+hold <span class="string">on</span>;
+plot(simlog_Stiff_xSp(simlog_Stiff_indStart:end),simlog_Stiff_fSM(simlog_Stiff_indStart:end),<span class="string">'DisplayName'</span>,<span class="string">'Stiff'</span>)
+hold <span class="string">off</span>;
+title(<span class="string">'Suspension Force vs. Deflection, Comparison'</span>)
+xlabel(<span class="string">'Deflection (m)'</span>)
+ylabel(<span class="string">'Force (N)'</span>)
+legend(<span class="string">'Location'</span>,<span class="string">'Best'</span>);
+grid <span class="string">on</span>
+</pre>
+<img vspace="5" hspace="5" src="offroad_ex01_msd_10.png" alt=""> <p class="footer">Copyright 2026 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Double Mass-Spring-Damper, Quarter-Car Model
+% 
+% The commands below simulate a quarter-car vehicle modeled as a double
+% mass-spring-damper. Tests include different road height inputs, including
+% step and chirp inputs.  Plots of the simulation results show how the
+% suspension performs in soft and stiff configurations.
+%
+% Copyright 2026 The MathWorks, Inc.
+
+%% Step 1: Open Model
+% This can be done from the  project shortcut or MATLAB Command line.
+mdl = 'quarter_car_msd_2x';
+open_system(mdl)
+
+%% Step 2: Configure model for step test with soft suspension
+% This can be done by adjusting the model or from the MATLAB Command line.
+% This step selects the step test and configures the suspension to use its
+% soft setting.
+
+% Load default parameters
+quarter_car_msd_2x_param
+
+% Select soft suspension parameters
+k_s = k_s_soft; % [N/m] 
+c_s = c_s_soft; % [N/m] 
+
+% Select test sequence
+quarter_car_msd_2x_config(mdl,'Step')
+
+%% Step 3: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 4: Explore simulation results
+% Use the Simscape Results Explorer to plot the following quantities:
+quarter_car_msd_2x_plot1xspring
+
+% Save results for comparison plot
+simlog_Soft_xRoad = simlog_xRoad;
+simlog_Soft_xUSM  = simlog_xUSM;
+simlog_Soft_xSM   = simlog_xSM;
+simlog_Soft_t     = simlog_t;
+
+%% Step 5: Configure model for step test with stiff suspension
+% This can be done by adjusting the model or from the MATLAB Command line.
+% This step selects the step test and configures the suspension to use its
+% stiff setting.
+
+% Select stiff suspension parameters
+k_s = k_s_stiff; % [N/m] 
+c_s = c_s_stiff; % [N/m] 
+
+% Select test sequence
+quarter_car_msd_2x_config(mdl,'Step')
+
+%% Step 6: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 7: Explore simulation results
+% Use the Simscape Results Explorer to plot the following quantities:
+quarter_car_msd_2x_plot1xspring
+
+% Save results for comparison plot
+simlog_Stiff_xRoad = simlog_xRoad;
+simlog_Stiff_xUSM  = simlog_xUSM;
+simlog_Stiff_xSM   = simlog_xSM;
+simlog_Stiff_t     = simlog_t;
+
+%% Step 8: Plot response to step input for both settings
+% This plot shows the response for the suspension system with the soft
+% spring and the stiff spring.
+
+figure(999);
+plot(simlog_Soft_t, simlog_Soft_xSM, 'DisplayName', 'Soft Setting');
+hold on;
+plot(simlog_Stiff_t, simlog_Stiff_xSM, 'DisplayName', 'Stiff Setting');
+plot(simlog_Soft_t, simlog_Soft_xRoad, 'g', 'DisplayName', 'Road Input');
+hold off;
+xlabel('Time (s)');
+ylabel('Response');
+title('Comparison of Soft and Stiff Settings');
+legend('Location','Best');
+grid on
+
+%% Step 9: Configure model for chirp test with soft suspension
+% This step selects the chirp test and configures the suspension to use its
+% soft setting.
+
+% Select soft suspension parameters
+k_s = k_s_soft; % [N/m] 
+c_s = c_s_soft; % [N/m] 
+
+% Select test sequence
+quarter_car_msd_2x_config(mdl,'Chirp')
+
+%% Step 10: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 11: Explore simulation results
+% Use the Simscape Results Explorer to plot the following quantities:
+quarter_car_msd_2x_plot1xspring
+
+% Save results for comparison plot
+simlog_Soft_xRoad_chirp = simlog_xRoad;
+simlog_Soft_xUSM_chirp  = simlog_xUSM;
+simlog_Soft_xSM_chirp   = simlog_xSM;
+simlog_Soft_t_chirp     = simlog_t;
+
+%% Step 12: Configure model for chirp test with stiff suspension
+% This step selects the chirp test and configures the suspension to use its
+% stiff setting.
+
+% Select stiff suspension parameters
+k_s = k_s_stiff; % [N/m]
+c_s = c_s_stiff; % [N/m]
+
+%% Step 13: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 14: Explore simulation results
+% Use the Simscape Results Explorer to plot the following quantities:
+quarter_car_msd_2x_plot1xspring
+
+% Save results for comparison plot
+simlog_Stiff_xUSM_chirp  = simlog_xUSM;
+simlog_Stiff_xSM_chirp   = simlog_xSM;
+simlog_Stiff_t_chirp     = simlog_t;
+
+%% Step 15: Plot chirp input response for both settings
+figure(998);
+plot(simlog_Soft_t_chirp, simlog_Soft_xSM_chirp,   'DisplayName', 'Soft Setting');
+hold on;
+plot(simlog_Stiff_t_chirp, simlog_Stiff_xSM_chirp, 'DisplayName', 'Stiff Setting');
+plot(simlog_Soft_t_chirp, simlog_Soft_xRoad_chirp, 'g', 'DisplayName', 'Road Input');
+hold off;
+xlabel('Time (s)');
+ylabel('Response');
+title('Comparison of Soft and Stiff Settings');
+legend('Location','Best');
+grid on
+
+%% Step 16: Configure model for triangle test with soft suspension
+% This step selects the triangle test and configures the suspension to use its
+% soft setting.
+
+% Select soft suspension parameters
+k_s = k_s_soft; % [N/m] Approximate suspension stiffness based on mass and natural frequency
+c_s = c_s_soft; % [N/m] Approximate combined stiffness based on suspension and tyre springs
+
+% Select test sequence
+quarter_car_msd_2x_config(mdl,'Triangle')
+
+%% Step 17: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 18: Explore simulation results
+% Use the Simscape Results Explorer to plot the following quantities:
+quarter_car_msd_2x_plot2xvsfrc
+
+% Save results for comparison plot
+simlog_Soft_xSp       = simlog_xSp-simlog_xSp(1);
+simlog_Soft_fSM       = simlog_fSM;
+simlog_Soft_indStart  = indStart;
+
+
+%% Step 19: Configure model for triangle test with stiff suspension
+% This step selects the triangle test and configures the suspension to use
+% its stiff setting.
+
+% Select stiff suspension parameters
+k_s = k_s_stiff; % [N/m]
+c_s = c_s_stiff; % [N/m]
+
+%% Step 20: Run simulation
+% This can be done from Simulink or from the MATLAB command line.
+sim(mdl)
+
+%% Step 21: Explore simulation results
+% Use the Simscape Results Explorer to plot the following quantities:
+quarter_car_msd_2x_plot2xvsfrc
+
+% Save results for comparison plot
+simlog_Stiff_xSp       = simlog_xSp-simlog_xSp(1);
+simlog_Stiff_fSM       = simlog_fSM;
+simlog_Stiff_indStart  = indStart;
+
+%% Step 22: Plot triangle input response for both settings
+figure(997);
+plot(simlog_Soft_xSp(simlog_Soft_indStart:end),simlog_Soft_fSM(simlog_Soft_indStart:end),'DisplayName','Soft')
+hold on;
+plot(simlog_Stiff_xSp(simlog_Stiff_indStart:end),simlog_Stiff_fSM(simlog_Stiff_indStart:end),'DisplayName','Stiff')
+hold off;
+title('Suspension Force vs. Deflection, Comparison')
+xlabel('Deflection (m)')
+ylabel('Force (N)')
+legend('Location','Best');
+grid on
+
+
+##### SOURCE END #####
+-->
+</body>
+</html>
