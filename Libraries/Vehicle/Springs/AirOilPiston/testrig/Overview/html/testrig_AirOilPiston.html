@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>Hydropneumatic Spring-Damper Testrig</title>
-<meta name="generator" content="MATLAB 26.1">
+<meta name="generator" content="MATLAB 26.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2026-10-28">
+<meta name="DC.date" content="2026-11-02">
 <meta name="DC.source" content="testrig_AirOilPiston.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -148,6 +148,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </p>
 <img vspace="5" hspace="5" src="testrig_AirOilPiston_04.png" alt=""> <h2 id="5">Simulation Results: Soft Suspension, Step Input</h2>
 <p>This test actuates the road height using a step profile for road height. Spring deflection and damper flow are plotted. The soft suspension is selected.</p>
+<pre class="codeoutput">Warning: Excluding ColorBars, Legends and non-axes 
+</pre>
 <img vspace="5" hspace="5" src="testrig_AirOilPiston_05.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_06.png" alt=""> <h2 id="6">Simulation Results: Stiff Suspension, Step Input</h2>
 <p>This test actuates the road height using a step profile for road height. Spring deflection and damper flow are plotted. The stiff suspension is selected.</p>
 <img vspace="5" hspace="5" src="testrig_AirOilPiston_07.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_08.png" alt=""> <h2 id="7">Simulation Results: Soft Suspension, Triangle Input</h2>
@@ -174,8 +176,8 @@ affected.</pre>
 <p>This test holds the road height constant as the spring is compressed and extended. Compression and extension is done using a triangle wave for spring length. The soft suspension is selected.</p>
 <img vspace="5" hspace="5" src="testrig_AirOilPiston_21.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_22.png" alt=""> <h2 id="17">Simulation Results from Simscape Logging: Stiff Suspension, Spring Extension Triangle</h2>
 <p>This test holds the road height constant as the spring is compressed and extended. Compression and extension is done using a triangle wave for spring length. The soft suspension is selected.</p>
-<img vspace="5" hspace="5" src="testrig_AirOilPiston_23.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_24.png" alt=""> <p class="footer">Copyright 2018-2025 The MathWorks, Inc.<br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026a</a>
+<img vspace="5" hspace="5" src="testrig_AirOilPiston_23.png" alt=""> <img vspace="5" hspace="5" src="testrig_AirOilPiston_24.png" alt=""> <p class="footer">Copyright 2018-2026 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026b</a>
 <br>
 </p>
 </div>
@@ -187,7 +189,7 @@ affected.</pre>
 % suspension.  Control signals can select a stiff or soft spring, adjust
 % the damping, and adjust the ride height.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 
 %% Model

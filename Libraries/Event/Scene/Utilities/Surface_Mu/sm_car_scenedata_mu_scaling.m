@@ -1,6 +1,6 @@
 function scene_data = sm_car_scenedata_mu_scaling
 %% Floor and Grid parameters
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 scene_data.Name = 'Mu_Scaling';
 scene_data.x = [  0  59.9  60 90    90.1 200];

@@ -1,6 +1,6 @@
 function sm_car_trajectory_elk_test(showPlot)
 % Function to construct double-lane change maneuver for elk test
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 cd(fileparts(which(mfilename)))
 % Parameters for trajectory

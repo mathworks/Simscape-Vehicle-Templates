@@ -20,7 +20,7 @@ function [xFinal,fval,CarMetricsFinal] = sm_car_optim_run_strfrc(mdl,Vehicle,par
 %      fval               Optimized value of performance metrics
 %      CarMetricsFinal  Metrics obtained with optimized parameters
 %
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2026 The MathWorks, Inc.
 
 %% Obtain and display default level of target metric
 open_system(mdl);

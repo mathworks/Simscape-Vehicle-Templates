@@ -15,7 +15,7 @@ function F  = obj_car_optim_strfrc(x,mdl,par_list,Vehicle,metricName,tgtValue,me
 %   Outputs
 %      F          Optimized value of performance metric
 %
-% Copyright 2020-2024 The MathWorks, Inc.
+% Copyright 2020-2026 The MathWorks, Inc.
 
 load_system(mdl);
 

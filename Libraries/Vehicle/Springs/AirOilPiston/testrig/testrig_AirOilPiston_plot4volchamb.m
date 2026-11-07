@@ -3,7 +3,7 @@
 %
 % Plot results from chambers
 %
-% Copyright 2018-2024 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 % Check for simulation results
 if ~exist('logsout_testrig_AirOilPiston', 'var')

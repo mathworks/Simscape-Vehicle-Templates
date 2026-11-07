@@ -7,9 +7,9 @@ This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
       -->
 <title>Tuning Suspension Hardpoints to Minimize Required Rack Force</title>
-<meta name="generator" content="MATLAB 26.1">
+<meta name="generator" content="MATLAB 26.2">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2026-07-02">
+<meta name="DC.date" content="2026-11-02">
 <meta name="DC.source" content="sm_car_sweep_optim_strfrc_test.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -161,22 +161,22 @@ sim(mdl)
 EndInitTransient = 0.5; <span class="comment">% End of initial transient (sec)</span>
 CarMetricsSet = sm_car_sweep_plot_runs_strfrc(simInput,simOut,<span class="string">'fRack'</span>,EndInitTransient);
 </pre>
-<pre class="codeoutput">[02-Jul-2026 23:25:56] Running simulations...
-[02-Jul-2026 23:26:30] Completed 1 of 15 simulation runs
-[02-Jul-2026 23:26:50] Completed 2 of 15 simulation runs
-[02-Jul-2026 23:27:14] Completed 3 of 15 simulation runs
-[02-Jul-2026 23:27:35] Completed 4 of 15 simulation runs
-[02-Jul-2026 23:27:55] Completed 5 of 15 simulation runs
-[02-Jul-2026 23:28:17] Completed 6 of 15 simulation runs
-[02-Jul-2026 23:28:39] Completed 7 of 15 simulation runs
-[02-Jul-2026 23:28:58] Completed 8 of 15 simulation runs
-[02-Jul-2026 23:29:18] Completed 9 of 15 simulation runs
-[02-Jul-2026 23:29:39] Completed 10 of 15 simulation runs
-[02-Jul-2026 23:29:59] Completed 11 of 15 simulation runs
-[02-Jul-2026 23:30:18] Completed 12 of 15 simulation runs
-[02-Jul-2026 23:30:41] Completed 13 of 15 simulation runs
-[02-Jul-2026 23:31:01] Completed 14 of 15 simulation runs
-[02-Jul-2026 23:31:20] Completed 15 of 15 simulation runs
+<pre class="codeoutput">[02-Nov-2026 05:56:51] Running simulations...
+[02-Nov-2026 05:57:27] Completed 1 of 15 simulation runs
+[02-Nov-2026 05:57:52] Completed 2 of 15 simulation runs
+[02-Nov-2026 05:58:18] Completed 3 of 15 simulation runs
+[02-Nov-2026 05:58:43] Completed 4 of 15 simulation runs
+[02-Nov-2026 05:59:05] Completed 5 of 15 simulation runs
+[02-Nov-2026 05:59:31] Completed 6 of 15 simulation runs
+[02-Nov-2026 05:59:56] Completed 7 of 15 simulation runs
+[02-Nov-2026 06:00:20] Completed 8 of 15 simulation runs
+[02-Nov-2026 06:00:43] Completed 9 of 15 simulation runs
+[02-Nov-2026 06:01:09] Completed 10 of 15 simulation runs
+[02-Nov-2026 06:01:32] Completed 11 of 15 simulation runs
+[02-Nov-2026 06:01:54] Completed 12 of 15 simulation runs
+[02-Nov-2026 06:02:21] Completed 13 of 15 simulation runs
+[02-Nov-2026 06:02:46] Completed 14 of 15 simulation runs
+[02-Nov-2026 06:03:09] Completed 15 of 15 simulation runs
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_strfrc_test_03.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_strfrc_test_04.png" alt=""> <h2 id="5">Display and Plot Performance Metrics Obtained from Sweep</h2>
 <p>The parameter values tested and performance metric are shown in a table. For tests with two performance metrics, a surface plot is shown. The surface plot shows how the performance metric varies as the parameter values are modified.</p>
@@ -213,21 +213,21 @@ SweepTableMxRFrc =
     par_A1TrackRodIn3    par_A1TrackRodOut3    Max_Rack_Force    Max_Rack_ForceUnits
     _________________    __________________    ______________    ___________________
 
-           0.2                  0.19               5240.3                "N"        
-           0.2                  0.23               3797.6                "N"        
-           0.2                  0.27               2631.8                "N"        
-          0.22                  0.19               5640.5                "N"        
-          0.22                  0.23               4166.3                "N"        
-          0.22                  0.27               3023.6                "N"        
-          0.24                  0.19               6038.2                "N"        
-          0.24                  0.23                 4571                "N"        
-          0.24                  0.27               3320.5                "N"        
-          0.26                  0.19                 6395                "N"        
-          0.26                  0.23               5004.7                "N"        
-          0.26                  0.27               3642.7                "N"        
-          0.28                  0.19                 6492                "N"        
+           0.2                  0.19               5241.8                "N"        
+           0.2                  0.23               3795.2                "N"        
+           0.2                  0.27               2626.6                "N"        
+          0.22                  0.19               5638.5                "N"        
+          0.22                  0.23               4165.9                "N"        
+          0.22                  0.27               3015.8                "N"        
+          0.24                  0.19               6037.7                "N"        
+          0.24                  0.23               4573.1                "N"        
+          0.24                  0.27               3343.6                "N"        
+          0.26                  0.19               6396.1                "N"        
+          0.26                  0.23               5002.9                "N"        
+          0.26                  0.27               3643.3                "N"        
+          0.28                  0.19               6483.9                "N"        
           0.28                  0.23               5434.4                "N"        
-          0.28                  0.27               4040.1                "N"        
+          0.28                  0.27               4041.2                "N"        
 
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_strfrc_test_05.png" alt=""> <h2 id="6">Optimize Selected Hardpoints to Achieve Target Performance Metrics</h2>
@@ -249,28 +249,29 @@ ans =
          Names          Values    Units           Description        
     ________________    ______    _____    __________________________
 
-    "Max Rack Force"     4571      "N"     "Max Rack Actuation Force"
+    "Max Rack Force"    4573.1     "N"     "Max Rack Actuation Force"
 
 
 
 Iter     Func-count       f(x)      MeshSize     Method
-    0           1        4571.01          0.04      
-    1           5        4220.74          0.08     Successful Poll
-    2           9        3572.23          0.16     Successful Poll
-    3          12        2945.38          0.32     Successful Poll
-    4          12        2945.38          0.08     Refine Mesh
-    5          14        2945.38          0.02     Refine Mesh
-    6          17         2771.9          0.04     Successful Poll
-    7          19         2771.9          0.01     Refine Mesh
-    8          22         2723.5          0.02     Successful Poll
-    9          24         2723.5         0.005     Refine Mesh
-   10          27        2686.96          0.01     Successful Poll
-   11          29        2686.96        0.0025     Refine Mesh
-   12          32         2640.3         0.005     Successful Poll
-   13          33         2640.3       0.00125     Refine Mesh
-   14          35         2640.3     0.0003125     Refine Mesh
+    0           1        4573.13          0.04      
+    1           5        4220.71          0.08     Successful Poll
+    2           9           3574          0.16     Successful Poll
+    3          12         2945.5          0.32     Successful Poll
+    4          12         2945.5          0.08     Refine Mesh
+    5          14         2945.5          0.02     Refine Mesh
+    6          17        2788.42          0.04     Successful Poll
+    7          19        2788.42          0.01     Refine Mesh
+    8          22        2729.21          0.02     Successful Poll
+    9          24        2729.21         0.005     Refine Mesh
+   10          27        2665.45          0.01     Successful Poll
+   11          29        2665.45        0.0025     Refine Mesh
+   12          32        2657.42         0.005     Successful Poll
+   13          33        2657.42       0.00125     Refine Mesh
+   14          35        2653.84        0.0025     Successful Poll
+   15          36        2653.84      0.000625     Refine Mesh
 patternsearch stopped because the mesh size was less than options.MeshTolerance.
-Elapsed time for optimization = 753.617
+Elapsed time for optimization = 909.7295
  
 Metrics with Optimized Set of Parameter Values
 
@@ -281,7 +282,7 @@ CarMetricsSummary =
          Names          StartValue    FinalValues    tgtValue    Units           Description        
     ________________    __________    ___________    ________    _____    __________________________
 
-    "Max Rack Force"       4571         2640.3          0         "N"     "Max Rack Actuation Force"
+    "Max Rack Force"      4573.1        2653.8          0         "N"     "Max Rack Actuation Force"
 
 
 paramSummary =
@@ -292,7 +293,7 @@ paramSummary =
     _______    _______
 
      0.24          0.2
-     0.23      0.26937
+     0.23      0.26969
 
 </pre>
 <img vspace="5" hspace="5" src="sm_car_sweep_optim_strfrc_test_06.png" alt=""> <img vspace="5" hspace="5" src="sm_car_sweep_optim_strfrc_test_07.png" alt=""> <p>The plots below show add the performance metrics from the new design. Values for the hardpoint locations were found that minimize the performance metric for the specified test.</p>
@@ -310,7 +311,7 @@ paramSummary =
 <span class="comment">%close all</span>
 </pre>
 <p class="footer">Copyright 2026 The MathWorks, Inc.<br>
-<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026a</a>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2026b</a>
 <br>
 </p>
 </div>

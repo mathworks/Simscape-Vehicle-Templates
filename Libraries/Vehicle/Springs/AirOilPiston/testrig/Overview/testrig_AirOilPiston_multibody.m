@@ -4,7 +4,7 @@
 % suspension.  Control signals can select a stiff or soft spring, adjust
 % the damping, and adjust the ride height.
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2026 The MathWorks, Inc.
 
 
 %% Model
