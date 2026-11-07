@@ -26,7 +26,7 @@ function maneuver_data = sm_car_maneuverdata_slalom(varargin)
 %        Cones  Cone locations for plotting and animation
 %   Additional fields for driver model
 %
-% Copyright 2018-2025 The MathWorks, Inc.
+% Copyright 2018-2024 The MathWorks, Inc.
 
 maneuver_type = 'Slalom';
 
@@ -36,7 +36,7 @@ if(nargin == 0)
 Instance_List = {...
     'Sedan_Hamba','Sedan_HambaLG','SUV_Landy','Bus_Makhulu','Truck_Amandla','Truck_Rhuqa','FSAE_Achilles'};
 
-    tgtSpd    =  [40   40  40  40  40  40  40];    % km/h
+    tgtSpd    =  [40   40  35  40  40  40  40];    % km/h
     tgtTime   =  [8     8   8   8   8   8   8];    % sec
     tgtDist   =  [NaN NaN NaN NaN NaN NaN NaN];    % sec
     xSlalom   =  [10   10  10  10  10  10  10];    % m
