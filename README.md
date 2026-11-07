@@ -34,6 +34,17 @@ adjust the libraries so that variant can be selected.
 
 
 ### **Release History**
+**v4.13 -- July 2026**
+1.  Asymmetric springs, dampers have unique force parameters
+2.  Added testrig for Ail Oil Piston Spring
+3.  Added Offroad Vehicle Dynamics exercises
+4.  Red vehicle (closed-loop pose target visual) can be turned off
+5.  Fixed Fuel Cell 1D vehicle
+6.  Maneuver block can handle trajectories exactly along +y and -y
+7.  Added Offroad Vehicle Dynamics Exercises
+8.  Fixed force application axis of "External Force and Torque WC" in sm_car_testrig_utilities_lib.slx
+9.  Fixed steering column shafts in Pitman Arm cross steering with wheel actuation
+
 **v4.12 -- July 2026**
 1.  Added parameterized grid surface as Scene
 2.  Added trapezoidal bump maneuver

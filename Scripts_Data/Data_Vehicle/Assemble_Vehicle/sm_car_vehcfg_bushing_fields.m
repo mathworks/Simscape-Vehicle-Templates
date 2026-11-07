@@ -41,14 +41,22 @@ switch (susp_name)
     case 'FiveLinkShockRear_Sedan_HambaLG_r',        prefix_str = {'BushLink_AxRad_SLGr_5LS2R'};  arm_str = {'UAF','UAR','LAF','LAR'};
 
     case 'Droplink_Sedan_Hamba_f',                   prefix_str = {'BushARB_Ax3_Sef_DW'};    arm_str = {'ARB'};
-    case 'Droplink_Sedan_HambaLG_f',                 prefix_str = {'BushARB_Ax3_SLGf_S2LAR'};  arm_str = {'ARB'};
-    case 'DroplinkRod_Sedan_HambaLG_f',              prefix_str = {'BushARB_Ax3_SLGf_S2LAR'};  arm_str = {'ARB'};
-    case 'Droplink_Bus_Makhulu_f',                   prefix_str = {'BushARB_Ax3_Makf_DW'};  arm_str = {'ARB'};
-    case 'Droplink_FSAE_Achilles_f',                 prefix_str = {'BushARB_Ax3_Achf_DW'};      arm_str = {'ARB'};
-    case 'DroplinkRod_FSAE_Achilles_f',              prefix_str = {'BushARB_Ax3_Achf_DW'};      arm_str = {'ARB'};
-
     case 'Droplink_Sedan_Hamba_r',                   prefix_str = {'BushARB_Ax3_Ser_DW'};    arm_str = {'ARB'};
+
+    case 'Droplink_Sedan_HambaLG_f',                 prefix_str = {'BushARB_Ax3_SLGf_S2LAR'};  arm_str = {'ARB'};
     case 'Droplink_Sedan_HambaLG_r',                 prefix_str = {'BushARB_Ax3_SLGr_DW'};  arm_str = {'ARB'};
+
+    case 'DroplinkRod_Sedan_Hamba_LA_f',             prefix_str = {'BushARB_Ax3_Sef_DW'};  arm_str = {'ARB'};
+    case 'DroplinkRod_Sedan_Hamba_LA_r',             prefix_str = {'BushARB_Ax3_Ser_DW'};     arm_str = {'ARB'};
+
+    case 'DroplinkRod_Sedan_HambaLG_LA_f',           prefix_str = {'BushARB_Ax3_SLGf_S2LAR'};  arm_str = {'ARB'};
+    case 'DroplinkRod_Sedan_HambaLG_LA_r',           prefix_str = {'BushARB_Ax3_SLGr_DW'};     arm_str = {'ARB'};
+
+    case 'Droplink_Bus_Makhulu_f',                   prefix_str = {'BushARB_Ax3_Makf_DW'};  arm_str = {'ARB'};
+
+    case 'Droplink_FSAE_Achilles_f',                 prefix_str = {'BushARB_Ax3_Achf_DW'};      arm_str = {'ARB'};
+    case 'DroplinkRod_FSAE_Achilles_BC_f',           prefix_str = {'BushARB_Ax3_Achf_DW'};      arm_str = {'ARB'};
+
 
     otherwise, prefix_str = {'No Bushing'}; arm_str = {'No Arm'};
 end
